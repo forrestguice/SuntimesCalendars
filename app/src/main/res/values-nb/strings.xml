@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">Vårjevndøgn</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">Høstjevndøgn</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">Sommersolverv</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">Vintersolverv</string>    <!-- setting -->
+
+    <string name="timeMode_moon">Månen</string>                               <!-- label -->
+    <string name="timeMode_moon_new">Nymåne</string>                               <!-- setting -->
+    <string name="timeMode_moon_firstquarter">Ny, halvmåne</string>                 <!-- setting -->
+    <string name="timeMode_moon_full">Fullmåne</string>                             <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">Ne, halvmåne</string>                 <!-- setting -->
+
+    <!-- App Setting: calendars -->
+    <string name="configLabel_calendars">Kalendere</string>   <!-- group title -->
+
+    <string name="configLabel_calendars_enabled">Kalenderintegrasjon</string>
+    <string name="configLabel_calendars_enabled_summary">Gi hendelser til Kalender-appen (månefaser, solverv og jevndøgn).</string>
+
+    <string name="configLabel_calendars_window0">Vindu (start)</string>
+    <string name="configLabel_calendars_window0_summary">En periode som starter for <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> siden</string>
+
+    <string name="configLabel_calendars_window1">Vindu (slutt)</string>
+    <string name="configLabel_calendars_window1_summary">En periode som slutter <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> fra nå</string>
+
+    <string name="calendars_notification_adding">Legger til kalendere…</string>
+    <string name="calendars_notification_added">Kalendere er lagt til.</string>
+
+    <string name="calendars_notification_clearing">Fjerner kalendere…</string>
+    <string name="calendars_notification_cleared">Kalendere er fjernet.</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>ett år</item>
+        <item>to år</item>
+        <item>fem år</item>
+        <item>ti år</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">Solverv og jevndøgn</string>
+    <string name="calendar_moonPhase_displayName">Månefaser</string>
+
+    <!-- Dialog: About -->
+    <string name="about_dialog_title">Om</string>
+    <string name="app_name">Suntimes</string>
+
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Viser tider for sollys og månelys.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Support:</b> visit the
+        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></xliff:g></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Source Code:</b><br />
+        Copyright &#169 2018 Forrest Guice <br />
+        Source code available under GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Oversettelser:</b><br/>
+        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
+        Polish and Esperanto translation by Verdulo. <br />
+        French translation by Jej. <br />
+        Hungarian translation by Erci. <br />
+        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
+        Basque translation by beriain. <br />
+        Norwegian translation by FTno. <br />
+        Italian translation by Matteo Caoduro. <br />
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/>The app is configured from location data. This information (and other configuration data used by the app) is stored locally and does not leave the device.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string> <!-- TODO -->
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string> <!-- TODO -->
+    <string name="privacy_permissiondialog_title">Permissions</string> <!-- TODO -->
+
+</resources>

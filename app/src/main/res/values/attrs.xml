@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text_accentColor" format="reference" />
+    <attr name="text_disabledColor" format="reference" />
+    <attr name="toolbarTheme" format="reference" />
+
+    <attr name="icActionCalendar" format="reference" />
+    <attr name="icActionAbout" format="reference" />
+    <attr name="icActionSettings" format="reference" />
+    <attr name="icActionHelp" format="reference" />
+</resources>

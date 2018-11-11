@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">春分</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">秋分</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">夏至</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">冬至</string>    <!-- setting -->
+
+    <string name="timeMode_moon">月光</string>                               <!-- label -->
+    <string name="timeMode_moon_new">新月</string>                               <!-- setting -->
+    <string name="timeMode_moon_firstquarter">上弦月</string>                 <!-- setting -->
+    <string name="timeMode_moon_full">滿月</string>                             <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">下弦月</string>                 <!-- setting -->
+
+    <!-- App Setting: calendars -->
+    <string name="configLabel_calendars">日曆</string>   <!-- group title -->
+
+    <string name="configLabel_calendars_enabled">日曆集成</string>
+    <string name="configLabel_calendars_enabled_summary">為日曆應用提供事件（月相，夏冬至，春秋分）。</string>
+
+    <string name="configLabel_calendars_window0">視窗（啟動）</string>
+    <string name="configLabel_calendars_window0_summary"><xliff:g id="calendars_window_display" example="one year">%s</xliff:g> 前開始的一段時期。</string>
+
+    <string name="configLabel_calendars_window1">視窗（結束）</string>
+    <string name="configLabel_calendars_window1_summary">到<xliff:g id="calendars_window_display" example="two years">%s</xliff:g>為止的一段時間。</string>
+
+    <string name="calendars_notification_adding">添加日曆中……</string>
+    <string name="calendars_notification_added">日曆添加好了。</string>
+
+    <string name="calendars_notification_clearing">清理日曆中……</string>
+    <string name="calendars_notification_cleared">日曆清理好了。</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>一年</item>
+        <item>兩年</item>
+        <item>五年</item>
+        <item>十年</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">夏冬至和春秋分</string>
+    <string name="calendar_moonPhase_displayName">月相</string>
+
+
+    <!-- Dialog: About -->
+    <string name="about_dialog_title">關於</string>
+    <string name="app_name">Suntimes</string>
+
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">展示太陽和月亮的時間。</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Support:</b> visit the
+        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></xliff:g></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Source Code:</b><br />
+        Copyright &#169 2018 Forrest Guice <br />
+        Source code available under GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Translations:</b><br/>
+        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
+        Polish and Esperanto translation by Verdulo. <br />
+        French translation by Jej & Aloha. <br />
+        Hungarian translation by Erci. <br />
+        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
+        Basque translation by beriain. <br />
+        Norwegian translation by FTno. <br />
+        Italian translation by Matteo Caoduro. <br />
+        Traditional Chinese translation by <a href=https://github.com/pggdt>ft42</a>. <br />
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>隱私：</b><br/>Suntimes不會蒐集、儲存、傳輸個人用戶數據。它<b>沒有廣告</b>, <b>沒有用戶分析</b>, <b>沒有跟蹤器</b>，並且<b>不使用不必要的權限</b>。<br/><br/>本應用使用位置信息來配置。位置信息（和其他用來配置本應用的數據）保存在本機並且不會離開本機。<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string>
+    <string name="privacy_permissiondialog_title">Permissions</string>
+    <string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesWidget/wiki/Privacy">github.com/forrestguice/SuntimesWidget/wiki/Privacy</a>
+    ]]></xliff:g></string>
+
+</resources>

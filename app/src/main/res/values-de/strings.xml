@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+  <string name="timeMode_equinox_vernal">Frühjahrs-Tag-Nacht-Gleiche</string>      <!-- setting -->
+  <string name="timeMode_equinox_autumnal">Herbst-Tag-Nacht-Gleiche</string>  <!-- setting -->
+  <string name="timeMode_solstice_summer">Sommersonnenwende</string>    <!-- setting -->
+  <string name="timeMode_solstice_winter">Wintersonnenwende</string>    <!-- setting -->
+
+  <string name="timeMode_moon">Mond</string>                               <!-- label -->
+  <string name="timeMode_moon_new">Neumond</string>                               <!-- setting -->
+  <string name="timeMode_moon_firstquarter">Zunehmender Halbmond</string>                 <!-- setting -->
+  <string name="timeMode_moon_full">Vollmond</string>                             <!-- setting -->
+  <string name="timeMode_moon_thirdquarter">Abnehmender Halbmond</string>                 <!-- setting -->
+
+  <!-- App Setting: calendars -->
+  <string name="configLabel_calendars">Calendars</string>   <!-- group title -->  <!-- TODO -->
+
+  <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
+  <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>  <!-- TODO -->
+
+  <string name="configLabel_calendars_window0">Window (start)</string>  <!-- TODO -->
+  <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>  <!-- TODO -->
+
+  <string name="configLabel_calendars_window1">Window (end)</string>  <!-- TODO -->
+  <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>  <!-- TODO -->
+
+  <string name="calendars_notification_adding">Adding calendars…</string>  <!-- TODO -->
+  <string name="calendars_notification_added">Calendars have been added.</string>  <!-- TODO -->
+
+  <string name="calendars_notification_clearing">Clearing calendars…</string>  <!-- TODO -->
+  <string name="calendars_notification_cleared">Calendars have been cleared.</string>  <!-- TODO -->
+
+  <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+    <item>one year</item>
+    <item>two years</item>
+    <item>five years</item>
+    <item>ten years</item>
+  </string-array>  <!-- TODO -->
+
+  <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>  <!-- TODO -->
+  <string name="calendar_moonPhase_displayName">Moon Phases</string>  <!-- TODO -->
+
+  <!-- Dialog: About -->
+  <string name="about_dialog_title">Über</string>
+  <string name="app_name">Suntimes</string>
+
+  <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+  <string name="app_shortdesc">Eine App, die Auf- und Untergangszeiten von Sonne und Mond anzeigt.</string>
+  <string name="app_support_url"><![CDATA[
+      <b>Unterst&uuml;tzung:</b> besuchen Sie
+      <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> um eine Anfrage zu stellen.
+  ]]></string>
+  <string name="app_legal1"><![CDATA[
+      Copyright &#169 2018 Forrest Guice <br />
+      Quellcode verf&uuml;gbar unter GPLv3.
+  ]]></string>
+  <string name="app_legal2"><![CDATA[
+      Deutsche Übersetzung von Henrik &quot;HerHde&quot; Hüttemann und Wolkenschieber.
+  ]]></string>
+
+  <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/>The app is configured from location data. This information (and other configuration data used by the app) is stored locally and does not leave the device.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string> <!-- TODO -->
+  <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string> <!-- TODO -->
+  <string name="privacy_permissiondialog_title">Permissions</string> <!-- TODO -->
+
+
+</resources>

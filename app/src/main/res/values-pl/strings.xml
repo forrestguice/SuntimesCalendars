@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">Równonoc wiosenna</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">Równonoc jesienna</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">Letnie przesilenie</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">Zimowe przesilenie</string>    <!-- setting -->
+
+    <string name="timeMode_moon">Księżyc</string>                               <!-- label -->
+    <string name="timeMode_moon_new">Nów</string>                               <!-- setting -->
+    <string name="timeMode_moon_firstquarter">Pierwsza kwadra</string>                 <!-- setting -->
+    <string name="timeMode_moon_full">Pełnia Księżyca</string>                             <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">Ostatnia kwadra</string>                 <!-- setting -->
+
+    <!-- App Setting: calendars -->
+    <string name="configLabel_calendars">Kalendarz</string>   <!-- group title -->
+
+    <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
+    <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza (fazy Księżyca, przesilenia i równonoce).</string>
+
+    <string name="configLabel_calendars_window0">Początek zakresu</string>
+    <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>
+
+    <string name="configLabel_calendars_window1">Koniec zakresu</string>
+    <string name="configLabel_calendars_window1_summary">Dodaj wydarzenia do <xliff:g id="calendars_window_display" example="dwóch lat">%s</xliff:g> w przyszłość</string>
+
+    <string name="calendars_notification_adding">Dodawanie do kalendarza…</string>
+    <string name="calendars_notification_added">Dodano wydarzenia do kalendarza.</string>
+
+    <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
+    <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>roku</item>
+        <item>dwóch lat</item>
+        <item>pięciu lat</item>
+        <item>dziesięciu lat</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
+    <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
+
+    <!-- Dialog: About -->
+    <string name="about_dialog_title">O programie</string>
+    <string name="app_name">Zmierzchy i Świty</string>
+
+    <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Wyświetla czasy świecenia Słońca i Księżyca.</string>
+    <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesWidget/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
+    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
+    <string name="app_legal2"><![CDATA[
+        Niemieckie tłumaczenie: Henrik "HerHde" Hüttemann<br />
+        Esperanckie i Polskie tłumaczenia: Verdulo<br />
+        Francuskie tłumaczenie: Jej
+        Węgierskie tłumaczenie: Erci<br />
+        Hispańskie i Katalońskie tłumaczenia: <a href=https://github.com/Raulvo>Raulvo</a>
+    ]]></string>
+    
+    <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Zmierzchy i Świty nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/>Aplikacja konfiguruje się używając danych lokalizacji; te dane (i inne używane przez program) są zapisywane lokalnie i nie opuszczają urządzenia.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>
+    <string name="privacy_permissiondialog_title">Uprawnienia</string>
+
+</resources>

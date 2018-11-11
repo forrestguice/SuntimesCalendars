@@ -1,0 +1,64 @@
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">Printempa tagnoktegaleco</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">Aŭtuna tagnoktegaleco</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">Somera sunekstremo</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">Vintra sunekstremo</string>    <!-- setting -->
+
+    <string name="timeMode_moon">Luno</string>                                          <!-- label -->
+    <string name="timeMode_moon_new">Nova Luno</string>                                  <!-- setting -->
+    <string name="timeMode_moon_firstquarter">Kreskanta Lunduono</string>                <!-- setting -->
+    <string name="timeMode_moon_full">Plena Luno</string>                                <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">Malkreskanta Lunduono</string>             <!-- setting -->
+
+
+    <!-- App Setting: calendars -->
+    <string name="configLabel_calendars">Kalendaro</string>   <!-- group title -->
+
+    <string name="configLabel_calendars_enabled">Interagi kun kalendaro</string>
+    <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro (lunfazojn, sunekstremojn kaj tagnoktegalecojn).</string>
+
+    <string name="configLabel_calendars_window0">Komenco de tempintervalo</string>
+    <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%s</xliff:g></string>
+
+    <string name="configLabel_calendars_window1">Fino de tempintervalo</string>
+    <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g id="calendars_window_display" example="du jaroj">%s</xliff:g></string>
+
+    <string name="calendars_notification_adding">Aldonado al kalendaro…</string>
+    <string name="calendars_notification_added">Aldonis okazaĵojn al la kalendaro.</string>
+
+    <string name="calendars_notification_clearing">Forviŝado el kalendaroj…</string>
+    <string name="calendars_notification_cleared">Forigis okazaĵojn el la kalendaro.</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>unu jaro</item>
+        <item>du jaroj</item>
+        <item>kvin jaroj</item>
+        <item>dek jaroj</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
+    <string name="calendar_moonPhase_displayName">Lunfazoj</string>
+
+    <!-- Dialog: About -->
+    <string name="about_dialog_title">Pri</string>
+    <string name="app_name">Suntempoj</string>
+    <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Montras tempojn de lumadoj de Suno kaj Luno.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Subteno:</b> vizitu la
+        <a href="https://github.com/forrestguice/SuntimesWidget/issues">erar-spurilon</a> por raporti problemon.
+    ]]></string>
+    <string name="app_legal1"><![CDATA[
+        Kopirajto &#169 2018 Forrest GUICE <br />
+        Fontkodo disponebla laŭ la permesilo GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        Pola kaj Esperanta tradukoj de Verdulo. <br />
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/>La aplikaĵo agordiĝas de lokaj datumoj. Tiuj informoj (kaj aliaj agordoj uzataj de la aplikaĵo) estas konservataj loke kaj ne eliras el la aparato.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[La <b>kalendaraj</b> permesoj estas uzataj por interagi kun la aplikaĵo de kalendaro. Ili estas bezonataj por krei proprajn kalendarojn kaj okazaĵojn. Ili estas ankaŭ bezonataj por elŝalti interagon kun la kalendaro (aŭ forigi proprajn kalendarojn).]]></string>
+    <string name="privacy_permissiondialog_title">Permesoj</string>
+
+/</resources>

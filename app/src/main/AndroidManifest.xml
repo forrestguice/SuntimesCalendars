@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.forrestguice.suntimescalendar">
+
+    <uses-permission android:name="suntimeswidget.calculator.provider.permission.READ_PROVIDER" />  <!-- needed to interact w/ Suntimes provider -->
+
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />           <!-- needed to interact w/ Calendar -->
+
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />      <!-- needed to add new Calendars (via SyncAdapter) -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Main Activity -->
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Calendar Provider -->
+        <provider
+            android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarProvider"
+            android:authorities="com.forrestguice.suntimescalendar.datasync.provider"
+            android:exported="false"
+            android:syncable="true"/>
+        <service
+            android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSyncService"
+            android:exported="true" android:permission="signature"
+            android:process=":sync">  <!-- TODO: lint security warning.. exported="false" or define a permission? -->
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
+        </service>
+    
+    </application>
+
+</manifest>

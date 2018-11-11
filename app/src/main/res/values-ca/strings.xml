@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">Equinocci de primavera</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">Equinocci de tardor</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">Solstici d\'estiu</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">Solstici d\'hivern</string>    <!-- setting -->
+
+    <string name="timeMode_moon">Lluna</string>                               <!-- label -->
+    <string name="timeMode_moon_new">Lluna nova</string>                               <!-- setting -->
+    <string name="timeMode_moon_firstquarter">Quart creixent</string>                 <!-- setting -->
+    <string name="timeMode_moon_full">Lluna plena</string>                             <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">Quart minvant</string>                 <!-- setting -->
+
+    <!-- App Setting: calendars -->
+    <string name="configLabel_calendars">Calendaris</string>   <!-- group title -->
+
+    <string name="configLabel_calendars_enabled">Integració amb el calendari</string>
+    <string name="configLabel_calendars_enabled_summary">Proporcionar esdeveniments a l\'aplicació de calendari (fases llunars, solsticis, i equinoccis).</string>
+
+    <string name="configLabel_calendars_window0">Finestra (inici)</string>
+    <string name="configLabel_calendars_window0_summary">Un període començà <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> enrere</string>
+
+    <string name="configLabel_calendars_window1">Finestra (fi)</string>
+    <string name="configLabel_calendars_window1_summary">Un període finalitzarà en <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> comptant des d\'ara</string>
+
+    <string name="calendars_notification_adding">Afegint calendaris…</string>
+    <string name="calendars_notification_added">Els calendaris s\'han afegit.</string>
+
+    <string name="calendars_notification_clearing">Netejant calendaris…</string>
+    <string name="calendars_notification_cleared">Els calendaris s\'han afegit.</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>un any</item>
+        <item>dos anys</item>
+        <item>cinc anys</item>
+        <item>deu anys</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">Solsticis i equinoccis</string>
+    <string name="calendar_moonPhase_displayName">Fases llunars</string>
+
+    <!-- Dialog: About -->
+    <string name="about_dialog_title">Quant a</string>
+    <string name="app_name">Suntimes</string>
+
+    <string name="app_version"><![CDATA[<b>Versió:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Mostra les hores de l\'alba, capvespre, llum crepuscular i lunar.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Suport:</b> visita el
+        <a href="https://github.com/forrestguice/SuntimesWidget/issues">seguiment d\'incidències</a> per enviar una petició.
+    ]]></string>
+    <string name="app_legal1"><![CDATA[
+    <b>Codi font:</b><br />
+    Copyright &#169 2018 Forrest Guice <br />
+    Codi font disponible sota GPLv3.
+]]></string>
+    <string name="app_legal2"><![CDATA[
+    <b>Traduccions:</b><br/>
+    Traducció a espanyol i català per <a href=https://github.com/Raulvo>Raulvo</a>.
+
+]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privadesa:</b><br/>Suntimes no coŀlecta, emmagatzema, o transmet dades personals. <b>No contè anuncis</b>, <b>càlculs estadístics</b>, <b>rastrejadors</b>, i <b>no utilitza permissos innecessaris</b>. <br/><br/>L\'aplicació es configura amb dades de localització. Aquesta informació (i qualsevol altra dada configurada emprada per l\'aplicació) s\'emmagatzema localment i no surt del dispositiu.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes utilitza el permís de <b>calendari</b> per integrar-se amb l\'aplicació Calendari. Aquests permisos permeten crear calendaris i esdeveniments personalitzats.<br/><br/>També es necessiten permisos quan es desactiva la integració amb el calendari (per eliminar calendaris personalitzats).]]></string>
+    <string name="privacy_permissiondialog_title">Permissos</string>
+
+</resources>

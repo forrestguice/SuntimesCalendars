@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="timeMode_equinox_vernal">Equinoccio de primavera</string>
+    <string name="timeMode_equinox_autumnal">Equinoccio de otoño</string>
+    <string name="timeMode_solstice_summer">Solsticio de verano</string>
+    <string name="timeMode_solstice_winter">Solsticio de invierno</string>    
+
+    <string name="timeMode_moon">Luna</string>
+    <string name="timeMode_moon_new">Luna nueva</string>
+    <string name="timeMode_moon_firstquarter">Cuarto creciente</string>
+    <string name="timeMode_moon_full">Luna llena</string>
+    <string name="timeMode_moon_thirdquarter">Cuarto menguante</string>
+
+    <string name="configLabel_calendars">Calendarios</string>
+
+    <string name="configLabel_calendars_enabled">Integración con el calendario</string>
+    <string name="configLabel_calendars_enabled_summary">Proporcionar eventos a la aplicación de calendario (fases lunares, solsticios, y equinoccios).</string>
+
+    <string name="configLabel_calendars_window0">Ventana (inicio)</string>
+    <string name="configLabel_calendars_window0_summary">Un periodo empezó <xliff:g example="one year" id="calendars_window_display">%s</xliff:g> atrás</string>
+
+    <string name="configLabel_calendars_window1">Ventana (fin)</string>
+    <string name="configLabel_calendars_window1_summary">Un periodo finalizará dentro de <xliff:g example="two years" id="calendars_window_display">%s</xliff:g> contando desde ahora</string>
+
+    <string name="calendars_notification_adding">Añadiendo calendarios…</string>
+    <string name="calendars_notification_added">Los calendarios se han añadido.</string>
+
+    <string name="calendars_notification_clearing">Limpiando calendarios…</string>
+    <string name="calendars_notification_cleared">Los calendarios se han añadido.</string>
+
+    <string-array name="calendars_window_display">   
+        <item>un año</item>
+        <item>dos años</item>
+        <item>cinco años</item>
+        <item>diez años</item>
+    </string-array>
+
+    <string name="calendar_solstice_displayName">Solsticios y equinoccios</string>
+    <string name="calendar_moonPhase_displayName">Fases lunares</string>
+
+    <string name="about_dialog_title">Acerca de</string>
+    <string name="app_name">Horas de sol</string>
+
+    <string name="app_version"><![CDATA[<b>Versión:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Muestra las horas del amanecer, noche, luz crepuscular y lunar.</string>
+    <string name="app_support_url"><![CDATA[
+    <b>Soporte:</b> visita el
+    <a href="https://github.com/forrestguice/SuntimesWidget/issues">seguimiento de incidencias</a> para enviar una petición.
+]]></string>
+    <string name="app_legal1"><![CDATA[
+    <b>Código fuente:</b> <br />
+    Copyright &#169 2018 Forrest Guice <br />
+    Código fuente disponible bajo GPLv3.
+]]></string>
+    <string name="app_legal2"><![CDATA[
+    <b>Traducciones:</b> <br/>
+    Traducción en español y catalán por <a href=https://github.com/Raulvo>Raulvo</a>.
+]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacidad:</b> <br /> Suntimes no colectivo, almacena, o transmite datos personales. <b>No contiene anuncios</b>, <b>cálculos estadísticos</b>, <b>rastreadores</b>, y <b>no utiliza permisos innecesarios</b>. <br/><br/> La aplicación se configura con datos de localización. Esta información (y cualquier otro dato configurada empleada por la aplicación) se almacena localmente y no sale del dispositivo. <br/><br/> <xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes utiliza el permiso de <b>calendario</b> para integrarse con la aplicación Calendario. Estos permisos permiten crear calendarios y eventos personalizados. <br /><br /> También se necesitan permisos cuando se desactiva la integración con el calendario (para eliminar calendarios personalizados).]]></string>
+    <string name="privacy_permissiondialog_title">Permisos</string>
+
+</resources>
