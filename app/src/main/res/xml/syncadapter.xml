@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
-    android:contentAuthority="com.forrestguice.suntimescalendar.datasync.provider"
+    android:contentAuthority="com.forrestguice.suntimescalendars.datasync.provider"
     android:accountType="LOCAL"
     android:userVisible="false"
     android:supportsUploading="false"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.forrestguice.suntimescalendar">
+    package="com.forrestguice.suntimescalendars">
 
     <uses-permission android:name="suntimeswidget.calculator.provider.permission.READ_PROVIDER" />  <!-- needed to interact w/ Suntimes provider -->
 
@@ -22,7 +22,6 @@
         <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,7 +29,7 @@
         <!-- Calendar Provider -->
         <provider
             android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarProvider"
-            android:authorities="com.forrestguice.suntimescalendar.datasync.provider"
+            android:authorities="com.forrestguice.suntimescalendars.datasync.provider"
             android:exported="false"
             android:syncable="true"/>
         <service

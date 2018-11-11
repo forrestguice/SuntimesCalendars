@@ -50,7 +50,7 @@ import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.forrestguice.suntimescalendar.R;
+import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.CalculatorProviderContract;
 
 import java.util.Locale;
@@ -60,6 +60,7 @@ import java.util.Locale;
  */
 public class SuntimesCalendarActivity extends AppCompatActivity
 {
+    public static final String DIALOGTAG_ABOUT = "aboutdialog";
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
 
@@ -303,8 +304,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         else return Html.fromHtml(htmlString);
     }
 
-    public static final String DIALOGTAG_ABOUT = "aboutdialog";
-
     /**
      * showAbout
      */
@@ -313,7 +312,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         AboutDialog aboutDialog = new AboutDialog();
         aboutDialog.show(getSupportFragmentManager(), DIALOGTAG_ABOUT);
     }
-
     private Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
     {
         @Override
