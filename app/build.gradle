@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.2'
 
     defaultConfig {
-        applicationId "com.forrestguice.suntimescalendar"
+        applicationId "com.forrestguice.suntimescalendars"
         minSdkVersion 11
         targetSdkVersion 25
         versionCode 1

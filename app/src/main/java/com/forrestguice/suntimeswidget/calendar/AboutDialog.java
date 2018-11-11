@@ -41,8 +41,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.forrestguice.suntimescalendar.BuildConfig;
-import com.forrestguice.suntimescalendar.R;
+import com.forrestguice.suntimescalendars.BuildConfig;
+import com.forrestguice.suntimescalendars.R;
 
 public class AboutDialog extends BottomSheetDialogFragment
 {

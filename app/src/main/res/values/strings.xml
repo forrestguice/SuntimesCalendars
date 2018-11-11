@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
-    <string name="timeMode_equinox_vernal">Spring Equinox</string>      <!-- setting -->
-    <string name="timeMode_equinox_autumnal">Autumn Equinox</string>  <!-- setting -->
-    <string name="timeMode_solstice_summer">Summer Solstice</string>    <!-- setting -->
-    <string name="timeMode_solstice_winter">Winter Solstice</string>    <!-- setting -->
+    <string name="timeMode_equinox_vernal">Spring Equinox</string>
+    <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
+    <string name="timeMode_solstice_summer">Summer Solstice</string>
+    <string name="timeMode_solstice_winter">Winter Solstice</string>
 
-    <string name="timeMode_moon">Moon</string>                               <!-- label -->
-    <string name="timeMode_moon_new">New Moon</string>                               <!-- setting -->
-    <string name="timeMode_moon_firstquarter">First Quarter</string>                 <!-- setting -->
-    <string name="timeMode_moon_full">Full Moon</string>                             <!-- setting -->
-    <string name="timeMode_moon_thirdquarter">Third Quarter</string>                 <!-- setting -->
+    <string name="timeMode_moon">Moon</string>
+    <string name="timeMode_moon_new">New Moon</string>
+    <string name="timeMode_moon_firstquarter">First Quarter</string>
+    <string name="timeMode_moon_full">Full Moon</string>
+    <string name="timeMode_moon_thirdquarter">Third Quarter</string>
 
-
-    <string name="configLabel_calendars">Calendars</string>   <!-- group title -->
+    <string name="configLabel_calendars">Suntimes Calendars</string>
+    <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>
+    <string name="calendar_moonPhase_displayName">Moon Phases</string>
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>
@@ -31,7 +32,6 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
-
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
         <item>two years</item>
@@ -45,10 +45,6 @@
         <item>315360000000</item>
     </string-array>
 
-    <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>
-    <string name="calendar_moonPhase_displayName">Moon Phases</string>
-
-    <!-- Dialog: About -->
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>

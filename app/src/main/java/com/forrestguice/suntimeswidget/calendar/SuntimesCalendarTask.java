@@ -35,7 +35,7 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.forrestguice.suntimescalendar.R;
+import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.CalculatorProviderContract;
 
 import java.lang.ref.WeakReference;
