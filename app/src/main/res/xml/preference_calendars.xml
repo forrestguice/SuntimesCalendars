@@ -25,6 +25,12 @@
             android:entries="@array/calendars_window_display" android:entryValues="@array/calendars_window_values"
             android:defaultValue="@string/def_calendars_window1" />
 
+        <Preference
+            android:key="app_about"
+            android:persistent="false"
+            android:icon="?attr/icActionAbout"
+            android:title="@string/about_dialog_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

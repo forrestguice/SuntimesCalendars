@@ -3,14 +3,11 @@
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
+        <item name="hrColor">@color/hr_light</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
-
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
         <item name="icActionAbout">@drawable/ic_action_about_light</item>
         <item name="icActionSettings">@drawable/ic_action_settings_light</item>
@@ -18,18 +15,14 @@
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.BottomSheetDialog</item>
+        <item name="hrColor">@color/hr_dark</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
-
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
         <item name="icActionAbout">@drawable/ic_action_about</item>
         <item name="icActionSettings">@drawable/ic_action_settings</item>
         <item name="icActionHelp">@drawable/ic_action_help</item>
     </style>
-
 </resources>

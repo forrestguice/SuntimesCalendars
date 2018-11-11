@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
 
     <color name="colorSolsticeCalendar">#03A9F4</color>
     <color name="colorMoonCalendar">#ff9e9e9e</color>
+
+    <color name="hr_dark">#33ffffff</color>
+    <color name="hr_light">#1f000000</color>
 
     <color name="text_accent_light">@color/deep_teal_500</color>
     <color name="text_accent_dark">@color/deep_teal_200</color>

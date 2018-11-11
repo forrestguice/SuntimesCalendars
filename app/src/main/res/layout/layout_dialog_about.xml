@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2018 Forrest Guice
+    This file is part of SuntimesWidget.
+
+    SuntimesWidget is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SuntimesWidget is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/txt_about_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:drawablePadding="10dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/txt_about_desc"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/app_shortdesc" />
+
+            <TextView
+                android:id="@+id/txt_about_version"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_gravity="start"
+                android:text="@string/app_version"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:id="@+id/txt_about_support"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/app_support_url" />
+
+            <TextView
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/txt_about_legal1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/app_legal1"
+                android:autoLink="web" />
+
+            <TextView
+                android:id="@+id/txt_about_url"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="0dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/app_url"
+                android:autoLink="web" />
+
+            <TextView
+                android:id="@+id/txt_about_legal2"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/app_legal2" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:background="?attr/hrColor" android:layout_marginTop="4dp" android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/txt_about_legal4"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Privacy:"
+                android:autoLink="web" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp" android:background="?attr/hrColor" android:layout_marginTop="4dp" android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/txt_about_legal5"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/privacy_url"
+                android:autoLink="web" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="hrColor" format="reference" />
     <attr name="text_accentColor" format="reference" />
     <attr name="text_disabledColor" format="reference" />
     <attr name="toolbarTheme" format="reference" />

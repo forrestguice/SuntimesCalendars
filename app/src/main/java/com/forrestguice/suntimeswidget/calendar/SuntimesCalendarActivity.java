@@ -44,6 +44,7 @@ import android.preference.PreferenceManager;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -57,7 +58,7 @@ import java.util.Locale;
 /**
  * SuntimesCalendarActivity
  */
-public class SuntimesCalendarActivity extends Activity
+public class SuntimesCalendarActivity extends AppCompatActivity
 {
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
@@ -170,7 +171,9 @@ public class SuntimesCalendarActivity extends Activity
         }
 
         super.onCreate(icicle);
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new CalendarPrefsFragment() ).commit();
+        CalendarPrefsFragment fragment = new CalendarPrefsFragment();
+        fragment.setAboutClickListener(onAboutClick);
+        getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
     }
 
     @Override
@@ -214,22 +217,28 @@ public class SuntimesCalendarActivity extends Activity
         {
             super.onCreate(savedInstanceState);
             Log.i("CalendarPrefsFragment", "Arguments: " + getArguments());
-
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_calendars, false);
             addPreferencesFromResource(R.xml.preference_calendars);
+            initPref_calendars(CalendarPrefsFragment.this, onAboutClick);
+        }
 
-            initPref_calendars(CalendarPrefsFragment.this);
+        private Preference.OnPreferenceClickListener onAboutClick = null;
+        public void setAboutClickListener( Preference.OnPreferenceClickListener onClick )
+        {
+            onAboutClick = onClick;
         }
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private static void initPref_calendars(PreferenceFragment fragment)
+    private static void initPref_calendars(final PreferenceFragment fragment, Preference.OnPreferenceClickListener onAboutClick)
     {
-        CheckBoxPreference calendarsEnabledPref = (CheckBoxPreference) fragment.findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-        initPref_calendars(fragment.getActivity(), calendarsEnabledPref);
-    }
-    private static void initPref_calendars(final Activity activity, final CheckBoxPreference enabledPref )
-    {
+        Preference aboutPref = fragment.findPreference("app_about");
+        if (aboutPref != null && onAboutClick != null) {
+            aboutPref.setOnPreferenceClickListener(onAboutClick);
+        }
+
+        final Activity activity = fragment.getActivity();
+        final CheckBoxPreference calendarsEnabledPref = (CheckBoxPreference) fragment.findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
         final Preference.OnPreferenceChangeListener onPreferenceChanged0 = new Preference.OnPreferenceChangeListener()
         {
             @Override
@@ -251,7 +260,7 @@ public class SuntimesCalendarActivity extends Activity
                                     public void onClick(DialogInterface dialog, int which)
                                     {
                                         ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                                        tmp_calendarPref = enabledPref;
+                                        tmp_calendarPref = calendarsEnabledPref;
                                     }
                                 });
 
@@ -264,7 +273,7 @@ public class SuntimesCalendarActivity extends Activity
 
                     } else {
                         ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                        tmp_calendarPref = enabledPref;
+                        tmp_calendarPref = calendarsEnabledPref;
                         return false;
                     }
 
@@ -274,7 +283,7 @@ public class SuntimesCalendarActivity extends Activity
                 }
             }
         };
-        enabledPref.setOnPreferenceChangeListener(onPreferenceChanged0);
+        calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0);
     }
     private static CheckBoxPreference tmp_calendarPref = null;
 
@@ -293,4 +302,25 @@ public class SuntimesCalendarActivity extends Activity
             return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
         else return Html.fromHtml(htmlString);
     }
+
+    public static final String DIALOGTAG_ABOUT = "aboutdialog";
+
+    /**
+     * showAbout
+     */
+    protected void showAbout()
+    {
+        AboutDialog aboutDialog = new AboutDialog();
+        aboutDialog.show(getSupportFragmentManager(), DIALOGTAG_ABOUT);
+    }
+
+    private Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
+    {
+        @Override
+        public boolean onPreferenceClick(Preference preference)
+        {
+            showAbout();
+            return false;
+        }
+    };
 }
