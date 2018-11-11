@@ -255,10 +255,12 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                         cursor.moveToNext();
                     }
                     cursor.close();
-                } else Log.w("initSolsticeCalendar", "Failed to resolve URI! " + uri);
+                    return true;
 
-                return true;
-
+                } else {
+                    Log.w("initSolsticeCalendar", "Failed to resolve URI! " + uri);
+                    return false;
+                }
             } else {
                 Log.e("initSolsticeCalendar", "unable to getContentResolver!");
                 return false;
@@ -302,10 +304,12 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                         cursor.moveToNext();
                     }
                     cursor.close();
-                } else Log.w("initMoonPhaseCalendar", "Failed to resolve URI! " + uri);
+                    return true;
 
-                return true;
-
+                } else {
+                    Log.w("initMoonPhaseCalendar", "Failed to resolve URI! " + uri);
+                    return false;
+                }
             } else {
                 Log.e("initMoonPhaseCalendar", "unable to getContentResolver!");
                 return false;
