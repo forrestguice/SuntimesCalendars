@@ -5,11 +5,16 @@ A calendar provider add-on for [Suntimes](https://github.com/forrestguice/Suntim
 **Attention: This app is beta!** This notice will be removed after initial release. 
 This app relies on an unreleased ContentProvider defined in the Suntimes [`contentprovider`](https://github.com/forrestguice/SuntimesWidget/blob/contentprovider/app/src/main/java/com/forrestguice/suntimeswidget/calculator/CalculatorProviderContract.java) branch.
 
+[![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
+[![Build Status](https://travis-ci.org/forrestguice/SuntimesCalendars.svg?branch=master)](https://travis-ci.org/forrestguice/SuntimesCalendars)
+
 * [Privacy and Permissions](#privacy-and-permissions)
 * [Donations](#donations)
 * [Bug Reports](#bug-reports)
 * [Legal Stuff](#legal-stuff)
 * [Contributions](#project-contributions)
+
+This add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) supplies the Calendar app with calendars and events (moon phases, solstices, and equinoxes).
 
 ## Privacy and Permissions ##
 
@@ -21,12 +26,10 @@ The app requires the following permissions...
 |Permission||Since Version|
 |---|---|---|
 |suntimeswidget.READ_SUNTIMES|To interact with Suntimes.|v0.1.0|
-|ACCESS_COARSE_LOCATION|To get current location.|v0.1.0|
 |READ_CALENDAR|To interact with the Calendar app (access events).|v0.1.0|
 |WRITE_CALENDAR|To interact with the Calendar app (add/remove events).|v0.1.0|
 |READ_SYNC_STATS|To interact with the Calendar app (access custom calendars).|v0.1.0|
 |WRITE_SYNC_SETTINGS|To interact with the Calendar app (add/remove custom calendars).|v0.1.0|
-
 
 ## Donations ##
 
@@ -37,7 +40,9 @@ Do you find value in this software? Pay as you feel.
 
 ## Bug Reports ##
 
-You can report bugs using the issue tracker. When submitting a bug please be detailed and specific. What did you expect the app to do, what did you actually observe? Bugs that can't be reproduced won't get fixed. Useful information includes Android OS version and your specific device model.
+You can report bugs using the issue tracker. 
+
+When submitting a bug please be detailed and specific. What did you expect the app to do, what did you actually observe? Bugs that can't be reproduced won't get fixed. Useful information includes Android OS version and your specific device model.
 
 ## Legal Stuff
 
