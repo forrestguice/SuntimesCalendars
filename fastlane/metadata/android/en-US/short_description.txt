@@ -1,1 +1,1 @@
-Short description TODO
+A calendar provider add-on for Suntimes.
