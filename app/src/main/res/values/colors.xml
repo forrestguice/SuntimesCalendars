@@ -4,6 +4,9 @@
     <color name="colorSolsticeCalendar">#03A9F4</color>
     <color name="colorMoonCalendar">#ff9e9e9e</color>
 
+    <color name="snackbarError_text">#ffffff</color>
+    <color name="snackbarError_background">@color/red_800</color>
+
     <color name="hr_dark">#33ffffff</color>
     <color name="hr_light">#1f000000</color>
 
@@ -15,5 +18,6 @@
 
     <color name="deep_teal_200">#ff80cbc4</color>
     <color name="deep_teal_500">#ff009688</color>
+    <color name="red_800">#c62828</color>
 
 </resources>

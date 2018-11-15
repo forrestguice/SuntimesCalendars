@@ -35,7 +35,6 @@ import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,12 +45,16 @@ import com.forrestguice.suntimescalendars.R;
 
 public class AboutDialog extends BottomSheetDialogFragment
 {
-    public static final String WEBSITE_URL = "https://forrestguice.github.io/SuntimesCalendar/";
-    public static final String PRIVACY_URL = "https://github.com/forrestguice/SuntimesCalendar/wiki/Privacy";
-    public static final String CHANGELOG_URL = "https://github.com/forrestguice/SuntimesCalendar/blob/master/CHANGELOG.md";
-    public static final String COMMIT_URL = "https://github.com/forrestguice/SuntimesCalendar/commit/";
+    public static final String WEBSITE_URL = "https://forrestguice.github.io/SuntimesWidget/";
+    public static final String PRIVACY_URL = "https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy";
+    public static final String CHANGELOG_URL = "https://github.com/forrestguice/SuntimesCalendars/blob/master/CHANGELOG.md";
+    public static final String COMMIT_URL = "https://github.com/forrestguice/SuntimesCalendars/commit/";
 
     public static final String KEY_ICONID = "paramIconID";
+    public static final String KEY_APPVERSION = "paramAppVersion";
+    public static final String KEY_PROVIDERVERSION = "paramProviderVersion";
+    public static final String KEY_PROVIDER_PERMISSIONDENIED = "paramProviderDenied";
+
     private int param_iconID = R.mipmap.ic_launcher;
     public void setIconID( int resID )
     {
@@ -81,6 +84,19 @@ public class AboutDialog extends BottomSheetDialogFragment
                 }
             }
         });
+
+        if (savedInstanceState != null)
+        {
+            providerPermissionsDenied = savedInstanceState.getBoolean(KEY_PROVIDER_PERMISSIONDENIED);
+
+            if (savedInstanceState.containsKey(KEY_APPVERSION)) {
+                appVersion = savedInstanceState.getString(KEY_APPVERSION);
+            }
+            if (savedInstanceState.containsKey(KEY_PROVIDERVERSION)) {
+                providerVersion = savedInstanceState.getInt(KEY_PROVIDERVERSION);
+            }
+        }
+
         return dialog;
     }
 
@@ -117,6 +133,9 @@ public class AboutDialog extends BottomSheetDialogFragment
         versionView.setMovementMethod(LinkMovementMethod.getInstance());
         versionView.setText(fromHtml(htmlVersionString()));
 
+        TextView providerView = (TextView) dialogContent.findViewById(R.id.txt_about_provider);
+        providerView.setText(fromHtml(providerVersionString(context)));
+
         TextView urlView = (TextView) dialogContent.findViewById(R.id.txt_about_url);
         urlView.setMovementMethod(LinkMovementMethod.getInstance());
         urlView.setText(fromHtml(context.getString(R.string.app_url)));
@@ -151,7 +170,38 @@ public class AboutDialog extends BottomSheetDialogFragment
     public void onSaveInstanceState( Bundle outState )
     {
         outState.putInt(KEY_ICONID, param_iconID);
+        outState.putBoolean(KEY_PROVIDER_PERMISSIONDENIED, providerPermissionsDenied);
+        if (appVersion != null) {
+            outState.putString(KEY_APPVERSION, appVersion);
+        }
+        if (providerVersion != null) {
+            outState.putInt(KEY_PROVIDERVERSION, providerVersion);
+        }
+
         super.onSaveInstanceState(outState);
+    }
+
+    private String appVersion = null;
+    private Integer providerVersion = null;
+    public void setVersion(String appVersion, Integer providerVersion)
+    {
+        this.appVersion = appVersion;
+        this.providerVersion = providerVersion;
+    }
+
+    private boolean providerPermissionsDenied = false;
+    public void setPermissionStatus( boolean status ) {
+        providerPermissionsDenied = status;
+    }
+
+    protected String providerVersionString(@NonNull Context context)
+    {
+        String denied = context.getString(R.string.app_provider_version_denied);
+        String missingVersion = context.getString(R.string.app_provider_version_missing);
+        String versionString = (appVersion == null) ? missingVersion
+                                                    : (appVersion + " (" + ((providerVersion != null) ? providerVersion
+                                                                                                      : (providerPermissionsDenied ? denied : missingVersion)) + ")");
+        return context.getString(R.string.app_provider_version, versionString);
     }
 
     public static Spanned fromHtml(String htmlString )
