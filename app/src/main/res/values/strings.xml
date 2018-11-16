@@ -68,8 +68,10 @@
         <br />
         <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
     ]]></string>  <!-- TODO -->
+    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
 
-    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
+    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>  <!-- TODO -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
