@@ -23,6 +23,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -55,6 +57,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.CalculatorProviderContract;
@@ -449,6 +452,49 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         if (!enabled) {
             calendarTask.setFlagClearCalendars(true);
         }
+        calendarTask.setTaskListener(new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        {
+            @Override
+            public void onStarted(boolean flag_clear)
+            {
+                if (!flag_clear) {
+                    Toast.makeText(activity, activity.getString(R.string.calendars_notification_adding), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onSuccess(boolean flag_clear)
+            {
+                if (!flag_clear)
+                    Toast.makeText(activity, activity.getString(R.string.calendars_notification_added), Toast.LENGTH_SHORT).show();
+                else Toast.makeText(activity, activity.getString(R.string.calendars_notification_cleared), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailed(final String errorMsg)
+            {
+                super.onFailed(errorMsg);
+                AlertDialog.Builder errorDialog = new AlertDialog.Builder(activity);
+                errorDialog.setTitle(activity.getString(R.string.calendars_notification_adding_failed))
+                        .setMessage(errorMsg)
+                        .setIcon(R.drawable.ic_action_about)
+                        .setNeutralButton(activity.getString(R.string.actionCopyError), new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
+                                if (clipboard != null) {
+                                    ClipData clip = ClipData.newPlainText("SuntimesCalendarErrorMsg", errorMsg);
+                                    clipboard.setPrimaryClip(clip);
+                                    Toast.makeText(activity, activity.getString(R.string.actionCopyError_toast), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setPositiveButton(android.R.string.ok, null);
+                errorDialog.show();
+            }
+        });
+
         calendarTask.execute();
     }
 

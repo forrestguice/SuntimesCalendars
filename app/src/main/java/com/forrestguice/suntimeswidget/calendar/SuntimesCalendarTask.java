@@ -33,7 +33,6 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.CalculatorProviderContract;
@@ -64,9 +63,11 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     private String notificationTitle;
     private String notificationMsgAdding, notificationMsgAdded;
     private String notificationMsgClearing, notificationMsgCleared;
+    private String notificationMsgAddFailed;
     private int notificationIcon = R.drawable.ic_action_calendar;
     private int notificationPriority = NotificationCompat.PRIORITY_LOW;
     private PendingIntent notificationIntent;
+    private String lastError = null;
 
     public SuntimesCalendarTask(Activity context)
     {
@@ -105,6 +106,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
         notificationMsgClearing = context.getString(R.string.calendars_notification_clearing);
         notificationMsgCleared = context.getString(R.string.calendars_notification_cleared);
+        notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -145,6 +147,11 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     .setProgress(0, 0, true);
             notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         }
+        lastError = null;
+
+        if (listener != null) {
+            listener.onStarted(flag_clear);
+        }
     }
 
     @Override
@@ -184,6 +191,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 
             } catch (SecurityException e) {
                 Log.e("SuntimesCalendarTask", "Unable to access provider! " + e);
+                lastError = "Unable to access provider! " + e;
                 return false;
             }
         }
@@ -213,16 +221,20 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                 Log.i("SuntimesCalendarTask", "Cleared Suntimes Calendars...");
             else Log.i("SuntimesCalendarTask", "Added / updated Suntimes Calendars...");
 
+            if (listener != null) {
+                listener.onSuccess(flag_clear);
+            }
+
         } else {
             Log.w("SuntimesCalendarTask", "Failed to complete task!");
             notificationManager.cancel(NOTIFICATION_ID);
-
-            Context context = contextRef.get();
-            if (context != null) {
-                Toast.makeText(context, context.getString(R.string.calendars_notification_adding_failed), Toast.LENGTH_LONG).show();
+            if (listener != null) {
+                listener.onFailed(lastError);
             }
         }
     }
+
+    private static final int NOTIFICATION_REQUEST_LASTERROR = 10;
 
     private boolean initSolsticeCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
     {
@@ -258,11 +270,13 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     return true;
 
                 } else {
-                    Log.w("initSolsticeCalendar", "Failed to resolve URI! " + uri);
+                    Log.e("initSolsticeCalendar", "Failed to resolve URI! " + uri);
+                    lastError = "Failed to resolve URI! " + uri;
                     return false;
                 }
             } else {
-                Log.e("initSolsticeCalendar", "unable to getContentResolver!");
+                Log.e("initSolsticeCalendar", "Unable to getContentResolver!");
+                lastError = "Unable to getContentResolver! ";
                 return false;
             }
         } else return false;
@@ -308,13 +322,28 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 
                 } else {
                     Log.w("initMoonPhaseCalendar", "Failed to resolve URI! " + uri);
+                    lastError = "Failed to resolve URI! " + uri;
                     return false;
                 }
             } else {
                 Log.e("initMoonPhaseCalendar", "unable to getContentResolver!");
+                lastError = "Unable to getContentResolver! ";
                 return false;
             }
         } else return false;
+    }
+
+    private SuntimesCalendarTaskListener listener;
+    public void setTaskListener( SuntimesCalendarTaskListener listener )
+    {
+        this.listener = listener;
+        this.listener = listener;
+    }
+    public static abstract class SuntimesCalendarTaskListener
+    {
+        public void onStarted(boolean flag_clear) {}
+        public void onSuccess(boolean flag_cleared) {}
+        public void onFailed(String errorMsg) {}
     }
 
 }
