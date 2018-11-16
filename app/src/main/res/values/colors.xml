@@ -6,6 +6,7 @@
 
     <color name="snackbarError_text">#ffffff</color>
     <color name="snackbarError_background">@color/red_800</color>
+    <color name="errorNotification">@color/red_800</color>
 
     <color name="hr_dark">#33ffffff</color>
     <color name="hr_light">#1f000000</color>
