@@ -245,10 +245,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     protected void onSaveInstanceState( Bundle bundle )
     {
         super.onSaveInstanceState(bundle);
-        bundle.putString("appVersionName", appVersionName);
-        bundle.putInt("appVersionCode", appVersionCode);
-        bundle.putString("providerVersionName", providerVersionName);
-        bundle.putInt("providerVersionCode", providerVersionCode);
         bundle.putBoolean("needsSuntimesPermissions", needsSuntimesPermissions);
     }
 
@@ -260,10 +256,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     protected void onRestoreInstanceState( Bundle bundle )
     {
         super.onRestoreInstanceState(bundle);
-        appVersionName = bundle.getString("appVersionName");
-        appVersionCode = bundle.getInt("appVersionCode");
-        providerVersionName = bundle.getString("providerVersionName");
-        providerVersionCode = bundle.getInt("providerVersionCode");
         needsSuntimesPermissions = bundle.getBoolean("needsSuntimesPermissions");
     }
 
