@@ -125,6 +125,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         notificationIntent = PendingIntent.getActivity(context, 0, intent, 0);
     }
 
+    private boolean flag_notifications = true;
     private boolean flag_clear = false;
     public void setFlagClearCalendars( boolean flag )
     {
@@ -135,10 +136,12 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     protected void onPreExecute()
     {
         Context context = contextRef.get();
-        if (context != null)
-        {
+        if (context != null) {
             lastSync = SuntimesCalendarSyncAdapter.readLastSyncTime(context);
+        }
+        lastError = null;
 
+        if (flag_notifications) {
             notificationBuilder.setContentTitle(notificationTitle)
                     .setContentText((flag_clear ? notificationMsgClearing : notificationMsgAdding))
                     .setSmallIcon(notificationIcon)
@@ -147,7 +150,6 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     .setProgress(0, 0, true);
             notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         }
-        lastError = null;
 
         if (listener != null) {
             listener.onStarted(flag_clear);
@@ -204,18 +206,19 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         if (result)
         {
             Context context = contextRef.get();
-            if (context != null)
-            {
+            if (context != null) {
                 SuntimesCalendarSyncAdapter.writeLastSyncTime(context, Calendar.getInstance());
             }
 
-            notificationBuilder.setContentTitle(notificationTitle)
-                    .setContentText((flag_clear ? notificationMsgCleared : notificationMsgAdded))
-                    .setSmallIcon(notificationIcon)
-                    .setPriority(notificationPriority)
-                    .setContentIntent(notificationIntent).setAutoCancel(true)
-                    .setProgress(0, 0, false);
-            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+            if (flag_notifications) {
+                notificationBuilder.setContentTitle(notificationTitle)
+                        .setContentText((flag_clear ? notificationMsgCleared : notificationMsgAdded))
+                        .setSmallIcon(notificationIcon)
+                        .setPriority(notificationPriority)
+                        .setContentIntent(notificationIntent).setAutoCancel(true)
+                        .setProgress(0, 0, false);
+                notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+            }
 
             if (flag_clear)
                 Log.i("SuntimesCalendarTask", "Cleared Suntimes Calendars...");
