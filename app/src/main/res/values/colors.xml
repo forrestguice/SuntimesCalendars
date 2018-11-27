@@ -5,8 +5,8 @@
     <color name="colorMoonCalendar">#ff9e9e9e</color>
 
     <color name="snackbarError_text">#ffffff</color>
-    <color name="snackbarError_background">@color/red_800</color>
-    <color name="errorNotification">@color/red_800</color>
+    <color name="snackbarError_background">@color/orange_900</color>
+    <color name="errorNotification">@color/orange_900</color>
 
     <color name="hr_dark">#33ffffff</color>
     <color name="hr_light">#1f000000</color>
@@ -19,6 +19,9 @@
 
     <color name="deep_teal_200">#ff80cbc4</color>
     <color name="deep_teal_500">#ff009688</color>
+
     <color name="red_800">#c62828</color>
+    <color name="orange_900">#e65100</color>
+
 
 </resources>
