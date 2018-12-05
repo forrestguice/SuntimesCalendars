@@ -1,26 +1,26 @@
 /**
- Copyright (C) 2018 Forrest Guice
- This file is part of SuntimesWidget.
+    Copyright (C) 2018 Forrest Guice
+    This file is part of SuntimesWidget.
 
- SuntimesWidget is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+    SuntimesWidget is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
- SuntimesWidget is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+    SuntimesWidget is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
- */
+    You should have received a copy of the GNU General Public License
+    along with SuntimesWidget.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
-package com.forrestguice.suntimeswidget.calculator;
+package com.forrestguice.suntimeswidget.calculator.core;
 
 /**
  * CalculatorProviderContract
- * @version 0.1.0
+ * @version 0 (0.1.0)
  *
  * Supported URIs have the form: "content://AUTHORITY/query"
  * ..where [AUTHORITY] is "suntimeswidget.calculator.provider"
@@ -182,10 +182,31 @@ package com.forrestguice.suntimeswidget.calculator;
  *     }
  *
  *   Note: Caching doesn't occur when overriding the configuration; a new instance will be created for each query.
+ *
+ * ------------------------------------------------------------------------------------------------
+ * PERMISSIONS
+ *   Access to this provider is restricted to apps that declare the READ_PERMISSION in their manifest.
+ *   The permission is granted by the user when an app is installed (and revoked if the provider is
+ *   uninstalled/reinstalled).
+ *
+ *       <uses-permission android:name="suntimeswidget.calculator.permission.READ_PROVIDER" />
+ *
+ *   Note that calling query without the necessary permission will result in a SecurityException.
+ *       try {
+ *           Cursor cursor = resolver.query(uri, projection, selection, selectionArgs, null)
+ *           if (cursor != null) {
+ *               ...
+ *           }
+ *       } catch (SecurityException e) {
+ *           // Permissions! We don't have them for some reason. They are either missing from the
+ *           // manifest, were revoked, or were never granted (re-installing the app should grant
+ *           // permissions).
+ *       }*
  */
 public interface CalculatorProviderContract
 {
     String AUTHORITY = "suntimeswidget.calculator.provider";
+    String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
     String VERSION_NAME = "v0.1.0";
     int VERSION_CODE = 0;
 

@@ -60,7 +60,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calculator.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
 import java.util.Locale;
 
