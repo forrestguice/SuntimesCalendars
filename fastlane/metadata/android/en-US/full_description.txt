@@ -1,5 +1,10 @@
-This add-on for Suntimes supplies the Calendar app with calendars and events (moon phases, solstices, and equinoxes).
+<p>Provides calendar events for the moon phases, solstices, and equinoxes.</p>
 
-Permissions are required for features to work properly:
-* WRITE_SYNC_SETTINGS (READ_SYNC_STATS) is used to create and add custom calendars to the Calendar app.
-* WRITE_CALENDAR (READ_CALENDAR) is used to populate custom calendars with events.
+<p>This add-on for Suntimes adds events to the Calendar app. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.0</a> or later.</p>
+
+The following permissions are required:
+<ul>
+<li><small><u>WRITE_SYNC_SETTINGS</u></small> is used to create and add custom calendars to the Calendar app.</li>
+<li><small><u>WRITE_CALENDAR</u></small> is used to populate custom calendars with events.</li>
+<li><small><u>suntimes.permission.READ_CALCULATOR</u></small> is used to read data from the Suntimes provider.</li>
+</ul>
