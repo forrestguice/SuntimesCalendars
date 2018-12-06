@@ -135,6 +135,13 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     }
 
     @Override
+    protected void onCancelled ()
+    {
+        super.onCancelled();
+        Log.w(TAG, "task canceled!" );
+    }
+
+    @Override
     protected void onPreExecute()
     {
         Context context = contextRef.get();
@@ -165,7 +172,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
             return false;
 
         boolean retValue = adapter.removeCalendars();
-        if (!flag_clear)
+        if (!flag_clear && !isCancelled())
         {
             Calendar startDate = Calendar.getInstance();
             Calendar endDate = Calendar.getInstance();
@@ -243,6 +250,10 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 
     private boolean initSolsticeCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
     {
+        if (isCancelled()) {
+            return false;
+        }
+
         String calendarName = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
@@ -261,7 +272,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                 if (cursor != null)
                 {
                     cursor.moveToFirst();
-                    while (!cursor.isAfterLast())
+                    while (!cursor.isAfterLast() && !isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
                         {
@@ -272,7 +283,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                         cursor.moveToNext();
                     }
                     cursor.close();
-                    return true;
+                    return !isCancelled();
 
                 } else {
                     lastError = "Failed to resolve URI! " + uri;
@@ -289,6 +300,10 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 
     private boolean initMoonPhaseCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
     {
+        if (isCancelled()) {
+            return false;
+        }
+
         String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
@@ -312,7 +327,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                 if (cursor != null)
                 {
                     cursor.moveToFirst();
-                    while (!cursor.isAfterLast())
+                    while (!cursor.isAfterLast() && !isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
                         {
@@ -323,7 +338,7 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                         cursor.moveToNext();
                     }
                     cursor.close();
-                    return true;
+                    return !isCancelled();
 
                 } else {
                     lastError = "Failed to resolve URI! " + uri;
