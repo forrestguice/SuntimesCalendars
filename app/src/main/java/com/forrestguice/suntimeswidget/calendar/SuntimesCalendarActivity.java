@@ -69,6 +69,8 @@ import java.util.Locale;
  */
 public class SuntimesCalendarActivity extends AppCompatActivity
 {
+    public static String TAG = "SuntimesCalendar";
+
     public static final String DIALOGTAG_ABOUT = "aboutdialog";
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
@@ -128,7 +130,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             } catch (SecurityException e) {
                 // Security Exception! Suntimes is installed (but we don't have permissions for some reason)
-                Log.e("SuntimesCalendar", "attachBaseContext: Unable to access SuntimesCalculatorProvider! " + e);
+                Log.e(TAG, "attachBaseContext: Unable to access SuntimesCalculatorProvider! " + e);
                 appVersionName = MIN_SUNTIMES_VERSION;
                 needsSuntimesPermissions = true;
                 super.attachBaseContext(newBase);
@@ -144,7 +146,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         Locale customLocale = localeForLanguageTag(languageTag);
         Locale.setDefault(customLocale);
-        Log.i("loadLocale", languageTag);
+        Log.i(TAG, "loadLocale: " + languageTag);
 
         Resources resources = context.getApplicationContext().getResources();
         Configuration config = resources.getConfiguration();
@@ -185,7 +187,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             String country = (parts.length >= 2) ? parts[1] : null;
             locale = (country != null) ? new Locale(language, country) : new Locale(language);
         }
-        Log.d("localeForLanguageTag", "tag: " + languageTag + " :: locale: " + locale.toString());
+        Log.d(TAG, "localeForLanguageTag: tag: " + languageTag + " :: locale: " + locale.toString());
         return locale;
     }
 
@@ -270,7 +272,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i("CalendarPrefsFragment", "Arguments: " + getArguments());
+            Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_calendars, false);
             addPreferencesFromResource(R.xml.preference_calendars);
 
@@ -446,11 +448,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             switch (calendarTask.getStatus())
             {
                 case PENDING:
-                    Log.w("runCalendarTask", "A task is already pending! ignoring...");
+                    Log.w(TAG, "runCalendarTask: A task is already pending! ignoring...");
                     return false;
 
                 case RUNNING:
-                    Log.w("runCalendarTask", "A task is already running! ignoring...");
+                    Log.w(TAG, "runCalendarTask: A task is already running! ignoring...");
                     return false;
             }
         }

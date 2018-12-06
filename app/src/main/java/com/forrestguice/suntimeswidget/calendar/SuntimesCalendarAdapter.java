@@ -33,6 +33,8 @@ import java.util.Calendar;
 @TargetApi(14)
 public class SuntimesCalendarAdapter
 {
+    public static final String TAG = "SuntimesCalendarAdapter";
+
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
 
@@ -69,7 +71,7 @@ public class SuntimesCalendarAdapter
                 long calendarID = cursor.getLong(PROJECTION_ID_INDEX);
                 Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
                 contentResolver.delete(deleteUri, null, null);
-                Log.d("removeCalendars", "removed calendar " + calendarID);
+                Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
             return true;
         } else return false;
@@ -128,7 +130,7 @@ public class SuntimesCalendarAdapter
                 calendarID = cursor.getLong(PROJECTION_ID_INDEX);
             }
         } else {
-            Log.w("initCalendars", "Calendar not found! (null cursor) " + calendarName);
+            Log.w(TAG, "initCalendars: Calendar not found! (null cursor) " + calendarName);
             calendarID = -1;
         }
         return calendarID;

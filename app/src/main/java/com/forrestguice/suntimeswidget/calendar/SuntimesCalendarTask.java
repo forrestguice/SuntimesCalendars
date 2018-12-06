@@ -43,6 +43,8 @@ import java.util.HashMap;
 
 public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 {
+    public static final String TAG = "SuntimesCalendarTask";
+
     private SuntimesCalendarAdapter adapter;
     private WeakReference<Context> contextRef;
 
@@ -184,16 +186,16 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
             endDate.set(Calendar.MINUTE, 0);
             endDate.set(Calendar.SECOND, 0);
 
-            Log.d("DEBUG", "startWindow: " + calendarWindow0 + ", endWindow: " + calendarWindow1);
-            Log.d("DEBUG", "startDate: " + startDate.get(Calendar.YEAR) + ", endDate: " + endDate.get(Calendar.YEAR));
+            Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + startDate.get(Calendar.YEAR) + "), "
+                    + "endWindow: " + calendarWindow1 + " (" + endDate.get(Calendar.YEAR) + ")");
 
             try {
                 retValue = retValue && initSolsticeCalendar(startDate, endDate);
                 retValue = retValue && initMoonPhaseCalendar(startDate, endDate);
 
             } catch (SecurityException e) {
-                Log.e("SuntimesCalendarTask", "Unable to access provider! " + e);
                 lastError = "Unable to access provider! " + e;
+                Log.e(TAG, lastError);
                 return false;
             }
         }
@@ -221,15 +223,15 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
             }
 
             if (flag_clear)
-                Log.i("SuntimesCalendarTask", "Cleared Suntimes Calendars...");
-            else Log.i("SuntimesCalendarTask", "Added / updated Suntimes Calendars...");
+                Log.i(TAG, "Cleared Suntimes Calendars...");
+            else Log.i(TAG, "Added Suntimes Calendars...");
 
             if (listener != null) {
                 listener.onSuccess(flag_clear);
             }
 
         } else {
-            Log.w("SuntimesCalendarTask", "Failed to complete task!");
+            Log.w(TAG, "Failed to complete task!");
             notificationManager.cancel(NOTIFICATION_ID);
             if (listener != null) {
                 listener.onFailed(lastError);
@@ -273,13 +275,13 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     return true;
 
                 } else {
-                    Log.e("initSolsticeCalendar", "Failed to resolve URI! " + uri);
                     lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
                     return false;
                 }
             } else {
-                Log.e("initSolsticeCalendar", "Unable to getContentResolver!");
                 lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
                 return false;
             }
         } else return false;
@@ -324,13 +326,13 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     return true;
 
                 } else {
-                    Log.w("initMoonPhaseCalendar", "Failed to resolve URI! " + uri);
                     lastError = "Failed to resolve URI! " + uri;
+                    Log.w(TAG, lastError);
                     return false;
                 }
             } else {
-                Log.e("initMoonPhaseCalendar", "unable to getContentResolver!");
-                lastError = "Unable to getContentResolver! ";
+                lastError = "Unable to getContentResolver!";
+                Log.e("initMoonPhaseCalendar", lastError);
                 return false;
             }
         } else return false;
