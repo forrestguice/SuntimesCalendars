@@ -220,16 +220,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     {
                         boolean enabled = requestCode == (REQUEST_CALENDARPREFSFRAGMENT_ENABLED);
-                        runCalendarTask(SuntimesCalendarActivity.this, enabled);
-
-                        SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                        pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
-                        pref.apply();
-
-                        if (tmp_calendarPref != null)
+                        if (runCalendarTask(SuntimesCalendarActivity.this, enabled))
                         {
-                            tmp_calendarPref.setChecked(enabled);
-                            tmp_calendarPref = null;
+                            SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                            pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
+                            pref.apply();
+
+                            if (tmp_calendarPref != null)
+                            {
+                                tmp_calendarPref.setChecked(enabled);
+                                tmp_calendarPref = null;
+                            }
                         }
                     }
                     break;
@@ -323,8 +324,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         }
 
                     } else {
-                        runCalendarTask(activity, enabled);
-                        return true;
+                        return runCalendarTask(activity, enabled);
                     }
                 }
             };
@@ -438,9 +438,24 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
 
     private static CheckBoxPreference tmp_calendarPref = null;
-    private static void runCalendarTask(final Activity activity, boolean enabled)
+    private static SuntimesCalendarTask calendarTask = null;
+    private static boolean runCalendarTask(final Activity activity, boolean enabled)
     {
-        SuntimesCalendarTask calendarTask = new SuntimesCalendarTask(activity);
+        if (calendarTask != null)
+        {
+            switch (calendarTask.getStatus())
+            {
+                case PENDING:
+                    Log.w("runCalendarTask", "A task is already pending! ignoring...");
+                    return false;
+
+                case RUNNING:
+                    Log.w("runCalendarTask", "A task is already running! ignoring...");
+                    return false;
+            }
+        }
+
+        calendarTask = new SuntimesCalendarTask(activity);
         if (!enabled) {
             calendarTask.setFlagClearCalendars(true);
         }
@@ -488,6 +503,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         });
 
         calendarTask.execute();
+        return true;
     }
 
     public static Spanned fromHtml(String htmlString )
