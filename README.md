@@ -1,10 +1,8 @@
-# SuntimesCalendars
+# Suntimes Calendars
 
-A calendar provider add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget).
+This add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) supplies calendar events for the moon phases, solstices, and equinoxes.
 
-**Attention: This app is beta!** This notice will be removed after initial release. 
-This app relies on an unreleased ContentProvider defined in the Suntimes [`contentprovider`](https://github.com/forrestguice/SuntimesWidget/blob/contentprovider/app/src/main/java/com/forrestguice/suntimeswidget/calculator/CalculatorProviderContract.java) branch.
-
+This app depends on Suntimes [v0.10.0](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
 [![Build Status](https://travis-ci.org/forrestguice/SuntimesCalendars.svg?branch=master)](https://travis-ci.org/forrestguice/SuntimesCalendars)
 
@@ -14,7 +12,6 @@ This app relies on an unreleased ContentProvider defined in the Suntimes [`conte
 * [Legal Stuff](#legal-stuff)
 * [Contributions](#project-contributions)
 
-This add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) supplies the Calendar app with calendars and events (moon phases, solstices, and equinoxes).
 
 ## Privacy and Permissions ##
 
@@ -25,11 +22,12 @@ The app requires the following permissions...
 
 |Permission||Since Version|
 |---|---|---|
-|suntimeswidget.READ_SUNTIMES|To interact with Suntimes.|v0.1.0|
 |READ_CALENDAR|To interact with the Calendar app (access events).|v0.1.0|
 |WRITE_CALENDAR|To interact with the Calendar app (add/remove events).|v0.1.0|
 |READ_SYNC_STATS|To interact with the Calendar app (access custom calendars).|v0.1.0|
 |WRITE_SYNC_SETTINGS|To interact with the Calendar app (add/remove custom calendars).|v0.1.0|
+|suntimes.permission.READ_CALCULATOR|To read data from the Suntimes provider.|v0.1.0|
+
 
 ## Donations ##
 
@@ -46,7 +44,9 @@ When submitting a bug please be detailed and specific. What did you expect the a
 
 ## Legal Stuff
 
-The source code is available under *GPLv3* (https://github.com/forrestguice/SuntimesCalendars).
+The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
 
 ## Project Contributions
 
