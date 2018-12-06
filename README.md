@@ -1,8 +1,8 @@
 # Suntimes Calendars
 
-This add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) supplies calendar events for the moon phases, solstices, and equinoxes.
-
+This add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) supplies calendar events for the moon phases, solstices, and equinoxes.<br/>
 This app depends on Suntimes [v0.10.0](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
+
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
 [![Build Status](https://travis-ci.org/forrestguice/SuntimesCalendars.svg?branch=master)](https://travis-ci.org/forrestguice/SuntimesCalendars)
 
@@ -46,7 +46,7 @@ When submitting a bug please be detailed and specific. What did you expect the a
 
 The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
+>> This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
 
 ## Project Contributions
 
