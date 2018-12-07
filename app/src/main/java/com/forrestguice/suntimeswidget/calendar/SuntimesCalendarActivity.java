@@ -23,6 +23,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ContentResolver;
@@ -463,17 +464,30 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
         calendarTask.setTaskListener(new SuntimesCalendarTask.SuntimesCalendarTaskListener()
         {
+            private ProgressDialog progress;
+
             @Override
             public void onStarted(boolean flag_clear)
             {
-                if (!flag_clear) {
-                    Toast.makeText(activity, activity.getString(R.string.calendars_notification_adding), Toast.LENGTH_SHORT).show();
+                if (!flag_clear)
+                {
+                    //Toast.makeText(activity, activity.getString(R.string.calendars_notification_adding), Toast.LENGTH_SHORT).show();
+
+                    progress = new ProgressDialog(activity);
+                    progress.setIndeterminate(true);
+                    progress.setMessage(activity.getString(R.string.calendars_notification_adding));
+                    progress.setCanceledOnTouchOutside(false);
+                    progress.show();
                 }
             }
 
             @Override
             public void onSuccess(boolean flag_clear)
             {
+                if (progress != null) {
+                    progress.dismiss();
+                }
+
                 if (!flag_clear)
                     Toast.makeText(activity, activity.getString(R.string.calendars_notification_added), Toast.LENGTH_SHORT).show();
                 else Toast.makeText(activity, activity.getString(R.string.calendars_notification_cleared), Toast.LENGTH_SHORT).show();
@@ -482,6 +496,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             @Override
             public void onFailed(final String errorMsg)
             {
+                if (progress != null) {
+                    progress.dismiss();
+                }
+
                 super.onFailed(errorMsg);
                 AlertDialog.Builder errorDialog = new AlertDialog.Builder(activity);
                 errorDialog.setTitle(activity.getString(R.string.calendars_notification_adding_failed))
