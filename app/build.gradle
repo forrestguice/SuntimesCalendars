@@ -8,8 +8,8 @@ android {
         applicationId "com.forrestguice.suntimescalendars"
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 1
-        versionName "0.1.0"
+        versionCode 2
+        versionName "0.1.1"
 
         buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + getDateAsMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
