@@ -223,13 +223,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
-                    case SuntimesCalendarTaskItem.ACTION_ADD:
-                        retValue = retValue && initCalendar(calendar, window);
-                        break;
-
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        retValue = retValue && updateCalendar(calendar, window);
+                        retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
             }
@@ -306,24 +302,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
             return false;
         }
-    }
-
-    /**
-     * updateCalendar
-     */
-    private boolean updateCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
-    {
-        if (window.length != 2) {
-            Log.e(TAG, "initCalendar: invalid window with length " + window.length);
-            return false;
-
-        } else if (window[0] == null || window[1] == null) {
-            Log.e(TAG, "initCalendar: invalid window; null!");
-            return false;
-        }
-
-        // TODO
-        return false;
     }
 
     /**
@@ -442,9 +420,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
      */
     public static class SuntimesCalendarTaskItem implements Parcelable
     {
-        public static final int ACTION_ADD = 0;
-        public static final int ACTION_UPDATE = 2;
-        public static final int ACTION_DELETE = 4;
+        public static final int ACTION_UPDATE = 0;
+        public static final int ACTION_DELETE = 2;
 
         private String calendar;
         private int action;
