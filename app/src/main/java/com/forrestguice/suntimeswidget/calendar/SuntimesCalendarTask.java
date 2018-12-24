@@ -220,7 +220,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        retValue = retValue && deleteCalendar(calendar);
+                        retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_ADD:
@@ -322,15 +322,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             return false;
         }
 
-        // TODO
-        return false;
-    }
-
-    /**
-     * deleteCalendar
-     */
-    private boolean deleteCalendar(@NonNull String calendar) throws SecurityException
-    {
         // TODO
         return false;
     }

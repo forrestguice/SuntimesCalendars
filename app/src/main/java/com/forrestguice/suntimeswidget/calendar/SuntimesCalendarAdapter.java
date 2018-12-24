@@ -79,6 +79,23 @@ public class SuntimesCalendarAdapter
     }
 
     /**
+     * Removes individual calendars by name.
+     * @param calendar calendar name
+     * @return true calendar was removed, false otherwise
+     */
+    public boolean removeCalendar(String calendar)
+    {
+        long calendarID = queryCalendarID(calendar);
+        if (calendarID != -1)
+        {
+            Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
+            contentResolver.delete(deleteUri, null, null);
+            Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
+            return true;
+        } else return false;
+    }
+
+    /**
      * @param calendarID the calendar's ID
      * @param title the event title
      * @param description the event description
