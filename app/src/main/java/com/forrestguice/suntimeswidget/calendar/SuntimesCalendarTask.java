@@ -41,13 +41,27 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
+public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
+
+    private SuntimesCalendarTaskListener listener;
+    public void setTaskListener( SuntimesCalendarTaskListener listener )
+    {
+        this.listener = listener;
+        this.listener = listener;
+    }
+    public static abstract class SuntimesCalendarTaskListener
+    {
+        public void onStarted(boolean flag_clear) {}
+        public void onSuccess(boolean flag_cleared) {}
+        public void onFailed(String errorMsg) {}
+    }
 
     private SuntimesCalendarAdapter adapter;
     private WeakReference<Context> contextRef;
 
+    private HashMap<String, Boolean> calendars = new HashMap<>();
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
@@ -166,10 +180,14 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     }
 
     @Override
-    protected Boolean doInBackground(Void... params)
+    protected Boolean doInBackground(String... calendarParams)
     {
         if (Build.VERSION.SDK_INT < 14)
             return false;
+
+        for (String calendar : calendarParams) {
+            calendars.put(calendar, true);
+        }
 
         boolean retValue = adapter.removeCalendars();
         if (!flag_clear && !isCancelled())
@@ -197,8 +215,11 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                     + "endWindow: " + calendarWindow1 + " (" + endDate.get(Calendar.YEAR) + ")");
 
             try {
-                retValue = retValue && initSolsticeCalendar(startDate, endDate);
-                retValue = retValue && initMoonPhaseCalendar(startDate, endDate);
+                for (String calendar : calendars.keySet()) {
+                    if (calendars.get(calendar)) {
+                        retValue = retValue && initCalendar(calendar, startDate, endDate);
+                    }
+                }
 
             } catch (SecurityException e) {
                 lastError = "Unable to access provider! " + e;
@@ -248,6 +269,26 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
 
     private static final int NOTIFICATION_REQUEST_LASTERROR = 10;
 
+    /**
+     * initCalendar
+     */
+    private boolean initCalendar(String calendar, Calendar startDate, Calendar endDate) throws SecurityException
+    {
+        if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
+            return initSolsticeCalendar(startDate, endDate);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
+            return initMoonPhaseCalendar(startDate, endDate);
+
+        } else {
+            Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
+            return false;
+        }
+    }
+
+    /**
+     * initSolsticeCalendar
+     */
     private boolean initSolsticeCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
@@ -298,6 +339,9 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         } else return false;
     }
 
+    /**
+     * initMoonPhaseCalendar
+     */
     private boolean initMoonPhaseCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
@@ -351,19 +395,6 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
                 return false;
             }
         } else return false;
-    }
-
-    private SuntimesCalendarTaskListener listener;
-    public void setTaskListener( SuntimesCalendarTaskListener listener )
-    {
-        this.listener = listener;
-        this.listener = listener;
-    }
-    public static abstract class SuntimesCalendarTaskListener
-    {
-        public void onStarted(boolean flag_clear) {}
-        public void onSuccess(boolean flag_cleared) {}
-        public void onFailed(String errorMsg) {}
     }
 
 }

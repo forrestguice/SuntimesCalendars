@@ -522,7 +522,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         });
 
-        calendarTask.execute();
+        String[] calendars = new String[] { SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarAdapter.CALENDAR_MOONPHASE };   // TODO: from settings
+        calendarTask.execute(calendars);
         return true;
     }
 
