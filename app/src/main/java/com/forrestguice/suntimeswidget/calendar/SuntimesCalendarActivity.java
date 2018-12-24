@@ -524,13 +524,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         });
 
-        ArrayList<String> calendars = new ArrayList<>();
+        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
         for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
-            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
-                calendars.add(calendar);
+            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar))
+            {
+                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_ADD));
             }
         }
-        calendarTask.execute(calendars.toArray(new String[0]));
+        calendarTask.execute(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         return true;
     }
 

@@ -28,7 +28,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.NotificationCompat;
@@ -41,27 +44,14 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
+public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, String, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
-
-    private SuntimesCalendarTaskListener listener;
-    public void setTaskListener( SuntimesCalendarTaskListener listener )
-    {
-        this.listener = listener;
-        this.listener = listener;
-    }
-    public static abstract class SuntimesCalendarTaskListener
-    {
-        public void onStarted(boolean flag_clear) {}
-        public void onSuccess(boolean flag_cleared) {}
-        public void onFailed(String errorMsg) {}
-    }
 
     private SuntimesCalendarAdapter adapter;
     private WeakReference<Context> contextRef;
 
-    private HashMap<String, Boolean> calendars = new HashMap<>();
+    private HashMap<String, SuntimesCalendarTaskItem> calendars = new HashMap<>();
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
@@ -179,54 +169,77 @@ public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
         }
     }
 
+    private Calendar[] getWindow()
+    {
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+
+        startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
+        startDate.set(Calendar.MONTH, 0);            // round down to start of year
+        startDate.set(Calendar.DAY_OF_MONTH, 0);
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+
+        endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
+        endDate.add(Calendar.YEAR, 1);       // round up to end of year
+        endDate.set(Calendar.MONTH, 0);
+        endDate.set(Calendar.DAY_OF_MONTH, 0);
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
+
+        return new Calendar[] { startDate, endDate };
+    }
+
     @Override
-    protected Boolean doInBackground(String... calendarParams)
+    protected Boolean doInBackground(SuntimesCalendarTaskItem... items)
     {
         if (Build.VERSION.SDK_INT < 14)
             return false;
 
-        for (String calendar : calendarParams) {
-            calendars.put(calendar, true);
+        for (SuntimesCalendarTaskItem item : items) {
+            calendars.put(item.getCalendar(), item);
         }
 
-        boolean retValue = adapter.removeCalendars();
-        if (!flag_clear && !isCancelled())
-        {
-            Calendar startDate = Calendar.getInstance();
-            Calendar endDate = Calendar.getInstance();
-            Calendar now = Calendar.getInstance();
+        boolean retValue = true;
 
-            startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
-            startDate.set(Calendar.MONTH, 0);            // round down to start of year
-            startDate.set(Calendar.DAY_OF_MONTH, 0);
-            startDate.set(Calendar.HOUR_OF_DAY, 0);
-            startDate.set(Calendar.MINUTE, 0);
-            startDate.set(Calendar.SECOND, 0);
+        if (flag_clear && !isCancelled()) {
+            adapter.removeCalendars();
+        }
 
-            endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
-            endDate.add(Calendar.YEAR, 1);       // round up to end of year
-            endDate.set(Calendar.MONTH, 0);
-            endDate.set(Calendar.DAY_OF_MONTH, 0);
-            endDate.set(Calendar.HOUR_OF_DAY, 0);
-            endDate.set(Calendar.MINUTE, 0);
-            endDate.set(Calendar.SECOND, 0);
+        Calendar[] window = getWindow();
+        Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
+                + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 
-            Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + startDate.get(Calendar.YEAR) + "), "
-                    + "endWindow: " + calendarWindow1 + " (" + endDate.get(Calendar.YEAR) + ")");
+        try {
+            for (String calendar : calendars.keySet())
+            {
+                SuntimesCalendarTaskItem item = calendars.get(calendar);
+                switch (item.getAction())
+                {
+                    case SuntimesCalendarTaskItem.ACTION_DELETE:
+                        retValue = retValue && deleteCalendar(calendar);
+                        break;
 
-            try {
-                for (String calendar : calendars.keySet()) {
-                    if (calendars.get(calendar)) {
-                        retValue = retValue && initCalendar(calendar, startDate, endDate);
-                    }
+                    case SuntimesCalendarTaskItem.ACTION_ADD:
+                        retValue = retValue && initCalendar(calendar, window);
+                        break;
+
+                    case SuntimesCalendarTaskItem.ACTION_UPDATE:
+                    default:
+                        retValue = retValue && updateCalendar(calendar, window);
+                        break;
                 }
-
-            } catch (SecurityException e) {
-                lastError = "Unable to access provider! " + e;
-                Log.e(TAG, lastError);
-                return false;
             }
+
+        } catch (SecurityException e) {
+            lastError = "Unable to access provider! " + e;
+            Log.e(TAG, lastError);
+            return false;
         }
+
         return retValue;
     }
 
@@ -272,13 +285,22 @@ public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
     /**
      * initCalendar
      */
-    private boolean initCalendar(String calendar, Calendar startDate, Calendar endDate) throws SecurityException
+    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
     {
+        if (window.length != 2) {
+            Log.e(TAG, "initCalendar: invalid window with length " + window.length);
+            return false;
+
+        } else if (window[0] == null || window[1] == null) {
+            Log.e(TAG, "initCalendar: invalid window; null!");
+            return false;
+        }
+
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
-            return initSolsticeCalendar(startDate, endDate);
+            return initSolsticeCalendar(window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
-            return initMoonPhaseCalendar(startDate, endDate);
+            return initMoonPhaseCalendar(window[0], window[1]);
 
         } else {
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
@@ -287,9 +309,36 @@ public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
     }
 
     /**
+     * updateCalendar
+     */
+    private boolean updateCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
+    {
+        if (window.length != 2) {
+            Log.e(TAG, "initCalendar: invalid window with length " + window.length);
+            return false;
+
+        } else if (window[0] == null || window[1] == null) {
+            Log.e(TAG, "initCalendar: invalid window; null!");
+            return false;
+        }
+
+        // TODO
+        return false;
+    }
+
+    /**
+     * deleteCalendar
+     */
+    private boolean deleteCalendar(@NonNull String calendar) throws SecurityException
+    {
+        // TODO
+        return false;
+    }
+
+    /**
      * initSolsticeCalendar
      */
-    private boolean initSolsticeCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
+    private boolean initSolsticeCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -342,7 +391,7 @@ public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
     /**
      * initMoonPhaseCalendar
      */
-    private boolean initMoonPhaseCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
+    private boolean initMoonPhaseCalendar( @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -395,6 +444,83 @@ public class SuntimesCalendarTask extends AsyncTask<String, String, Boolean>
                 return false;
             }
         } else return false;
+    }
+
+    /**
+     * SuntimesCalendarTaskItem
+     */
+    public static class SuntimesCalendarTaskItem implements Parcelable
+    {
+        public static final int ACTION_ADD = 0;
+        public static final int ACTION_UPDATE = 2;
+        public static final int ACTION_DELETE = 4;
+
+        private String calendar;
+        private int action;
+
+        public SuntimesCalendarTaskItem( String calendar, int action )
+        {
+            this.calendar = calendar;
+            this.action = action;
+        }
+
+        private SuntimesCalendarTaskItem(Parcel in)
+        {
+            this.calendar = in.readString();
+            this.action = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            dest.writeString(calendar);
+            dest.writeInt(action);
+        }
+
+        @Override
+        public int describeContents()
+        {
+            return 0;
+        }
+
+        public String getCalendar()
+        {
+            return calendar;
+        }
+
+        public int getAction()
+        {
+            return action;
+        }
+
+        public static final Parcelable.Creator<SuntimesCalendarTaskItem> CREATOR = new Parcelable.Creator<SuntimesCalendarTaskItem>()
+        {
+            public SuntimesCalendarTaskItem createFromParcel(Parcel in)
+            {
+                return new SuntimesCalendarTaskItem(in);
+            }
+
+            public SuntimesCalendarTaskItem[] newArray(int size)
+            {
+                return new SuntimesCalendarTaskItem[size];
+            }
+        };
+    }
+
+    /**
+     * SuntimesCalendarTaskListener
+     */
+    public static abstract class SuntimesCalendarTaskListener
+    {
+        public void onStarted(boolean flag_clear) {}
+        public void onSuccess(boolean flag_cleared) {}
+        public void onFailed(String errorMsg) {}
+    }
+
+    private SuntimesCalendarTaskListener listener;
+    public void setTaskListener( SuntimesCalendarTaskListener listener )
+    {
+        this.listener = listener;
     }
 
 }
