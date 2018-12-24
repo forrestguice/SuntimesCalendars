@@ -63,6 +63,8 @@ import android.widget.Toast;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -522,8 +524,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         });
 
-        String[] calendars = new String[] { SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarAdapter.CALENDAR_MOONPHASE };   // TODO: from settings
-        calendarTask.execute(calendars);
+        ArrayList<String> calendars = new ArrayList<>();
+        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
+                calendars.add(calendar);
+            }
+        }
+        calendarTask.execute(calendars.toArray(new String[0]));
         return true;
     }
 

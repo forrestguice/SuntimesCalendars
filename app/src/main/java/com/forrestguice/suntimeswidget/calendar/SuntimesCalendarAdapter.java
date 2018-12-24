@@ -37,6 +37,7 @@ public class SuntimesCalendarAdapter
 
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
+    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE};
 
     private ContentResolver contentResolver;
 

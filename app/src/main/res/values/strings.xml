@@ -108,4 +108,6 @@
     <string name="def_app_calendars_enabled" translatable="false">false</string>
     <string name="def_calendars_window0" translatable="false">31536000000</string>
     <string name="def_calendars_window1" translatable="false">63072000000</string>
+    <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
+    <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 </resources>

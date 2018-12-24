@@ -33,6 +33,8 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDAR_WINDOW1 = "app_calendars_window1";
     public static final String PREF_DEF_CALENDAR_WINDOW1 = "63072000000";  // 2 years
 
+    public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
+
     /**
      * @param context
      * @param enabled
@@ -72,5 +74,15 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return Long.parseLong(prefs.getString(PREF_KEY_CALENDAR_WINDOW1, PREF_DEF_CALENDAR_WINDOW1));
+    }
+
+    /**
+     * @param context context used to access preferences
+     * @return true calendar is enabled, false otherwise
+     */
+    public static boolean loadPrefCalendarEnabled(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 }
