@@ -302,24 +302,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         final int requestCode = (enabled ? REQUEST_CALENDARPREFSFRAGMENT_ENABLED : REQUEST_CALENDARPREFSFRAGMENT_DISABLED);
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
                         {
-                            String permissionMessage = activity.getString(R.string.privacy_permission_calendar);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                            builder.setTitle(activity.getString(R.string.privacy_permissiondialog_title))
-                                    .setMessage(fromHtml(permissionMessage))
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
-                                    {
-                                        public void onClick(DialogInterface dialog, int which)
-                                        {
-                                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                                            tmp_calendarPref = calendarsEnabledPref;
-                                        }
-                                    });
-
-                            //if (Build.VERSION.SDK_INT >= 11)
-                            //builder.setIconAttribute(R.attr.icActionWarning);
-                            //else builder.setIcon(R.drawable.ic_action_warning);
-
-                            builder.show();
+                            showPermissionRational(activity, requestCode, calendarsEnabledPref);
                             return false;
 
                         } else {
@@ -350,6 +333,23 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
             }
+        }
+
+        private void showPermissionRational(final Activity activity, final int requestCode, final CheckBoxPreference calendarsEnabledPref)
+        {
+            String permissionMessage = activity.getString(R.string.privacy_permission_calendar);
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle(activity.getString(R.string.privacy_permissiondialog_title))
+                    .setMessage(fromHtml(permissionMessage))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            tmp_calendarPref = calendarsEnabledPref;
+                        }
+                    });
+            builder.show();
         }
 
         @Override
