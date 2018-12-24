@@ -40,6 +40,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 
 import android.preference.Preference;
@@ -65,6 +66,7 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -83,6 +85,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static final int REQUEST_CALENDARPREFSFRAGMENT_ENABLED = 2;
     public static final int REQUEST_CALENDARPREFSFRAGMENT_DISABLED = 4;
+
+    public static final String EXTRA_ON_PERMISSIONS_GRANTED = "on_permissions_granted_do_this";
 
     private Context context;
     private String config_apptheme = null;
@@ -302,16 +306,23 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         final int requestCode = (enabled ? REQUEST_CALENDARPREFSFRAGMENT_ENABLED : REQUEST_CALENDARPREFSFRAGMENT_DISABLED);
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
                         {
+                            if (enabled) {
+                                savePendingItems(activity);
+                            }
                             showPermissionRational(activity, requestCode, calendarsEnabledPref);
                             return false;
 
                         } else {
+                            if (enabled) {
+                                savePendingItems(activity);
+                            }
                             ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
                             tmp_calendarPref = calendarsEnabledPref;
                             return false;
                         }
 
                     } else {
+                        savePendingItems(activity);
                         return runCalendarTask(activity, enabled);
                     }
                 }
@@ -461,9 +472,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         calendarTask = new SuntimesCalendarTask(activity);
-        if (!enabled) {
-            calendarTask.setFlagClearCalendars(true);
-        }
         calendarTask.setTaskListener(new SuntimesCalendarTask.SuntimesCalendarTaskListener()
         {
             private ProgressDialog progress;
@@ -525,14 +533,45 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         });
 
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
-        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
-            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar))
-            {
-                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_ADD));
-            }
+        if (enabled) {
+            items = loadItems(activity);
+
+        } else {
+            calendarTask.setFlagClearCalendars(true);
         }
+
         calendarTask.execute(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         return true;
+    }
+
+    /**
+     * getItems
+     */
+    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> getItems(Activity activity, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
+    {
+        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
+                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE));
+            }
+        }
+        return items;
+    }
+
+    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Activity activity)
+    {
+        Intent intent = activity.getIntent();
+        SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = (SuntimesCalendarTask.SuntimesCalendarTaskItem[]) intent.getParcelableArrayExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+        intent.removeExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+        return new ArrayList<>(Arrays.asList(items));
+    }
+
+    /**
+     * saveItems
+     */
+    public static void savePendingItems(Activity activity)
+    {
+        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = getItems(activity, new ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem>());
+        activity.getIntent().putExtra(EXTRA_ON_PERMISSIONS_GRANTED, items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
     }
 
     public static Spanned fromHtml(String htmlString )
