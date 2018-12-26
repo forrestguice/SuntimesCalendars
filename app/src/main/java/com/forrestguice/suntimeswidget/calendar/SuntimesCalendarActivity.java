@@ -40,7 +40,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 
 import android.preference.Preference;
@@ -64,9 +63,9 @@ import android.widget.Toast;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -83,8 +82,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static final String MIN_SUNTIMES_VERSION = "0.10.0";
     public static final String MIN_SUNTIMES_VERSION_STRING = "Suntimes v" + MIN_SUNTIMES_VERSION;
 
-    public static final int REQUEST_CALENDARPREFSFRAGMENT_ENABLED = 2;
-    public static final int REQUEST_CALENDARPREFSFRAGMENT_DISABLED = 4;
+
+    public static final int REQUEST_CALENDAR_ENABLED = 12;           // individual calendar enabled/disabled
+    public static final int REQUEST_CALENDAR_DISABLED = 14;
+
+    public static final int REQUEST_CALENDARS_ENABLED = 2;          // all calendars enabled/disabled
+    public static final int REQUEST_CALENDARS_DISABLED = 4;
 
     public static final String EXTRA_ON_PERMISSIONS_GRANTED = "on_permissions_granted_do_this";
 
@@ -95,6 +98,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     private static String appVersionName = null, providerVersionName = null;
     private static Integer appVersionCode = null, providerVersionCode = null;
     private static boolean needsSuntimesPermissions = false;
+
+    private CalendarPrefsFragment mainFragment = null;
 
     public SuntimesCalendarActivity()
     {
@@ -211,10 +216,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         super.onCreate(icicle);
-        CalendarPrefsFragment fragment = new CalendarPrefsFragment();
-        fragment.setAboutClickListener(onAboutClick);
-        fragment.setProviderVersion(providerVersionCode);
-        getFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
+        mainFragment = new CalendarPrefsFragment();
+        mainFragment.setAboutClickListener(onAboutClick);
+        mainFragment.setProviderVersion(providerVersionCode);
+        getFragmentManager().beginTransaction().replace(android.R.id.content, mainFragment).commit();
     }
 
     @Override
@@ -224,21 +229,37 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             switch (requestCode)
             {
-                case REQUEST_CALENDARPREFSFRAGMENT_ENABLED:
-                case REQUEST_CALENDARPREFSFRAGMENT_DISABLED:
+                case REQUEST_CALENDAR_ENABLED:
+                case REQUEST_CALENDAR_DISABLED:
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     {
-                        boolean enabled = requestCode == (REQUEST_CALENDARPREFSFRAGMENT_ENABLED);
-                        if (runCalendarTask(SuntimesCalendarActivity.this, enabled))
+                        if (runCalendarTask(SuntimesCalendarActivity.this, false))
+                        {
+                            if (mainFragment != null)
+                            {
+                                // TODO
+                            }
+                        }
+                    }
+                    break;
+
+                case REQUEST_CALENDARS_ENABLED:
+                case REQUEST_CALENDARS_DISABLED:
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    {
+                        boolean enabled = requestCode == (REQUEST_CALENDARS_ENABLED);
+                        if (runCalendarTask(SuntimesCalendarActivity.this, !enabled))
                         {
                             SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
                             pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
                             pref.apply();
 
-                            if (tmp_calendarPref != null)
+                            if (mainFragment != null)
                             {
-                                tmp_calendarPref.setChecked(enabled);
-                                tmp_calendarPref = null;
+                                CheckBoxPreference calendarsPref = mainFragment.getCalendarsEnabledPref();
+                                if (calendarsPref != null) {
+                                    calendarsPref.setChecked(enabled);
+                                }
                             }
                         }
                     }
@@ -275,6 +296,18 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class CalendarPrefsFragment extends PreferenceFragment
     {
+        private CheckBoxPreference calendarsEnabledPref = null;
+        public CheckBoxPreference getCalendarsEnabledPref()
+        {
+            return calendarsEnabledPref;
+        }
+
+        private HashMap<String, CheckBoxPreference> calendarPrefs = new HashMap<>();
+        public CheckBoxPreference getCalendarPref(String calendar)
+        {
+            return calendarPrefs.get(calendar);
+        }
+
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
@@ -287,13 +320,19 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 providerVersion = savedInstanceState.getInt("providerVersion");
             }
 
+            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
+            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
+            {
+                CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
+                calendarPrefs.put(calendar, calendarPref);
+            }
+
             Preference aboutPref = findPreference("app_about");
             if (aboutPref != null && onAboutClick != null) {
                 aboutPref.setOnPreferenceClickListener(onAboutClick);
             }
 
             final Activity activity = getActivity();
-            final CheckBoxPreference calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             final Preference.OnPreferenceChangeListener onPreferenceChanged0 = new Preference.OnPreferenceChangeListener()
             {
                 @Override
@@ -303,7 +342,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
                     if (calendarPermission != PackageManager.PERMISSION_GRANTED)
                     {
-                        final int requestCode = (enabled ? REQUEST_CALENDARPREFSFRAGMENT_ENABLED : REQUEST_CALENDARPREFSFRAGMENT_DISABLED);
+                        final int requestCode = (enabled ? REQUEST_CALENDARS_ENABLED : REQUEST_CALENDARS_DISABLED);
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
                         {
                             if (enabled) {
@@ -317,13 +356,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                                 savePendingItems(activity);
                             }
                             ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                            tmp_calendarPref = calendarsEnabledPref;
                             return false;
                         }
 
                     } else {
                         savePendingItems(activity);
-                        return runCalendarTask(activity, enabled);
+                        return runCalendarTask(activity, !enabled);
                     }
                 }
             };
@@ -357,7 +395,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         public void onClick(DialogInterface dialog, int which)
                         {
                             ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                            tmp_calendarPref = calendarsEnabledPref;
                         }
                     });
             builder.show();
@@ -453,9 +490,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     }
 
 
-    private static CheckBoxPreference tmp_calendarPref = null;
     private static SuntimesCalendarTask calendarTask = null;
-    private static boolean runCalendarTask(final Activity activity, boolean enabled)
+    private static boolean runCalendarTask(final Activity activity, boolean clearCalendars)
     {
         if (calendarTask != null)
         {
@@ -533,12 +569,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         });
 
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
-        if (enabled) {
-            items = loadItems(activity);
-
-        } else {
+        if (clearCalendars)
             calendarTask.setFlagClearCalendars(true);
-        }
+        else items = loadItems(activity);
 
         calendarTask.execute(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         return true;
