@@ -247,7 +247,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                                     CheckBoxPreference calendarPref = mainFragment.getCalendarPref(item.getCalendar());
                                     if (calendarPref != null) {
-                                        calendarPref.setEnabled(enabled);
+                                        calendarPref.setChecked(enabled);
                                     }
                                 }
                             }
@@ -342,14 +342,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
 
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            boolean calendarsEnabled0 = adapter.hasCalendars();
-            boolean calendarsEnabled1 = calendarsEnabledPref.isChecked();
-            if (calendarsEnabled0 != calendarsEnabled1)
+            if (hasCalendarPermissions(activity))
             {
-                Log.w(TAG, "onCreate: out of sync! setting enabled to " + (calendarsEnabled0 ? "enabled" : "disabled"));
-                prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, calendarsEnabled0);
-                prefs.apply();
-                calendarsEnabledPref.setChecked(calendarsEnabled0);
+                boolean calendarsEnabled0 = adapter.hasCalendars();
+                boolean calendarsEnabled1 = calendarsEnabledPref.isChecked();
+                if (calendarsEnabled0 != calendarsEnabled1)
+                {
+                    Log.w(TAG, "onCreate: out of sync! setting pref to " + (calendarsEnabled0 ? "enabled" : "disabled"));
+                    prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, calendarsEnabled0);
+                    prefs.apply();
+                    calendarsEnabledPref.setChecked(calendarsEnabled0);
+                }
             }
             calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0(activity));
 
@@ -358,7 +361,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPrefs.put(calendar, calendarPref);
 
-                if (calendarsEnabledPref.isChecked())
+                if (calendarsEnabledPref.isChecked() && hasCalendarPermissions(activity))
                 {
                     boolean enabled0 = adapter.hasCalendar(calendar);
                     boolean enabled1 = SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar);
@@ -397,6 +400,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }*/
         }
 
+        private boolean hasCalendarPermissions(Activity activity)
+        {
+            int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
+            return (calendarPermission == PackageManager.PERMISSION_GRANTED);
+        }
+
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
         {
             return new Preference.OnPreferenceChangeListener()
@@ -405,8 +414,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 public boolean onPreferenceChange(Preference preference, Object newValue)
                 {
                     boolean enabled = (Boolean)newValue;
-                    int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-                    if (calendarPermission != PackageManager.PERMISSION_GRANTED)
+                    if (!hasCalendarPermissions(activity))
                     {
                         final int requestCode = (enabled ? REQUEST_CALENDARS_ENABLED : REQUEST_CALENDARS_DISABLED);
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
@@ -444,8 +452,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     if (calendarsEnabled)
                     {
                         boolean enabled = (Boolean)newValue;
-                        int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-                        if (calendarPermission != PackageManager.PERMISSION_GRANTED)
+                        if (!hasCalendarPermissions(activity))
                         {
                             final int requestCode = (enabled ? REQUEST_CALENDAR_ENABLED : REQUEST_CALENDAR_DISABLED);
                             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
