@@ -138,6 +138,14 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         flag_clear = flag;
     }
 
+    public void setItems(SuntimesCalendarTaskItem... items)
+    {
+        calendars.clear();
+        for (SuntimesCalendarTaskItem item : items) {
+            calendars.put(item.getCalendar(), item);
+        }
+    }
+
     @Override
     protected void onCancelled ()
     {
@@ -199,8 +207,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         if (Build.VERSION.SDK_INT < 14)
             return false;
 
-        for (SuntimesCalendarTaskItem item : items) {
-            calendars.put(item.getCalendar(), item);
+        if (items.length > 0) {
+            setItems(items);
         }
 
         boolean retValue = true;
