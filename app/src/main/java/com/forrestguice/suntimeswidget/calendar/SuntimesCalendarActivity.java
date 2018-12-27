@@ -233,11 +233,23 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 case REQUEST_CALENDAR_DISABLED:
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     {
-                        if (runCalendarTask(SuntimesCalendarActivity.this, false))
+                        if (runCalendarTask(SuntimesCalendarActivity.this, false, false))
                         {
                             if (mainFragment != null)
                             {
-                                // TODO
+                                SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                                ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = loadItems(this, true);
+                                for (SuntimesCalendarTask.SuntimesCalendarTaskItem item : items)
+                                {
+                                    boolean enabled = (item.getAction() == SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE);
+                                    pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
+                                    pref.apply();
+
+                                    CheckBoxPreference calendarPref = mainFragment.getCalendarPref(item.getCalendar());
+                                    if (calendarPref != null) {
+                                        calendarPref.setEnabled(enabled);
+                                    }
+                                }
                             }
                         }
                     }
@@ -248,7 +260,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     {
                         boolean enabled = requestCode == (REQUEST_CALENDARS_ENABLED);
-                        if (runCalendarTask(SuntimesCalendarActivity.this, !enabled))
+                        if (runCalendarTask(SuntimesCalendarActivity.this, !enabled, true))
                         {
                             SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
                             pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
@@ -320,52 +332,21 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 providerVersion = savedInstanceState.getInt("providerVersion");
             }
 
-            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
-            {
-                CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
-                calendarPrefs.put(calendar, calendarPref);
-            }
-
             Preference aboutPref = findPreference("app_about");
             if (aboutPref != null && onAboutClick != null) {
                 aboutPref.setOnPreferenceClickListener(onAboutClick);
             }
 
             final Activity activity = getActivity();
-            final Preference.OnPreferenceChangeListener onPreferenceChanged0 = new Preference.OnPreferenceChangeListener()
+            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
+            calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0(activity));
+
+            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue)
-                {
-                    boolean enabled = (Boolean)newValue;
-                    int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-                    if (calendarPermission != PackageManager.PERMISSION_GRANTED)
-                    {
-                        final int requestCode = (enabled ? REQUEST_CALENDARS_ENABLED : REQUEST_CALENDARS_DISABLED);
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
-                        {
-                            if (enabled) {
-                                savePendingItems(activity);
-                            }
-                            showPermissionRational(activity, requestCode, calendarsEnabledPref);
-                            return false;
-
-                        } else {
-                            if (enabled) {
-                                savePendingItems(activity);
-                            }
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
-                            return false;
-                        }
-
-                    } else {
-                        savePendingItems(activity);
-                        return runCalendarTask(activity, !enabled);
-                    }
-                }
-            };
-            calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0);
+                CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
+                calendarPrefs.put(calendar, calendarPref);
+                calendarPref.setOnPreferenceChangeListener(onPreferenceChanged1(activity, calendar));
+            }
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
@@ -381,10 +362,91 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 if (needsSuntimesPermissions)
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
-            }
+
+            } /**else {
+                boolean enabled = calendarsEnabledPref.isChecked();
+                for (CheckBoxPreference pref : calendarPrefs.values()) {
+                    pref.setEnabled(enabled);
+                }
+            }*/
         }
 
-        private void showPermissionRational(final Activity activity, final int requestCode, final CheckBoxPreference calendarsEnabledPref)
+        private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
+        {
+            return new Preference.OnPreferenceChangeListener()
+            {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue)
+                {
+                    boolean enabled = (Boolean)newValue;
+                    int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
+                    if (calendarPermission != PackageManager.PERMISSION_GRANTED)
+                    {
+                        final int requestCode = (enabled ? REQUEST_CALENDARS_ENABLED : REQUEST_CALENDARS_DISABLED);
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
+                        {
+                            if (enabled) {
+                                savePendingItems(activity);
+                            }
+                            showPermissionRational(activity, requestCode);
+                            return false;
+
+                        } else {
+                            if (enabled) {
+                                savePendingItems(activity);
+                            }
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            return false;
+                        }
+
+                    } else {
+                        savePendingItems(activity);
+                        return runCalendarTask(activity, !enabled, true);
+                    }
+                }
+            };
+        }
+
+        private Preference.OnPreferenceChangeListener onPreferenceChanged1(final Activity activity, final String calendar)
+        {
+            return new Preference.OnPreferenceChangeListener()
+            {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue)
+                {
+                    boolean calendarsEnabled = SuntimesCalendarSettings.loadCalendarsEnabledPref(activity);
+                    if (calendarsEnabled)
+                    {
+                        boolean enabled = (Boolean)newValue;
+                        int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
+                        if (calendarPermission != PackageManager.PERMISSION_GRANTED)
+                        {
+                            final int requestCode = (enabled ? REQUEST_CALENDAR_ENABLED : REQUEST_CALENDAR_DISABLED);
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
+                            {
+                                savePendingItem(activity, calendar, enabled);
+                                showPermissionRational(activity, requestCode);
+                                return false;
+
+                            } else {
+                                savePendingItem(activity, calendar, enabled);
+                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                                return false;
+                            }
+
+                        } else {
+                            savePendingItem(activity, calendar, enabled);
+                            return runCalendarTask(activity, false, true);
+                        }
+
+                    } else {
+                        return true;
+                    }
+                }
+            };
+        }
+
+        private void showPermissionRational(final Activity activity, final int requestCode)
         {
             String permissionMessage = activity.getString(R.string.privacy_permission_calendar);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -489,9 +551,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     }
 
-
     private static SuntimesCalendarTask calendarTask = null;
-    private static boolean runCalendarTask(final Activity activity, boolean clearCalendars)
+    private static boolean runCalendarTask(final Activity activity, boolean clearCalendars, boolean clearPending)
     {
         if (calendarTask != null)
         {
@@ -571,30 +632,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (clearCalendars)
             calendarTask.setFlagClearCalendars(true);
-        else items = loadItems(activity);
+        else items = loadItems(activity, clearPending);
 
         calendarTask.execute(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         return true;
     }
 
     /**
-     * getItems
+     * loadItems
      */
-    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> getItems(Activity activity, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
-    {
-        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
-            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
-                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE));
-            }
-        }
-        return items;
-    }
-
-    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Activity activity)
+    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Activity activity, boolean clearPending)
     {
         Intent intent = activity.getIntent();
         SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = (SuntimesCalendarTask.SuntimesCalendarTaskItem[]) intent.getParcelableArrayExtra(EXTRA_ON_PERMISSIONS_GRANTED);
-        intent.removeExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+        if (clearPending) {
+            intent.removeExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+        }
         return new ArrayList<>(Arrays.asList(items));
     }
 
@@ -603,15 +656,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
      */
     public static void savePendingItems(Activity activity)
     {
-        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = getItems(activity, new ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem>());
+        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
+        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+            if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
+                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE));
+            }
+        }
+        savePendingItems(activity, items);
+    }
+
+    public static void savePendingItems(Activity activity, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
+    {
         activity.getIntent().putExtra(EXTRA_ON_PERMISSIONS_GRANTED, items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
     }
 
-    public static Spanned fromHtml(String htmlString )
+    public static void savePendingItem(Activity activity, String calendar, boolean enabled)
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
+        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
+        int action = (enabled ? SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_DELETE);
+        items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, action));
+        savePendingItems(activity, items);
     }
 
     /**
@@ -633,4 +697,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return false;
         }
     };
+
+    public static Spanned fromHtml(String htmlString )
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
+        else return Html.fromHtml(htmlString);
+    }
 }
