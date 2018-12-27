@@ -169,17 +169,21 @@ public class SuntimesCalendarAdapter
      */
     public boolean hasCalendars()
     {
-        for (String calendar : ALL_CALENDARS)
-        {
-            Cursor cursor = queryCalendar(calendar);
-            if (cursor != null)
+        try {
+            for (String calendar : ALL_CALENDARS)
             {
-                boolean hasCalendar = (cursor.getCount() > 0);
-                cursor.close();
-                if (hasCalendar) {
-                    return true;
+                Cursor cursor = queryCalendar(calendar);
+                if (cursor != null)
+                {
+                    boolean hasCalendar = (cursor.getCount() > 0);
+                    cursor.close();
+                    if (hasCalendar) {
+                        return true;
+                    }
                 }
             }
+        } catch (SecurityException e) {
+            return false;
         }
         return false;
     }
