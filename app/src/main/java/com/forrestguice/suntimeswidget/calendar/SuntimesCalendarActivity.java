@@ -242,7 +242,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                                 for (SuntimesCalendarTask.SuntimesCalendarTaskItem item : items)
                                 {
                                     boolean enabled = (item.getAction() == SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE);
-                                    pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
+                                    pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + item.getCalendar(), enabled);
                                     pref.apply();
 
                                     CheckBoxPreference calendarPref = mainFragment.getCalendarPref(item.getCalendar());
@@ -341,10 +341,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0(activity));
 
+            SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver());
+            SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
             for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
                 CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPrefs.put(calendar, calendarPref);
+
+                boolean enabled0 = adapter.hasCalendar(calendar);
+                boolean enabled1 = SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar);
+                if (enabled0 != enabled1)
+                {
+                    Log.w(TAG, "onCreate: out of sync! setting " + calendar + " to " + (enabled0 ? "enabled" : "disabled"));
+                    prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar, enabled0);
+                    prefs.apply();
+                    calendarPref.setChecked(enabled0);
+                }
                 calendarPref.setOnPreferenceChangeListener(onPreferenceChanged1(activity, calendar));
             }
 
