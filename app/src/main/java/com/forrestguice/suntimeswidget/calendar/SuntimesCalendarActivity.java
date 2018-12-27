@@ -338,25 +338,39 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
 
             final Activity activity = getActivity();
-            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0(activity));
-
             SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver());
             SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+
+            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
+            boolean calendarsEnabled0 = adapter.hasCalendars();
+            boolean calendarsEnabled1 = calendarsEnabledPref.isChecked();
+            if (calendarsEnabled0 != calendarsEnabled1)
+            {
+                Log.w(TAG, "onCreate: out of sync! setting enabled to " + (calendarsEnabled0 ? "enabled" : "disabled"));
+                prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, calendarsEnabled0);
+                prefs.apply();
+                calendarsEnabledPref.setChecked(calendarsEnabled0);
+            }
+            calendarsEnabledPref.setOnPreferenceChangeListener(onPreferenceChanged0(activity));
+
             for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
                 CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPrefs.put(calendar, calendarPref);
 
-                boolean enabled0 = adapter.hasCalendar(calendar);
-                boolean enabled1 = SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar);
-                if (enabled0 != enabled1)
+                if (calendarsEnabledPref.isChecked())
                 {
-                    Log.w(TAG, "onCreate: out of sync! setting " + calendar + " to " + (enabled0 ? "enabled" : "disabled"));
-                    prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar, enabled0);
-                    prefs.apply();
-                    calendarPref.setChecked(enabled0);
+                    boolean enabled0 = adapter.hasCalendar(calendar);
+                    boolean enabled1 = SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar);
+                    if (enabled0 != enabled1)
+                    {
+                        Log.w(TAG, "onCreate: out of sync! setting " + calendar + " to " + (enabled0 ? "enabled" : "disabled"));
+                        prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar, enabled0);
+                        prefs.apply();
+                        calendarPref.setChecked(enabled0);
+                    }
                 }
+
                 calendarPref.setOnPreferenceChangeListener(onPreferenceChanged1(activity, calendar));
             }
 

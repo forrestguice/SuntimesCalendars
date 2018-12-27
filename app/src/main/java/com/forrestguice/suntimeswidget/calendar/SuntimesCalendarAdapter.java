@@ -165,6 +165,26 @@ public class SuntimesCalendarAdapter
     }
 
     /**
+     * @return true if any calendars are being managed by the "Suntimes" local account, false no calendars exist.
+     */
+    public boolean hasCalendars()
+    {
+        for (String calendar : ALL_CALENDARS)
+        {
+            Cursor cursor = queryCalendar(calendar);
+            if (cursor != null)
+            {
+                boolean hasCalendar = (cursor.getCount() > 0);
+                cursor.close();
+                if (hasCalendar) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param calendarName
      * @param displayName
      * @param calendarColor
