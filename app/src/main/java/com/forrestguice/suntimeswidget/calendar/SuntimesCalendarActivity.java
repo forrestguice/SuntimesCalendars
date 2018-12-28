@@ -607,30 +607,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             private ProgressDialog progress;
 
             @Override
-            public void onStarted(boolean flag_clear)
+            public void onStarted(SuntimesCalendarTask task, String message)
             {
-                if (!flag_clear)
+                if (!task.getFlagClearCalendars() && message != null && !message.isEmpty())
                 {
-                    //Toast.makeText(activity, activity.getString(R.string.calendars_notification_adding), Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();s
                     progress = new ProgressDialog(activity);
+                    progress.setMessage(message);
                     progress.setIndeterminate(true);
-                    progress.setMessage(activity.getString(R.string.calendars_notification_adding));
                     progress.setCanceledOnTouchOutside(false);
                     progress.show();
                 }
             }
 
             @Override
-            public void onSuccess(boolean flag_clear)
+            public void onSuccess(SuntimesCalendarTask task, String message)
             {
                 if (progress != null) {
                     progress.dismiss();
                 }
-
-                if (!flag_clear)
-                    Toast.makeText(activity, activity.getString(R.string.calendars_notification_added), Toast.LENGTH_SHORT).show();
-                else Toast.makeText(activity, activity.getString(R.string.calendars_notification_cleared), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -667,7 +663,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             calendarTask.setFlagClearCalendars(true);
         else items = loadItems(activity, clearPending);
 
-        calendarTask.execute(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
+        calendarTask.setItems(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
+        calendarTask.execute();
         return true;
     }
 

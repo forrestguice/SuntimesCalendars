@@ -137,6 +137,10 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     {
         flag_clear = flag;
     }
+    public boolean getFlagClearCalendars()
+    {
+        return flag_clear;
+    }
 
     public void setItems(SuntimesCalendarTaskItem... items)
     {
@@ -162,18 +166,31 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
         lastError = null;
 
+        String message = "";
+        if (flag_clear) {
+            message = notificationMsgClearing;
+            triggerOnStarted(message);
+
+        } else {
+            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
+            if (items.length > 0) {
+                int action = items[0].getAction();
+                message = (action == SuntimesCalendarTaskItem.ACTION_DELETE) ? notificationMsgClearing : notificationMsgAdding;
+
+                if (action != SuntimesCalendarTaskItem.ACTION_DELETE) {
+                    triggerOnStarted(message);
+                } else triggerOnStarted("");
+            } else triggerOnStarted("");
+        }
+
         if (flag_notifications) {
             notificationBuilder.setContentTitle(notificationTitle)
-                    .setContentText((flag_clear ? notificationMsgClearing : notificationMsgAdding))
+                    .setContentText(message)
                     .setSmallIcon(notificationIcon)
                     .setPriority(notificationPriority)
                     .setContentIntent(null).setAutoCancel(false)
                     .setProgress(0, 0, true);
             notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
-        }
-
-        if (listener != null) {
-            listener.onStarted(flag_clear);
         }
     }
 
@@ -228,11 +245,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
+                        onProgressUpdate(notificationMsgClearing);
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
+                        onProgressUpdate(notificationMsgAdding);
                         retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
@@ -257,9 +276,18 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 SuntimesCalendarSyncAdapter.writeLastSyncTime(context, Calendar.getInstance());
             }
 
-            if (flag_notifications) {
+            String message = (flag_clear ? notificationMsgCleared : notificationMsgAdded);
+            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
+            if (items.length > 0) {
+                if (items[0].getAction() == SuntimesCalendarTaskItem.ACTION_DELETE) {
+                    message = notificationMsgCleared;
+                }
+            }
+
+            if (flag_notifications)
+            {
                 notificationBuilder.setContentTitle(notificationTitle)
-                        .setContentText((flag_clear ? notificationMsgCleared : notificationMsgAdded))
+                        .setContentText(message)
                         .setSmallIcon(notificationIcon)
                         .setPriority(notificationPriority)
                         .setContentIntent(notificationIntent).setAutoCancel(true)
@@ -267,12 +295,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
             }
 
-            if (flag_clear)
-                Log.i(TAG, "Cleared Suntimes Calendars...");
-            else Log.i(TAG, "Added Suntimes Calendars...");
-
             if (listener != null) {
-                listener.onSuccess(flag_clear);
+                listener.onSuccess(this, message);
             }
 
         } else {
@@ -488,8 +512,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
      */
     public static abstract class SuntimesCalendarTaskListener
     {
-        public void onStarted(boolean flag_clear) {}
-        public void onSuccess(boolean flag_cleared) {}
+        public void onStarted(SuntimesCalendarTask task, String message) {}
+        public void onSuccess(SuntimesCalendarTask task, String message) {}
         public void onFailed(String errorMsg) {}
     }
 
@@ -497,6 +521,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     public void setTaskListener( SuntimesCalendarTaskListener listener )
     {
         this.listener = listener;
+    }
+    protected void triggerOnStarted(String message)
+    {
+        if (listener != null) {
+            listener.onStarted(this, message);
+        }
     }
 
 }
