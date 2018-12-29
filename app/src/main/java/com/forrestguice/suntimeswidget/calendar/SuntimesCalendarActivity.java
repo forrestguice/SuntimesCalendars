@@ -90,8 +90,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static final int REQUEST_CALENDAR_FIRSTLAUNCH = 0;
 
-    public static final String EXTRA_ON_PERMISSIONS_GRANTED = "on_permissions_granted_do_this";
-
     private Context context;
     private String config_apptheme = null;
     private static String systemLocale = null;  // null until locale is overridden w/ loadLocale
@@ -590,18 +588,18 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             final int requestCode = (enabled ? REQUEST_CALENDAR_ENABLED : REQUEST_CALENDAR_DISABLED);
                             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
                             {
-                                savePendingItem(activity, calendar, enabled);
+                                savePendingItem(activity, activity.getIntent(), calendar, enabled);
                                 showPermissionRational(activity, requestCode);
                                 return false;
 
                             } else {
-                                savePendingItem(activity, calendar, enabled);
+                                savePendingItem(activity, activity.getIntent(), calendar, enabled);
                                 ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
                                 return false;
                             }
 
                         } else {
-                            savePendingItem(activity, calendar, enabled);
+                            savePendingItem(activity, activity.getIntent(), calendar, enabled);
                             return runCalendarTask(activity, false, true);
                         }
 
@@ -765,9 +763,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Activity activity, boolean clearPending)
     {
         Intent intent = activity.getIntent();
-        SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = (SuntimesCalendarTask.SuntimesCalendarTaskItem[]) intent.getParcelableArrayExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+        SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = (SuntimesCalendarTask.SuntimesCalendarTaskItem[]) intent.getParcelableArrayExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_ITEMS);
         if (clearPending) {
-            intent.removeExtra(EXTRA_ON_PERMISSIONS_GRANTED);
+            intent.removeExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_ITEMS);
         }
         return new ArrayList<>(Arrays.asList(items));
     }
@@ -783,20 +781,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE));
             }
         }
-        savePendingItems(activity, items);
+        savePendingItems(activity, activity.getIntent(), items);
     }
 
-    public static void savePendingItems(Activity activity, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
+    public static void savePendingItems(Activity activity, Intent intent, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
     {
-        activity.getIntent().putExtra(EXTRA_ON_PERMISSIONS_GRANTED, items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
+        intent.putExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_ITEMS, items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
     }
 
-    public static void savePendingItem(Activity activity, String calendar, boolean enabled)
+    public static void savePendingItem(Activity activity, Intent intent, String calendar, boolean enabled)
     {
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
         int action = (enabled ? SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_DELETE);
         items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, action));
-        savePendingItems(activity, items);
+        savePendingItems(activity, intent, items);
     }
 
     /**

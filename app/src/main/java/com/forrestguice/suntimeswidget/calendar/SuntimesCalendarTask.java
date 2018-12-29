@@ -75,7 +75,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private PendingIntent notificationIntent;
     private String lastError = null;
 
-    public SuntimesCalendarTask(Activity context)
+    public SuntimesCalendarTask(Context context)
     {
         contextRef = new WeakReference<Context>(context);
         adapter = new SuntimesCalendarAdapter(context.getContentResolver());

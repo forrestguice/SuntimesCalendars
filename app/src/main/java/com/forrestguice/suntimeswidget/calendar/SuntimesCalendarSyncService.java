@@ -25,6 +25,7 @@ import android.support.annotation.Nullable;
 
 public class SuntimesCalendarSyncService extends Service
 {
+    public static final String EXTRA_CALENDAR_ITEMS = "calendar_items";
     private static SuntimesCalendarSyncAdapter syncAdapter = null;
     private static final Object syncAdapterLock = new Object();
 
