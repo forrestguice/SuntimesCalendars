@@ -269,9 +269,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     @Override
     protected void onPostExecute(Boolean result)
     {
+        Context context = contextRef.get();
         if (result)
         {
-            Context context = contextRef.get();
             if (context != null) {
                 SuntimesCalendarSyncAdapter.writeLastSyncTime(context, Calendar.getInstance());
             }
@@ -295,15 +295,15 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
             }
 
-            if (listener != null) {
-                listener.onSuccess(this, message);
+            if (listener != null && context != null) {
+                listener.onSuccess(context, this, message);
             }
 
         } else {
             Log.w(TAG, "Failed to complete task!");
             notificationManager.cancel(NOTIFICATION_ID);
-            if (listener != null) {
-                listener.onFailed(lastError);
+            if (listener != null && context != null) {
+                listener.onFailed(context, lastError);
             }
         }
     }
@@ -510,11 +510,23 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * SuntimesCalendarTaskListener
      */
-    public static abstract class SuntimesCalendarTaskListener
+    public static abstract class SuntimesCalendarTaskListener implements Parcelable
     {
-        public void onStarted(SuntimesCalendarTask task, String message) {}
-        public void onSuccess(SuntimesCalendarTask task, String message) {}
-        public void onFailed(String errorMsg) {}
+        public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
+        public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
+        public void onFailed(Context context, String errorMsg) {}
+
+        public SuntimesCalendarTaskListener() {}
+
+        protected SuntimesCalendarTaskListener(Parcel in) {}
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {}
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
     }
 
     private SuntimesCalendarTaskListener listener;
@@ -524,8 +536,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     }
     protected void triggerOnStarted(String message)
     {
-        if (listener != null) {
-            listener.onStarted(this, message);
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onStarted(context, this, message);
         }
     }
 
