@@ -27,6 +27,10 @@
             </intent-filter>
         </activity>
 
+        <!-- Error Dialog Activity (may be shown from notification service) -->
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarErrorActivity"
+            android:theme="@style/Theme.AppCompat.Translucent"/>
+
         <!-- Calendar Provider -->
         <provider
             android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarProvider"
