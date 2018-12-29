@@ -35,6 +35,29 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
 
+    public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
+    public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
+
+    /**
+     * @param context
+     * @return
+     */
+    public static boolean isFirstLaunch(Context context)
+    {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getBoolean(PREF_KEY_CALENDARS_FIRSTLAUNCH, true);
+    }
+
+    /**
+     * @param context
+     */
+    public static void saveFirstLaunch(Context context)
+    {
+        SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        pref.putBoolean(PREF_KEY_CALENDARS_FIRSTLAUNCH, false);
+        pref.apply();
+    }
+
     /**
      * @param context
      * @param enabled
