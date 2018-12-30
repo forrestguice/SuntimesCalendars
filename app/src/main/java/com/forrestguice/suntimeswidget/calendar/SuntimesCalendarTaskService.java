@@ -129,7 +129,7 @@ public class SuntimesCalendarTaskService extends Service
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
                 notificationBuilder.setContentTitle(context.getString(R.string.app_name))
                         .setContentText(message)
-                        .setSmallIcon(R.drawable.ic_action_calendar)
+                        .setSmallIcon(R.drawable.ic_action_update)
                         .setPriority(NotificationCompat.PRIORITY_LOW)
                         .setProgress(0, 0, true);
 
