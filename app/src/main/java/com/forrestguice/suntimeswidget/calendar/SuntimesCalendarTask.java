@@ -115,6 +115,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             calendars.put(item.getCalendar(), item);
         }
     }
+    public SuntimesCalendarTaskItem[] getItems() {
+        return calendars.values().toArray(new SuntimesCalendarTaskItem[0]);
+    }
 
     public void addItems(SuntimesCalendarTaskItem... items)
     {

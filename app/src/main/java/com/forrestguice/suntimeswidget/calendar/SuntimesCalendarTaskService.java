@@ -133,8 +133,14 @@ public class SuntimesCalendarTaskService extends Service
                         .setPriority(NotificationCompat.PRIORITY_LOW)
                         .setProgress(0, 0, true);
 
-                startService(new Intent( context, SuntimesCalendarTaskService.class ));
-                startForeground(10, notificationBuilder.build());
+                if (!task.getFlagClearCalendars())
+                {
+                    SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = task.getItems();
+                    if (items.length > 0 && items[0].getAction() != SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_DELETE) {
+                        startForeground(10, notificationBuilder.build());
+                        startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
+                    }
+                }
             }
 
             @Override
