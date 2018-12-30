@@ -18,23 +18,16 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -62,17 +55,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private long lastSync = -1;
     private long calendarWindow0 = -1, calendarWindow1 = -1;
 
-    private NotificationManagerCompat notificationManager;
-    private NotificationCompat.Builder notificationBuilder;
-
-    public static final int NOTIFICATION_ID = 1000;
-    private String notificationTitle;
     private String notificationMsgAdding, notificationMsgAdded;
     private String notificationMsgClearing, notificationMsgCleared;
     private String notificationMsgAddFailed;
-    private int notificationIcon = R.drawable.ic_action_calendar;
-    private int notificationPriority = NotificationCompat.PRIORITY_LOW;
-    private PendingIntent notificationIntent;
     private String lastError = null;
 
     public SuntimesCalendarTask(Context context)
@@ -105,30 +90,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
         calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, ContextCompat.getColor(context, R.color.colorMoonCalendar));
 
-        notificationManager = NotificationManagerCompat.from(context);
-        notificationBuilder = new NotificationCompat.Builder(context);
-        notificationTitle = context.getString(R.string.app_name);
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
         notificationMsgClearing = context.getString(R.string.calendars_notification_clearing);
         notificationMsgCleared = context.getString(R.string.calendars_notification_cleared);
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-        {
-            Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
-            uriBuilder.appendPath("time");
-            ContentUris.appendId(uriBuilder, System.currentTimeMillis());
-            intent = intent.setData(uriBuilder.build());
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        notificationIntent = PendingIntent.getActivity(context, 0, intent, 0);
     }
 
     private boolean flag_notifications = true;
@@ -147,6 +113,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         calendars.clear();
         for (SuntimesCalendarTaskItem item : items) {
             calendars.put(item.getCalendar(), item);
+        }
+    }
+
+    public void addItems(SuntimesCalendarTaskItem... items)
+    {
+        for (SuntimesCalendarTaskItem item : items) {
+            calendars.put(item.getCalendar(), item);         // TODO: preserve existing
         }
     }
 
@@ -181,16 +154,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     triggerOnStarted(message);
                 } else triggerOnStarted("");
             } else triggerOnStarted("");
-        }
-
-        if (flag_notifications) {
-            notificationBuilder.setContentTitle(notificationTitle)
-                    .setContentText(message)
-                    .setSmallIcon(notificationIcon)
-                    .setPriority(notificationPriority)
-                    .setContentIntent(null).setAutoCancel(false)
-                    .setProgress(0, 0, true);
-            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         }
     }
 
@@ -284,31 +247,17 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 }
             }
 
-            if (flag_notifications)
-            {
-                notificationBuilder.setContentTitle(notificationTitle)
-                        .setContentText(message)
-                        .setSmallIcon(notificationIcon)
-                        .setPriority(notificationPriority)
-                        .setContentIntent(notificationIntent).setAutoCancel(true)
-                        .setProgress(0, 0, false);
-                notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
-            }
-
             if (listener != null && context != null) {
                 listener.onSuccess(context, this, message);
             }
 
         } else {
             Log.w(TAG, "Failed to complete task!");
-            notificationManager.cancel(NOTIFICATION_ID);
             if (listener != null && context != null) {
                 listener.onFailed(context, lastError);
             }
         }
     }
-
-    private static final int NOTIFICATION_REQUEST_LASTERROR = 10;
 
     /**
      * initCalendar

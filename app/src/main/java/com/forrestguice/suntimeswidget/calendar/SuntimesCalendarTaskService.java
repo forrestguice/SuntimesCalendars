@@ -18,16 +18,26 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.forrestguice.suntimescalendars.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,12 +125,36 @@ public class SuntimesCalendarTaskService extends Service
         calendarTaskListener = (listener != null) ? listener : new SuntimesCalendarTask.SuntimesCalendarTaskListener()
         {
             @Override
-            public void onStarted(Context context, SuntimesCalendarTask task, String message) {
+            public void onStarted(Context context, SuntimesCalendarTask task, String message)
+            {
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+                notificationBuilder.setContentTitle(context.getString(R.string.app_name))
+                        .setContentText(message)
+                        .setSmallIcon(R.drawable.ic_action_calendar)
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setProgress(0, 0, true);
+
+                startService(new Intent( context, SuntimesCalendarTaskService.class ));
+                startForeground(10, notificationBuilder.build());
             }
 
             @Override
-            public void onSuccess(Context context, SuntimesCalendarTask task, String message) {
+            public void onSuccess(Context context, SuntimesCalendarTask task, String message)
+            {
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+                notificationBuilder.setContentTitle(context.getString(R.string.app_name))
+                        .setContentText(message)
+                        .setSmallIcon(R.drawable.ic_action_calendar)
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setContentIntent(getNotificationIntent()).setAutoCancel(true)
+                        .setProgress(0, 0, false);
+
+                stopForeground(true);
+                notificationManager.notify(10, notificationBuilder.build());
+                stopSelf();
             }
 
             @Override
@@ -131,6 +165,27 @@ public class SuntimesCalendarTaskService extends Service
                 errorIntent.putExtra(SuntimesCalendarErrorActivity.EXTRA_ERROR_MESSAGE, errorMsg);
                 errorIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 context.startActivity(errorIntent);
+
+                stopForeground(true);
+                stopSelf();
+            }
+
+            private PendingIntent getNotificationIntent()
+            {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+                {
+                    Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
+                    uriBuilder.appendPath("time");
+                    ContentUris.appendId(uriBuilder, System.currentTimeMillis());
+                    intent = intent.setData(uriBuilder.build());
+                }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                return PendingIntent.getActivity(context, 0, intent, 0);
             }
         };
         calendarTask.setTaskListener(calendarTaskListener);
