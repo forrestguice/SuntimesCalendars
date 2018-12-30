@@ -46,6 +46,8 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
+
+        <service android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTaskService" android:exported="false" />
     
     </application>
 
