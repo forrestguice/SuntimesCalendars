@@ -31,6 +31,9 @@
         <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarErrorActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
 
+        <!-- Calendar Task Service -->
+        <service android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTaskService" android:exported="false" />
+
         <!-- Calendar Provider -->
         <provider
             android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarProvider"
@@ -46,8 +49,6 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
-
-        <service android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTaskService" android:exported="false" />
     
     </application>
 

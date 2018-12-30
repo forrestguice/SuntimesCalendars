@@ -23,9 +23,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -43,7 +40,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 
@@ -61,11 +57,8 @@ import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
@@ -311,18 +304,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     {
                         Intent taskIntent = new Intent(this, SuntimesCalendarSyncService.class);
                         taskIntent.setAction(SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS);
-                        /**taskIntent.putExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_LISTENER, new SuntimesCalendarSyncService.SuntimesCalendarServiceListener()
-                        {
-                            @Override
-                            public void onStartCommand(boolean result)
-                            {
-                                super.onStartCommand(result);
-                            }
-                        });*/
 
                         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = loadItems(this.getIntent(), true);
                         savePendingItems(this, taskIntent, items);
-                        //startService(taskIntent);
                         calendarTaskService.runCalendarTask(context, taskIntent, false, false,null);
 
                         if (mainFragment != null)
@@ -350,7 +334,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         boolean enabled = requestCode == (REQUEST_CALENDARS_ENABLED);
                         Intent taskIntent = new Intent(this, SuntimesCalendarSyncService.class);
                         taskIntent.setAction( !enabled ? SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS : SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
-                        //taskIntent.putExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_LISTENER, calendarTaskListener);
 
                         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
                         if (enabled) {
@@ -359,7 +342,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                         savePendingItems(this, taskIntent, items);
                         calendarTaskService.runCalendarTask(context, taskIntent, !enabled, true,null);
-                        //startService(taskIntent);
 
                         SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
                         pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
@@ -632,9 +614,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     } else {
                         Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
                         taskIntent.setAction( !enabled ? SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS : SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
-                        //taskIntent.putExtra(SuntimesCalendarSyncService.EXTRA_CALENDAR_LISTENER, calendarTaskListener);
                         savePendingItems(activity, taskIntent);
-                        //activity.startService(taskIntent);
                         return calendarTaskService.runCalendarTask(activity, taskIntent, !enabled, true,null);
                     }
                 }
@@ -671,7 +651,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
                             taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
                             savePendingItem(activity, taskIntent, calendar, enabled);
-                            //activity.startService(taskIntent);
                             return calendarTaskService.runCalendarTask(activity, taskIntent, false, true,null);
                         }
 

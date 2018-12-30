@@ -18,7 +18,6 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
