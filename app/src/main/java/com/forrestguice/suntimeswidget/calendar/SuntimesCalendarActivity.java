@@ -582,19 +582,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void setIsBusy(boolean isBusy)
         {
             this.isBusy = isBusy;
-            if (isBusy)
+            if (progressDialog != null)
             {
-                if (!progressDialog.isShowing()) {
-                    progressDialog.show();
-                }
+                if (isBusy)
+                {
+                    if (!progressDialog.isShowing()) {
+                        progressDialog.show();
+                    }
 
-            } else {
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
+                } else {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                    clearPrefListeners();
+                    updatePrefs(getActivity());
+                    initPrefListeners(getActivity());
                 }
-                clearPrefListeners();
-                updatePrefs(getActivity());
-                initPrefListeners(getActivity());
             }
         }
 
