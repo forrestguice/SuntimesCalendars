@@ -23,6 +23,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -40,6 +41,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 
@@ -219,6 +221,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        calendarTaskService.removeCalendarServiceListener(serviceListener);
         unbindService(calendarSyncServiceConnection);
         boundToTaskService = false;
     }
@@ -231,11 +234,35 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             SuntimesCalendarTaskService.SuntimesCalendarTaskServiceBinder binder = (SuntimesCalendarTaskService.SuntimesCalendarTaskServiceBinder) service;
             calendarTaskService = binder.getService();
             boundToTaskService = true;
+            calendarTaskService.addCalendarServiceListener(serviceListener);
+
+            if (mainFragment != null) {
+                mainFragment.setIsBusy(calendarTaskService.isBusy());
+                mainFragment.updateProgressDialog(calendarTaskService.getLastProgressMessage());
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             boundToTaskService = false;
+        }
+    };
+
+    private SuntimesCalendarTaskService.SuntimesCalendarServiceListener serviceListener = new SuntimesCalendarTaskService.SuntimesCalendarServiceListener() {
+        @Override
+        public void onBusyStatusChanged(boolean isBusy)
+        {
+            if (mainFragment != null) {
+                mainFragment.setIsBusy(isBusy);
+            }
+        }
+
+        @Override
+        public void onProgressMessage(String message)
+        {
+            if (mainFragment != null) {
+                mainFragment.updateProgressDialog(message);
+            }
         }
     };
 
@@ -274,6 +301,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         mainFragment = new CalendarPrefsFragment();
         mainFragment.setAboutClickListener(onAboutClick);
         mainFragment.setProviderVersion(providerVersionCode);
+        if (boundToTaskService) {
+            mainFragment.setIsBusy(calendarTaskService.isBusy());
+            mainFragment.updateProgressDialog(calendarTaskService.getLastProgressMessage());
+        }
         getFragmentManager().beginTransaction().replace(android.R.id.content, mainFragment).commit();
     }
 
@@ -382,6 +413,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         needsSuntimesPermissions = bundle.getBoolean("needsSuntimesPermissions");
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * CalendarPrefsFragmentBase
      */
@@ -437,7 +471,35 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     });
             builder.show();
         }
+
+        protected void initAboutDialog()
+        {
+            Preference aboutPref = findPreference("app_about");
+            if (aboutPref != null && onAboutClick != null) {
+                aboutPref.setOnPreferenceClickListener(onAboutClick);
+            }
+        }
+
+        protected ProgressDialog progressDialog;
+        protected String progressMessage;
+        public void updateProgressDialog(String message)
+        {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.setMessage(message);
+                progressMessage = message;
+            }
+        }
+
+        protected void initProgressDialog()
+        {
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(true);
+        }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * FirstLaunchFragment
@@ -448,7 +510,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
+            Log.i(TAG, "FirstLaunchFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_firstlaunch, false);
             addPreferencesFromResource(R.xml.preference_firstlaunch);
 
@@ -496,6 +558,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         };
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * CalendarPrefsFragment
      */
@@ -514,6 +579,42 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarPrefs.get(calendar);
         }
 
+        private boolean isBusy = false;
+        public void setIsBusy(boolean isBusy)
+        {
+            this.isBusy = isBusy;
+            if (isBusy)
+            {
+                if (!progressDialog.isShowing()) {
+                    progressDialog.show();
+                }
+
+            } else {
+                if (progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+            }
+        }
+
+        @Override
+        public void onStart()
+        {
+            super.onStart();
+            if (progressDialog != null && isBusy) {
+                progressDialog.show();
+                updateProgressDialog(progressMessage);
+            }
+        }
+
+        @Override
+        public void onStop()
+        {
+            super.onStop();
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
+
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
@@ -522,12 +623,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_calendars, false);
             addPreferencesFromResource(R.xml.preference_calendars);
 
-            Preference aboutPref = findPreference("app_about");
-            if (aboutPref != null && onAboutClick != null) {
-                aboutPref.setOnPreferenceClickListener(onAboutClick);
-            }
-
             final Activity activity = getActivity();
+            initAboutDialog();
+            initProgressDialog();
+
             SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver());
             SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
 
@@ -582,6 +681,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
             }
+            setIsBusy(isBusy);
         }
 
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
@@ -661,6 +761,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             };
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**private static class OnServiceResponse extends SuntimesCalendarSyncService.SuntimesCalendarServiceListener
     {

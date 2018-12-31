@@ -78,6 +78,7 @@ public class SuntimesCalendarTaskService extends Service
             {
                 Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, false, false, listener);
+                signalOnStartCommand(started);
                 if (serviceListener != null) {
                     serviceListener.onStartCommand(started);
                 }
@@ -85,6 +86,7 @@ public class SuntimesCalendarTaskService extends Service
             } else if (action.equals(ACTION_CLEAR_CALENDARS)) {
                 Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, true, false, listener);
+                signalOnStartCommand(started);
                 if (serviceListener != null) {
                     serviceListener.onStartCommand(started);
                 }
@@ -97,27 +99,21 @@ public class SuntimesCalendarTaskService extends Service
     ///////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    public static final int NOTIFICATION_PROGRESS = 10;
+    public static final int NOTIFICATION_COMPLETE = 20;
+
     private static SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener;
-    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable SuntimesCalendarTask.SuntimesCalendarTaskListener listener)
+    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTask.SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (!clearCalendars) {
             items = loadItems(intent, clearPending);
         }
 
-        if (calendarTask != null)
-        {
-            switch (calendarTask.getStatus())
-            {
-                case PENDING:
-                    Log.w(TAG, "runCalendarTask: A task is already pending! ignoring...");
-                    return false;
-
-                case RUNNING:
-                    Log.w(TAG, "runCalendarTask: A task is already running! ignoring...");
-                    return false;
-            }
+        if (isBusy()) {
+            Log.w(TAG, "runCalendarTask: A task is already running! ignoring...");
+            return false;
         }
 
         calendarTask = new SuntimesCalendarTask(context);
@@ -126,21 +122,30 @@ public class SuntimesCalendarTaskService extends Service
             @Override
             public void onStarted(Context context, SuntimesCalendarTask task, String message)
             {
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                notificationBuilder.setContentTitle(context.getString(R.string.app_name))
-                        .setContentText(message)
-                        .setSmallIcon(R.drawable.ic_action_update)
-                        .setPriority(NotificationCompat.PRIORITY_LOW)
-                        .setProgress(0, 0, true);
-
-                if (!task.getFlagClearCalendars())
+                if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
                 {
-                    SuntimesCalendarTask.SuntimesCalendarTaskItem[] items = task.getItems();
-                    if (items.length > 0 && items[0].getAction() != SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_DELETE) {
-                        startForeground(10, notificationBuilder.build());
-                        startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
+                    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+                    notificationBuilder.setContentTitle(context.getString(R.string.app_name))
+                            .setContentText(message)
+                            .setSmallIcon(R.drawable.ic_action_update)
+                            .setPriority(NotificationCompat.PRIORITY_LOW)
+                            .setProgress(0, 0, true);
+
+                    signalOnBusyStatusChanged(true);
+                    signalOnProgressMessage(getString(R.string.calendars_notification_adding));
+                    startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
+                    startForeground(NOTIFICATION_PROGRESS, notificationBuilder.build());
+                }
+            }
+
+            private boolean hasUpdateAction(SuntimesCalendarTask.SuntimesCalendarTaskItem[] items)
+            {
+                for (SuntimesCalendarTask.SuntimesCalendarTaskItem item : items) {
+                    if (item.getAction() == SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE) {
+                        return true;
                     }
                 }
+                return false;
             }
 
             @Override
@@ -157,8 +162,9 @@ public class SuntimesCalendarTaskService extends Service
                         .setContentIntent(getNotificationIntent()).setAutoCancel(true)
                         .setProgress(0, 0, false);
 
+                notificationManager.notify(NOTIFICATION_COMPLETE, notificationBuilder.build());
+                signalOnBusyStatusChanged(false);
                 stopForeground(true);
-                notificationManager.notify(10, notificationBuilder.build());
                 stopSelf();
             }
 
@@ -166,11 +172,13 @@ public class SuntimesCalendarTaskService extends Service
             public void onFailed(final Context context, final String errorMsg)
             {
                 super.onFailed(context, errorMsg);
+
                 Intent errorIntent = new Intent(context, SuntimesCalendarErrorActivity.class);
                 errorIntent.putExtra(SuntimesCalendarErrorActivity.EXTRA_ERROR_MESSAGE, errorMsg);
                 errorIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 context.startActivity(errorIntent);
 
+                signalOnBusyStatusChanged(false);
                 stopForeground(true);
                 stopSelf();
             }
@@ -203,6 +211,29 @@ public class SuntimesCalendarTaskService extends Service
         return true;
     }
 
+    public boolean isBusy()
+    {
+        if (calendarTask != null)
+        {
+            switch (calendarTask.getStatus())
+            {
+                case PENDING:
+                case RUNNING:
+                    return true;
+
+                case FINISHED:
+                default:
+                    return false;
+            }
+        } else return false;
+    }
+
+    private String lastProgressMessage;
+    public String getLastProgressMessage()
+    {
+        return lastProgressMessage;
+    }
+
     public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Intent intent, boolean clearPending)
     {
         SuntimesCalendarTask.SuntimesCalendarTaskItem[] items;
@@ -223,6 +254,8 @@ public class SuntimesCalendarTaskService extends Service
     public static abstract class SuntimesCalendarServiceListener implements Parcelable
     {
         public void onStartCommand(boolean result) {}
+        public void onBusyStatusChanged(boolean isBusy) {}
+        public void onProgressMessage(String message) {}
 
         public SuntimesCalendarServiceListener() {}
         protected SuntimesCalendarServiceListener(Parcel in) {}
@@ -233,6 +266,46 @@ public class SuntimesCalendarTaskService extends Service
         @Override
         public int describeContents() {
             return 0;
+        }
+    }
+
+    private ArrayList<SuntimesCalendarServiceListener> serviceListeners = new ArrayList<>();
+    public void addCalendarServiceListener(SuntimesCalendarServiceListener listener)
+    {
+        serviceListeners.add(listener);
+    }
+    public void removeCalendarServiceListener(SuntimesCalendarServiceListener listener)
+    {
+        if (serviceListeners.contains(listener)) {
+            serviceListeners.remove(listener);
+        }
+    }
+
+    private void signalOnStartCommand(boolean result)
+    {
+        for (SuntimesCalendarServiceListener listener : serviceListeners) {
+            if (listener != null) {
+                listener.onStartCommand(result);
+            }
+        }
+    }
+
+    private void signalOnBusyStatusChanged(boolean isBusy)
+    {
+        for (SuntimesCalendarServiceListener listener : serviceListeners) {
+            if (listener != null) {
+                listener.onBusyStatusChanged(isBusy);
+            }
+        }
+    }
+
+    private void signalOnProgressMessage(String message)
+    {
+        lastProgressMessage = message;
+        for (SuntimesCalendarServiceListener listener : serviceListeners) {
+            if (listener != null) {
+                listener.onProgressMessage(message);
+            }
         }
     }
 
