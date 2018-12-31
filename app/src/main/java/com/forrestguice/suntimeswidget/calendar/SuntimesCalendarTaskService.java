@@ -124,17 +124,20 @@ public class SuntimesCalendarTaskService extends Service
             {
                 if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
                 {
+                    signalOnBusyStatusChanged(true);
+                    signalOnProgressMessage(getString(R.string.calendars_notification_adding));
+
                     NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
                     notificationBuilder.setContentTitle(context.getString(R.string.app_name))
                             .setContentText(message)
                             .setSmallIcon(R.drawable.ic_action_update)
                             .setPriority(NotificationCompat.PRIORITY_LOW)
                             .setProgress(0, 0, true);
-
-                    signalOnBusyStatusChanged(true);
-                    signalOnProgressMessage(getString(R.string.calendars_notification_adding));
                     startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
                     startForeground(NOTIFICATION_PROGRESS, notificationBuilder.build());
+
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                    notificationManager.cancel(NOTIFICATION_COMPLETE);
                 }
             }
 
