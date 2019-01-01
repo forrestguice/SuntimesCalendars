@@ -21,12 +21,20 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+
 import android.support.annotation.Nullable;
 
 public class SuntimesCalendarSyncService extends Service
 {
     private static SuntimesCalendarSyncAdapter syncAdapter = null;
     private static final Object syncAdapterLock = new Object();
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent)
+    {
+        return syncAdapter.getSyncAdapterBinder();
+    }
 
     @Override
     public void onCreate()
@@ -38,12 +46,5 @@ public class SuntimesCalendarSyncService extends Service
                 syncAdapter = new SuntimesCalendarSyncAdapter(getApplicationContext(), true);
             }
         }
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent)
-    {
-        return syncAdapter.getSyncAdapterBinder();
     }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="app_calendars_permissions"
+        android:persistent="false"
+        android:title="@string/privacy_permissiondialog_title" />
+
+    <Preference
+        android:key="app_about"
+        android:persistent="false"
+        android:icon="?attr/icActionAbout"
+        android:title="@string/about_dialog_title" />
+
+</PreferenceScreen>

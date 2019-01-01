@@ -18,20 +18,16 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.provider.CalendarContract;
-import android.support.v4.app.NotificationManagerCompat;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -41,13 +37,14 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
+public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, String, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
 
     private SuntimesCalendarAdapter adapter;
     private WeakReference<Context> contextRef;
 
+    private HashMap<String, SuntimesCalendarTaskItem> calendars = new HashMap<>();
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
@@ -58,20 +55,12 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     private long lastSync = -1;
     private long calendarWindow0 = -1, calendarWindow1 = -1;
 
-    private NotificationManagerCompat notificationManager;
-    private NotificationCompat.Builder notificationBuilder;
-
-    public static final int NOTIFICATION_ID = 1000;
-    private String notificationTitle;
     private String notificationMsgAdding, notificationMsgAdded;
     private String notificationMsgClearing, notificationMsgCleared;
     private String notificationMsgAddFailed;
-    private int notificationIcon = R.drawable.ic_action_calendar;
-    private int notificationPriority = NotificationCompat.PRIORITY_LOW;
-    private PendingIntent notificationIntent;
     private String lastError = null;
 
-    public SuntimesCalendarTask(Activity context)
+    public SuntimesCalendarTask(Context context)
     {
         contextRef = new WeakReference<Context>(context);
         adapter = new SuntimesCalendarAdapter(context.getContentResolver());
@@ -101,30 +90,11 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
         calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, ContextCompat.getColor(context, R.color.colorMoonCalendar));
 
-        notificationManager = NotificationManagerCompat.from(context);
-        notificationBuilder = new NotificationCompat.Builder(context);
-        notificationTitle = context.getString(R.string.app_name);
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
         notificationMsgClearing = context.getString(R.string.calendars_notification_clearing);
         notificationMsgCleared = context.getString(R.string.calendars_notification_cleared);
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-        {
-            Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
-            uriBuilder.appendPath("time");
-            ContentUris.appendId(uriBuilder, System.currentTimeMillis());
-            intent = intent.setData(uriBuilder.build());
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-        notificationIntent = PendingIntent.getActivity(context, 0, intent, 0);
     }
 
     private boolean flag_notifications = true;
@@ -132,6 +102,28 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
     public void setFlagClearCalendars( boolean flag )
     {
         flag_clear = flag;
+    }
+    public boolean getFlagClearCalendars()
+    {
+        return flag_clear;
+    }
+
+    public void setItems(SuntimesCalendarTaskItem... items)
+    {
+        calendars.clear();
+        for (SuntimesCalendarTaskItem item : items) {
+            calendars.put(item.getCalendar(), item);
+        }
+    }
+    public SuntimesCalendarTaskItem[] getItems() {
+        return calendars.values().toArray(new SuntimesCalendarTaskItem[0]);
+    }
+
+    public void addItems(SuntimesCalendarTaskItem... items)
+    {
+        for (SuntimesCalendarTaskItem item : items) {
+            calendars.put(item.getCalendar(), item);         // TODO: preserve existing
+        }
     }
 
     @Override
@@ -150,105 +142,156 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         }
         lastError = null;
 
-        if (flag_notifications) {
-            notificationBuilder.setContentTitle(notificationTitle)
-                    .setContentText((flag_clear ? notificationMsgClearing : notificationMsgAdding))
-                    .setSmallIcon(notificationIcon)
-                    .setPriority(notificationPriority)
-                    .setContentIntent(null).setAutoCancel(false)
-                    .setProgress(0, 0, true);
-            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
-        }
+        String message = "";
+        if (flag_clear) {
+            message = notificationMsgClearing;
+            triggerOnStarted(message);
 
-        if (listener != null) {
-            listener.onStarted(flag_clear);
+        } else {
+            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
+            if (items.length > 0) {
+                int action = items[0].getAction();
+                message = (action == SuntimesCalendarTaskItem.ACTION_DELETE) ? notificationMsgClearing : notificationMsgAdding;
+
+                if (action != SuntimesCalendarTaskItem.ACTION_DELETE) {
+                    triggerOnStarted(message);
+                } else triggerOnStarted("");
+            } else triggerOnStarted("");
         }
     }
 
+    private Calendar[] getWindow()
+    {
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+
+        startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
+        startDate.set(Calendar.MONTH, 0);            // round down to start of year
+        startDate.set(Calendar.DAY_OF_MONTH, 0);
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+
+        endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
+        endDate.add(Calendar.YEAR, 1);       // round up to end of year
+        endDate.set(Calendar.MONTH, 0);
+        endDate.set(Calendar.DAY_OF_MONTH, 0);
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
+
+        return new Calendar[] { startDate, endDate };
+    }
+
     @Override
-    protected Boolean doInBackground(Void... params)
+    protected Boolean doInBackground(SuntimesCalendarTaskItem... items)
     {
         if (Build.VERSION.SDK_INT < 14)
             return false;
 
-        boolean retValue = adapter.removeCalendars();
-        if (!flag_clear && !isCancelled())
-        {
-            Calendar startDate = Calendar.getInstance();
-            Calendar endDate = Calendar.getInstance();
-            Calendar now = Calendar.getInstance();
-
-            startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
-            startDate.set(Calendar.MONTH, 0);            // round down to start of year
-            startDate.set(Calendar.DAY_OF_MONTH, 0);
-            startDate.set(Calendar.HOUR_OF_DAY, 0);
-            startDate.set(Calendar.MINUTE, 0);
-            startDate.set(Calendar.SECOND, 0);
-
-            endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
-            endDate.add(Calendar.YEAR, 1);       // round up to end of year
-            endDate.set(Calendar.MONTH, 0);
-            endDate.set(Calendar.DAY_OF_MONTH, 0);
-            endDate.set(Calendar.HOUR_OF_DAY, 0);
-            endDate.set(Calendar.MINUTE, 0);
-            endDate.set(Calendar.SECOND, 0);
-
-            Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + startDate.get(Calendar.YEAR) + "), "
-                    + "endWindow: " + calendarWindow1 + " (" + endDate.get(Calendar.YEAR) + ")");
-
-            try {
-                retValue = retValue && initSolsticeCalendar(startDate, endDate);
-                retValue = retValue && initMoonPhaseCalendar(startDate, endDate);
-
-            } catch (SecurityException e) {
-                lastError = "Unable to access provider! " + e;
-                Log.e(TAG, lastError);
-                return false;
-            }
+        if (items.length > 0) {
+            setItems(items);
         }
+
+        boolean retValue = true;
+
+        if (flag_clear && !isCancelled()) {
+            adapter.removeCalendars();
+        }
+
+        Calendar[] window = getWindow();
+        Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
+                + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
+
+        try {
+            for (String calendar : calendars.keySet())
+            {
+                SuntimesCalendarTaskItem item = calendars.get(calendar);
+                switch (item.getAction())
+                {
+                    case SuntimesCalendarTaskItem.ACTION_DELETE:
+                        onProgressUpdate(notificationMsgClearing);
+                        retValue = retValue && adapter.removeCalendar(calendar);
+                        break;
+
+                    case SuntimesCalendarTaskItem.ACTION_UPDATE:
+                    default:
+                        onProgressUpdate(notificationMsgAdding);
+                        retValue = retValue && initCalendar(calendar, window);
+                        break;
+                }
+            }
+
+        } catch (SecurityException e) {
+            lastError = "Unable to access provider! " + e;
+            Log.e(TAG, lastError);
+            return false;
+        }
+
         return retValue;
     }
 
     @Override
     protected void onPostExecute(Boolean result)
     {
+        Context context = contextRef.get();
         if (result)
         {
-            Context context = contextRef.get();
             if (context != null) {
                 SuntimesCalendarSyncAdapter.writeLastSyncTime(context, Calendar.getInstance());
             }
 
-            if (flag_notifications) {
-                notificationBuilder.setContentTitle(notificationTitle)
-                        .setContentText((flag_clear ? notificationMsgCleared : notificationMsgAdded))
-                        .setSmallIcon(notificationIcon)
-                        .setPriority(notificationPriority)
-                        .setContentIntent(notificationIntent).setAutoCancel(true)
-                        .setProgress(0, 0, false);
-                notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
+            String message = (flag_clear ? notificationMsgCleared : notificationMsgAdded);
+            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
+            if (items.length > 0) {
+                if (items[0].getAction() == SuntimesCalendarTaskItem.ACTION_DELETE) {
+                    message = notificationMsgCleared;
+                }
             }
 
-            if (flag_clear)
-                Log.i(TAG, "Cleared Suntimes Calendars...");
-            else Log.i(TAG, "Added Suntimes Calendars...");
-
-            if (listener != null) {
-                listener.onSuccess(flag_clear);
+            if (listener != null && context != null) {
+                listener.onSuccess(context, this, message);
             }
 
         } else {
             Log.w(TAG, "Failed to complete task!");
-            notificationManager.cancel(NOTIFICATION_ID);
-            if (listener != null) {
-                listener.onFailed(lastError);
+            if (listener != null && context != null) {
+                listener.onFailed(context, lastError);
             }
         }
     }
 
-    private static final int NOTIFICATION_REQUEST_LASTERROR = 10;
+    /**
+     * initCalendar
+     */
+    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
+    {
+        if (window.length != 2) {
+            Log.e(TAG, "initCalendar: invalid window with length " + window.length);
+            return false;
 
-    private boolean initSolsticeCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
+        } else if (window[0] == null || window[1] == null) {
+            Log.e(TAG, "initCalendar: invalid window; null!");
+            return false;
+        }
+
+        if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
+            return initSolsticeCalendar(window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
+            return initMoonPhaseCalendar(window[0], window[1]);
+
+        } else {
+            Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
+            return false;
+        }
+    }
+
+    /**
+     * initSolsticeCalendar
+     */
+    private boolean initSolsticeCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -298,7 +341,10 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         } else return false;
     }
 
-    private boolean initMoonPhaseCalendar( Calendar startDate, Calendar endDate ) throws SecurityException
+    /**
+     * initMoonPhaseCalendar
+     */
+    private boolean initMoonPhaseCalendar( @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -353,17 +399,99 @@ public class SuntimesCalendarTask extends AsyncTask<Void, String, Boolean>
         } else return false;
     }
 
+    /**
+     * SuntimesCalendarTaskItem
+     */
+    public static class SuntimesCalendarTaskItem implements Parcelable
+    {
+        public static final int ACTION_UPDATE = 0;
+        public static final int ACTION_DELETE = 2;
+
+        private String calendar;
+        private int action;
+
+        public SuntimesCalendarTaskItem( String calendar, int action )
+        {
+            this.calendar = calendar;
+            this.action = action;
+        }
+
+        private SuntimesCalendarTaskItem(Parcel in)
+        {
+            this.calendar = in.readString();
+            this.action = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            dest.writeString(calendar);
+            dest.writeInt(action);
+        }
+
+        @Override
+        public int describeContents()
+        {
+            return 0;
+        }
+
+        public String getCalendar()
+        {
+            return calendar;
+        }
+
+        public int getAction()
+        {
+            return action;
+        }
+
+        public static final Parcelable.Creator<SuntimesCalendarTaskItem> CREATOR = new Parcelable.Creator<SuntimesCalendarTaskItem>()
+        {
+            public SuntimesCalendarTaskItem createFromParcel(Parcel in)
+            {
+                return new SuntimesCalendarTaskItem(in);
+            }
+
+            public SuntimesCalendarTaskItem[] newArray(int size)
+            {
+                return new SuntimesCalendarTaskItem[size];
+            }
+        };
+    }
+
+    /**
+     * SuntimesCalendarTaskListener
+     */
+    public static abstract class SuntimesCalendarTaskListener implements Parcelable
+    {
+        public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
+        public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
+        public void onFailed(Context context, String errorMsg) {}
+
+        public SuntimesCalendarTaskListener() {}
+
+        protected SuntimesCalendarTaskListener(Parcel in) {}
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {}
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+    }
+
     private SuntimesCalendarTaskListener listener;
     public void setTaskListener( SuntimesCalendarTaskListener listener )
     {
         this.listener = listener;
-        this.listener = listener;
     }
-    public static abstract class SuntimesCalendarTaskListener
+    protected void triggerOnStarted(String message)
     {
-        public void onStarted(boolean flag_clear) {}
-        public void onSuccess(boolean flag_cleared) {}
-        public void onFailed(String errorMsg) {}
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onStarted(context, this, message);
+        }
     }
 
 }
