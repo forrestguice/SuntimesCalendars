@@ -9,6 +9,7 @@
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
+        <item name="icActionUpdate">@drawable/ic_action_update_light</item>
         <item name="icActionAbout">@drawable/ic_action_about_light</item>
         <item name="icActionSettings">@drawable/ic_action_settings_light</item>
         <item name="icActionHelp">@drawable/ic_action_help_light</item>
@@ -21,8 +22,18 @@
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
+        <item name="icActionUpdate">@drawable/ic_action_update</item>
         <item name="icActionAbout">@drawable/ic_action_about</item>
         <item name="icActionSettings">@drawable/ic_action_settings</item>
         <item name="icActionHelp">@drawable/ic_action_help</item>
     </style>
+
+    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+
 </resources>

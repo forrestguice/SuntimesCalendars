@@ -37,6 +37,7 @@ public class SuntimesCalendarAdapter
 
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
+    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE};
 
     private ContentResolver contentResolver;
 
@@ -73,6 +74,23 @@ public class SuntimesCalendarAdapter
                 contentResolver.delete(deleteUri, null, null);
                 Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
+            return true;
+        } else return false;
+    }
+
+    /**
+     * Removes individual calendars by name.
+     * @param calendar calendar name
+     * @return true calendar was removed, false otherwise
+     */
+    public boolean removeCalendar(String calendar)
+    {
+        long calendarID = queryCalendarID(calendar);
+        if (calendarID != -1)
+        {
+            Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
+            contentResolver.delete(deleteUri, null, null);
+            Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
             return true;
         } else return false;
     }
@@ -144,6 +162,30 @@ public class SuntimesCalendarAdapter
     {
         Cursor cursor = queryCalendar(calendarName);
         return (cursor != null && cursor.getCount() > 0);
+    }
+
+    /**
+     * @return true if any calendars are being managed by the "Suntimes" local account, false no calendars exist.
+     */
+    public boolean hasCalendars()
+    {
+        try {
+            for (String calendar : ALL_CALENDARS)
+            {
+                Cursor cursor = queryCalendar(calendar);
+                if (cursor != null)
+                {
+                    boolean hasCalendar = (cursor.getCount() > 0);
+                    cursor.close();
+                    if (hasCalendar) {
+                        return true;
+                    }
+                }
+            }
+        } catch (SecurityException e) {
+            return false;
+        }
+        return false;
     }
 
     /**

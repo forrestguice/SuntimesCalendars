@@ -6,6 +6,7 @@
     <attr name="toolbarTheme" format="reference" />
 
     <attr name="icActionCalendar" format="reference" />
+    <attr name="icActionUpdate" format="reference" />
     <attr name="icActionAbout" format="reference" />
     <attr name="icActionSettings" format="reference" />
     <attr name="icActionHelp" format="reference" />
