@@ -1,5 +1,6 @@
 ### ~
 
+### v0.2.0 (2019-01-02)
 * adds individual "enabled" prefs for each calendar (Solstices/Equinoxes, Moon Phases) (#3).
 * fixes bug "missing calendars/events when closing app while task is still running" (#4); moves calendar notifications into a foreground service. 
 * changes the "Calendar Integration" pref to match calendar state (vs desired state); existing calendars (and prefs) should be preserved when updating (or removing / re-adding) the app. 
