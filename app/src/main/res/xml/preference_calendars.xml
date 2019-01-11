@@ -10,6 +10,12 @@
             android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
 
         <CheckBoxPreference
+            android:key="app_calendars_calendar_moonriseCalendar"
+            android:title="@string/calendar_moonrise_displayName"
+            android:icon="?attr/icActionCalendar"
+            android:defaultValue="@string/def_calendars_calendar_moonrise" />
+
+        <CheckBoxPreference
             android:key="app_calendars_calendar_moonPhaseCalendar"
             android:title="@string/calendar_moonPhase_displayName"
             android:icon="?attr/icActionCalendar"

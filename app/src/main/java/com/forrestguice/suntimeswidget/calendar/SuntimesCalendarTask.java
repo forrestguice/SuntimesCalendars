@@ -48,8 +48,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
-    private String[] phaseStrings = new String[4];
-    private String[] solsticeStrings = new String[4];
+    private String[] moonStrings = new String[2];      // {moonrise, moonset}
+    private String[] phaseStrings = new String[4];     // {major phases}
+    private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
     //private int[] solsticeColors = new int[4];
 
     private long lastSync = -1;
@@ -85,6 +86,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         //solsticeColors[1] = ContextCompat.getColor(context, R.color.summerColor_light);
         //solsticeColors[2] = ContextCompat.getColor(context, R.color.fallColor_light);
         //solsticeColors[3] = ContextCompat.getColor(context, R.color.winterColor_light);
+
+        // moonrise, moonset calendar resources
+        moonStrings[0] = context.getString(R.string.moonrise);
+        moonStrings[1] = context.getString(R.string.moonset);
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, context.getString(R.string.calendar_moonrise_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, R.color.colorMoonCalendar);
 
         // moon phase calendar resources
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
@@ -279,6 +287,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
             return initSolsticeCalendar(window[0], window[1]);
 
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
+            return initMoonriseCalendar(window[0], window[1]);
+
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
             return initMoonPhaseCalendar(window[0], window[1]);
 
@@ -286,6 +297,57 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
             return false;
         }
+    }
+
+    private boolean initMoonriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        for (int i=0; i<projection.length; i++)
+                        {
+                            Calendar eventTime = Calendar.getInstance();
+                            eventTime.setTimeInMillis(cursor.getLong(i));
+                            adapter.createCalendarEvent(calendarID, moonStrings[i], moonStrings[i], eventTime);
+                        }
+                        cursor.moveToNext();
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
     }
 
     /**

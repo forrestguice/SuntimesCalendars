@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="moonrise">Moonrise</string>  <!-- TODO -->
+    <string name="moonset">Moonset</string>   <!-- TODO -->
+
     <string name="timeMode_equinox_vernal">Spring Equinox</string>
     <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
     <string name="timeMode_solstice_summer">Summer Solstice</string>
@@ -15,6 +18,7 @@
     <string name="configLabel_calendars">Suntimes Calendars</string>
     <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
+    <string name="calendar_moonrise_displayName">Moonrise, Moonset</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>
@@ -108,6 +112,7 @@
     <string name="def_app_calendars_enabled" translatable="false">false</string>
     <string name="def_calendars_window0" translatable="false">31536000000</string>
     <string name="def_calendars_window1" translatable="false">63072000000</string>
+    <string name="def_calendars_calendar_moonrise" translatable="false">true</string>
     <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 </resources>
