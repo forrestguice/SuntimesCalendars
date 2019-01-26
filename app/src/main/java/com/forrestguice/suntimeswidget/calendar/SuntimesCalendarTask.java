@@ -284,12 +284,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         ContentResolver resolver = (context == null ? null : context.getContentResolver());
         if (resolver != null) {
             Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
-            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE};  // TODO: name
+            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE};
             Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
 
             if (configCursor != null) {
                 configCursor.moveToFirst();
                 for (int i = 0; i < configProjection.length; i++) {
+                    config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
                     config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
                     config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
                     config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
@@ -370,7 +371,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(moonCursor.getLong(i));
                             title = moonStrings[i];
-                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format, config_location_latitude, config_location_longitude, config_location_altitude));
+                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format, config_location_name, config_location_latitude, config_location_longitude, config_location_altitude));
                             adapter.createCalendarEvent(calendarID, title, desc, eventTime);
                             //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                         }
