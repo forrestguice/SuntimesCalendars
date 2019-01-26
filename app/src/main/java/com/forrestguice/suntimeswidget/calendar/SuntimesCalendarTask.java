@@ -212,6 +212,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
                 + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 
+        boolean retValue = initLocation();
+        if (!retValue) {
+            return false;
+        }
+
         try {
             for (String calendar : calendars.keySet())
             {
@@ -267,6 +272,42 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             if (listener != null && context != null) {
                 listener.onFailed(context, lastError);
             }
+        }
+    }
+
+    private String config_location_name = "";
+    private String config_location_latitude = "";
+    private String config_location_longitude = "";
+    private String config_location_altitude = "";
+
+    private boolean initLocation()
+    {
+        Context context = contextRef.get();
+        ContentResolver resolver = (context == null ? null : context.getContentResolver());
+        if (resolver != null) {
+            Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE};  // TODO: name
+            Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
+
+            if (configCursor != null) {
+                configCursor.moveToFirst();
+                for (int i = 0; i < configProjection.length; i++) {
+                    config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
+                    config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
+                    config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
+                }
+                configCursor.close();
+                return true;
+
+            } else {
+                lastError = "Failed to resolve URI! " + configUri;
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else {
+            lastError = "Unable to getContentResolver! ";
+            Log.e(TAG, lastError);
+            return false;
         }
     }
 
