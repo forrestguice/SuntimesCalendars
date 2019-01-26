@@ -381,6 +381,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    onProgressUpdate(progress);
+
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
@@ -391,6 +396,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        onProgressUpdate(progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();
