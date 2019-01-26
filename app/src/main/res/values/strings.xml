@@ -16,7 +16,7 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
-    <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>
+    <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
     <string name="calendar_moonrise_displayName">Moonrise, Moonset</string>  <!-- TODO -->
 
@@ -49,8 +49,8 @@
         <item>315360000000</item>
     </string-array>
 
-
-
+    <string name="location_format">%s,%s (%s)</string>  <!-- lat, lon (alt) -->
+    <string name="event_at_format">%s at %s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
