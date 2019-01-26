@@ -202,8 +202,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             setItems(items);
         }
 
-        boolean retValue = true;
-
         if (flag_clear && !isCancelled()) {
             adapter.removeCalendars();
         }
@@ -358,27 +356,31 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
-                Cursor cursor = resolver.query(uri, projection, null, null, null);
-                if (cursor != null)
+                Uri moonUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] moonProjection = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
+                Cursor moonCursor = resolver.query(moonUri, moonProjection, null, null, null);
+                if (moonCursor != null)
                 {
-                    cursor.moveToFirst();
-                    while (!cursor.isAfterLast() && !isCancelled())
+                    String title, desc;
+                    moonCursor.moveToFirst();
+                    while (!moonCursor.isAfterLast() && !isCancelled())
                     {
-                        for (int i=0; i<projection.length; i++)
+                        for (int i=0; i<moonProjection.length; i++)
                         {
                             Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(cursor.getLong(i));
-                            adapter.createCalendarEvent(calendarID, moonStrings[i], moonStrings[i], eventTime);
+                            eventTime.setTimeInMillis(moonCursor.getLong(i));
+                            title = moonStrings[i];
+                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format, config_location_latitude, config_location_longitude, config_location_altitude));
+                            adapter.createCalendarEvent(calendarID, title, desc, eventTime);
+                            //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                         }
-                        cursor.moveToNext();
+                        moonCursor.moveToNext();
                     }
-                    cursor.close();
+                    moonCursor.close();
                     return !isCancelled();
 
                 } else {
-                    lastError = "Failed to resolve URI! " + uri;
+                    lastError = "Failed to resolve URI! " + moonUri;
                     Log.e(TAG, lastError);
                     return false;
                 }
