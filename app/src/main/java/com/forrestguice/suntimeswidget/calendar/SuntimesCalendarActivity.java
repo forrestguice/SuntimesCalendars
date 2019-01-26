@@ -675,7 +675,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             for (String calendar : calendarPrefs.keySet())
             {
                 CheckBoxPreference calendarPref = calendarPrefs.get(calendar);
-                calendarPref.setOnPreferenceChangeListener(onPreferenceChanged1(activity, calendar));
+                if (calendarPref != null) {
+                    calendarPref.setOnPreferenceChangeListener(onPreferenceChanged1(activity, calendar));
+                }
             }
         }
 
@@ -685,7 +687,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             for (String calendar : calendarPrefs.keySet())
             {
                 CheckBoxPreference calendarPref = calendarPrefs.get(calendar);
-                calendarPref.setOnPreferenceChangeListener(null);
+                if (calendarPref != null) {
+                    calendarPref.setOnPreferenceChangeListener(null);
+                }
             }
         }
 
