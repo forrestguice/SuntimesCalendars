@@ -337,7 +337,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = loadItems(this.getIntent(), true);
                         savePendingItems(this, taskIntent, items);
-                        calendarTaskService.runCalendarTask(context, taskIntent, false, false,null);
+                        calendarTaskService.runCalendarTask(context, taskIntent, false, false, mainFragment.calendarTaskListener);
 
                         if (mainFragment != null)
                         {
@@ -371,7 +371,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         }
 
                         savePendingItems(this, taskIntent, items);
-                        calendarTaskService.runCalendarTask(context, taskIntent, !enabled, true,null);
+                        calendarTaskService.runCalendarTask(context, taskIntent, !enabled, true, mainFragment.calendarTaskListener);
 
                         SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
                         pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED, enabled);
@@ -753,7 +753,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
                         taskIntent.setAction( !enabled ? SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS : SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
                         savePendingItems(activity, taskIntent);
-                        return calendarTaskService.runCalendarTask(activity, taskIntent, !enabled, true,null);
+                        return calendarTaskService.runCalendarTask(activity, taskIntent, !enabled, true, calendarTaskListener);
                     }
                 }
             };
@@ -789,7 +789,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
                             taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
                             savePendingItem(activity, taskIntent, calendar, enabled);
-                            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true,null);
+                            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
                         }
 
                     } else {
@@ -798,6 +798,44 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 }
             };
         }
+
+        private Snackbar snackbar;
+        private void showSnackbar(String message)
+        {
+            dismissSnackbar();
+            snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = SuntimesCalendarTaskService.getCalendarIntent();
+                    startActivity(intent);
+                }
+            });
+            snackbar.show();
+        }
+
+        private void dismissSnackbar() {
+            if (snackbar != null && snackbar.isShown()) {
+                snackbar.dismiss();
+                snackbar = null;
+            }
+        }
+
+        public SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener = new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        {
+            @Override
+            public void onStarted(Context context, SuntimesCalendarTask task, String message) {
+                dismissSnackbar();
+            }
+
+            @Override
+            public void onSuccess(Context context, SuntimesCalendarTask task, String message) {
+                showSnackbar(message);
+            }
+        };
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
