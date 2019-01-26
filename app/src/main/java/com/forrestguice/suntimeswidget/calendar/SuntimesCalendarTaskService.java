@@ -103,6 +103,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener;
+    private static NotificationCompat.Builder progressNotification;
     public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTask.SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
@@ -130,14 +131,9 @@ public class SuntimesCalendarTaskService extends Service
                     signalOnBusyStatusChanged(true);
                     signalOnProgressMessage(getString(R.string.calendars_notification_adding));
 
-                    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                    notificationBuilder.setContentTitle(context.getString(R.string.app_name))
-                            .setContentText(message)
-                            .setSmallIcon(R.drawable.ic_action_update)
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .setProgress(0, 0, true);
+                    progressNotification = createProgressNotification(context, message);
                     startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
-                    startForeground(NOTIFICATION_PROGRESS, notificationBuilder.build());
+                    startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
 
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                     notificationManager.cancel(NOTIFICATION_COMPLETE);
@@ -161,15 +157,8 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onSuccess(context, task, message);
                 }
 
+                NotificationCompat.Builder notificationBuilder = createSuccessNotification(context, message);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                notificationBuilder.setContentTitle(context.getString(R.string.app_name))
-                        .setContentText(message)
-                        .setSmallIcon(R.drawable.ic_action_calendar)
-                        .setPriority(NotificationCompat.PRIORITY_LOW)
-                        .setContentIntent(getNotificationIntent()).setAutoCancel(true)
-                        .setProgress(0, 0, false);
-
                 notificationManager.notify(NOTIFICATION_COMPLETE, notificationBuilder.build());
                 signalOnBusyStatusChanged(false);
                 stopForeground(true);
@@ -192,12 +181,6 @@ public class SuntimesCalendarTaskService extends Service
                 stopForeground(true);
                 stopSelf();
             }
-
-            private PendingIntent getNotificationIntent()
-            {
-                Intent intent = getCalendarIntent();
-                return PendingIntent.getActivity(context, 0, intent, 0);
-            }
         };
         calendarTask.setTaskListener(calendarTaskListener);
 
@@ -207,6 +190,35 @@ public class SuntimesCalendarTaskService extends Service
         calendarTask.setItems(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         calendarTask.execute();
         return true;
+    }
+
+    private static NotificationCompat.Builder createProgressNotification(Context context, String message)
+    {
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setContentTitle(context.getString(R.string.app_name))
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_action_update)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setProgress(0, 0, true);
+        return notification;
+    }
+
+    private static NotificationCompat.Builder createSuccessNotification(Context context, String message)
+    {
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setContentTitle(context.getString(R.string.app_name))
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_action_calendar)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(getNotificationIntent(context)).setAutoCancel(true)
+                .setProgress(0, 0, false);
+        return notification;
+    }
+
+    private static PendingIntent getNotificationIntent(Context context)
+    {
+        Intent intent = getCalendarIntent();
+        return PendingIntent.getActivity(context, 0, intent, 0);
     }
 
     public boolean isBusy()
