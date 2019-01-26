@@ -49,8 +49,8 @@
         <item>315360000000</item>
     </string-array>
 
-    <string name="location_format">%s,%s (%s)</string>  <!-- lat, lon (alt) -->
-    <string name="event_at_format">%s at %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="location_format">%s [%s,%s (%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="event_at_format">%s, %s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
