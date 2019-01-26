@@ -195,19 +195,7 @@ public class SuntimesCalendarTaskService extends Service
 
             private PendingIntent getNotificationIntent()
             {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-                {
-                    Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
-                    uriBuilder.appendPath("time");
-                    ContentUris.appendId(uriBuilder, System.currentTimeMillis());
-                    intent = intent.setData(uriBuilder.build());
-                }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                }
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = getCalendarIntent();
                 return PendingIntent.getActivity(context, 0, intent, 0);
             }
         };
@@ -256,6 +244,24 @@ public class SuntimesCalendarTaskService extends Service
             intent.removeExtra(EXTRA_CALENDAR_ITEMS);
         }
         return new ArrayList<>(Arrays.asList(items));
+    }
+
+    public static Intent getCalendarIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+        {
+            Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
+            uriBuilder.appendPath("time");
+            ContentUris.appendId(uriBuilder, System.currentTimeMillis());
+            intent = intent.setData(uriBuilder.build());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
     /**
