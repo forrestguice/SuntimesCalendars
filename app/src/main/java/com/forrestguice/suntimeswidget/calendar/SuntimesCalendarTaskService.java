@@ -129,7 +129,7 @@ public class SuntimesCalendarTaskService extends Service
                 if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
                 {
                     signalOnBusyStatusChanged(true);
-                    signalOnProgressMessage(getString(R.string.calendars_notification_adding));
+                    signalOnProgressMessage(0, 1, getString(R.string.calendars_notification_adding));
 
                     progressNotification = createProgressNotification(context, message);
                     startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
@@ -157,9 +157,12 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onProgress(context, progress);
                 }
 
-                if (progressNotification != null && progress.length > 0) {
-                    progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
-                    startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                if (progress.length > 0) {
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[0].getMessage());
+                    if (progressNotification != null) {
+                        progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
+                        startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                    }
                 }
             }
 
@@ -296,7 +299,7 @@ public class SuntimesCalendarTaskService extends Service
     {
         public void onStartCommand(boolean result) {}
         public void onBusyStatusChanged(boolean isBusy) {}
-        public void onProgressMessage(String message) {}
+        public void onProgressMessage(int i, int n, String message) {}
 
         public SuntimesCalendarServiceListener() {}
         protected SuntimesCalendarServiceListener(Parcel in) {}
@@ -340,12 +343,12 @@ public class SuntimesCalendarTaskService extends Service
         }
     }
 
-    private void signalOnProgressMessage(String message)
+    private void signalOnProgressMessage(int i, int n, String message)
     {
         lastProgressMessage = message;
         for (SuntimesCalendarServiceListener listener : serviceListeners) {
             if (listener != null) {
-                listener.onProgressMessage(message);
+                listener.onProgressMessage(i, n, message);
             }
         }
     }

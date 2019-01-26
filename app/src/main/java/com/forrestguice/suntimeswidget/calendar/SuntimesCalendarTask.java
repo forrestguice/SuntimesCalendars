@@ -211,13 +211,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        publishProgress(new CalendarTaskProgress(0, 0, notificationMsgClearing));
+                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        publishProgress(new CalendarTaskProgress(0, 0, notificationMsgAdding));
+                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgAdding));
                         retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
@@ -324,6 +324,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 if (cursor != null)
                 {
                     cursor.moveToFirst();
+
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
@@ -333,6 +339,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        publishProgress(progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();

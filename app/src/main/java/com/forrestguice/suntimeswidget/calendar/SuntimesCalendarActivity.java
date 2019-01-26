@@ -237,7 +237,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             if (mainFragment != null) {
                 mainFragment.setIsBusy(calendarTaskService.isBusy());
-                mainFragment.updateProgressDialog(calendarTaskService.getLastProgressMessage());
             }
         }
 
@@ -257,10 +256,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         @Override
-        public void onProgressMessage(String message)
+        public void onProgressMessage(int i, int n, String message)
         {
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(message);
+                mainFragment.updateProgressDialog(i, n);
             }
         }
     };
@@ -302,7 +301,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         mainFragment.setProviderVersion(providerVersionCode);
         if (boundToTaskService) {
             mainFragment.setIsBusy(calendarTaskService.isBusy());
-            mainFragment.updateProgressDialog(calendarTaskService.getLastProgressMessage());
         }
         getFragmentManager().beginTransaction().replace(android.R.id.content, mainFragment).commit();
     }
@@ -480,20 +478,29 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         protected ProgressDialog progressDialog;
-        protected String progressMessage;
-        public void updateProgressDialog(String message)
+        public void updateProgressDialog(int i, int n)
         {
             if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.setMessage(message);
-                progressMessage = message;
+                if (n > 0) {
+                    progressDialog.setProgress(i);
+                    progressDialog.setMax(n);
+
+                } else {
+                    progressDialog.setProgress(1);
+                    progressDialog.setMax(1);
+                }
             }
         }
 
         protected void initProgressDialog()
         {
             progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setProgressPercentFormat(null);
+            progressDialog.setProgressNumberFormat(null);
             progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(false);
         }
     }
 
@@ -607,7 +614,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onStart();
             if (progressDialog != null && isBusy) {
                 progressDialog.show();
-                updateProgressDialog(progressMessage);
             }
         }
 
@@ -803,17 +809,21 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private void showSnackbar(String message)
         {
             dismissSnackbar();
-            snackbar = Snackbar.make(getView(), message, Snackbar.LENGTH_INDEFINITE);
-            snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
+            View v = getView();
+            if (v != null)
             {
-                @Override
-                public void onClick(View v)
+                snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);          // TODO: swipeable (needs a coordinatorLayout)
+                snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
                 {
-                    Intent intent = SuntimesCalendarTaskService.getCalendarIntent();
-                    startActivity(intent);
-                }
-            });
-            snackbar.show();
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Intent intent = SuntimesCalendarTaskService.getCalendarIntent();
+                        startActivity(intent);
+                    }
+                });
+                snackbar.show();
+            }
         }
 
         private void dismissSnackbar() {
