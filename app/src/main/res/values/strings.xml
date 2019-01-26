@@ -36,6 +36,8 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="action_openCalendar">Open</string> <!-- TODO -->
+
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
         <item>two years</item>

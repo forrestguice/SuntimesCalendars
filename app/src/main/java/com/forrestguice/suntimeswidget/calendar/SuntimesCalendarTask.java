@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, String, Boolean>
+public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
 
@@ -222,13 +222,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        onProgressUpdate(notificationMsgClearing);
+                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        onProgressUpdate(notificationMsgAdding);
+                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgAdding));
                         retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
@@ -241,6 +241,15 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         return retValue;
+    }
+
+    @Override
+    protected void onProgressUpdate(CalendarTaskProgress... progress)
+    {
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onProgress(context, progress);
+        }
     }
 
     @Override
@@ -421,6 +430,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 if (cursor != null)
                 {
                     cursor.moveToFirst();
+
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
@@ -430,6 +445,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        publishProgress(progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();
@@ -478,6 +496,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
@@ -488,6 +511,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        publishProgress(progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();
@@ -571,6 +597,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     public static abstract class SuntimesCalendarTaskListener implements Parcelable
     {
         public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
+        public void onProgress(Context context, CalendarTaskProgress... progress) {}
         public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
         public void onFailed(Context context, String errorMsg) {}
 
@@ -597,6 +624,44 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         Context context = contextRef.get();
         if (listener != null && context != null) {
             listener.onStarted(context, this, message);
+        }
+    }
+
+    public static class CalendarTaskProgress
+    {
+        public CalendarTaskProgress(int i, int n, String message)
+        {
+            setProgress(i, n, message);
+        }
+        public void setProgress(int i, int n, String message)
+        {
+            this.i = i;
+            this.n = n;
+            this.message = message;
+        }
+
+        private int i;
+        public int itemNum() {
+            return i;
+        }
+
+        private int n;
+        public int getCount() {
+            return n;
+        }
+
+        private String message;
+        public String getMessage() {
+            return message;
+        }
+
+        public boolean isIndeterminate()
+        {
+            return (i == 0 || n == 0);
+        }
+
+        public String toString() {
+            return message + ": " + i + "/" + n + " (" + (isIndeterminate() ? "true" : "false") + ")";
         }
     }
 
