@@ -37,7 +37,7 @@ import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, String, Boolean>
+public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
 
@@ -211,13 +211,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        onProgressUpdate(notificationMsgClearing);
+                        onProgressUpdate(new CalendarTaskProgress(0, 0, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        onProgressUpdate(notificationMsgAdding);
+                        onProgressUpdate(new CalendarTaskProgress(0, 0, notificationMsgAdding));
                         retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
@@ -230,6 +230,15 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         return retValue;
+    }
+
+    @Override
+    protected void onProgressUpdate(CalendarTaskProgress... progress)
+    {
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onProgress(context, progress);
+        }
     }
 
     @Override
@@ -465,6 +474,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     public static abstract class SuntimesCalendarTaskListener implements Parcelable
     {
         public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
+        public void onProgress(Context context, CalendarTaskProgress... progress) {}
         public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
         public void onFailed(Context context, String errorMsg) {}
 
@@ -491,6 +501,44 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         Context context = contextRef.get();
         if (listener != null && context != null) {
             listener.onStarted(context, this, message);
+        }
+    }
+
+    public static class CalendarTaskProgress
+    {
+        public CalendarTaskProgress(int i, int n, String message)
+        {
+            setProgress(i, n, message);
+        }
+        public void setProgress(int i, int n, String message)
+        {
+            this.i = i;
+            this.n = n;
+            this.message = message;
+        }
+
+        private int i;
+        public int itemNum() {
+            return i;
+        }
+
+        private int n;
+        public int getCount() {
+            return n;
+        }
+
+        private String message;
+        public String getMessage() {
+            return message;
+        }
+
+        public boolean isIndeterminate()
+        {
+            return (i == 0 || n == 0);
+        }
+
+        public String toString() {
+            return i + "/" + n;
         }
     }
 

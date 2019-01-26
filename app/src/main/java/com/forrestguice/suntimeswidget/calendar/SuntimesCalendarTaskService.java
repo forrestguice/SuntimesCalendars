@@ -151,6 +151,19 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
+            public void onProgress(Context context, SuntimesCalendarTask.CalendarTaskProgress... progress)
+            {
+                if (listener != null) {
+                    listener.onProgress(context, progress);
+                }
+
+                if (progressNotification != null && progress.length > 0) {
+                    progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
+                    startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                }
+            }
+
+            @Override
             public void onSuccess(Context context, SuntimesCalendarTask task, String message)
             {
                 if (listener != null) {
