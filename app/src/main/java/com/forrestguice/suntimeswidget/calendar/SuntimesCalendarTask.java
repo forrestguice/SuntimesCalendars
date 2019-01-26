@@ -211,13 +211,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        onProgressUpdate(new CalendarTaskProgress(0, 0, notificationMsgClearing));
+                        publishProgress(new CalendarTaskProgress(0, 0, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        onProgressUpdate(new CalendarTaskProgress(0, 0, notificationMsgAdding));
+                        publishProgress(new CalendarTaskProgress(0, 0, notificationMsgAdding));
                         retValue = retValue && initCalendar(calendar, window);
                         break;
                 }
@@ -384,7 +384,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    onProgressUpdate(progress);
+                    publishProgress(progress);
 
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
@@ -397,7 +397,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, notificationMsgAdding);
-                        onProgressUpdate(progress);
+                        publishProgress(progress);
                         c++;
                     }
                     cursor.close();
@@ -546,7 +546,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         public String toString() {
-            return i + "/" + n;
+            return message + ": " + i + "/" + n + " (" + (isIndeterminate() ? "true" : "false") + ")";
         }
     }
 
