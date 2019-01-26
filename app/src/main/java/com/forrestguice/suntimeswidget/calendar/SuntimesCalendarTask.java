@@ -371,6 +371,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor moonCursor = resolver.query(moonUri, moonProjection, null, null, null);
                 if (moonCursor != null)
                 {
+                    int c = 0;
+                    int numRows = moonCursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
                     String title, desc;
                     moonCursor.moveToFirst();
                     while (!moonCursor.isAfterLast() && !isCancelled())
@@ -385,6 +390,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                         }
                         moonCursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            publishProgress(progress);
+                        }
+                        c++;
                     }
                     moonCursor.close();
                     return !isCancelled();
