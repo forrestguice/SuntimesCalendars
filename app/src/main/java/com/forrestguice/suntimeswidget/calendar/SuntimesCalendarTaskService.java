@@ -34,7 +34,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 
@@ -117,11 +116,15 @@ public class SuntimesCalendarTaskService extends Service
         }
 
         calendarTask = new SuntimesCalendarTask(context);
-        calendarTaskListener = (listener != null) ? listener : new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        calendarTaskListener = new SuntimesCalendarTask.SuntimesCalendarTaskListener()
         {
             @Override
             public void onStarted(Context context, SuntimesCalendarTask task, String message)
             {
+                if (listener != null) {
+                    listener.onStarted(context, task, message);
+                }
+
                 if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
                 {
                     signalOnBusyStatusChanged(true);
@@ -154,7 +157,9 @@ public class SuntimesCalendarTaskService extends Service
             @Override
             public void onSuccess(Context context, SuntimesCalendarTask task, String message)
             {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                if (listener != null) {
+                    listener.onSuccess(context, task, message);
+                }
 
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
@@ -174,7 +179,9 @@ public class SuntimesCalendarTaskService extends Service
             @Override
             public void onFailed(final Context context, final String errorMsg)
             {
-                super.onFailed(context, errorMsg);
+                if (listener != null) {
+                    listener.onFailed(context, errorMsg);
+                }
 
                 Intent errorIntent = new Intent(context, SuntimesCalendarErrorActivity.class);
                 errorIntent.putExtra(SuntimesCalendarErrorActivity.EXTRA_ERROR_MESSAGE, errorMsg);
