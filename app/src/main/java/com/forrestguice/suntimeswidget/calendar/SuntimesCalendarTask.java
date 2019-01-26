@@ -48,6 +48,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
+    private String[] sunStrings = new String[2];       // {sunrise, sunset}
     private String[] moonStrings = new String[2];      // {moonrise, moonset}
     private String[] phaseStrings = new String[4];     // {major phases}
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
@@ -86,6 +87,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         //solsticeColors[1] = ContextCompat.getColor(context, R.color.summerColor_light);
         //solsticeColors[2] = ContextCompat.getColor(context, R.color.fallColor_light);
         //solsticeColors[3] = ContextCompat.getColor(context, R.color.winterColor_light);
+
+        // sunrise, sunset calendar resources
+        sunStrings[0] = context.getString(R.string.sunrise);
+        sunStrings[1] = context.getString(R.string.sunset);
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_SUNRISE, context.getString(R.string.calendar_sunrise_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_SUNRISE, ContextCompat.getColor(context, R.color.colorSunriseCalendar));
 
         // moonrise, moonset calendar resources
         moonStrings[0] = context.getString(R.string.moonrise);
@@ -287,6 +295,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private String config_location_longitude = "";
     private String config_location_altitude = "";
 
+    /**
+     * initLocation
+     */
     private boolean initLocation()
     {
         Context context = contextRef.get();
@@ -336,6 +347,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
             return initSolsticeCalendar(window[0], window[1]);
 
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SUNRISE)) {
+            return initSunriseCalendar(window[0], window[1]);
+
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
             return initMoonriseCalendar(window[0], window[1]);
 
@@ -348,7 +362,78 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
     }
 
-    private boolean initMoonriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    /**
+     * initSunriseCalendar
+     */
+    private boolean initSunriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_SUNRISE;
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
+                    String title, desc;
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        for (int i=0; i<projection.length; i++)
+                        {
+                            Calendar eventTime = Calendar.getInstance();
+                            eventTime.setTimeInMillis(cursor.getLong(i));
+                            title = sunStrings[i];
+                            desc = context.getString(R.string.event_at_format, sunStrings[i], context.getString(R.string.location_format, config_location_name, config_location_latitude, config_location_longitude, config_location_altitude));
+                            adapter.createCalendarEvent(calendarID, title, desc, eventTime);
+                            //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
+                        }
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            publishProgress(progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+    /**
+     * initMoonriseCalendar
+     */
+    private boolean initMoonriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
