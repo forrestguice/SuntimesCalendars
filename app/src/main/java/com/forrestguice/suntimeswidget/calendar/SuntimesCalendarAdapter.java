@@ -103,7 +103,7 @@ public class SuntimesCalendarAdapter
      * @param description the event description
      * @param time the startTime of the event (endTime is the same)
      */
-    public void createCalendarEvent(long calendarID, String title, String description, Calendar time) throws SecurityException
+    public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException
     {
         ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, time);
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
@@ -227,16 +227,27 @@ public class SuntimesCalendarAdapter
      * @param time
      * @return
      */
-    public static ContentValues createEventContentValues(long calendarID, String title, String description, Calendar time)
+    public static ContentValues createEventContentValues(long calendarID, String title, String description, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);
         v.put(CalendarContract.Events.TITLE, title);
         v.put(CalendarContract.Events.DESCRIPTION, description);
 
-        v.put(CalendarContract.Events.DTSTART, time.getTimeInMillis());
-        v.put(CalendarContract.Events.DTEND, time.getTimeInMillis());
-        v.put(CalendarContract.Events.EVENT_TIMEZONE, time.getTimeZone().getID());
+        if (time.length > 0)
+        {
+            v.put(CalendarContract.Events.EVENT_TIMEZONE, time[0].getTimeZone().getID());
+            if (time.length >= 2)
+            {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[1].getTimeInMillis());
+            } else {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[0].getTimeInMillis());
+            }
+        } else {
+            Log.w(TAG, "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
+        }
 
         //v.put(CalendarContract.Events.EVENT_LOCATION, "Local");
 
