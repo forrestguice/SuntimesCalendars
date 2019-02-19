@@ -481,7 +481,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(moonCursor.getLong(i));
                             title = moonStrings[i];
-                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format, config_location_name, config_location_latitude, config_location_longitude, config_location_altitude));
+                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                             adapter.createCalendarEvent(calendarID, title, desc, eventTime);
                             //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                         }
