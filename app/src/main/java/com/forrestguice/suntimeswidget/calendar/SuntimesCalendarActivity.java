@@ -495,6 +495,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         protected void initProgressDialog()
         {
             progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setTitle(getString(R.string.progress_title));
+            progressDialog.setMessage(getString(R.string.progress_message));
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setProgressPercentFormat(null);
             progressDialog.setProgressNumberFormat(null);

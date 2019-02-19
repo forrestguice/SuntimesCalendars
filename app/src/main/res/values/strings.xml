@@ -62,6 +62,9 @@
     <string name="location_format_short">%s [%s, %s]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
 
+    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
+    <string name="progress_message">This may take several minutes…\n\nThe update will continue in the background if the app is closed.</string>  <!-- TODO -->
+
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
