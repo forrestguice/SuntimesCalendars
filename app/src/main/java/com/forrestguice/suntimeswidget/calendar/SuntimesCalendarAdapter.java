@@ -76,6 +76,7 @@ public class SuntimesCalendarAdapter
                 contentResolver.delete(deleteUri, null, null);
                 Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
+            cursor.close();
             return true;
         } else return false;
     }
@@ -145,10 +146,10 @@ public class SuntimesCalendarAdapter
         Cursor cursor = queryCalendar(calendarName);
         if (cursor != null)
         {
-            while (cursor.moveToNext())
-            {
+            while (cursor.moveToNext()) {
                 calendarID = cursor.getLong(PROJECTION_ID_INDEX);
             }
+            cursor.close();
         } else {
             Log.w(TAG, "initCalendars: Calendar not found! (null cursor) " + calendarName);
             calendarID = -1;
@@ -162,8 +163,13 @@ public class SuntimesCalendarAdapter
      */
     public boolean hasCalendar(String calendarName)
     {
+        boolean retValue = false;
         Cursor cursor = queryCalendar(calendarName);
-        return (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            retValue = (cursor.getCount() > 0);
+            cursor.close();
+        }
+        return retValue;
     }
 
     /**
