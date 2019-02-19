@@ -384,7 +384,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             if (resolver != null)
             {
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET, CalculatorProviderContract.COLUMN_SUN_CIVIL_SET };   // 0, 1, 2, 3 .. expected order: civil, sunrise, sunset, civil
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -393,19 +394,29 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
                     publishProgress(progress);
 
-                    String title, desc;
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] civilMorning = new Calendar[2];
+                    Calendar[] civilEvening = new Calendar[2];
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        for (int i=0; i<projection.length; i++)
-                        {
-                            Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(cursor.getLong(i));
-                            title = sunStrings[i];
-                            desc = context.getString(R.string.event_at_format, sunStrings[i], context.getString(R.string.location_format, config_location_name, config_location_latitude, config_location_longitude, config_location_altitude));
-                            adapter.createCalendarEvent(calendarID, title, desc, eventTime);
-                            //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
-                        }
+                        civilMorning[0] = Calendar.getInstance();
+                        civilMorning[1] = Calendar.getInstance();
+                        civilMorning[0].setTimeInMillis(cursor.getLong(0));
+                        civilMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[0], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, civilMorning);
+
+                        civilEvening[0] = Calendar.getInstance();
+                        civilEvening[1] = Calendar.getInstance();
+                        civilEvening[0].setTimeInMillis(cursor.getLong(2));
+                        civilEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[1], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, civilEvening);
+
                         cursor.moveToNext();
                         if (c % 8 == 0) {
                             progress.setProgress(c, numRows, notificationMsgAdding);

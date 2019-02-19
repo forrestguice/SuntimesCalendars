@@ -3,6 +3,7 @@
 
     <string name="sunrise">Sunrise</string>  <!-- TODO -->
     <string name="sunset">Sunset</string>   <!-- TODO -->
+    <string name="timeMode_civil">Civil Twilight</string>       <!-- TODO -->
 
     <string name="moonrise">Moonrise</string>  <!-- TODO -->
     <string name="moonset">Moonset</string>   <!-- TODO -->
@@ -21,11 +22,13 @@
     <string name="configLabel_calendars">Suntimes Calendars</string>
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
-    <string name="calendar_moonrise_displayName">Moonrise, Moonset</string>  <!-- TODO -->
-    <string name="calendar_sunrise_displayName">Sunrise, Sunset</string>  <!-- TODO -->
+    <string name="calendar_moonrise_displayName">Moonlight</string>  <!-- TODO -->
+    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>  <!-- TODO -->
+    <string name="calendar_sunrise_displayName">@string/timeMode_civil</string>
+    <string name="calendar_sunrise_summary">Sunrise, sunset.</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -55,8 +58,9 @@
         <item>315360000000</item>
     </string-array>
 
-    <string name="location_format">%s [%s,%s (%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="event_at_format">%s, %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="location_format">%s [%s, %s (%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s [%s, %s]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
