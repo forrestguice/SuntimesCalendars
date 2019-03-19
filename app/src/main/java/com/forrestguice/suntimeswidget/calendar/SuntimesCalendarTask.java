@@ -48,7 +48,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
-    private String[] sunStrings = new String[2];       // {sunrise, sunset}
+    private String[] sunStrings = new String[5];       // {sunrise, sunset, civil twilight, nautical twilight, astronomical twilight}
     private String[] moonStrings = new String[2];      // {moonrise, moonset}
     private String[] phaseStrings = new String[4];     // {major phases}
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
@@ -91,6 +91,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         // sunrise, sunset calendar resources
         sunStrings[0] = context.getString(R.string.sunrise);
         sunStrings[1] = context.getString(R.string.sunset);
+        sunStrings[2] = context.getString(R.string.timeMode_civil);
+        sunStrings[3] = context.getString(R.string.timeMode_nautical);
+        sunStrings[4] = context.getString(R.string.timeMode_astronomical);
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
         calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar));
@@ -474,7 +477,55 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                return false;  // TODO
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE, CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_CIVIL_SET, CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] twilightMorning = new Calendar[2];
+                    Calendar[] twilightEvening = new Calendar[2];
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        twilightMorning[0] = Calendar.getInstance();
+                        twilightMorning[1] = Calendar.getInstance();
+                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
+                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, twilightMorning);
+
+                        twilightEvening[0] = Calendar.getInstance();
+                        twilightEvening[1] = Calendar.getInstance();
+                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
+                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, twilightEvening);
+
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            publishProgress(progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
 
             } else {
                 lastError = "Unable to getContentResolver! ";
@@ -493,7 +544,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO;
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
         } else return false;
@@ -505,7 +556,55 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                return false;  // TODO
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ASTRO_RISE, CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET, CalculatorProviderContract.COLUMN_SUN_ASTRO_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress);
+
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] twilightMorning = new Calendar[2];
+                    Calendar[] twilightEvening = new Calendar[2];
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        twilightMorning[0] = Calendar.getInstance();
+                        twilightMorning[1] = Calendar.getInstance();
+                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
+                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, twilightMorning);
+
+                        twilightEvening[0] = Calendar.getInstance();
+                        twilightEvening[1] = Calendar.getInstance();
+                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
+                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, twilightEvening);
+
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            publishProgress(progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
 
             } else {
                 lastError = "Unable to getContentResolver! ";
