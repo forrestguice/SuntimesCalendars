@@ -11,8 +11,8 @@
 
         <CheckBoxPreference
             android:key="app_calendars_calendar_sunriseCalendar"
-            android:title="@string/calendar_sunrise_displayName"
-            android:summary="@string/calendar_sunrise_summary"
+            android:title="@string/calendar_civil_twilight_displayName"
+            android:summary="@string/calendar_civil_twilight_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_sunrise" />
 

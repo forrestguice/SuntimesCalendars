@@ -92,8 +92,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         sunStrings[0] = context.getString(R.string.sunrise);
         sunStrings[1] = context.getString(R.string.sunset);
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_SUNRISE, context.getString(R.string.calendar_sunrise_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_SUNRISE, ContextCompat.getColor(context, R.color.colorSunriseCalendar));
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorSunriseCalendar));
 
         // moonrise, moonset calendar resources
         moonStrings[0] = context.getString(R.string.moonrise);
@@ -347,8 +347,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
             return initSolsticeCalendar(window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SUNRISE)) {
-            return initSunriseCalendar(window[0], window[1]);
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL)) {
+            return initCivilTwilightCalendar(window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
             return initMoonriseCalendar(window[0], window[1]);
@@ -365,13 +365,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initSunriseCalendar
      */
-    private boolean initSunriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initCivilTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_SUNRISE;
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL;
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
         } else return false;
