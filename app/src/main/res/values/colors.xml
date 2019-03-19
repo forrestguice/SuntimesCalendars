@@ -4,7 +4,9 @@
     <color name="colorSolsticeCalendar">#03A9F4</color>
     <color name="colorMoonCalendar">#ff9e9e9e</color>
     <color name="colorMoonriseCalendar">#ff9e9eff</color>
-    <color name="colorSunriseCalendar">#ffff9900</color>
+    <color name="colorCivilTwilightCalendar">#ffff9900</color>   <!-- TODO -->
+    <color name="colorNauticalTwilightCalendar">#ff3f99ff</color>  <!-- TODO -->
+    <color name="colorAstroTwilightCalendar">#ff9d9dd0</color>  <!-- TODO -->
 
     <color name="snackbarError_text">#ffffff</color>
     <color name="snackbarError_background">@color/orange_900</color>

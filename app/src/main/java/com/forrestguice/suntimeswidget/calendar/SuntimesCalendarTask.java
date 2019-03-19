@@ -93,7 +93,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         sunStrings[1] = context.getString(R.string.sunset);
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorSunriseCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar));
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, context.getString(R.string.calendar_nautical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar));
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, context.getString(R.string.calendar_astronomical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar));
 
         // moonrise, moonset calendar resources
         moonStrings[0] = context.getString(R.string.moonrise);
@@ -350,6 +356,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL)) {
             return initCivilTwilightCalendar(window[0], window[1]);
 
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL)) {
+            return initNauticalTwilightCalendar(window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO)) {
+            return initAstroTwilightCalendar(window[0], window[1]);
+
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
             return initMoonriseCalendar(window[0], window[1]);
 
@@ -363,7 +375,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     }
 
     /**
-     * initSunriseCalendar
+     * initCivilTwilightCalendar
      */
     private boolean initCivilTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
@@ -440,6 +452,69 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             }
         } else return false;
     }
+
+    /**
+     * initNauticalTwilightCalendar
+     */
+    private boolean initNauticalTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                return false;  // TODO
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+    /**
+     * initAstroTwilightCalendar
+     */
+    private boolean initAstroTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                return false;  // TODO
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
 
     /**
      * initMoonriseCalendar

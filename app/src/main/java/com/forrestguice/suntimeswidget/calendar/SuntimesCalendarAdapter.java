@@ -36,10 +36,12 @@ public class SuntimesCalendarAdapter
     public static final String TAG = "SuntimesCalendarAdapter";
 
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
-    public static final String CALENDAR_TWILIGHT_CIVIL = "sunriseCalendar";
+    public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
     public static final String CALENDAR_MOONRISE = "moonriseCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
-    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL};
+    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
 
     private ContentResolver contentResolver;
 
