@@ -16,26 +16,22 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="?attr/dialogPreferredPadding">
 
-    <LinearLayout
-        android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical" android:layout_margin="?attr/dialogPreferredPadding">
+    <TextView
+        android:id="@+id/txt_message"
+        android:layout_height="wrap_content" android:layout_width="wrap_content"
+        android:layout_marginBottom="16dp"
+        tools:text="Progress message" />
 
-        <TextView
-            android:id="@+id/txt_message"
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:layout_marginBottom="16dp"
-            tools:text="Progress message" />
+    <ProgressBar android:id="@+id/progress1"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
-        <ProgressBar android:id="@+id/progress1"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+    <ProgressBar android:id="@+id/progress0"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
-        <ProgressBar android:id="@+id/progress0"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal" />
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>
