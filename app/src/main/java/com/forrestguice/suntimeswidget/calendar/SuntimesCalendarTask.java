@@ -232,6 +232,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             return false;
         }
 
+        publishProgress(new CalendarTaskProgress(1, 1000, notificationMsgAdding));
         try {
             int c = 0;
             int n = calendars.size();
@@ -248,8 +249,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        publishProgress(progress0 = new CalendarTaskProgress(c, n, notificationMsgAdding), new CalendarTaskProgress(0, 1, notificationMsgAdding));
-                        retValue = retValue && initCalendar(calendar, window, progress0);
+                        retValue = retValue && initCalendar(calendar, window, new CalendarTaskProgress(c, n, notificationMsgAdding));
                         break;
                 }
                 c++;

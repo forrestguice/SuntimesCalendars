@@ -18,6 +18,8 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
@@ -160,8 +162,8 @@ public class SuntimesCalendarTaskService extends Service
                 if (progress.length > 1 && progress[0] != null && progress[1] != null)
                 {
                     signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[1].itemNum(), progress[1].getCount(), progress[1].getMessage());
-                    if (progressNotification != null) {     // TODO
-                        progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
+                    if (progressNotification != null) {
+                        progressNotification.setProgress(progress[1].getCount(), progress[1].itemNum(), progress[1].isIndeterminate());  // TODO: secondary progress
                         startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
                     }
 

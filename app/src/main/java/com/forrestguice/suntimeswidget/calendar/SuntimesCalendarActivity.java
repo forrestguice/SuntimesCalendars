@@ -260,16 +260,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         @Override
         public void onProgressMessage(int i, int n, String message)
         {
-            Log.d("DEBUG", "onProgressMessage: " + i + " of " + n);
+            //Log.d("DEBUG", "onProgressMessage: " + i + " of " + n);
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(0, 1, i, n);
+                mainFragment.updateProgressDialog(i, n, 0, n);
             }
         }
 
         @Override
         public void onProgressMessage(int i, int n, int j, int m, String message)
         {
-            Log.d("DEBUG", "onProgressMessage: " + i + " of " + n + " .. " + j + " of " + m);
+            //Log.d("DEBUG", "onProgressMessage: " + i + " of " + n + " .. " + j + " of " + m);
             if (mainFragment != null) {
                 mainFragment.updateProgressDialog(i, n, j, m);
             }
@@ -505,7 +505,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         progressDialog.setSecondaryProgress(0);
 
                     } else {
-                        progressDialog.setProgress( (i * m) / n );
+                        int progress = (i * m) / n;
+                        progressDialog.setProgress( progress == 0 ? 1 : progress );
+                        progressDialog.setProgressSecondary(m);
                         progressDialog.setSecondaryProgress(j);
                     }
 
