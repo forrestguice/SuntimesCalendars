@@ -233,22 +233,26 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         try {
+            int c = 0;
+            int n = calendars.size();
             for (String calendar : calendars.keySet())
             {
+                CalendarTaskProgress progress0;
                 SuntimesCalendarTaskItem item = calendars.get(calendar);
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgClearing));
+                        publishProgress(null, new CalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        publishProgress(new CalendarTaskProgress(0, 1, notificationMsgAdding));
-                        retValue = retValue && initCalendar(calendar, window);
+                        publishProgress(progress0 = new CalendarTaskProgress(c, n, notificationMsgAdding), new CalendarTaskProgress(0, 1, notificationMsgAdding));
+                        retValue = retValue && initCalendar(calendar, window, progress0);
                         break;
                 }
+                c++;
             }
 
         } catch (SecurityException e) {
@@ -342,7 +346,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initCalendar
      */
-    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
+    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window, @NonNull CalendarTaskProgress progress) throws SecurityException
     {
         if (window.length != 2) {
             Log.e(TAG, "initCalendar: invalid window with length " + window.length);
@@ -354,22 +358,22 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
-            return initSolsticeCalendar(window[0], window[1]);
+            return initSolsticeCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL)) {
-            return initCivilTwilightCalendar(window[0], window[1]);
+            return initCivilTwilightCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL)) {
-            return initNauticalTwilightCalendar(window[0], window[1]);
+            return initNauticalTwilightCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO)) {
-            return initAstroTwilightCalendar(window[0], window[1]);
+            return initAstroTwilightCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
-            return initMoonriseCalendar(window[0], window[1]);
+            return initMoonriseCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
-            return initMoonPhaseCalendar(window[0], window[1]);
+            return initMoonPhaseCalendar(progress, window[0], window[1]);
 
         } else {
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
@@ -380,7 +384,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initCivilTwilightCalendar
      */
-    private boolean initCivilTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initCivilTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -407,7 +411,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     String morningTitle, morningDesc;
                     String eveningTitle, eveningDesc;
@@ -435,7 +439,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         cursor.moveToNext();
                         if (c % 8 == 0) {
                             progress.setProgress(c, numRows, notificationMsgAdding);
-                            publishProgress(progress);
+                            publishProgress(progress0, progress);
                         }
                         c++;
                     }
@@ -459,7 +463,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initNauticalTwilightCalendar
      */
-    private boolean initNauticalTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initNauticalTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -486,7 +490,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     String morningTitle, morningDesc;
                     String eveningTitle, eveningDesc;
@@ -514,7 +518,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         cursor.moveToNext();
                         if (c % 8 == 0) {
                             progress.setProgress(c, numRows, notificationMsgAdding);
-                            publishProgress(progress);
+                            publishProgress(progress0, progress);
                         }
                         c++;
                     }
@@ -538,7 +542,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initAstroTwilightCalendar
      */
-    private boolean initAstroTwilightCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initAstroTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -565,7 +569,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     String morningTitle, morningDesc;
                     String eveningTitle, eveningDesc;
@@ -593,7 +597,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         cursor.moveToNext();
                         if (c % 8 == 0) {
                             progress.setProgress(c, numRows, notificationMsgAdding);
-                            publishProgress(progress);
+                            publishProgress(progress0, progress);
                         }
                         c++;
                     }
@@ -618,7 +622,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonriseCalendar
      */
-    private boolean initMoonriseCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initMoonriseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -644,7 +648,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = moonCursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     String title, desc;
                     moonCursor.moveToFirst();
@@ -662,7 +666,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         moonCursor.moveToNext();
                         if (c % 8 == 0) {
                             progress.setProgress(c, numRows, notificationMsgAdding);
-                            publishProgress(progress);
+                            publishProgress(progress0, progress);
                         }
                         c++;
                     }
@@ -686,7 +690,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initSolsticeCalendar
      */
-    private boolean initSolsticeCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initSolsticeCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -714,7 +718,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
@@ -726,7 +730,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, notificationMsgAdding);
-                        publishProgress(progress);
+                        publishProgress(progress0, progress);
                         c++;
                     }
                     cursor.close();
@@ -748,7 +752,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonPhaseCalendar
      */
-    private boolean initMoonPhaseCalendar( @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initMoonPhaseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -779,7 +783,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
-                    publishProgress(progress);
+                    publishProgress(progress0, progress);
 
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
@@ -792,7 +796,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, notificationMsgAdding);
-                        publishProgress(progress);
+                        publishProgress(progress0, progress);
                         c++;
                     }
                     cursor.close();

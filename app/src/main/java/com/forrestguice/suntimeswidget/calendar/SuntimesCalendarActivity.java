@@ -258,10 +258,21 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         @Override
         public void onProgressMessage(int i, int n, String message)
         {
+            Log.d("DEBUG", "onProgressMessage: " + i + " of " + n);
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(i, n);
+                mainFragment.updateProgressDialog(0, 1, i, n);
             }
         }
+
+        @Override
+        public void onProgressMessage(int i, int n, int j, int m, String message)
+        {
+            Log.d("DEBUG", "onProgressMessage: " + i + " of " + n + " .. " + j + " of " + m);
+            if (mainFragment != null) {
+                mainFragment.updateProgressDialog(i, n, j, m);
+            }
+        }
+
     };
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -478,16 +489,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         protected ProgressDialog progressDialog;
-        public void updateProgressDialog(int i, int n)
+        public void updateProgressDialog(int i, int n, int j, int m)
         {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                if (n > 0) {
-                    progressDialog.setProgress(i);
-                    progressDialog.setMax(n);
+            if (progressDialog != null && progressDialog.isShowing())
+            {
+                if (n > 0)
+                {
+                    progressDialog.setMax(m);
+                    if (n == 1) {
+                        progressDialog.setProgress(j);
+                        progressDialog.setSecondaryProgress(0);
+
+                    } else {
+                        progressDialog.setProgress( (i * m) / n );
+                        progressDialog.setSecondaryProgress(j);
+                    }
 
                 } else {
                     progressDialog.setProgress(1);
                     progressDialog.setMax(1);
+                    progressDialog.setSecondaryProgress(1);
                 }
             }
         }

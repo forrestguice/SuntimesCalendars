@@ -157,7 +157,15 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onProgress(context, progress);
                 }
 
-                if (progress.length > 0) {
+                if (progress.length > 1 && progress[0] != null && progress[1] != null)
+                {
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[1].itemNum(), progress[1].getCount(), progress[1].getMessage());
+                    if (progressNotification != null) {     // TODO
+                        progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
+                        startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                    }
+
+                } else if (progress.length > 0 && progress[0] != null) {
                     signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[0].getMessage());
                     if (progressNotification != null) {
                         progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
@@ -300,6 +308,7 @@ public class SuntimesCalendarTaskService extends Service
         public void onStartCommand(boolean result) {}
         public void onBusyStatusChanged(boolean isBusy) {}
         public void onProgressMessage(int i, int n, String message) {}
+        public void onProgressMessage(int i, int n, int j, int m, String message) {}
 
         public SuntimesCalendarServiceListener() {}
         protected SuntimesCalendarServiceListener(Parcel in) {}
@@ -349,6 +358,16 @@ public class SuntimesCalendarTaskService extends Service
         for (SuntimesCalendarServiceListener listener : serviceListeners) {
             if (listener != null) {
                 listener.onProgressMessage(i, n, message);
+            }
+        }
+    }
+
+    private void signalOnProgressMessage(int i, int n, int j, int m, String message)
+    {
+        lastProgressMessage = message;
+        for (SuntimesCalendarServiceListener listener : serviceListeners) {
+            if (listener != null) {
+                listener.onProgressMessage(i, n, j, m, message);
             }
         }
     }
