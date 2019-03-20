@@ -302,6 +302,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         firstLaunchFragment = new FirstLaunchFragment();
         firstLaunchFragment.setAboutClickListener(onAboutClick);
         firstLaunchFragment.setProviderVersion(providerVersionCode);
+        firstLaunchFragment.setSupportFragmentManager(getSupportFragmentManager());
         getFragmentManager().beginTransaction().replace(android.R.id.content, firstLaunchFragment).commit();
     }
 
@@ -310,6 +311,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         mainFragment = new CalendarPrefsFragment();
         mainFragment.setAboutClickListener(onAboutClick);
         mainFragment.setProviderVersion(providerVersionCode);
+        mainFragment.setSupportFragmentManager(getSupportFragmentManager());
         if (boundToTaskService) {
             mainFragment.setIsBusy(calendarTaskService.isBusy());
         }
@@ -511,6 +513,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     progressDialog.setSecondaryProgress(1);
                 }
             }
+        }
+
+        private android.support.v4.app.FragmentManager supportFragments;
+        public void setSupportFragmentManager(android.support.v4.app.FragmentManager fragments)
+        {
+            supportFragments = fragments;
+        }
+        public android.support.v4.app.FragmentManager getSupportFragmentManager()
+        {
+            return supportFragments;
         }
 
         protected void initProgressDialog()
