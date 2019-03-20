@@ -23,7 +23,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
-import android.app.ProgressDialog;
+import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -77,6 +77,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static String TAG = "SuntimesCalendar";
 
     public static final String DIALOGTAG_ABOUT = "aboutdialog";
+    public static final String DIALOGTAG_PROGRESS = "progressdialog";
+
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
     public static final int MIN_PROVIDER_VERSION = 0;
@@ -527,15 +529,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         protected void initProgressDialog()
         {
-            progressDialog = new ProgressDialog(getActivity());
+            android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+            if (fragments != null)
+            {
+                ProgressDialog dialog = (ProgressDialog) fragments.findFragmentByTag(DIALOGTAG_PROGRESS);
+                if (dialog != null) {
+                    progressDialog = dialog;
+                    progressDialog.setTitle(getString(R.string.progress_title));
+                    progressDialog.setMessage(getString(R.string.progress_message));
+                    return;
+                }
+            }
+
+            progressDialog = new ProgressDialog();
             progressDialog.setTitle(getString(R.string.progress_title));
             progressDialog.setMessage(getString(R.string.progress_message));
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.setProgressPercentFormat(null);
-            progressDialog.setProgressNumberFormat(null);
-            progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.setCancelable(false);
-            progressDialog.setIndeterminate(false);
         }
     }
 
@@ -629,7 +638,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 if (isBusy)
                 {
                     if (!progressDialog.isShowing()) {
-                        progressDialog.show();
+                        android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+                        if (fragments != null) {
+                            progressDialog.show(fragments, DIALOGTAG_PROGRESS);
+                        }
                     }
 
                 } else {
@@ -647,8 +659,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onStart()
         {
             super.onStart();
-            if (progressDialog != null && isBusy) {
-                progressDialog.show();
+            if (isBusy && progressDialog != null && !progressDialog.isShowing())
+            {
+                android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+                if (fragments != null) {
+                    progressDialog.show(fragments, DIALOGTAG_PROGRESS);
+                }
             }
         }
 
@@ -656,9 +672,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onStop()
         {
             super.onStop();
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
         }
 
         @Override
