@@ -64,8 +64,8 @@
         <item>315360000000</item>
     </string-array>
 
-    <string name="location_format">%s [%s, %s (%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s [%s, %s]</string>  <!-- label [lat, lon] -->
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
