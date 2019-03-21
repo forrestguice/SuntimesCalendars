@@ -261,7 +261,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             //Log.d("DEBUG", "onProgressMessage: " + i + " of " + n);
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(i, n, 0, n);
+                mainFragment.updateProgressDialog(i, n, 0, n, message);
             }
         }
 
@@ -270,7 +270,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             //Log.d("DEBUG", "onProgressMessage: " + i + " of " + n + " .. " + j + " of " + m);
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(i, n, j, m);
+                mainFragment.updateProgressDialog(i, n, j, m, message);
             }
         }
 
@@ -492,13 +492,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         protected ProgressDialog progressDialog;
-        public void updateProgressDialog(int i, int n, int j, int m)
+        public void updateProgressDialog(int i, int n, int j, int m, String message)
         {
             if (progressDialog != null && progressDialog.isShowing())
             {
                 if (n > 0)
                 {
                     progressDialog.setMax(m);
+                    progressDialog.setMessageSecondary(message);
                     if (n == 1) {
                         progressDialog.setProgress(j);
                         progressDialog.setSecondaryProgress(0);
@@ -514,6 +515,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     progressDialog.setProgress(1);
                     progressDialog.setMax(1);
                     progressDialog.setSecondaryProgress(1);
+                    progressDialog.setMessageSecondary("");
                 }
             }
         }

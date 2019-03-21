@@ -36,6 +36,9 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
 {
@@ -236,9 +239,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         try {
             int c = 0;
             int n = calendars.size();
-            for (String calendar : calendars.keySet())
+            TreeSet<String> calendarSet = new TreeSet<>(calendars.keySet());
+            for (String calendar : calendarSet)
             {
-                CalendarTaskProgress progress0;
                 SuntimesCalendarTaskItem item = calendars.get(calendar);
                 switch (item.getAction())
                 {
@@ -249,7 +252,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        retValue = retValue && initCalendar(calendar, window, new CalendarTaskProgress(c, n, notificationMsgAdding));
+                        retValue = retValue && initCalendar(calendar, window, new CalendarTaskProgress(c, n, calendarDisplay.get(calendar)));
                         break;
                 }
                 c++;
@@ -391,8 +394,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -410,7 +414,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 {
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
                     String morningTitle, morningDesc;
@@ -438,7 +442,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            progress.setProgress(c, numRows, calendarTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -470,8 +474,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -489,7 +494,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 {
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
                     String morningTitle, morningDesc;
@@ -517,7 +522,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            progress.setProgress(c, numRows, calendarTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -549,8 +554,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -596,7 +602,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            progress.setProgress(c, numRows, calendarTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -629,8 +635,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -647,7 +654,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 {
                     int c = 0;
                     int numRows = moonCursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
                     String title, desc;
@@ -665,7 +672,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         }
                         moonCursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, notificationMsgAdding);
+                            progress.setProgress(c, numRows, calendarTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -697,8 +704,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -717,7 +725,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
                     while (!cursor.isAfterLast() && !isCancelled())
@@ -729,7 +737,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
                         }
                         cursor.moveToNext();
-                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        progress.setProgress(c, numRows, calendarTitle);
                         publishProgress(progress0, progress);
                         c++;
                     }
@@ -759,8 +767,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         String[] projection = new String[] {
@@ -782,7 +791,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 {
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
                     cursor.moveToFirst();
@@ -795,7 +804,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
                         }
                         cursor.moveToNext();
-                        progress.setProgress(c, numRows, notificationMsgAdding);
+                        progress.setProgress(c, numRows, calendarTitle);
                         publishProgress(progress0, progress);
                         c++;
                     }

@@ -39,7 +39,7 @@ import com.forrestguice.suntimescalendars.R;
 
 public class ProgressDialog extends DialogFragment
 {
-    private TextView txtMessage;
+    private TextView txtMessage, txtMessageSecondary;
     private ProgressBar progressPrimary, progressSecondary;
 
     @NonNull @Override
@@ -49,7 +49,8 @@ public class ProgressDialog extends DialogFragment
 
         if (savedInstanceState != null) {
             title = savedInstanceState.getString("title");
-            message = savedInstanceState.getString("message");
+            message0 = savedInstanceState.getString("message0");
+            message1 = savedInstanceState.getString("message1");
         }
 
         final Activity myParent = getActivity();
@@ -83,7 +84,8 @@ public class ProgressDialog extends DialogFragment
 
     private void initViews(View dialogContent)
     {
-        txtMessage = (TextView)dialogContent.findViewById(R.id.txt_message);
+        txtMessage = (TextView)dialogContent.findViewById(R.id.txt_message0);
+        txtMessageSecondary = (TextView)dialogContent.findViewById(R.id.txt_message1);
         progressPrimary = (ProgressBar)dialogContent.findViewById(R.id.progress0);
         progressSecondary = (ProgressBar)dialogContent.findViewById(R.id.progress1);
     }
@@ -91,8 +93,13 @@ public class ProgressDialog extends DialogFragment
     private void updateViews()
     {
         if (txtMessage != null) {
-            txtMessage.setText(message);
-            txtMessage.setVisibility((message == null || message.isEmpty()) ? View.GONE : View.VISIBLE);
+            txtMessage.setText(message0);
+            txtMessage.setVisibility((message0 == null || message0.isEmpty()) ? View.GONE : View.VISIBLE);
+        }
+
+        if (txtMessageSecondary != null) {
+            txtMessageSecondary.setText(message1);
+            txtMessageSecondary.setVisibility((message1 == null || message1.isEmpty()) ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -102,10 +109,18 @@ public class ProgressDialog extends DialogFragment
         this.title = title;
     }
 
-    private String message;
+    private String message0;
     public void setMessage(String msg)
     {
-        this.message = msg;
+        this.message0 = msg;
+        updateViews();
+    }
+
+    private String message1;
+    public void setMessageSecondary(String msg)
+    {
+        this.message1 = msg;
+        updateViews();
     }
 
     public void setMax(int max)
@@ -140,10 +155,11 @@ public class ProgressDialog extends DialogFragment
 
     @Override
     public void onSaveInstanceState( Bundle outState )
-    {
+        {
         super.onSaveInstanceState(outState);
         outState.putString("title", title);
-        outState.putString("message", message);
+        outState.putString("message0", message0);
+        outState.putString("message1", message1);
     }
 
 }
