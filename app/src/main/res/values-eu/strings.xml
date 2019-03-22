@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Egunsentia</string>                             <!-- contentDescription -->
+    <string name="sunset">Ilunabarra</string>                               <!-- contentDescription -->
+    <string name="timeMode_civil">Krepuskulu zibila</string>               <!-- setting -->
+    <string name="timeMode_nautical">Itsas krepuskulua</string>         <!-- setting -->
+    <string name="timeMode_astronomical">Krepuskulu astronomikoa</string> <!-- setting -->
+
+    <string name="moonrise">Ilargiaren irteera</string>                             <!-- contentDescription -->
+    <string name="moonset">Ilargia ezkutatzea</string>                             <!-- contentDescription -->
+
     <string name="timeMode_equinox_vernal">Udaberriko ekinokzioa</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">Udazkeneko ekinokzioa</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Udako solstizioa</string>    <!-- setting -->

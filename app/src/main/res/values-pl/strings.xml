@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Wschód Słońca</string>
+    <string name="sunset">Zachód Słońca</string>
+    <string name="timeMode_civil">Cywilny świt/zmierzch</string>
+    <string name="timeMode_nautical">Żeglarski świt/zmierzch</string>
+    <string name="timeMode_astronomical">Astronomiczny świt/zmierzch</string>
+
+    <string name="moonrise">Wschód Księżyca</string>
+    <string name="moonset">Zachód Księżyca</string>
+
     <string name="timeMode_equinox_vernal">Równonoc wiosenna</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">Równonoc jesienna</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Letnie przesilenie</string>    <!-- setting -->

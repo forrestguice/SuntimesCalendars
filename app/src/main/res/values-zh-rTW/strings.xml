@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">日出</string>
+    <string name="sunset">日落</string>
+    <string name="timeMode_civil">民用曙暮光</string>
+    <string name="timeMode_nautical">航海曙暮光</string>
+    <string name="timeMode_astronomical">天文曙暮光</string>
+
+    <string name="moonrise">月出</string>
+    <string name="moonset">月落</string>
+
     <string name="timeMode_equinox_vernal">春分</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">秋分</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">夏至</string>    <!-- setting -->

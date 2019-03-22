@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Napkelte</string>                             <!-- contentDescription -->
+    <string name="sunset">Napnyugta</string>                               <!-- contentDescription -->
+    <string name="timeMode_civil">Civil szürkület</string>               <!-- setting -->
+    <string name="timeMode_nautical">Hajózási szürkület</string>         <!-- setting -->
+    <string name="timeMode_astronomical">Csillagászati szürkület</string> <!-- setting -->
+
+    <string name="moonrise">Moonrise</string>                             <!-- contentDescription -->  <!-- TODO -->
+    <string name="moonset">Moonset</string>                             <!-- contentDescription -->  <!-- TODO -->
+
     <string name="timeMode_equinox_vernal">Spring Equinox</string>      <!-- setting -->  <!-- TODO -->
     <string name="timeMode_equinox_autumnal">Fall Equinox</string>  <!-- setting -->  <!-- TODO -->
     <string name="timeMode_solstice_summer">Summer Solstice</string>    <!-- setting -->  <!-- TODO -->

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Alba</string>                             <!-- contentDescription -->
+    <string name="sunset">Capvespre</string>                               <!-- contentDescription -->
+    <string name="timeMode_civil">Crepuscle civil</string>               <!-- setting -->
+    <string name="timeMode_nautical">Crepuscle nàutic</string>         <!-- setting -->
+    <string name="timeMode_astronomical">Crepuscle astrònomic</string> <!-- setting -->
+
+    <string name="moonrise">Sortida de la Lluna</string>                             <!-- contentDescription -->
+    <string name="moonset">Posta de la Lluna</string>                             <!-- contentDescription -->
+
     <string name="timeMode_equinox_vernal">Equinocci de primavera</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">Equinocci de tardor</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Solstici d\'estiu</string>    <!-- setting -->

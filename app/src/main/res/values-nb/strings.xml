@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Soloppgang</string>                             <!-- contentDescription -->
+    <string name="sunset">Solnedgang</string>                               <!-- contentDescription -->
+    <string name="timeMode_civil">Alminnelig tussmørke</string>               <!-- setting -->
+    <string name="timeMode_nautical">Nautisk tussmørke</string>         <!-- setting -->
+    <string name="timeMode_astronomical">Astronomisk tussmørke</string> <!-- setting -->
+
+    <string name="moonrise">Måneoppgang</string>                             <!-- contentDescription -->
+    <string name="moonset">Månenedgang</string>                             <!-- contentDescription -->
+
     <string name="timeMode_equinox_vernal">Vårjevndøgn</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">Høstjevndøgn</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Sommersolverv</string>    <!-- setting -->

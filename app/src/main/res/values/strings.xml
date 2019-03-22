@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
-    <string name="sunrise">Sunrise</string>  <!-- TODO -->
-    <string name="sunset">Sunset</string>   <!-- TODO -->
-    <string name="timeMode_civil">Civil Twilight</string>       <!-- TODO -->
-    <string name="timeMode_nautical">Nautical Twilight</string>    <!-- TODO -->
-    <string name="timeMode_astronomical">Astronomical Twilight</string>    <!-- TODO -->
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_astronomical">Astronomical Twilight</string>
 
-    <string name="moonrise">Moonrise</string>  <!-- TODO -->
-    <string name="moonset">Moonset</string>   <!-- TODO -->
+    <string name="moonrise">Moonrise</string>
+    <string name="moonset">Moonset</string>
 
     <string name="timeMode_equinox_vernal">Spring Equinox</string>
     <string name="timeMode_equinox_autumnal">Autumn Equinox</string>

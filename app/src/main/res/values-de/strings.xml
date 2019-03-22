@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+  <string name="sunrise">Sonnenaufgang</string>                             <!-- contentDescription -->
+  <string name="sunset">Sonnenuntergang</string>                               <!-- contentDescription -->
+  <string name="timeMode_civil">Bürgerliche Dämmerung</string>               <!-- setting -->
+  <string name="timeMode_nautical">Nautische Dämmerung</string>         <!-- setting -->
+  <string name="timeMode_astronomical">Astronomische Dämmerung</string> <!-- setting -->
+
+  <string name="moonrise">Mondaufgang</string>                             <!-- contentDescription -->
+  <string name="moonset">Monduntergang</string>                             <!-- contentDescription -->
+
   <string name="timeMode_equinox_vernal">Frühjahrs-Tag-Nacht-Gleiche</string>      <!-- setting -->
   <string name="timeMode_equinox_autumnal">Herbst-Tag-Nacht-Gleiche</string>  <!-- setting -->
   <string name="timeMode_solstice_summer">Sommersonnenwende</string>    <!-- setting -->
