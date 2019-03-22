@@ -68,7 +68,7 @@ public class SuntimesCalendarTaskService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        String action = intent.getAction();
+        String action = ((intent != null) ? intent.getAction() : null);
         if (action != null)
         {
             SuntimesCalendarServiceListener serviceListener = intent.getParcelableExtra(EXTRA_SERVICE_LISTENER);
