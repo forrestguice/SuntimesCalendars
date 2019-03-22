@@ -49,6 +49,10 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="confirm_clear_title">Remove Calendars?</string>  <!-- TODO -->
+    <string name="confirm_clear_message0">Remove %s calendar?</string>  <!-- TODO -->
+    <string name="confirm_clear_message1">Remove all calendars?</string>  <!-- TODO -->
+
     <string name="action_openCalendar">Open</string> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
@@ -69,7 +73,7 @@
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
-    <string name="progress_message">This may take several minutes…\n\nThe update will continue in the background if the app is closed.</string>  <!-- TODO -->
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
