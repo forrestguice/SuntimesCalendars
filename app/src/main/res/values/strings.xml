@@ -25,7 +25,7 @@
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
-    <string name="calendar_moonrise_displayName">Moon</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Moonrise, moonset.</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
     <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>

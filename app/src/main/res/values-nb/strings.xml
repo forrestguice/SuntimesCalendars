@@ -57,7 +57,7 @@
 
     <string name="calendar_solstice_displayName">Solverv og jevndøgn</string>
     <string name="calendar_moonPhase_displayName">Månefaser</string>
-    <string name="calendar_moonrise_displayName">Moon</string>  <!-- TODO -->
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Moonrise, moonset.</string>  <!-- TODO -->
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
     <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>   <!-- TODO -->
