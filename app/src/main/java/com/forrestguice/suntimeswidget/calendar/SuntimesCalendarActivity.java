@@ -783,6 +783,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
+        protected boolean runCalendarTask0(Activity activity, boolean enabled, String taskAction)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction(taskAction);
+            savePendingItems(activity, taskIntent);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, !enabled, true, calendarTaskListener);
+        }
+
+        protected boolean runCalendarTask1(Activity activity, String calendar, boolean enabled)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
+            savePendingItem(activity, taskIntent, calendar, enabled);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
+        }
+
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
         {
             return new Preference.OnPreferenceChangeListener()
@@ -811,10 +827,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         }
 
                     } else {
-                        Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
-                        taskIntent.setAction( !enabled ? SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS : SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
-                        savePendingItems(activity, taskIntent);
-                        return calendarTaskService.runCalendarTask(activity, taskIntent, !enabled, true, calendarTaskListener);
+                        if (enabled) {
+                            return runCalendarTask0(activity, true, SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS);
+
+                        } else {
+                            showConfirmClearAllDialog(activity);
+                            return false;
+                        }
                     }
                 }
             };
@@ -847,10 +866,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             }
 
                         } else {
-                            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
-                            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
-                            savePendingItem(activity, taskIntent, calendar, enabled);
-                            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
+                            if (enabled) {
+                                showConfirmAddDialog(activity, calendar);
+                            } else {
+                                showConfirmClearDialog(activity, calendar);
+                            }
+                            return false;
                         }
 
                     } else {
@@ -858,6 +879,51 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     }
                 }
             };
+        }
+
+        protected void showConfirmClearAllDialog(Context context)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(context.getString(R.string.confirm_clear_message0));
+            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    runCalendarTask0(getActivity(), false, SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, null);
+            builder.show();
+        }
+
+        protected void showConfirmClearDialog(Context context, final String calendar)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(context.getString(R.string.confirm_clear_message1));
+            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    runCalendarTask1(getActivity(), calendar, false);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, null);
+            builder.show();
+        }
+
+        protected void showConfirmAddDialog(Context context, final String calendar)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(context.getString(R.string.confirm_add_message1));
+            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    runCalendarTask1(getActivity(), calendar, true);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel, null);
+            builder.show();
         }
 
         private Snackbar snackbar;
