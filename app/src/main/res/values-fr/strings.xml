@@ -52,6 +52,9 @@
         <item>ten years</item>
     </string-array>  <!-- TODO -->
 
+    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
+
     <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>  <!-- TODO -->
     <string name="calendar_moonPhase_displayName">Moon Phases</string>  <!-- TODO -->
     <string name="calendar_moonrise_displayName">Moon</string>  <!-- TODO -->
@@ -66,6 +69,25 @@
     <!-- Dialog: About -->
     <string name="about_dialog_title">À propos</string>
     <string name="app_name">Suntimes</string>
+
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Missing!</b></font>
+    ]]></string>  <!-- TODO -->
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Permission Denied!</b></font>
+    ]]></string>  <!-- TODO -->
+    <string name="snackbar_missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>  <!-- TODO -->
+    <string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
+        <br />
+        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
+    ]]></string>  <!-- TODO -->
+    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Affiche les heures de lever et coucher de soleil et de la lune.</string>
