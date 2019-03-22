@@ -58,9 +58,9 @@
   <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>  <!-- TODO -->
   <string name="calendar_moonPhase_displayName">Moon Phases</string>  <!-- TODO -->
   <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
-  <string name="calendar_moonrise_summary">Moonrise, moonset.</string>  <!-- TODO -->
+  <string name="calendar_moonrise_summary" />
   <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-  <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>   <!-- TODO -->
+  <string name="calendar_civil_twilight_summary" />
   <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
   <string name="calendar_nautical_twilight_summary" />
   <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
