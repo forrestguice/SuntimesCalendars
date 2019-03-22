@@ -39,6 +39,12 @@
     <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
     <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
 
+    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
+    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
+    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+
+    <string name="action_openCalendar">Open</string> <!-- TODO -->
+
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
         <item>dwóch lat</item>
@@ -48,6 +54,14 @@
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
+    <string name="calendar_moonrise_displayName">Moon</string>  <!-- TODO -->
+    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>  <!-- TODO -->
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>   <!-- TODO -->
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">O programie</string>

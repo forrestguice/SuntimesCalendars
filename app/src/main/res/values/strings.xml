@@ -22,10 +22,11 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
+
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
-    <string name="calendar_moonrise_displayName">Moon</string>  <!-- TODO -->
-    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>  <!-- TODO -->
+    <string name="calendar_moonrise_displayName">Moon</string>
+    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
     <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
@@ -49,11 +50,11 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
-    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
-    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
-    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+    <string name="confirm_add_message1">Add calendar?</string>
+    <string name="confirm_clear_message0">Remove calendars?</string>
+    <string name="confirm_clear_message1">Remove calendar?</string>
 
-    <string name="action_openCalendar">Open</string> <!-- TODO -->
+    <string name="action_openCalendar">Open</string>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
