@@ -223,6 +223,7 @@ public class SuntimesCalendarTaskService extends Service
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_update)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(getSuntimesCalendarsPendingIntent(context))
                 .setProgress(0, 0, true);
         return notification;
     }
@@ -234,14 +235,20 @@ public class SuntimesCalendarTaskService extends Service
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_calendar)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setContentIntent(getNotificationIntent(context)).setAutoCancel(true)
+                .setContentIntent(getCalendarPendingIntent(context)).setAutoCancel(true)
                 .setProgress(0, 0, false);
         return notification;
     }
 
-    private static PendingIntent getNotificationIntent(Context context)
+    private static PendingIntent getCalendarPendingIntent(Context context)
     {
         Intent intent = getCalendarIntent();
+        return PendingIntent.getActivity(context, 0, intent, 0);
+    }
+
+    private static PendingIntent getSuntimesCalendarsPendingIntent(Context context)
+    {
+        Intent intent = new Intent(context, SuntimesCalendarActivity.class);
         return PendingIntent.getActivity(context, 0, intent, 0);
     }
 
