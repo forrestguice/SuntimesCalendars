@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">Kalendarz</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
-    <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza (fazy Księżyca, przesilenia i równonoce).</string>
+    <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
     <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>

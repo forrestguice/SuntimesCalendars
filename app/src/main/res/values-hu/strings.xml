@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">Calendars</string>   <!-- group title -->  <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>  <!-- TODO -->
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Window (start)</string>  <!-- TODO -->
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>  <!-- TODO -->

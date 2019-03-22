@@ -24,7 +24,7 @@
     <string name="configLabel_calendars">Calendarios</string>
 
     <string name="configLabel_calendars_enabled">Integración con el calendario</string>
-    <string name="configLabel_calendars_enabled_summary">Proporcionar eventos a la aplicación de calendario (fases lunares, solsticios, y equinoccios).</string>
+    <string name="configLabel_calendars_enabled_summary">Proporcionar eventos a la aplicación de calendario.</string>
 
     <string name="configLabel_calendars_window0">Ventana (inicio)</string>
     <string name="configLabel_calendars_window0_summary">Un periodo empezó <xliff:g example="one year" id="calendars_window_display">%s</xliff:g> atrás</string>

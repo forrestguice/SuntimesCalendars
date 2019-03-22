@@ -35,7 +35,7 @@
     <string name="calendar_astronomical_twilight_summary" />
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -79,7 +79,7 @@
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>  <!-- TODO -->
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing!</b></font>
     ]]></string>  <!-- TODO -->

@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">Calendari</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Integrazione nel calendario</string>
-    <string name="configLabel_calendars_enabled_summary">Fornisci eventi all\'applicazione Calendario (fasi lunari, solstizi, e equinozi).</string>
+    <string name="configLabel_calendars_enabled_summary">Fornisci eventi all\'applicazione Calendario.</string>
 
     <string name="configLabel_calendars_window0">Finestra (inizio)</string>
     <string name="configLabel_calendars_window0_summary">Un periodo che inizia <xliff:g id="calendars_window_display" example="one year" >%s</xliff:g> fa</string>

@@ -26,7 +26,7 @@
     <string name="configLabel_calendars">Kalendaro</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Interagi kun kalendaro</string>
-    <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro (lunfazojn, sunekstremojn kaj tagnoktegalecojn).</string>
+    <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro.</string>
 
     <string name="configLabel_calendars_window0">Komenco de tempintervalo</string>
     <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%s</xliff:g></string>

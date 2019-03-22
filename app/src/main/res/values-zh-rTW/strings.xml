@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">日曆</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">日曆集成</string>
-    <string name="configLabel_calendars_enabled_summary">為日曆應用提供事件（月相，夏冬至，春秋分）。</string>
+    <string name="configLabel_calendars_enabled_summary">為日曆應用提供事件。</string>
 
     <string name="configLabel_calendars_window0">視窗（啟動）</string>
     <string name="configLabel_calendars_window0_summary"><xliff:g id="calendars_window_display" example="one year">%s</xliff:g> 前開始的一段時期。</string>

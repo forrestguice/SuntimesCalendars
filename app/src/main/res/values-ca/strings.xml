@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">Calendaris</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Integració amb el calendari</string>
-    <string name="configLabel_calendars_enabled_summary">Proporcionar esdeveniments a l\'aplicació de calendari (fases llunars, solsticis, i equinoccis).</string>
+    <string name="configLabel_calendars_enabled_summary">Proporcionar esdeveniments a l\'aplicació de calendari.</string>
 
     <string name="configLabel_calendars_window0">Finestra (inici)</string>
     <string name="configLabel_calendars_window0_summary">Un període començà <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> enrere</string>

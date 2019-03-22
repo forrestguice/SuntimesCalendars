@@ -25,7 +25,7 @@
     <string name="configLabel_calendars">Kalendere</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Kalenderintegrasjon</string>
-    <string name="configLabel_calendars_enabled_summary">Gi hendelser til Kalender-appen (månefaser, solverv og jevndøgn).</string>
+    <string name="configLabel_calendars_enabled_summary">Gi hendelser til Kalender-appen.</string>
 
     <string name="configLabel_calendars_window0">Vindu (start)</string>
     <string name="configLabel_calendars_window0_summary">En periode som starter for <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> siden</string>
