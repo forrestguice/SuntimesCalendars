@@ -80,8 +80,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
-    public static final int MIN_PROVIDER_VERSION = 0;
-    public static final String MIN_SUNTIMES_VERSION = "0.10.0";
+    public static final int MIN_PROVIDER_VERSION = 1;
+    public static final String MIN_SUNTIMES_VERSION = "0.10.3";
     public static final String MIN_SUNTIMES_VERSION_STRING = "Suntimes v" + MIN_SUNTIMES_VERSION;
 
     public static final int REQUEST_CALENDAR_ENABLED = 12;           // individual calendar enabled/disabled
