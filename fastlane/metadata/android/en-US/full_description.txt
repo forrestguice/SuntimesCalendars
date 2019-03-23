@@ -1,4 +1,4 @@
-<p>Provides calendar events for the moon phases, solstices, and equinoxes.</p>
+<p>Provides calendar events for the solstices, equinoxes, twilight periods (astronomical, nautical, civil (sunrise, sunset)), and the moon (moonrise, moonset, major phases).</p>
 
 <p>This add-on for Suntimes adds events to the Calendar app. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.</p>
 

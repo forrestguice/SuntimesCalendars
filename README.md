@@ -2,7 +2,7 @@
 <a href="https://f-droid.org/repository/browse/?fdid=com.forrestguice.suntimescalendars" target="_blank">
 <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="68" align="left" /></a>
 
-An add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) that supplies calendar events for the moon phases, solstices, and equinoxes. This app depends on Suntimes [v0.10.3](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
+An add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) that supplies calendar events for the solstices, equinoxes, twilight periods (astronomical, nautical, civil (sunrise, sunset)), and the moon (moonrise, moonset, major phases). This app depends on Suntimes [v0.10.3](https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/) or later.
 
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
 [![Build Status](https://travis-ci.org/forrestguice/SuntimesCalendars.svg?branch=master)](https://travis-ci.org/forrestguice/SuntimesCalendars)
