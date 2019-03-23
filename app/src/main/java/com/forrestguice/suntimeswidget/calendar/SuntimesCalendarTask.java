@@ -36,10 +36,9 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
+@SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";

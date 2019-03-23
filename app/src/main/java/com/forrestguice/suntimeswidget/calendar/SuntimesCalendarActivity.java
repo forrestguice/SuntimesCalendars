@@ -671,11 +671,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        @Override
+        /**@Override
         public void onStop()
         {
             super.onStop();
-        }
+        }*/
 
         @Override
         public void onCreate(Bundle savedInstanceState)
