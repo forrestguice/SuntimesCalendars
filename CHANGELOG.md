@@ -1,6 +1,6 @@
 ### ~
 
-### v0.3.0
+### v0.3.0 (2019-03-25)
 * adds "moon" calendar (moonrise, moonset) (#9).
 * adds "astronomical twilight", "nautical twilight", and "civil twilight" calendars (sunrise, sunset) (#9).
 * enhances the progress UI; improved dialog and notifications.
