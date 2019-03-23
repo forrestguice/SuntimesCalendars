@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -106,10 +107,13 @@ public class SuntimesCalendarAdapter
      * @param description the event description
      * @param time the startTime of the event (endTime is the same)
      */
-    public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException
+    public void createCalendarEvent(long calendarID, String title, String description, @Nullable String location, Calendar... time) throws SecurityException
     {
-        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, time);
+        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, location, time);
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
+    }
+    public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException {
+        createCalendarEvent(calendarID, title, description, null, time);
     }
 
     /**
@@ -235,7 +239,7 @@ public class SuntimesCalendarAdapter
      * @param time
      * @return
      */
-    public static ContentValues createEventContentValues(long calendarID, String title, String description, Calendar... time)
+    public static ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);
@@ -257,7 +261,9 @@ public class SuntimesCalendarAdapter
             Log.w(TAG, "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
         }
 
-        //v.put(CalendarContract.Events.EVENT_LOCATION, "Local");
+        if (location != null) {
+            v.put(CalendarContract.Events.EVENT_LOCATION, location);
+        }
 
         v.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_FREE);
         v.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, "0");
