@@ -90,16 +90,16 @@ public class SuntimesCalendarErrorActivity extends AppCompatActivity
         dialog.show();
     }
 
-    @Override
+    /**@Override
     protected void onSaveInstanceState( Bundle bundle )
     {
         super.onSaveInstanceState(bundle);
-    }
+    }*/
 
-    @Override
+    /**@Override
     protected void onRestoreInstanceState( Bundle bundle )
     {
         super.onRestoreInstanceState(bundle);
-    }
+    }*/
 
 }

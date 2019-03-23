@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2019 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -34,7 +34,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 
@@ -69,7 +68,7 @@ public class SuntimesCalendarTaskService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        String action = intent.getAction();
+        String action = ((intent != null) ? intent.getAction() : null);
         if (action != null)
         {
             SuntimesCalendarServiceListener serviceListener = intent.getParcelableExtra(EXTRA_SERVICE_LISTENER);
@@ -104,6 +103,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener;
+    private static NotificationCompat.Builder progressNotification;
     public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTask.SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
@@ -117,24 +117,23 @@ public class SuntimesCalendarTaskService extends Service
         }
 
         calendarTask = new SuntimesCalendarTask(context);
-        calendarTaskListener = (listener != null) ? listener : new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        calendarTaskListener = new SuntimesCalendarTask.SuntimesCalendarTaskListener()
         {
             @Override
             public void onStarted(Context context, SuntimesCalendarTask task, String message)
             {
+                if (listener != null) {
+                    listener.onStarted(context, task, message);
+                }
+
                 if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
                 {
                     signalOnBusyStatusChanged(true);
-                    signalOnProgressMessage(getString(R.string.calendars_notification_adding));
+                    signalOnProgressMessage(0, 1, getString(R.string.calendars_notification_adding));
 
-                    NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                    notificationBuilder.setContentTitle(context.getString(R.string.app_name))
-                            .setContentText(message)
-                            .setSmallIcon(R.drawable.ic_action_update)
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .setProgress(0, 0, true);
+                    progressNotification = createProgressNotification(context, message);
                     startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
-                    startForeground(NOTIFICATION_PROGRESS, notificationBuilder.build());
+                    startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
 
                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                     notificationManager.cancel(NOTIFICATION_COMPLETE);
@@ -152,19 +151,38 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
+            public void onProgress(Context context, SuntimesCalendarTask.CalendarTaskProgress... progress)
+            {
+                if (listener != null) {
+                    listener.onProgress(context, progress);
+                }
+
+                if (progress.length > 1 && progress[0] != null && progress[1] != null)
+                {
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[1].itemNum(), progress[1].getCount(), progress[1].getMessage());
+                    if (progressNotification != null) {
+                        progressNotification.setProgress(progress[1].getCount(), progress[1].itemNum(), progress[1].isIndeterminate());  // TODO: secondary progress
+                        startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                    }
+
+                } else if (progress.length > 0 && progress[0] != null) {
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[0].getMessage());
+                    if (progressNotification != null) {
+                        progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
+                        startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
+                    }
+                }
+            }
+
+            @Override
             public void onSuccess(Context context, SuntimesCalendarTask task, String message)
             {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                if (listener != null) {
+                    listener.onSuccess(context, task, message);
+                }
 
+                NotificationCompat.Builder notificationBuilder = createSuccessNotification(context, message);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-                notificationBuilder.setContentTitle(context.getString(R.string.app_name))
-                        .setContentText(message)
-                        .setSmallIcon(R.drawable.ic_action_calendar)
-                        .setPriority(NotificationCompat.PRIORITY_LOW)
-                        .setContentIntent(getNotificationIntent()).setAutoCancel(true)
-                        .setProgress(0, 0, false);
-
                 notificationManager.notify(NOTIFICATION_COMPLETE, notificationBuilder.build());
                 signalOnBusyStatusChanged(false);
                 stopForeground(true);
@@ -174,7 +192,9 @@ public class SuntimesCalendarTaskService extends Service
             @Override
             public void onFailed(final Context context, final String errorMsg)
             {
-                super.onFailed(context, errorMsg);
+                if (listener != null) {
+                    listener.onFailed(context, errorMsg);
+                }
 
                 Intent errorIntent = new Intent(context, SuntimesCalendarErrorActivity.class);
                 errorIntent.putExtra(SuntimesCalendarErrorActivity.EXTRA_ERROR_MESSAGE, errorMsg);
@@ -185,24 +205,6 @@ public class SuntimesCalendarTaskService extends Service
                 stopForeground(true);
                 stopSelf();
             }
-
-            private PendingIntent getNotificationIntent()
-            {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-                {
-                    Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
-                    uriBuilder.appendPath("time");
-                    ContentUris.appendId(uriBuilder, System.currentTimeMillis());
-                    intent = intent.setData(uriBuilder.build());
-                }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                }
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                return PendingIntent.getActivity(context, 0, intent, 0);
-            }
         };
         calendarTask.setTaskListener(calendarTaskListener);
 
@@ -212,6 +214,42 @@ public class SuntimesCalendarTaskService extends Service
         calendarTask.setItems(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         calendarTask.execute();
         return true;
+    }
+
+    private static NotificationCompat.Builder createProgressNotification(Context context, String message)
+    {
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setContentTitle(context.getString(R.string.app_name))
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_action_update)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(getSuntimesCalendarsPendingIntent(context))
+                .setProgress(0, 0, true);
+        return notification;
+    }
+
+    private static NotificationCompat.Builder createSuccessNotification(Context context, String message)
+    {
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        notification.setContentTitle(context.getString(R.string.app_name))
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_action_calendar)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(getCalendarPendingIntent(context)).setAutoCancel(true)
+                .setProgress(0, 0, false);
+        return notification;
+    }
+
+    private static PendingIntent getCalendarPendingIntent(Context context)
+    {
+        Intent intent = getCalendarIntent();
+        return PendingIntent.getActivity(context, 0, intent, 0);
+    }
+
+    private static PendingIntent getSuntimesCalendarsPendingIntent(Context context)
+    {
+        Intent intent = new Intent(context, SuntimesCalendarActivity.class);
+        return PendingIntent.getActivity(context, 0, intent, 0);
     }
 
     public boolean isBusy()
@@ -251,6 +289,24 @@ public class SuntimesCalendarTaskService extends Service
         return new ArrayList<>(Arrays.asList(items));
     }
 
+    public static Intent getCalendarIntent()
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+        {
+            Uri.Builder uriBuilder = CalendarContract.CONTENT_URI.buildUpon();
+            uriBuilder.appendPath("time");
+            ContentUris.appendId(uriBuilder, System.currentTimeMillis());
+            intent = intent.setData(uriBuilder.build());
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
+    }
+
     /**
      * SuntimesCalendarServiceListener
      */
@@ -258,7 +314,8 @@ public class SuntimesCalendarTaskService extends Service
     {
         public void onStartCommand(boolean result) {}
         public void onBusyStatusChanged(boolean isBusy) {}
-        public void onProgressMessage(String message) {}
+        public void onProgressMessage(int i, int n, String message) {}
+        public void onProgressMessage(int i, int n, int j, int m, String message) {}
 
         public SuntimesCalendarServiceListener() {}
         protected SuntimesCalendarServiceListener(Parcel in) {}
@@ -302,12 +359,22 @@ public class SuntimesCalendarTaskService extends Service
         }
     }
 
-    private void signalOnProgressMessage(String message)
+    private void signalOnProgressMessage(int i, int n, String message)
     {
         lastProgressMessage = message;
         for (SuntimesCalendarServiceListener listener : serviceListeners) {
             if (listener != null) {
-                listener.onProgressMessage(message);
+                listener.onProgressMessage(i, n, message);
+            }
+        }
+    }
+
+    private void signalOnProgressMessage(int i, int n, int j, int m, String message)
+    {
+        lastProgressMessage = message;
+        for (SuntimesCalendarServiceListener listener : serviceListeners) {
+            if (listener != null) {
+                listener.onProgressMessage(i, n, j, m, message);
             }
         }
     }

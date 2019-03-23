@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -36,8 +37,12 @@ public class SuntimesCalendarAdapter
     public static final String TAG = "SuntimesCalendarAdapter";
 
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
+    public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
+    public static final String CALENDAR_MOONRISE = "moonriseCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
-    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE};
+    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
 
     private ContentResolver contentResolver;
 
@@ -74,6 +79,7 @@ public class SuntimesCalendarAdapter
                 contentResolver.delete(deleteUri, null, null);
                 Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
+            cursor.close();
             return true;
         } else return false;
     }
@@ -101,10 +107,13 @@ public class SuntimesCalendarAdapter
      * @param description the event description
      * @param time the startTime of the event (endTime is the same)
      */
-    public void createCalendarEvent(long calendarID, String title, String description, Calendar time) throws SecurityException
+    public void createCalendarEvent(long calendarID, String title, String description, @Nullable String location, Calendar... time) throws SecurityException
     {
-        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, time);
+        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, location, time);
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
+    }
+    public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException {
+        createCalendarEvent(calendarID, title, description, null, time);
     }
 
     /**
@@ -143,10 +152,10 @@ public class SuntimesCalendarAdapter
         Cursor cursor = queryCalendar(calendarName);
         if (cursor != null)
         {
-            while (cursor.moveToNext())
-            {
+            while (cursor.moveToNext()) {
                 calendarID = cursor.getLong(PROJECTION_ID_INDEX);
             }
+            cursor.close();
         } else {
             Log.w(TAG, "initCalendars: Calendar not found! (null cursor) " + calendarName);
             calendarID = -1;
@@ -160,8 +169,13 @@ public class SuntimesCalendarAdapter
      */
     public boolean hasCalendar(String calendarName)
     {
+        boolean retValue = false;
         Cursor cursor = queryCalendar(calendarName);
-        return (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            retValue = (cursor.getCount() > 0);
+            cursor.close();
+        }
+        return retValue;
     }
 
     /**
@@ -225,18 +239,31 @@ public class SuntimesCalendarAdapter
      * @param time
      * @return
      */
-    public static ContentValues createEventContentValues(long calendarID, String title, String description, Calendar time)
+    public static ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);
         v.put(CalendarContract.Events.TITLE, title);
         v.put(CalendarContract.Events.DESCRIPTION, description);
 
-        v.put(CalendarContract.Events.DTSTART, time.getTimeInMillis());
-        v.put(CalendarContract.Events.DTEND, time.getTimeInMillis());
-        v.put(CalendarContract.Events.EVENT_TIMEZONE, time.getTimeZone().getID());
+        if (time.length > 0)
+        {
+            v.put(CalendarContract.Events.EVENT_TIMEZONE, time[0].getTimeZone().getID());
+            if (time.length >= 2)
+            {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[1].getTimeInMillis());
+            } else {
+                v.put(CalendarContract.Events.DTSTART, time[0].getTimeInMillis());
+                v.put(CalendarContract.Events.DTEND, time[0].getTimeInMillis());
+            }
+        } else {
+            Log.w(TAG, "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
+        }
 
-        //v.put(CalendarContract.Events.EVENT_LOCATION, "Local");
+        if (location != null) {
+            v.put(CalendarContract.Events.EVENT_LOCATION, location);
+        }
 
         v.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_FREE);
         v.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, "0");

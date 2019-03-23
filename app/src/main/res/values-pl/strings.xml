@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Wschód Słońca</string>
+    <string name="sunset">Zachód Słońca</string>
+    <string name="timeMode_civil">Cywilny świt/zmierzch</string>
+    <string name="timeMode_nautical">Żeglarski świt/zmierzch</string>
+    <string name="timeMode_astronomical">Astronomiczny świt/zmierzch</string>
+
+    <string name="moonrise">Wschód Księżyca</string>
+    <string name="moonset">Zachód Księżyca</string>
+
     <string name="timeMode_equinox_vernal">Równonoc wiosenna</string>      <!-- setting -->
     <string name="timeMode_equinox_autumnal">Równonoc jesienna</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Letnie przesilenie</string>    <!-- setting -->
@@ -16,7 +25,7 @@
     <string name="configLabel_calendars">Kalendarz</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
-    <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza (fazy Księżyca, przesilenia i równonoce).</string>
+    <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
     <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>
@@ -30,6 +39,12 @@
     <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
     <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
 
+    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
+    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
+    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+
+    <string name="action_openCalendar">Open</string> <!-- TODO -->
+
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
         <item>dwóch lat</item>
@@ -37,17 +52,47 @@
         <item>dziesięciu lat</item>
     </string-array>
 
+    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
+
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
+    <string name="calendar_moonrise_summary" />
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">O programie</string>
     <string name="app_name">Zmierzchy i Świty</string>
 
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Missing!</b></font>
+    ]]></string>  <!-- TODO -->
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Permission Denied!</b></font>
+    ]]></string>  <!-- TODO -->
+    <string name="snackbar_missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>  <!-- TODO -->
+    <string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
+        <br />
+        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
+    ]]></string>  <!-- TODO -->
+    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
+
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Wyświetla czasy świecenia Słońca i Księżyca.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesWidget/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
-    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018-2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
+    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
         Niemieckie tłumaczenie: Henrik "HerHde" Hüttemann<br />
         Esperanckie i Polskie tłumaczenia: Verdulo<br />

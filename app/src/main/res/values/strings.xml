@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_astronomical">Astronomical Twilight</string>
+
+    <string name="moonrise">Moonrise</string>
+    <string name="moonset">Moonset</string>
+
     <string name="timeMode_equinox_vernal">Spring Equinox</string>
     <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
     <string name="timeMode_solstice_summer">Summer Solstice</string>
@@ -13,11 +22,20 @@
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
-    <string name="calendar_solstice_displayName">Solstices and Equinoxes</string>
+
+    <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
+    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app (moon phases, solstices, and equinoxes).</string>
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -32,6 +50,12 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="confirm_add_message1">Add calendar?</string>
+    <string name="confirm_clear_message0">Remove calendars?</string>
+    <string name="confirm_clear_message1">Remove calendar?</string>
+
+    <string name="action_openCalendar">Open</string>
+
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
         <item>two years</item>
@@ -45,32 +69,37 @@
         <item>315360000000</item>
     </string-array>
 
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
 
-
+    <string name="progress_title">Updating Calendars</string>
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
-    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>  <!-- TODO -->
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing!</b></font>
-    ]]></string>  <!-- TODO -->
+    ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
-    ]]></string>  <!-- TODO -->
+    ]]></string>
     <string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
-    ]]></string>  <!-- TODO -->
+    ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
         Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
         <br />
         <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>  <!-- TODO -->
-    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
-    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
+    ]]></string>
+    <string name="actionCopyError">Copy to clipboard</string>
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>
 
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>  <!-- TODO -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
@@ -108,6 +137,10 @@
     <string name="def_app_calendars_enabled" translatable="false">false</string>
     <string name="def_calendars_window0" translatable="false">31536000000</string>
     <string name="def_calendars_window1" translatable="false">63072000000</string>
+    <string name="def_calendars_calendar_civiltwilight" translatable="false">false</string>
+    <string name="def_calendars_calendar_nauticaltwilight" translatable="false">false</string>
+    <string name="def_calendars_calendar_astrotwilight" translatable="false">false</string>
+    <string name="def_calendars_calendar_moonrise" translatable="false">false</string>
     <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 </resources>
