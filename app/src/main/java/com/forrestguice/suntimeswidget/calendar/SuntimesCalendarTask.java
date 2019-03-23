@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2019 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -36,8 +36,10 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TreeSet;
 
-public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, String, Boolean>
+@SuppressWarnings("Convert2Diamond")
+public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
 {
     public static final String TAG = "SuntimesCalendarTask";
 
@@ -48,8 +50,10 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
-    private String[] phaseStrings = new String[4];
-    private String[] solsticeStrings = new String[4];
+    private String[] sunStrings = new String[5];       // {sunrise, sunset, civil twilight, nautical twilight, astronomical twilight}
+    private String[] moonStrings = new String[2];      // {moonrise, moonset}
+    private String[] phaseStrings = new String[4];     // {major phases}
+    private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
     //private int[] solsticeColors = new int[4];
 
     private long lastSync = -1;
@@ -85,6 +89,29 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         //solsticeColors[1] = ContextCompat.getColor(context, R.color.summerColor_light);
         //solsticeColors[2] = ContextCompat.getColor(context, R.color.fallColor_light);
         //solsticeColors[3] = ContextCompat.getColor(context, R.color.winterColor_light);
+
+        // sunrise, sunset calendar resources
+        sunStrings[0] = context.getString(R.string.sunrise);
+        sunStrings[1] = context.getString(R.string.sunset);
+        sunStrings[2] = context.getString(R.string.timeMode_civil);
+        sunStrings[3] = context.getString(R.string.timeMode_nautical);
+        sunStrings[4] = context.getString(R.string.timeMode_astronomical);
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar));
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, context.getString(R.string.calendar_nautical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar));
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, context.getString(R.string.calendar_astronomical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar));
+
+        // moonrise, moonset calendar resources
+        moonStrings[0] = context.getString(R.string.moonrise);
+        moonStrings[1] = context.getString(R.string.moonset);
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, context.getString(R.string.calendar_moonrise_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, ContextCompat.getColor(context, R.color.colorMoonriseCalendar));
 
         // moon phase calendar resources
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
@@ -194,8 +221,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             setItems(items);
         }
 
-        boolean retValue = true;
-
         if (flag_clear && !isCancelled()) {
             adapter.removeCalendars();
         }
@@ -204,23 +229,32 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
                 + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 
+        boolean retValue = initLocation();
+        if (!retValue) {
+            return false;
+        }
+
+        publishProgress(new CalendarTaskProgress(1, 1000, notificationMsgAdding));
         try {
-            for (String calendar : calendars.keySet())
+            int c = 0;
+            int n = calendars.size();
+            TreeSet<String> calendarSet = new TreeSet<>(calendars.keySet());
+            for (String calendar : calendarSet)
             {
                 SuntimesCalendarTaskItem item = calendars.get(calendar);
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        onProgressUpdate(notificationMsgClearing);
+                        publishProgress(null, new CalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        onProgressUpdate(notificationMsgAdding);
-                        retValue = retValue && initCalendar(calendar, window);
+                        retValue = retValue && initCalendar(calendar, window, new CalendarTaskProgress(c, n, calendarDisplay.get(calendar)));
                         break;
                 }
+                c++;
             }
 
         } catch (SecurityException e) {
@@ -230,6 +264,15 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         return retValue;
+    }
+
+    @Override
+    protected void onProgressUpdate(CalendarTaskProgress... progress)
+    {
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onProgress(context, progress);
+        }
     }
 
     @Override
@@ -262,10 +305,50 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
     }
 
+    private String config_location_name = "";
+    private String config_location_latitude = "";
+    private String config_location_longitude = "";
+    private String config_location_altitude = "";
+
+    /**
+     * initLocation
+     */
+    private boolean initLocation()
+    {
+        Context context = contextRef.get();
+        ContentResolver resolver = (context == null ? null : context.getContentResolver());
+        if (resolver != null) {
+            Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE};
+            Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
+
+            if (configCursor != null) {
+                configCursor.moveToFirst();
+                for (int i = 0; i < configProjection.length; i++) {
+                    config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
+                    config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
+                    config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
+                    config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
+                }
+                configCursor.close();
+                return true;
+
+            } else {
+                lastError = "Failed to resolve URI! " + configUri;
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else {
+            lastError = "Unable to getContentResolver! ";
+            Log.e(TAG, lastError);
+            return false;
+        }
+    }
+
     /**
      * initCalendar
      */
-    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window) throws SecurityException
+    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window, @NonNull CalendarTaskProgress progress) throws SecurityException
     {
         if (window.length != 2) {
             Log.e(TAG, "initCalendar: invalid window with length " + window.length);
@@ -277,10 +360,22 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
-            return initSolsticeCalendar(window[0], window[1]);
+            return initSolsticeCalendar(progress, window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL)) {
+            return initCivilTwilightCalendar(progress, window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL)) {
+            return initNauticalTwilightCalendar(progress, window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO)) {
+            return initAstroTwilightCalendar(progress, window[0], window[1]);
+
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
+            return initMoonriseCalendar(progress, window[0], window[1]);
 
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
-            return initMoonPhaseCalendar(window[0], window[1]);
+            return initMoonPhaseCalendar(progress, window[0], window[1]);
 
         } else {
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
@@ -289,17 +384,328 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     }
 
     /**
+     * initCivilTwilightCalendar
+     */
+    private boolean initCivilTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL;
+        String calendarTitle = calendarDisplay.get(calendarName);
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE, CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET, CalculatorProviderContract.COLUMN_SUN_CIVIL_SET };   // 0, 1, 2, 3 .. expected order: civil, sunrise, sunset, civil
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    publishProgress(progress0, progress);
+
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] twilightMorning = new Calendar[2];
+                    Calendar[] twilightEvening = new Calendar[2];
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        twilightMorning[0] = Calendar.getInstance();
+                        twilightMorning[1] = Calendar.getInstance();
+                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
+                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[0], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
+
+                        twilightEvening[0] = Calendar.getInstance();
+                        twilightEvening[1] = Calendar.getInstance();
+                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
+                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[1], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, calendarTitle);
+                            publishProgress(progress0, progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+    /**
+     * initNauticalTwilightCalendar
+     */
+    private boolean initNauticalTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        String calendarTitle = calendarDisplay.get(calendarName);
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE, CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_CIVIL_SET, CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    publishProgress(progress0, progress);
+
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] twilightMorning = new Calendar[2];
+                    Calendar[] twilightEvening = new Calendar[2];
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        twilightMorning[0] = Calendar.getInstance();
+                        twilightMorning[1] = Calendar.getInstance();
+                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
+                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
+
+                        twilightEvening[0] = Calendar.getInstance();
+                        twilightEvening[1] = Calendar.getInstance();
+                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
+                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, calendarTitle);
+                            publishProgress(progress0, progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+    /**
+     * initAstroTwilightCalendar
+     */
+    private boolean initAstroTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO;
+        String calendarTitle = calendarDisplay.get(calendarName);
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ASTRO_RISE, CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE,
+                                                     CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET, CalculatorProviderContract.COLUMN_SUN_ASTRO_SET };
+                Cursor cursor = resolver.query(uri, projection, null, null, null);
+                if (cursor != null)
+                {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    publishProgress(progress0, progress);
+
+                    String morningTitle, morningDesc;
+                    String eveningTitle, eveningDesc;
+                    Calendar[] twilightMorning = new Calendar[2];
+                    Calendar[] twilightEvening = new Calendar[2];
+                    cursor.moveToFirst();
+                    while (!cursor.isAfterLast() && !isCancelled())
+                    {
+                        twilightMorning[0] = Calendar.getInstance();
+                        twilightMorning[1] = Calendar.getInstance();
+                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
+                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
+                        morningTitle = calendarDisplay.get(calendarName);
+                        morningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
+
+                        twilightEvening[0] = Calendar.getInstance();
+                        twilightEvening[1] = Calendar.getInstance();
+                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
+                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
+                        eveningTitle = calendarDisplay.get(calendarName);
+                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+
+                        cursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, calendarTitle);
+                            publishProgress(progress0, progress);
+                        }
+                        c++;
+                    }
+                    cursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + uri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+
+    /**
+     * initMoonriseCalendar
+     */
+    private boolean initMoonriseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    {
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
+        String calendarTitle = calendarDisplay.get(calendarName);
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
+        } else return false;
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                Uri moonUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/" + startDate.getTimeInMillis() + "-" + endDate.getTimeInMillis());
+                String[] moonProjection = new String[] { CalculatorProviderContract.COLUMN_MOON_RISE, CalculatorProviderContract.COLUMN_MOON_SET };
+                Cursor moonCursor = resolver.query(moonUri, moonProjection, null, null, null);
+                if (moonCursor != null)
+                {
+                    int c = 0;
+                    int numRows = moonCursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    publishProgress(progress0, progress);
+
+                    String title, desc;
+                    moonCursor.moveToFirst();
+                    while (!moonCursor.isAfterLast() && !isCancelled())
+                    {
+                        for (int i=0; i<moonProjection.length; i++)
+                        {
+                            Calendar eventTime = Calendar.getInstance();
+                            eventTime.setTimeInMillis(moonCursor.getLong(i));
+                            title = moonStrings[i];
+                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                            adapter.createCalendarEvent(calendarID, title, desc, config_location_name, eventTime);
+                            //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
+                        }
+                        moonCursor.moveToNext();
+                        if (c % 8 == 0) {
+                            progress.setProgress(c, numRows, calendarTitle);
+                            publishProgress(progress0, progress);
+                        }
+                        c++;
+                    }
+                    moonCursor.close();
+                    return !isCancelled();
+
+                } else {
+                    lastError = "Failed to resolve URI! " + moonUri;
+                    Log.e(TAG, lastError);
+                    return false;
+                }
+
+            } else {
+                lastError = "Unable to getContentResolver! ";
+                Log.e(TAG, lastError);
+                return false;
+            }
+        } else return false;
+    }
+
+    /**
      * initSolsticeCalendar
      */
-    private boolean initSolsticeCalendar(@NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initSolsticeCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         long calendarID = adapter.queryCalendarID(calendarName);
@@ -315,6 +721,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 if (cursor != null)
                 {
                     cursor.moveToFirst();
+
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    publishProgress(progress0, progress);
+
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
@@ -324,6 +736,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, calendarTitle);
+                        publishProgress(progress0, progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();
@@ -344,15 +759,16 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonPhaseCalendar
      */
-    private boolean initMoonPhaseCalendar( @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initMoonPhaseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
         }
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+        String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarDisplay.get(calendarName), calendarColors.get(calendarName));
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
         String[] projection = new String[] {
@@ -372,6 +788,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    int c = 0;
+                    int numRows = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    publishProgress(progress0, progress);
+
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
@@ -382,6 +803,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                             adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
                         }
                         cursor.moveToNext();
+                        progress.setProgress(c, numRows, calendarTitle);
+                        publishProgress(progress0, progress);
+                        c++;
                     }
                     cursor.close();
                     return !isCancelled();
@@ -465,6 +889,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     public static abstract class SuntimesCalendarTaskListener implements Parcelable
     {
         public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
+        public void onProgress(Context context, CalendarTaskProgress... progress) {}
         public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
         public void onFailed(Context context, String errorMsg) {}
 
@@ -491,6 +916,44 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         Context context = contextRef.get();
         if (listener != null && context != null) {
             listener.onStarted(context, this, message);
+        }
+    }
+
+    public static class CalendarTaskProgress
+    {
+        public CalendarTaskProgress(int i, int n, String message)
+        {
+            setProgress(i, n, message);
+        }
+        public void setProgress(int i, int n, String message)
+        {
+            this.i = i;
+            this.n = n;
+            this.message = message;
+        }
+
+        private int i;
+        public int itemNum() {
+            return i;
+        }
+
+        private int n;
+        public int getCount() {
+            return n;
+        }
+
+        private String message;
+        public String getMessage() {
+            return message;
+        }
+
+        public boolean isIndeterminate()
+        {
+            return (i == 0 || n == 0);
+        }
+
+        public String toString() {
+            return message + ": " + i + "/" + n + " (" + (isIndeterminate() ? "true" : "false") + ")";
         }
     }
 

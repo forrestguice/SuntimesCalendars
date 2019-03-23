@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme">
 
         <!-- Main Activity -->
-        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity">
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
