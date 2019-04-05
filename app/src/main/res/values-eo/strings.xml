@@ -23,7 +23,7 @@
 
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Kalendaro</string>   <!-- group title -->
+    <string name="configLabel_calendars">Suntempoj: kalendaro</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Interagi kun kalendaro</string>
     <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro.</string>
@@ -40,11 +40,11 @@
     <string name="calendars_notification_clearing">Forviŝado el kalendaroj…</string>
     <string name="calendars_notification_cleared">Forigis okazaĵojn el la kalendaro.</string>
 
-    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
-    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
-    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+    <string name="confirm_add_message1">Ĉu aldoni kalendaron?</string>
+    <string name="confirm_clear_message0">Ĉu forigi kalendarojn?</string>
+    <string name="confirm_clear_message1">Ĉu forigi kalendaron?</string>
 
-    <string name="action_openCalendar">Open</string> <!-- TODO -->
+    <string name="action_openCalendar">Malfermi</string>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>unu jaro</item>
@@ -53,8 +53,8 @@
         <item>dek jaroj</item>
     </string-array>
 
-    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
-    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
+    <string name="progress_title">Ĝisdatigado de kalendaroj</string>
+    <string name="progress_message">Tio ĉi povas okupi kelkajn minutojn…\n\nVi povas fermi la aplikaĵon. La tasko pluiĝos fone.</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
     <string name="calendar_moonPhase_displayName">Lunfazoj</string>
@@ -69,32 +69,32 @@
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">Pri</string>
-    <string name="app_name">Suntempoj</string>
+    <string name="app_name">Suntempoj: kalendaro</string>
 
     <string name="app_provider_version_missing"><![CDATA[
-        <font color="#e65100"><b>Missing!</b></font>
-    ]]></string>  <!-- TODO -->
+        <font color="#e65100"><b>Mankas!</b></font>
+    ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
-        <font color="#e65100"><b>Permission Denied!</b></font>
-    ]]></string>  <!-- TODO -->
+        <font color="#e65100"><b>Permeso mankas!</b></font>
+    ]]></string>
     <string name="snackbar_missing_dependency"><![CDATA[
-        This app requires<br />
-        <b><u>%s</u></b> or greater!
-    ]]></string>  <!-- TODO -->
+        Tiu ĉi aplikaĵo postulas<br />
+        <b><u>%s</u></b> aŭ pli nova!
+    ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
-        Permission Denied!<br />
-        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
+        Permeso mankas!<br />
+        Ne povas aliri al la aplikaĵo Suntempoj. La necesa permeso estis rifuzita (aŭ neniam akceptita).<br />
         <br />
-        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>  <!-- TODO -->
-    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
-    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
+        <b>Reinstalado de la aplikaĵo <u>Suntempoj: kalendaro</u> probable riparos tion.</b>
+    ]]></string>
+    <string name="actionCopyError">Kopii al tondujo</string>
+    <string name="actionCopyError_toast">Eraro kopiita al tondujo.</string>
 
     <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Montras tempojn de lumadoj de Suno kaj Luno.</string>
+    <string name="app_shortdesc">Ebligas interagi la aplikaĵon Suntempoj kun kalendaro.</string>
     <string name="app_support_url"><![CDATA[
         <b>Subteno:</b> vizitu la
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">erar-spurilon</a> por raporti problemon.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">erar‑spurilon</a> por raporti problemon.
     ]]></string>
     <string name="app_legal1"><![CDATA[
         Kopirajto &#169 2018-2019 Forrest GUICE <br />
@@ -104,7 +104,7 @@
         Pola kaj Esperanta tradukoj de Verdulo. <br />
     ]]></string>
 
-    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/>La aplikaĵo agordiĝas de lokaj datumoj. Tiuj informoj (kaj aliaj agordoj uzataj de la aplikaĵo) estas konservataj loke kaj ne eliras el la aparato.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj: kalendaro ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/>La aplikaĵo agordiĝas de lokaj datumoj. Tiuj informoj (kaj aliaj agordoj uzataj de la aplikaĵo) estas konservataj loke kaj ne eliras el la aparato.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[La <b>kalendaraj</b> permesoj estas uzataj por interagi kun la aplikaĵo de kalendaro. Ili estas bezonataj por krei proprajn kalendarojn kaj okazaĵojn. Ili estas ankaŭ bezonataj por elŝalti interagon kun la kalendaro (aŭ forigi proprajn kalendarojn).]]></string>
     <string name="privacy_permissiondialog_title">Permesoj</string>
 
