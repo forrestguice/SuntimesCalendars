@@ -78,7 +78,7 @@
         <font color="#e65100"><b>Permeso mankas!</b></font>
     ]]></string>
     <string name="snackbar_missing_dependency"><![CDATA[
-        Tiu ĉi aplikaĵo postulas<br />
+        Postulas la aplikaĵon<br />
         <b><u>%s</u></b> aŭ pli nova!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
