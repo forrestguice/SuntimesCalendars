@@ -1,0 +1,10 @@
+<p>Aldonas al kalendaro okazaĵojn: solsticojn, ekvinoksojn, periodojn de krepuskoj (astronomian, naŭtikan, civilan), sunleviĝojn/sunsubirojn, lunleviĝojn/lunsubirojn kaj ĉefajn lunfazojn.</p>
+
+<p>Tiu ĉi aldonaĵo al Suntempoj aldonas okazaĵojn al la kalendara aplikaĵo. Postulas la aplikaĵon <a href="https://f-droid.org/eo/packages/com.forrestguice.suntimeswidget/">Suntempoj</a> (Suntimes) v0.10.3 aŭ pli nova.</p>
+
+La aplikaĵo postulas la jenajn permesojn:
+<ul>
+<li><small><u>WRITE_SYNC_SETTINGS</u></small> por krei kaj aldoni proprajn kalendarojn al la sistema aplikaĵo de kalendaro.</li>
+<li><small><u>WRITE_CALENDAR</u></small> por plenigi proprajn kalendarojn per okazaĵoj.</li>
+<li><small><u>suntimes.permission.READ_CALCULATOR</u></small> por legi datumojn el la aplikaĵo Suntempoj.</li>
+</ul>
