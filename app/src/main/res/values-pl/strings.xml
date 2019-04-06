@@ -22,7 +22,7 @@
     <string name="timeMode_moon_thirdquarter">Ostatnia kwadra</string>                 <!-- setting -->
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Kalendarz</string>   <!-- group title -->
+    <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->
 
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
     <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
@@ -39,11 +39,11 @@
     <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
     <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
 
-    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
-    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
-    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+    <string name="confirm_add_message1">Czy dodać kalendarz?</string>
+    <string name="confirm_clear_message0">Czy usunąć kalendarze?</string>
+    <string name="confirm_clear_message1">RCzy usunąć kalendarz?</string>
 
-    <string name="action_openCalendar">Open</string> <!-- TODO -->
+    <string name="action_openCalendar">Otwórz</string>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
@@ -52,8 +52,8 @@
         <item>dziesięciu lat</item>
     </string-array>
 
-    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
-    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
+    <string name="progress_title">Aktualizacja kalendarzy</string>
+    <string name="progress_message">To może potrwać kilka minut…\n\nMożesz zamknąć aplikację. Operacja będzie się wykonywać w tle.</string>
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
@@ -68,30 +68,30 @@
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">O programie</string>
-    <string name="app_name">Zmierzchy i Świty</string>
+    <string name="app_name">Czasy Słońca: kalendarz</string>
 
     <string name="app_provider_version_missing"><![CDATA[
-        <font color="#e65100"><b>Missing!</b></font>
-    ]]></string>  <!-- TODO -->
+        <font color="#e65100"><b>Brak!</b></font>
+    ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
-        <font color="#e65100"><b>Permission Denied!</b></font>
-    ]]></string>  <!-- TODO -->
+        <font color="#e65100"><b>Brak uprawnień!</b></font>
+    ]]></string>
     <string name="snackbar_missing_dependency"><![CDATA[
-        This app requires<br />
-        <b><u>%s</u></b> or greater!
-    ]]></string>  <!-- TODO -->
+        Wymagana jest aplikacja<br />
+        <b><u>%s</u></b> lub nowsza!
+    ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
-        Permission Denied!<br />
-        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
+        Brak uprawnień!<br />
+        Brak dostępu do aplikacji Czasy Słońca. Wymagane uprawnienia zostały odmówione (lub nieudzielone).<br />
         <br />
-        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>  <!-- TODO -->
-    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
-    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
+        <b>Reinstalacja aplikacji <u>Czasy Słońca: kalendarz</u> powinna pomóc to naprawić.</b>
+    ]]></string>
+    <string name="actionCopyError">Skopiuj do schowka</string>
+    <string name="actionCopyError_toast">Skopiowano błąd do schowka.</string>
 
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Wyświetla czasy świecenia Słońca i Księżyca.</string>
-    <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesWidget/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
+    <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>
+    <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
         Niemieckie tłumaczenie: Henrik "HerHde" Hüttemann<br />
@@ -101,7 +101,7 @@
         Hispańskie i Katalońskie tłumaczenia: <a href=https://github.com/Raulvo>Raulvo</a>
     ]]></string>
     
-    <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Zmierzchy i Świty nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/>Aplikacja konfiguruje się używając danych lokalizacji; te dane (i inne używane przez program) są zapisywane lokalnie i nie opuszczają urządzenia.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Czasy Słońca: kalendarz nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>
     <string name="privacy_permissiondialog_title">Uprawnienia</string>
 

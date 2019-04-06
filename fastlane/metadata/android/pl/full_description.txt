@@ -1,0 +1,10 @@
+<p>Dodaje do kalendarza wydarzenia: przesilenia, równonoce, świt/zmierzch (astronomiczny, żeglarski, cywilny), wschód/zachód Słońca, wschód/zachód Księżyca i jego fazy.</p>
+
+<p>Ten dodatek do Czasów Słońca dodaje wydarzenia do aplikacji kalendarza. Wymaga zainstalowanej aplikacji  <a href="https://f-droid.org/pl/packages/com.forrestguice.suntimeswidget/">Czasy Słońca</a> (Suntimes) w wersji 0.10.3 bądź nowszej.</p>
+
+Aplikacja korzysta z następujących uprawnień:
+<ul>
+<li><small><u>WRITE_SYNC_SETTINGS</u></small> jest używane do towrzenia i dodawania własnych kalendarzy do aplikacji kalendarza.</li>
+<li><small><u>WRITE_CALENDAR</u></small> jest używane do dodawania wydarzeń do własnych kalendarzy.</li>
+<li><small><u>suntimes.permission.READ_CALCULATOR</u></small> jest używane do odczytu danych z aplikacji Czasy Słońca.</li>
+</ul>
