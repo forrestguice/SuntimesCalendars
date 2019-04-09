@@ -1,9 +1,10 @@
 ### ~
 
-### v0.3.0 (2019-03-25)
+### v0.3.0 (2019-04-09)
 * adds "moon" calendar (moonrise, moonset) (#9).
 * adds "astronomical twilight", "nautical twilight", and "civil twilight" calendars (sunrise, sunset) (#9).
 * enhances the progress UI; improved dialog and notifications.
+* updates translations to Polish (pl) and Esperanto (eo) (#12 by Verdulo).
 * now requires Suntimes v0.10.3+ (previously v0.10.0).
 
 ### v0.2.0 (2019-01-02)
