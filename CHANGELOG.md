@@ -1,5 +1,11 @@
 ### ~
 
+### v0.3.0 (2019-03-25)
+* adds "moon" calendar (moonrise, moonset) (#9).
+* adds "astronomical twilight", "nautical twilight", and "civil twilight" calendars (sunrise, sunset) (#9).
+* enhances the progress UI; improved dialog and notifications.
+* now requires Suntimes v0.10.3+ (previously v0.10.0).
+
 ### v0.2.0 (2019-01-02)
 * adds individual "enabled" prefs for each calendar (Solstices/Equinoxes, Moon Phases) (#3).
 * fixes bug "missing calendars/events when closing app while task is still running" (#4); moves calendar notifications into a foreground service. 
