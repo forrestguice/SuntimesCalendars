@@ -1,5 +1,9 @@
 ### ~
 
+### v0.3.1 (2019-04-22)
+* adds translation to Brazilian Portuguese (pt-br) (contributed by Neto Silva) (#14).
+* updates translations to Polish (pl) and Esperanto (eo) (#13 by Verdulo).
+
 ### v0.3.0 (2019-04-09)
 * adds "moon" calendar (moonrise, moonset) (#9).
 * adds "astronomical twilight", "nautical twilight", and "civil twilight" calendars (sunrise, sunset) (#9).
