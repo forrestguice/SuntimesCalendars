@@ -62,12 +62,6 @@
         <item>cinco anos</item>
         <item>dez anos</item>
     </string-array>
-    <string-array name="calendars_window_values" translatable="false">     <!-- ms config values (one-to-one with getFix_maxAge_display) -->
-        <item>31536000000</item>
-        <item>63072000000</item>
-        <item>157680000000</item>
-        <item>315360000000</item>
-    </string-array>
 
     <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
@@ -134,14 +128,4 @@
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
     ]]></xliff:g></string>
 
-    <!-- pref defaults -->
-    <string name="def_app_calendars_enabled" translatable="false">false</string>
-    <string name="def_calendars_window0" translatable="false">31536000000</string>
-    <string name="def_calendars_window1" translatable="false">63072000000</string>
-    <string name="def_calendars_calendar_civiltwilight" translatable="false">false</string>
-    <string name="def_calendars_calendar_nauticaltwilight" translatable="false">false</string>
-    <string name="def_calendars_calendar_astrotwilight" translatable="false">false</string>
-    <string name="def_calendars_calendar_moonrise" translatable="false">false</string>
-    <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
-    <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 </resources>
