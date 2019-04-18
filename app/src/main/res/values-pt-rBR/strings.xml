@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="sunrise">Nascer do Sol</string>
+    <string name="sunset">Pôr do Sol</string>
+    <string name="timeMode_civil">Crepúsculo Civil</string>
+    <string name="timeMode_nautical">Crepúsculo Náutico</string>
+    <string name="timeMode_astronomical">Crepúsculo Astronômico</string>
+
+    <string name="moonrise">Nascer da Lua</string>
+    <string name="moonset">Pôr da Lua</string>
+
+    <string name="timeMode_equinox_vernal">Equinócio de Primavera</string>
+    <string name="timeMode_equinox_autumnal">Equinócio de Outono</string>
+    <string name="timeMode_solstice_summer">Solstício de Verão</string>
+    <string name="timeMode_solstice_winter">Solstício de Inverno</string>
+
+    <string name="timeMode_moon">Lua</string>
+    <string name="timeMode_moon_new">Lua Nova</string>
+    <string name="timeMode_moon_firstquarter">Quarto Crescente</string>
+    <string name="timeMode_moon_full">Lua Cheia</string>
+    <string name="timeMode_moon_thirdquarter">Terço Crescente</string>
+
+    <string name="configLabel_calendars">Calendário Suntimes</string>
+
+    <string name="calendar_solstice_displayName">Solstícios e Equinócios</string>
+    <string name="calendar_moonPhase_displayName">Fases da Lua</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
+    <string name="calendar_moonrise_summary">Nascer e Pôr da Lua.</string>
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary">Nascer e Pôr do Sol.</string>
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
+
+    <string name="configLabel_calendars_enabled">Integração com Calendário</string>
+    <string name="configLabel_calendars_enabled_summary">Transferir eventos ao app de Calendário nativo do aparelho.</string>
+
+    <string name="configLabel_calendars_window0">Janela (início)</string>
+    <string name="configLabel_calendars_window0_summary">Período começando há <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
+
+    <string name="configLabel_calendars_window1">Janela (fim)</string>
+    <string name="configLabel_calendars_window1_summary">Período terminando em <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
+
+    <string name="calendars_notification_adding">Adicionando calendário(s)…</string>
+    <string name="calendars_notification_added">Calendário(s) adicionado(s).</string>
+    <string name="calendars_notification_adding_failed">Falha ao adicionar calendário(s)!</string>
+
+    <string name="calendars_notification_clearing">Limpando calendário(s)…</string>
+    <string name="calendars_notification_cleared">Calendário(s) limpo(s).</string>
+
+    <string name="confirm_add_message1">Adicionar calendário?</string>
+    <string name="confirm_clear_message0">Apagar calendários?</string>
+    <string name="confirm_clear_message1">Apagar calendário?</string>
+
+    <string name="action_openCalendar">Abrir</string>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>um ano</item>
+        <item>dois anos</item>
+        <item>cinco anos</item>
+        <item>dez anos</item>
+    </string-array>
+
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+
+    <string name="progress_title">Atualizando Calendário(s)</string>
+    <string name="progress_message">Pode levar alguns minutos…\n\nVocê pode fechar o app. A atualização seguirá em segundo plano.</string>
+
+    <string name="about_dialog_title">Sobre o app</string>
+    <string name="app_name">Calendários Suntimes</string>
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Missing!</b></font>
+    ]]></string>
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Permission Denied!</b></font>
+    ]]></string>
+    <string name="snackbar_missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>
+    <string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
+        <br />
+        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
+    ]]></string>
+    <string name="actionCopyError">Copiar</string>
+    <string name="actionCopyError_toast">Erro ao copiar.</string>
+
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Um adicional de calendário(s) para o app Suntimes.</string>  <!-- TODO -->
+    <string name="app_support_url"><![CDATA[
+        <b>Suporte:</b> visite 
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> e deixe uma mensagem (em inglês).
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></xliff:g></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Código Fonte:</b><br />
+        Todos os Direitos Reservados &#169 2018-2019 Forrest Guice <br />
+        Código Aberto sob GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Traduções:</b><br/>
+        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
+        Polish and Esperanto translation by Verdulo. <br />
+        French translation by Jej & Aloha. <br />
+        Hungarian translation by Erci. <br />
+        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
+		Brazilian Portuguese translation by <a href=https://github.com/NetoSilva15>Neto Silva</a>. <br />
+        Basque translation by beriain. <br />
+        Norwegian translation by FTno. <br />
+        Italian translation by Matteo Caoduro. <br />
+        Traditional Chinese translation by <a href=https://github.com/pggdt>ft42</a>.
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacidade:</b><br/>Calendário Suntimes não coleta, estoca, ou distribue os dados. Não possui <b>propagandas</b>, <b>ferramentas de análises</b>, <b>rastreadores</b>, e <b>permissões desnecessárias</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Calendário Suntimes usa a permissão <b>calendário</b> para integrar com seu app de calendário, necessário para permitir a criação de calendários customizados e eventos.<br/><br/>Permissões são requeridas quando desativa a integração com calendário (para remover calendário(s)).]]></string>
+    <string name="privacy_permissiondialog_title">Permissões</string>
+    <string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
+    ]]></xliff:g></string>
+
+</resources>
