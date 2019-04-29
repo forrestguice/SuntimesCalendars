@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2019 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -42,6 +42,10 @@ import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.BuildConfig;
 import com.forrestguice.suntimescalendars.R;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Locale;
 
 public class AboutDialog extends BottomSheetDialogFragment
 {
@@ -150,7 +154,7 @@ public class AboutDialog extends BottomSheetDialogFragment
 
         TextView legalView2 = (TextView) dialogContent.findViewById(R.id.txt_about_legal2);
         legalView2.setMovementMethod(LinkMovementMethod.getInstance());
-        legalView2.setText(fromHtml(context.getString(R.string.app_legal2)));
+        legalView2.setText(fromHtml(context.getString(R.string.app_legal2, initTranslationCredits(context))));
 
         TextView legalView4 = (TextView) dialogContent.findViewById(R.id.txt_about_legal4);
         String permissionsExplained = context.getString(R.string.privacy_permission_calendar);
@@ -240,6 +244,66 @@ public class AboutDialog extends BottomSheetDialogFragment
         {
             startActivity(intent);
         }
+    }
+
+    private static String initTranslationCredits(Context context)
+    {
+        final String[] localeValues = context.getResources().getStringArray(R.array.locale_values);
+        final String[] localeCredits = context.getResources().getStringArray(R.array.locale_credits);
+        final String[] localeDisplay = context.getResources().getStringArray(R.array.locale_display);
+
+        final String currentLanguage = Locale.getDefault().getLanguage();
+        Integer[] index = new Integer[localeDisplay.length];    // sort alphabetical (localized)
+        for (int i=0; i < index.length; i++) {
+            index[i] = i;
+        }
+        Arrays.sort(index, new Comparator<Integer>() {
+            public int compare(Integer i1, Integer i2) {
+                if (localeValues[i1].startsWith(currentLanguage)) {
+                    return -1;
+                } else if (localeValues[i2].startsWith(currentLanguage)) {
+                    return 1;
+                } else return localeDisplay[i1].compareTo(localeDisplay[i2]);
+            }
+        });
+
+        StringBuilder credits = new StringBuilder();
+        for (int i=0; i<index.length; i++)
+        {
+            int j = index[i];
+
+            String localeCredits_j = (localeCredits.length > j ? localeCredits[j] : "");
+            if (!localeCredits[j].isEmpty())
+            {
+                String localeDisplay_j = (localeDisplay.length > j ? localeDisplay[j] : localeValues[j]);
+                String[] authorList = localeCredits_j.split("\\|");
+
+                String authors = "";
+                if (authorList.length < 2) {
+                    authors = authorList[0];
+
+                } else if (authorList.length == 2) {
+                    authors = context.getString(R.string.authorListFormat_n, authorList[0], authorList[1]);
+
+                } else {
+                    for (int k=0; k<authorList.length-1; k++)
+                    {
+                        if (authors.isEmpty())
+                            authors = authorList[k];
+                        else authors = context.getString(R.string.authorListFormat_i, authors, authorList[k]);
+                    }
+                    authors = context.getString(R.string.authorListFormat_n, authors, authorList[authorList.length-1]);
+                }
+
+                String line = context.getString(R.string.translationCreditsFormat, localeDisplay_j, authors);
+                if (i != index.length-1) {
+                    if (!line.endsWith("<br/>") && !line.endsWith("<br />"))
+                        line = line + "<br/>";
+                }
+                credits.append(line);
+            }
+        }
+        return credits.toString();
     }
 
 }

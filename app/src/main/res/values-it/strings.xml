@@ -103,7 +103,7 @@
         Copyright &#169 2018-2019 Forrest Guice <br />
         Codice sorgente disponibile con licenza GPLv3.
     ]]></string>
-    <string name="app_legal2"><![CDATA[
+    <!--<string name="app_legal2"><![CDATA[
         <b>Traduzioni:</b><br/>
         Traduzione in italiano di Matteo Caoduro. <br />
         Traduzione in tedesco di Henrik "HerHde" Hüttemann e Wolkenschieber. <br />
@@ -113,7 +113,7 @@
         Traduzioni in spagnolo e catalano di <a href="https://github.com/Raulvo">Raulvo</a>. <br />
         Traduzione in Basco di beriain. <br />
         Traduzione in norvegese di FTno.
-    ]]></string>
+    ]]></string>-->
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes non raccoglie, memorizza, né trasmette dati personali dell\'utente. Non contiene <b>nessuna pubblicità</b>, <b>nessuna analitica</b>, <b>nessun tracker</b>, e <b>nessun permesso superfluo</b>. <br/><br/>L\'applicazione si configura in base alla località.  Queste informazioni (e altri dati di configurazione utilizzati dall\'applicazione) sono memorizzate localmente e non vengono trasmesse altrove.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilizza i permessi di accesso al <b>calendario</b> per integrarsi con l\'applicazione Calendario. Questi permessi consentono all\'applicazione di creare calendari propri ed eventi.<br/><br/>I permessi sono anche utilizzati quando si disattivano le integrazioni con il calendario (per rimuovere i calendari creati).]]></string>

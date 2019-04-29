@@ -107,7 +107,7 @@
         Todos os Direitos Reservados &#169 2018-2019 Forrest Guice <br />
         Código Aberto sob GPLv3.
     ]]></string>
-    <string name="app_legal2"><![CDATA[
+    <!--<string name="app_legal2"><![CDATA[
         <b>Traduções:</b><br/>
         German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
         Polish and Esperanto translation by Verdulo. <br />
@@ -119,7 +119,7 @@
         Norwegian translation by FTno. <br />
         Italian translation by Matteo Caoduro. <br />
         Traditional Chinese translation by <a href=https://github.com/pggdt>ft42</a>.
-    ]]></string>
+    ]]></string>-->
 
     <string name="privacy_policy"><![CDATA[<b>Privacidade:</b><br/>Calendário Suntimes não coleta, estoca, ou distribue os dados. Não possui <b>propagandas</b>, <b>ferramentas de análises</b>, <b>rastreadores</b>, e <b>permissões desnecessárias</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Calendário Suntimes usa a permissão <b>calendário</b> para integrar com seu app de calendário, necessário para permitir a criação de calendários customizados e eventos.<br/><br/>Permissões são requeridas quando desativa a integração com calendário (para remover calendário(s)).]]></string>

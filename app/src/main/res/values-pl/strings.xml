@@ -93,13 +93,13 @@
     <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
-    <string name="app_legal2"><![CDATA[
+    <!--<string name="app_legal2"><![CDATA[
         Niemieckie tłumaczenie: Henrik "HerHde" Hüttemann<br />
         Esperanckie i Polskie tłumaczenia: Verdulo<br />
         Francuskie tłumaczenie: Jej
         Węgierskie tłumaczenie: Erci<br />
         Hispańskie i Katalońskie tłumaczenia: <a href=https://github.com/Raulvo>Raulvo</a>
-    ]]></string>
+    ]]></string>-->
     
     <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Czasy Słońca: kalendarz nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>

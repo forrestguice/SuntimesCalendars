@@ -100,9 +100,9 @@
         Kopirajto &#169 2018-2019 Forrest GUICE <br />
         Fontkodo disponebla laŭ la permesilo GPLv3.
     ]]></string>
-    <string name="app_legal2"><![CDATA[
+    <!--<string name="app_legal2"><![CDATA[
         Pola kaj Esperanta tradukoj de Verdulo. <br />
-    ]]></string>
+    ]]></string>-->
 
     <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj: kalendaro ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[La <b>kalendaraj</b> permesoj estas uzataj por interagi kun la aplikaĵo de kalendaro. Ili estas bezonataj por krei proprajn kalendarojn kaj okazaĵojn. Ili estas ankaŭ bezonataj por elŝalti interagon kun la kalendaro (aŭ forigi proprajn kalendarojn).]]></string>

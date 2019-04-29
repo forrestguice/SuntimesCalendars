@@ -100,14 +100,14 @@
         Copyright &#169 2018-2019 Forrest Guice <br />
         Code source disponible sous licence GPLv3.
     ]]></string>
-    <string name="app_legal2"><![CDATA[
+    <!--<string name="app_legal2"><![CDATA[
         <b>Traductions :</b><br/>
         Traduction allemande par Henrik "HerHde" Hüttemann. <br />
         Traduction polonnaise et espéranto par Verdulo. <br />
         Traduction française par Jejc & Aloha <br />
         Traduction hongrois par Erci. <br />
         Traduction espagnol et catalan par <a href=https://github.com/Raulvo>Raulvo</a>.
-    ]]></string>
+    ]]></string>-->
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/>The app is configured from location data. This information (and other configuration data used by the app) is stored locally and does not leave the device.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string> <!-- TODO -->
     <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string> <!-- TODO -->
