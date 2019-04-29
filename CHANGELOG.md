@@ -1,8 +1,9 @@
 ### ~
 
-### v0.3.1 (2019-04-22)
+### v0.3.1 (2019-04-30)
 * adds translation to Brazilian Portuguese (pt-br) (contributed by Neto Silva) (#14).
 * updates translations to Polish (pl) and Esperanto (eo) (#13 by Verdulo).
+* improves the About Dialog (better translation credits).
 
 ### v0.3.0 (2019-04-09)
 * adds "moon" calendar (moonrise, moonset) (#9).
