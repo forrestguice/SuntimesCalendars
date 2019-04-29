@@ -93,16 +93,32 @@
     <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
-    <!--<string name="app_legal2"><![CDATA[
-        Niemieckie tłumaczenie: Henrik "HerHde" Hüttemann<br />
-        Esperanckie i Polskie tłumaczenia: Verdulo<br />
-        Francuskie tłumaczenie: Jej
-        Węgierskie tłumaczenie: Erci<br />
-        Hispańskie i Katalońskie tłumaczenia: <a href=https://github.com/Raulvo>Raulvo</a>
-    ]]></string>-->
+    <string name="app_legal2"><![CDATA[
+        <b>Tłumaczenia:</b><br/>
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
     
     <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Czasy Słońca: kalendarz nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>
     <string name="privacy_permissiondialog_title">Uprawnienia</string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b>: <xliff:g id="authorList">%2$s</xliff:g>.<br/>]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Angielski</item>
+        <item>Esperanto</item>
+        <item>Francuski</item>
+        <item>Niemiecki</item>
+        <item>Węgierski</item>
+        <item>Włoski</item>
+        <item>Polski</item>
+        <item>Hiszpański</item>
+        <item>Kataloński</item>
+        <item>Baskijski</item>
+        <item>Norweski</item>
+        <item>Chiński tradycyjny</item>
+        <item>Portugalski</item>
+    </string-array>
 
 </resources>

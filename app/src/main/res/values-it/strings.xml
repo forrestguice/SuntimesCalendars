@@ -103,17 +103,10 @@
         Copyright &#169 2018-2019 Forrest Guice <br />
         Codice sorgente disponibile con licenza GPLv3.
     ]]></string>
-    <!--<string name="app_legal2"><![CDATA[
+    <string name="app_legal2"><![CDATA[
         <b>Traduzioni:</b><br/>
-        Traduzione in italiano di Matteo Caoduro. <br />
-        Traduzione in tedesco di Henrik "HerHde" Hüttemann e Wolkenschieber. <br />
-        Traduzioni in polacco ed esperanto di Verdulo <br/>
-        Traduzione in francese di Jej &amp; Aloha. <br />
-        Traduzione in ungherese di Erci. <br />
-        Traduzioni in spagnolo e catalano di <a href="https://github.com/Raulvo">Raulvo</a>. <br />
-        Traduzione in Basco di beriain. <br />
-        Traduzione in norvegese di FTno.
-    ]]></string>-->
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes non raccoglie, memorizza, né trasmette dati personali dell\'utente. Non contiene <b>nessuna pubblicità</b>, <b>nessuna analitica</b>, <b>nessun tracker</b>, e <b>nessun permesso superfluo</b>. <br/><br/>L\'applicazione si configura in base alla località.  Queste informazioni (e altri dati di configurazione utilizzati dall\'applicazione) sono memorizzate localmente e non vengono trasmesse altrove.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilizza i permessi di accesso al <b>calendario</b> per integrarsi con l\'applicazione Calendario. Questi permessi consentono all\'applicazione di creare calendari propri ed eventi.<br/><br/>I permessi sono anche utilizzati quando si disattivano le integrazioni con il calendario (per rimuovere i calendari creati).]]></string>
@@ -121,5 +114,24 @@
     <string name="privacy_url"><xliff:g id="url" ><![CDATA[
         <a href="https://github.com/forrestguice/SuntimesWidget/wiki/Privacy">github.com/forrestguice/SuntimesWidget/wiki/Privacy</a>
     ]]></xliff:g></string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> di <xliff:g id="authorList">%2$s</xliff:g>.<br/>]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, e <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Hungarian</item>
+        <item>Italian</item>
+        <item>Polish</item>
+        <item>Spanish</item>
+        <item>Catalan</item>
+        <item>Basque</item>
+        <item>Norwegian</item>
+        <item>Traditional Chinese</item>
+        <item>Portuguese</item>
+    </string-array> <!-- TODO -->
 
 </resources>
