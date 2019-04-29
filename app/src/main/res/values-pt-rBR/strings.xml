@@ -109,16 +109,7 @@
     ]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Traduções:</b><br/>
-        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
-        Polish and Esperanto translation by Verdulo. <br />
-        French translation by Jej & Aloha. <br />
-        Hungarian translation by Erci. <br />
-        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
-		Brazilian Portuguese translation by <a href=https://github.com/NetoSilva15>Neto Silva</a>. <br />
-        Basque translation by beriain. <br />
-        Norwegian translation by FTno. <br />
-        Italian translation by Matteo Caoduro. <br />
-        Traditional Chinese translation by <a href=https://github.com/pggdt>ft42</a>.
+        <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacidade:</b><br/>Calendário Suntimes não coleta, estoca, ou distribue os dados. Não possui <b>propagandas</b>, <b>ferramentas de análises</b>, <b>rastreadores</b>, e <b>permissões desnecessárias</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
@@ -127,5 +118,24 @@
     <string name="privacy_url"><xliff:g id="url"><![CDATA[
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
     ]]></xliff:g></string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> por <xliff:g id="authorList">%2$s</xliff:g>.<br/>]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, e <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Inglês</item>
+        <item>Esperanto</item>
+        <item>Francês</item>
+        <item>Alemão</item>
+        <item>Húngaro</item>
+        <item>Italiano</item>
+        <item>Polonês</item>
+        <item>Espanhol</item>
+        <item>Catalão</item>
+        <item>Basco</item>
+        <item>Norueguês</item>
+        <item>Chinês Tradicional</item>
+        <item>Português</item>
+    </string-array>
 
 </resources>

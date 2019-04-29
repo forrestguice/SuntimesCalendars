@@ -102,12 +102,30 @@
 ]]></string>
     <string name="app_legal2"><![CDATA[
     <b>Traduccions:</b><br/>
-    Traducció a espanyol i català per <a href=https://github.com/Raulvo>Raulvo</a>.
-
+    <xliff:g id="locale_credits">%1$s</xliff:g>
 ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privadesa:</b><br/>Suntimes no coŀlecta, emmagatzema, o transmet dades personals. <b>No contè anuncis</b>, <b>càlculs estadístics</b>, <b>rastrejadors</b>, i <b>no utilitza permissos innecessaris</b>. <br/><br/>L\'aplicació es configura amb dades de localització. Aquesta informació (i qualsevol altra dada configurada emprada per l\'aplicació) s\'emmagatzema localment i no surt del dispositiu.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilitza el permís de <b>calendari</b> per integrar-se amb l\'aplicació Calendari. Aquests permisos permeten crear calendaris i esdeveniments personalitzats.<br/><br/>També es necessiten permisos quan es desactiva la integració amb el calendari (per eliminar calendaris personalitzats).]]></string>
     <string name="privacy_permissiondialog_title">Permissos</string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> per <xliff:g id="authorList">%2$s</xliff:g>.<br/>]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Anglès</item>
+        <item>Esperanto</item>
+        <item>Francès</item>
+        <item>Alemany</item>
+        <item>Hongarès</item>
+        <item>Italiana</item>
+        <item>Polonès</item>
+        <item>Espanyol</item>
+        <item>Català</item>
+        <item>Basc</item>
+        <item>Noruec</item>
+        <item>Xinès tradicional</item>
+        <item>Portuguese</item>  <!-- TODO -->
+    </string-array>
 
 </resources>
