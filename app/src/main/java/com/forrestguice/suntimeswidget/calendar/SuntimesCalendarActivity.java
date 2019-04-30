@@ -99,6 +99,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     private static String appVersionName = null, providerVersionName = null;
     private static Integer appVersionCode = null, providerVersionCode = null;
     private static boolean needsSuntimesPermissions = false;
+    protected static String locale = null;
 
     private CalendarPrefsFragment mainFragment = null;
     private FirstLaunchFragment firstLaunchFragment = null;
@@ -128,7 +129,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 {
                     // a valid cursor - Suntimes is installed (and we have access)
                     cursor.moveToFirst();
-                    String locale = (!cursor.isNull(0)) ? cursor.getString(0) : null;
+                    if (locale == null) {
+                        locale = (!cursor.isNull(0)) ? cursor.getString(0) : null;
+                    }
                     config_apptheme = (!cursor.isNull(1)) ? cursor.getString(1) : null;
                     appVersionName = (!cursor.isNull(2)) ? cursor.getString(2) : null;
                     appVersionCode = (!cursor.isNull(3)) ? cursor.getInt(3) : null;
