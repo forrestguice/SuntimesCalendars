@@ -152,7 +152,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         } else super.attachBaseContext(newBase);
     }
 
-    private static Context loadLocale( Context context, String languageTag )
+    protected static Context loadLocale( Context context, String languageTag )
     {
         if (systemLocale == null) {
             systemLocale = Locale.getDefault().getLanguage();
@@ -180,7 +180,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     }
 
-    private static Context resetLocale( Context context )
+    protected static Context resetLocale( Context context )
     {
         if (systemLocale != null) {
             return loadLocale(context, systemLocale);
@@ -188,7 +188,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         return context;
     }
 
-    private static @NonNull Locale localeForLanguageTag(@NonNull String languageTag)
+    protected static @NonNull Locale localeForLanguageTag(@NonNull String languageTag)
     {
         Locale locale;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
