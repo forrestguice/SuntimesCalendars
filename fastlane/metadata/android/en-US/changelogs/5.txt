@@ -1,0 +1,3 @@
+* adds translation to Brazilian Portuguese (pt-br) (by Neto Silva).
+* updates translations to Polish (pl) and Esperanto (eo) (by Verdulo).
+* improves the About Dialog (better translation credits).
