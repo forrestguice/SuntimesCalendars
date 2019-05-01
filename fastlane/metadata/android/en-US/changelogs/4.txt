@@ -1,0 +1,5 @@
+* adds "moon" calendar (moonrise, moonset).
+* adds "astronomical twilight", "nautical twilight", and "civil twilight" calendars (sunrise, sunset).
+* enhances the progress UI; improved dialog and notifications.
+* updates translations to Polish (pl) and Esperanto (eo) (by Verdulo).
+* now requires Suntimes v0.10.3+ (previously v0.10.0).
