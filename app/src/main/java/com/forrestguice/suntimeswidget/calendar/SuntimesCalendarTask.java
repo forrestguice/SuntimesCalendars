@@ -43,6 +43,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 {
     public static final String TAG = "SuntimesCalendarTask";
 
+    public static final double THRESHHOLD_SUPERMOON = 360000;    // km
+    public static final double THRESHHOLD_MICROMOON = 405000;    // km
+
     private SuntimesCalendarAdapter adapter;
     private WeakReference<Context> contextRef;
 
@@ -783,11 +786,14 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
 
-        String[] projection = new String[] {
+        String[] projection = new String[] {    // indices 0-3 should contain ordered phases!
                 CalculatorProviderContract.COLUMN_MOON_NEW,
                 CalculatorProviderContract.COLUMN_MOON_FIRST,
                 CalculatorProviderContract.COLUMN_MOON_FULL,
-                CalculatorProviderContract.COLUMN_MOON_THIRD };
+                CalculatorProviderContract.COLUMN_MOON_THIRD,
+                CalculatorProviderContract.COLUMN_MOON_NEW_DISTANCE,  // use indices 4+ for other data
+                CalculatorProviderContract.COLUMN_MOON_FULL_DISTANCE
+        };
 
         long calendarID = adapter.queryCalendarID(calendarName);
         if (calendarID != -1)
@@ -808,11 +814,24 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        for (int i=0; i<projection.length; i++)
+                        for (int i=0; i<4; i++)
                         {
+                            String[] displayStrings;
+                            if (i == 0 || i == 2)  // new moon || full moon
+                            {
+                                double distance = cursor.getDouble(i == 0 ? 4 : 5);
+
+                                if (distance < THRESHHOLD_SUPERMOON) {
+                                    displayStrings = phaseStrings1;
+                                } else if (distance > THRESHHOLD_MICROMOON) {
+                                    displayStrings = phaseStrings2;
+                                } else displayStrings = phaseStrings;
+
+                            } else displayStrings = phaseStrings;
+
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
+                            adapter.createCalendarEvent(calendarID, displayStrings[i], displayStrings[i], eventTime);
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, calendarTitle);
