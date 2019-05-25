@@ -53,6 +53,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private String[] sunStrings = new String[5];       // {sunrise, sunset, civil twilight, nautical twilight, astronomical twilight}
     private String[] moonStrings = new String[2];      // {moonrise, moonset}
     private String[] phaseStrings = new String[4];     // {major phases}
+    private String[] phaseStrings1 = new String[4];    // {major phases; supermoon}
+    private String[] phaseStrings2 = new String[4];    // {major phases; micromoon}
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
     //private int[] solsticeColors = new int[4];
 
@@ -84,6 +86,16 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         phaseStrings[1] = context.getString(R.string.timeMode_moon_firstquarter);
         phaseStrings[2] = context.getString(R.string.timeMode_moon_full);
         phaseStrings[3] = context.getString(R.string.timeMode_moon_thirdquarter);
+
+        phaseStrings1[0] = context.getString(R.string.timeMode_moon_supernew);
+        phaseStrings1[1] = context.getString(R.string.timeMode_moon_firstquarter);
+        phaseStrings1[2] = context.getString(R.string.timeMode_moon_superfull);
+        phaseStrings1[3] = context.getString(R.string.timeMode_moon_thirdquarter);
+
+        phaseStrings2[0] = context.getString(R.string.timeMode_moon_micronew);
+        phaseStrings2[1] = context.getString(R.string.timeMode_moon_firstquarter);
+        phaseStrings2[2] = context.getString(R.string.timeMode_moon_microfull);
+        phaseStrings2[3] = context.getString(R.string.timeMode_moon_thirdquarter);
 
         //solsticeColors[0] = ContextCompat.getColor(context, R.color.springColor_light);
         //solsticeColors[1] = ContextCompat.getColor(context, R.color.summerColor_light);
