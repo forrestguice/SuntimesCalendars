@@ -34,6 +34,8 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TreeSet;
@@ -816,22 +818,26 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     {
                         for (int i=0; i<4; i++)
                         {
-                            String[] displayStrings;
+                            double distance = -1;
+                            String[] titleStrings;
                             if (i == 0 || i == 2)  // new moon || full moon
                             {
-                                double distance = cursor.getDouble(i == 0 ? 4 : 5);
+                                distance = cursor.getDouble(i == 0 ? 4 : 5);
 
                                 if (distance < THRESHHOLD_SUPERMOON) {
-                                    displayStrings = phaseStrings1;
+                                    titleStrings = phaseStrings1;
                                 } else if (distance > THRESHHOLD_MICROMOON) {
-                                    displayStrings = phaseStrings2;
-                                } else displayStrings = phaseStrings;
+                                    titleStrings = phaseStrings2;
+                                } else titleStrings = phaseStrings;
 
-                            } else displayStrings = phaseStrings;
+                            } else titleStrings = phaseStrings;
 
+                            String desc = (distance > 0)
+                                    ? context.getString(R.string.event_distance_format, titleStrings[i], formatDistanceString(distance))
+                                    : titleStrings[i];
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            adapter.createCalendarEvent(calendarID, displayStrings[i], displayStrings[i], eventTime);
+                            adapter.createCalendarEvent(calendarID, titleStrings[i], desc, eventTime);
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, calendarTitle);
@@ -852,6 +858,18 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 return false;
             }
         } else return false;
+    }
+
+    private NumberFormat distanceFormatter = null;
+    private String formatDistanceString(double distance)
+    {
+        if (distanceFormatter == null)
+        {
+            distanceFormatter = new DecimalFormat();
+            distanceFormatter.setMinimumFractionDigits(0);
+            distanceFormatter.setMaximumFractionDigits(2);
+        }
+        return distanceFormatter.format(distance);
     }
 
     /**
