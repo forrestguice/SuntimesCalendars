@@ -662,12 +662,15 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     {
                         for (int i=0; i<moonProjection.length; i++)
                         {
-                            Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(moonCursor.getLong(i));
-                            title = moonStrings[i];
-                            desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                            adapter.createCalendarEvent(calendarID, title, desc, config_location_name, eventTime);
-                            //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
+                            if (!moonCursor.isNull(i))
+                            {
+                                Calendar eventTime = Calendar.getInstance();
+                                eventTime.setTimeInMillis(moonCursor.getLong(i));
+                                title = moonStrings[i];
+                                desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                                adapter.createCalendarEvent(calendarID, title, desc, config_location_name, eventTime);
+                                //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
+                            }
                         }
                         moonCursor.moveToNext();
                         if (c % 8 == 0) {
@@ -731,9 +734,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     {
                         for (int i=0; i<projection.length; i++)
                         {
-                            Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(cursor.getLong(i));
-                            adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
+                            if (!cursor.isNull(i))
+                            {
+                                Calendar eventTime = Calendar.getInstance();
+                                eventTime.setTimeInMillis(cursor.getLong(i));
+                                adapter.createCalendarEvent(calendarID, solsticeStrings[i], solsticeStrings[i], eventTime);
+                            }
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, calendarTitle);
@@ -798,9 +804,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     {
                         for (int i=0; i<projection.length; i++)
                         {
-                            Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(cursor.getLong(i));
-                            adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
+                            if (!cursor.isNull(i))
+                            {
+                                Calendar eventTime = Calendar.getInstance();
+                                eventTime.setTimeInMillis(cursor.getLong(i));
+                                adapter.createCalendarEvent(calendarID, phaseStrings[i], phaseStrings[i], eventTime);
+                            }
                         }
                         cursor.moveToNext();
                         progress.setProgress(c, numRows, calendarTitle);
