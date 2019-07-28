@@ -383,6 +383,55 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
     }
 
+    private void createSunCalendarEvent(Context context, long calendarID, String title, String desc0, String desc1, Cursor cursor, int i)
+    {
+        int j = i + 1;
+        int k = (i == 0) ? 2 : 0;  // [i, j, k, l] .. [k, l, i, j]
+        int l = k + 1;
+        String eventDesc;
+        Calendar eventStart = Calendar.getInstance();
+        Calendar eventEnd = Calendar.getInstance();
+
+        if (!cursor.isNull(i) && !cursor.isNull(j))                // [i, j]
+        {
+            eventStart.setTimeInMillis(cursor.getLong(i));
+            eventEnd.setTimeInMillis(cursor.getLong(j));
+            eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+            adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
+
+        } else if (!cursor.isNull(i)) {
+            eventStart.setTimeInMillis(cursor.getLong(i));
+            if (i == 0)
+            {
+                if (!cursor.isNull(l)) {                          // [i, l]
+                    eventEnd.setTimeInMillis(cursor.getLong(l));
+                    eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                    adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
+                }
+
+            } else {
+                eventEnd.setTimeInMillis(cursor.getLong(i));      // [i, +midnight]
+                eventEnd.set(Calendar.HOUR_OF_DAY, 23);
+                eventEnd.set(Calendar.MINUTE, 59);
+                eventEnd.set(Calendar.SECOND, 59);
+                eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
+            }
+
+        } else if (!cursor.isNull(j)) {
+            eventEnd.setTimeInMillis(cursor.getLong(j));
+            if (i == 0)                                           // [-midnight, j]
+            {
+                eventStart.setTimeInMillis(cursor.getLong(j));
+                eventStart.set(Calendar.HOUR_OF_DAY, 0);
+                eventStart.set(Calendar.MINUTE, 0);
+                eventStart.set(Calendar.SECOND, 0);
+                eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
+            }
+        }
+    }
+
     /**
      * initCivilTwilightCalendar
      */
@@ -416,28 +465,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
-                    String morningTitle, morningDesc;
-                    String eveningTitle, eveningDesc;
-                    Calendar[] twilightMorning = new Calendar[2];
-                    Calendar[] twilightEvening = new Calendar[2];
+                    String title = calendarDisplay.get(calendarName);
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        twilightMorning[0] = Calendar.getInstance();
-                        twilightMorning[1] = Calendar.getInstance();
-                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
-                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
-                        morningTitle = calendarDisplay.get(calendarName);
-                        morningDesc = context.getString(R.string.event_at_format, sunStrings[0], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
-
-                        twilightEvening[0] = Calendar.getInstance();
-                        twilightEvening[1] = Calendar.getInstance();
-                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
-                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
-                        eveningTitle = calendarDisplay.get(calendarName);
-                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[1], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[0], sunStrings[2], cursor, 0);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[1], sunStrings[2], cursor, 2);
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
@@ -496,28 +529,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
                     publishProgress(progress0, progress);
 
-                    String morningTitle, morningDesc;
-                    String eveningTitle, eveningDesc;
-                    Calendar[] twilightMorning = new Calendar[2];
-                    Calendar[] twilightEvening = new Calendar[2];
+                    String title = calendarDisplay.get(calendarName);
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        twilightMorning[0] = Calendar.getInstance();
-                        twilightMorning[1] = Calendar.getInstance();
-                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
-                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
-                        morningTitle = calendarDisplay.get(calendarName);
-                        morningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
-
-                        twilightEvening[0] = Calendar.getInstance();
-                        twilightEvening[1] = Calendar.getInstance();
-                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
-                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
-                        eveningTitle = calendarDisplay.get(calendarName);
-                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[3], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[3], sunStrings[3], cursor, 0);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[3], sunStrings[3], cursor, 2);
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
@@ -576,28 +593,12 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
                     publishProgress(progress0, progress);
 
-                    String morningTitle, morningDesc;
-                    String eveningTitle, eveningDesc;
-                    Calendar[] twilightMorning = new Calendar[2];
-                    Calendar[] twilightEvening = new Calendar[2];
+                    String title = calendarDisplay.get(calendarName);
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        twilightMorning[0] = Calendar.getInstance();
-                        twilightMorning[1] = Calendar.getInstance();
-                        twilightMorning[0].setTimeInMillis(cursor.getLong(0));
-                        twilightMorning[1].setTimeInMillis(cursor.getLong(1));
-                        morningTitle = calendarDisplay.get(calendarName);
-                        morningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, morningTitle, morningDesc, config_location_name, twilightMorning);
-
-                        twilightEvening[0] = Calendar.getInstance();
-                        twilightEvening[1] = Calendar.getInstance();
-                        twilightEvening[0].setTimeInMillis(cursor.getLong(2));
-                        twilightEvening[1].setTimeInMillis(cursor.getLong(3));
-                        eveningTitle = calendarDisplay.get(calendarName);
-                        eveningDesc = context.getString(R.string.event_at_format, sunStrings[4], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        adapter.createCalendarEvent(calendarID, eveningTitle, eveningDesc, config_location_name, twilightEvening);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[4], sunStrings[4], cursor, 0);
+                        createSunCalendarEvent(context, calendarID, title, sunStrings[4], sunStrings[4], cursor, 2);
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
