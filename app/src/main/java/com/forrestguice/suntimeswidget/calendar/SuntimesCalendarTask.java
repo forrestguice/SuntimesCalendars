@@ -385,8 +385,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
     private void createSunCalendarEvent(Context context, long calendarID, String title, String desc0, String desc1, Cursor cursor, int i)
     {
-        int j = i + 1;
-        int k = (i == 0) ? 2 : 0;  // [i, j, k, l] .. [k, l, i, j]
+        int j = i + 1;             // [rise-start, rise-end, set-start, set-end]
+        int k = (i == 0) ? 2 : 0;  // rising [i, j, k, l] .. setting [k, l, i, j]
         int l = k + 1;
         String eventDesc;
         Calendar eventStart = Calendar.getInstance();
@@ -403,31 +403,27 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             eventStart.setTimeInMillis(cursor.getLong(i));
             if (i == 0)
             {
-                if (!cursor.isNull(l)) {                          // [i, l]
+                if (!cursor.isNull(l)) {                          // [i, l] of [i, j, k, l]
                     eventEnd.setTimeInMillis(cursor.getLong(l));
                     eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                     adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
                 }
 
             } else {
-                eventEnd.setTimeInMillis(cursor.getLong(i));      // [i, +midnight]
-                eventEnd.set(Calendar.HOUR_OF_DAY, 23);
-                eventEnd.set(Calendar.MINUTE, 59);
-                eventEnd.set(Calendar.SECOND, 59);
-                eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
-            }
+                if (cursor.moveToNext())
+                {                                // peek forward
+                    if (!cursor.isNull(l))
+                    {
+                        eventEnd.setTimeInMillis(cursor.getLong(l));      // [i, +l] of [+k, +l, i, j]
+                        eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
 
-        } else if (!cursor.isNull(j)) {
-            eventEnd.setTimeInMillis(cursor.getLong(j));
-            if (i == 0)                                           // [-midnight, j]
-            {
-                eventStart.setTimeInMillis(cursor.getLong(j));
-                eventStart.set(Calendar.HOUR_OF_DAY, 0);
-                eventStart.set(Calendar.MINUTE, 0);
-                eventStart.set(Calendar.SECOND, 0);
-                eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd);
+                    } else {
+                        eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        adapter.createCalendarEvent(calendarID, title, eventDesc, config_location_name, eventStart);
+                    }
+                    cursor.moveToPrevious();
+                }
             }
         }
     }
