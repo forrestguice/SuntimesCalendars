@@ -11,7 +11,6 @@ android {
         versionCode 5
         versionName "0.3.1"
 
-        buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + getDateAsMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -44,12 +43,6 @@ dependencies {
 
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-static def getDateAsMillis()
-{
-    def Calendar cal = Calendar.getInstance();
-    return cal.getTimeInMillis().toString()
 }
 
 def getGitHash()
