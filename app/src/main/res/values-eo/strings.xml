@@ -6,6 +6,12 @@
     <string name="timeMode_civil">Civila krepusko</string>               <!-- setting -->
     <string name="timeMode_nautical">Naŭtika krepusko</string>         <!-- setting -->
     <string name="timeMode_astronomical">Astronomia krepusko</string> <!-- setting -->
+    <string name="dawn">Dawn</string>    <!-- TODO -->
+    <string name="dusk">Dusk</string>    <!-- TODO -->
+    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>    <!-- TODO -->
 
     <string name="moonrise">Lunleviĝo</string>                            <!-- contentDescription -->
     <string name="moonset">Lunsubiro</string>                             <!-- contentDescription -->
