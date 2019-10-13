@@ -6,6 +6,12 @@
     <string name="timeMode_civil">Crepúsculo civil</string>
     <string name="timeMode_nautical">Crepúsculo náutico</string>
     <string name="timeMode_astronomical">Crepúsculo Astronómico</string>
+    <string name="dawn">Dawn</string>    <!-- TODO -->
+    <string name="dusk">Dusk</string>    <!-- TODO -->
+    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>    <!-- TODO -->
 
     <string name="moonrise">Salida de la Luna</string>
     <string name="moonset">Puesta de la Luna</string>
@@ -100,11 +106,30 @@
 ]]></string>
     <string name="app_legal2"><![CDATA[
     <b>Traducciones:</b> <br/>
-    Traducción en español y catalán por <a href=https://github.com/Raulvo>Raulvo</a>.
+    <xliff:g id="locale_credits">%1$s</xliff:g>
 ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacidad:</b> <br /> Suntimes no colectivo, almacena, o transmite datos personales. <b>No contiene anuncios</b>, <b>cálculos estadísticos</b>, <b>rastreadores</b>, y <b>no utiliza permisos innecesarios</b>. <br/><br/> La aplicación se configura con datos de localización. Esta información (y cualquier otro dato configurada empleada por la aplicación) se almacena localmente y no sale del dispositivo. <br/><br/> <xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utiliza el permiso de <b>calendario</b> para integrarse con la aplicación Calendario. Estos permisos permiten crear calendarios y eventos personalizados. <br /><br /> También se necesitan permisos cuando se desactiva la integración con el calendario (para eliminar calendarios personalizados).]]></string>
     <string name="privacy_permissiondialog_title">Permisos</string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> por <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, y <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">
+        <item>Inglés</item>
+        <item>Esperanto</item>
+        <item>Francés</item>
+        <item>Alemán</item>
+        <item>Húngaro</item>
+        <item>Italiano</item>
+        <item>Polaco</item>
+        <item>Español</item>
+        <item>Catalán</item>
+        <item>Vasco</item>
+        <item>Noruego</item>
+        <item>Chino tradicional</item>
+        <item>Portuguese</item>  <!-- TODO -->
+    </string-array>
 
 </resources>

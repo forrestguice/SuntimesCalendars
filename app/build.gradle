@@ -8,10 +8,9 @@ android {
         applicationId "com.forrestguice.suntimescalendars"
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 4
-        versionName "0.3.0"
+        versionCode 6
+        versionName "0.3.2"
 
-        buildConfigField "java.util.Date", "BUILD_TIME", "new java.util.Date(" + getDateAsMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -44,12 +43,6 @@ dependencies {
 
 configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
-static def getDateAsMillis()
-{
-    def Calendar cal = Calendar.getInstance();
-    return cal.getTimeInMillis().toString()
 }
 
 def getGitHash()

@@ -6,6 +6,12 @@
     <string name="timeMode_civil">Krepuskulu zibila</string>               <!-- setting -->
     <string name="timeMode_nautical">Itsas krepuskulua</string>         <!-- setting -->
     <string name="timeMode_astronomical">Krepuskulu astronomikoa</string> <!-- setting -->
+    <string name="dawn">Dawn</string>    <!-- TODO -->
+    <string name="dusk">Dusk</string>    <!-- TODO -->
+    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>    <!-- TODO -->
 
     <string name="moonrise">Ilargiaren irteera</string>                             <!-- contentDescription -->
     <string name="moonset">Ilargia ezkutatzea</string>                             <!-- contentDescription -->
@@ -106,11 +112,30 @@
     ]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Itzulpenak:</b><br/>
-        Euskarazko itzulpena beriainek egina.
+        <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/>The app is configured from location data. This information (and other configuration data used by the app) is stored locally and does not leave the device.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string> <!-- TODO -->
     <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string> <!-- TODO -->
     <string name="privacy_permissiondialog_title">Permissions</string> <!-- TODO -->
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> :: <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, eta <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Ingelesa</item>
+        <item>Esperantoa</item>
+        <item>Frantsesa</item>
+        <item>Alemana</item>
+        <item>Hungariera</item>
+        <item>Italiera</item>
+        <item>Poloniera</item>
+        <item>Gaztelania</item>
+        <item>Katalana</item>
+        <item>Euskara</item>
+        <item>Norvegiera</item>
+        <item>Txinera tradizionala</item>
+        <item>Portuguese</item>  <!-- TODO -->
+    </string-array>
 
 </resources>

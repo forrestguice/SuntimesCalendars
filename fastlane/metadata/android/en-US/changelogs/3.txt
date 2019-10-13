@@ -1,0 +1,5 @@
+* adds individual "enabled" prefs for each calendar (Solstices/Equinoxes, Moon Phases).
+* fixes bug "missing calendars/events when closing app while task is still running".
+* changes the "Calendar Integration" pref to match calendar state (vs desired state); existing calendars should be preserved when updating (or removing and later re-adding) the app.
+* changes when permissions are requested; adds a request on first launch (or if data is cleared) before allowing access to remaining UI; permissions are used to recover calendars from previous installations.
+* misc improvements to permissions handling; more robust; support for actions on individual calendars.

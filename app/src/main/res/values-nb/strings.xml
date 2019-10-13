@@ -6,6 +6,12 @@
     <string name="timeMode_civil">Alminnelig tussmørke</string>               <!-- setting -->
     <string name="timeMode_nautical">Nautisk tussmørke</string>         <!-- setting -->
     <string name="timeMode_astronomical">Astronomisk tussmørke</string> <!-- setting -->
+    <string name="dawn">Dawn</string>    <!-- TODO -->
+    <string name="dusk">Dusk</string>    <!-- TODO -->
+    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>    <!-- TODO -->
 
     <string name="moonrise">Måneoppgang</string>                             <!-- contentDescription -->
     <string name="moonset">Månenedgang</string>                             <!-- contentDescription -->
@@ -105,18 +111,30 @@
     ]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Oversettelser:</b><br/>
-        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
-        Polish and Esperanto translation by Verdulo. <br />
-        French translation by Jej. <br />
-        Hungarian translation by Erci. <br />
-        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
-        Basque translation by beriain. <br />
-        Norwegian translation by FTno. <br />
-        Italian translation by Matteo Caoduro. <br />
+        <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/>The app is configured from location data. This information (and other configuration data used by the app) is stored locally and does not leave the device.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string> <!-- TODO -->
     <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string> <!-- TODO -->
     <string name="privacy_permissiondialog_title">Permissions</string> <!-- TODO -->
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> av <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, og <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Engelsk</item>
+        <item>Esperanto</item>
+        <item>Fransk</item>
+        <item>Tysk</item>
+        <item>Ungarsk</item>
+        <item>Italiensk</item>
+        <item>Polsk</item>
+        <item>Spansk</item>
+        <item>Katalansk</item>
+        <item>Baskisk</item>
+        <item>Norsk</item>
+        <item>Tradisjonell kinesisk</item>
+        <item>Portuguese</item>  <!-- TODO -->
+    </string-array>
 
 </resources>

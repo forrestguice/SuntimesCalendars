@@ -6,6 +6,12 @@
     <string name="timeMode_civil">Civil Twilight</string>
     <string name="timeMode_nautical">Nautical Twilight</string>
     <string name="timeMode_astronomical">Astronomical Twilight</string>
+    <string name="dawn">Dawn</string>    <!-- TODO -->
+    <string name="dusk">Dusk</string>    <!-- TODO -->
+    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>    <!-- TODO -->
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
@@ -115,15 +121,7 @@
     ]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Translations:</b><br/>
-        German translation by Henrik "HerHde" Hüttemann and Wolkenschieber. <br />
-        Polish and Esperanto translation by Verdulo. <br />
-        French translation by Jej & Aloha. <br />
-        Hungarian translation by Erci. <br />
-        Spanish and Catalan translation by <a href=https://github.com/Raulvo>Raulvo</a>. <br />
-        Basque translation by beriain. <br />
-        Norwegian translation by FTno. <br />
-        Italian translation by Matteo Caoduro. <br />
-        Traditional Chinese translation by <a href=https://github.com/pggdt>ft42</a>.
+        <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
@@ -132,6 +130,55 @@
     <string name="privacy_url"><xliff:g id="url"><![CDATA[
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
     ]]></xliff:g></string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> by <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
+    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, and <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Hungarian</item>
+        <item>Italian</item>
+        <item>Polish</item>
+        <item>Spanish</item>
+        <item>Catalan</item>
+        <item>Basque</item>
+        <item>Norwegian</item>
+        <item>Traditional Chinese</item>
+        <item>Portuguese</item>
+    </string-array>    <!-- TODO -->
+    <string-array name="locale_values" translatable="false">  <!-- one-to-one with locale_display -->
+        <item>en</item>
+        <item>eo</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>hu</item>
+        <item>it</item>
+        <item>pl</item>
+        <item>es_ES</item>
+        <item>ca</item>
+        <item>eu</item>
+        <item>nb</item>
+        <item>zh_TW</item>
+        <item>pt_BR</item>
+    </string-array>
+    <string-array name="locale_credits" translatable="false">  <!-- one-to-one with locale_display -->
+        <item />
+        <item><![CDATA[<a href=https://github.com/Verdulo>Verdulo</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/Jej>Jej</a>|<a href=https://github.com/Aloha>Aloha</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/HerHde>Henrik "HerHde" Hüttemann</a>|<a href=https://github.com/Wolkenschieber>Wolkenschieber</a>]]></item>
+        <item><![CDATA[Erci]]></item>
+        <item><![CDATA[<a href=https://github.com/cao->Matteo Caoduro</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/Verdulo>Verdulo</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/Raulvo>Raulvo</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/Raulvo>Raulvo</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/beriain>beriain</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/FTno>FTno</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/pggdt>ft42</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/NetoSilva>Neto Silva</a>]]></item>
+    </string-array>
 
     <!-- pref defaults -->
     <string name="def_app_calendars_enabled" translatable="false">false</string>

@@ -1,0 +1,2 @@
+* improved support for polar regions (polar night).
+* fixes bug "Twilight calendars are added with entries back to 1 Jan 1970" (#16).

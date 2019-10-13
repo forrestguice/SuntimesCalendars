@@ -99,6 +99,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     private static String appVersionName = null, providerVersionName = null;
     private static Integer appVersionCode = null, providerVersionCode = null;
     private static boolean needsSuntimesPermissions = false;
+    protected static String locale = null;
 
     private CalendarPrefsFragment mainFragment = null;
     private FirstLaunchFragment firstLaunchFragment = null;
@@ -128,7 +129,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 {
                     // a valid cursor - Suntimes is installed (and we have access)
                     cursor.moveToFirst();
-                    String locale = (!cursor.isNull(0)) ? cursor.getString(0) : null;
+                    if (locale == null) {
+                        locale = (!cursor.isNull(0)) ? cursor.getString(0) : null;
+                    }
                     config_apptheme = (!cursor.isNull(1)) ? cursor.getString(1) : null;
                     appVersionName = (!cursor.isNull(2)) ? cursor.getString(2) : null;
                     appVersionCode = (!cursor.isNull(3)) ? cursor.getInt(3) : null;
@@ -152,7 +155,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         } else super.attachBaseContext(newBase);
     }
 
-    private static Context loadLocale( Context context, String languageTag )
+    protected static Context loadLocale( Context context, String languageTag )
     {
         if (systemLocale == null) {
             systemLocale = Locale.getDefault().getLanguage();
@@ -180,7 +183,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     }
 
-    private static Context resetLocale( Context context )
+    protected static Context resetLocale( Context context )
     {
         if (systemLocale != null) {
             return loadLocale(context, systemLocale);
@@ -188,7 +191,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         return context;
     }
 
-    private static @NonNull Locale localeForLanguageTag(@NonNull String languageTag)
+    protected static @NonNull Locale localeForLanguageTag(@NonNull String languageTag)
     {
         Locale locale;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
