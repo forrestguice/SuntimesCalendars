@@ -6,13 +6,13 @@
     <string name="timeMode_civil">Cywilny świt/zmierzch</string>
     <string name="timeMode_nautical">Żeglarski świt/zmierzch</string>
     <string name="timeMode_astronomical">Astronomiczny świt/zmierzch</string>
-    <string name="dawn">Dawn</string>    <!-- TODO -->
-    <string name="dusk">Dusk</string>    <!-- TODO -->
-    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
-    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
-    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
-    <string name="white_night">White night</string>    <!-- TODO -->
-
+    <string name="dawn">Świt</string>
+    <string name="dusk">Zmierzch</string>
+    <string name="polar_twilight">Noc polarna</string>
+    <string name="civil_night">Cywilna noc polarna</string>
+    <string name="nautical_night">Żeglarska noc polarna</string>
+    <string name="white_night">Dzień polarny</string>
+    
     <string name="moonrise">Wschód Księżyca</string>
     <string name="moonset">Zachód Księżyca</string>
 
@@ -108,9 +108,9 @@
     <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>
     <string name="privacy_permissiondialog_title">Uprawnienia</string>
 
-    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b>: <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b>: <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
-    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g> i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
     <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
         <item>Angielski</item>
         <item>Esperanto</item>
