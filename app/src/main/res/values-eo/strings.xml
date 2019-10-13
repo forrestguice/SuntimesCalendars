@@ -8,10 +8,10 @@
     <string name="timeMode_astronomical">Astronomia krepusko</string> <!-- setting -->
     <string name="dawn">Krepusko (sunleviĝo)</string>
     <string name="dusk">Krepusko (sunsubiro)</string>
-    <string name="polar_twilight">Polusa krepusko</string>
-    <string name="civil_night">Civila polusa krepusko</string>
-    <string name="nautical_night">Naŭtika polusa krepusko</string>
-    <string name="white_night">Blanka nokto</string>
+    <string name="polar_twilight">Polusa nokto</string>
+    <string name="civil_night">Civila polusa nokto</string>
+    <string name="nautical_night">Naŭtika polusa nokto</string>
+    <string name="white_night">Polusa tago</string>
 
     <string name="moonrise">Lunleviĝo</string>                            <!-- contentDescription -->
     <string name="moonset">Lunsubiro</string>                             <!-- contentDescription -->
