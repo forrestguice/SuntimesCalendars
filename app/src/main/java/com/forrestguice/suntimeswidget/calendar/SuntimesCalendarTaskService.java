@@ -228,6 +228,13 @@ public class SuntimesCalendarTaskService extends Service
         return true;
     }
 
+    public void cancelRunningTask()
+    {
+        if (calendarTask != null) {
+            calendarTask.cancel(true);
+        }
+    }
+
     private static NotificationCompat.Builder createProgressNotification(Context context, String message)
     {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context);

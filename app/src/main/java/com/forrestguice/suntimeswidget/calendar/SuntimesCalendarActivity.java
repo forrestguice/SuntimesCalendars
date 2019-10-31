@@ -560,7 +560,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             @Override
             public void onClick(View v) {
-                // TODO
+                calendarTaskService.cancelRunningTask();
             }
         };
     }
