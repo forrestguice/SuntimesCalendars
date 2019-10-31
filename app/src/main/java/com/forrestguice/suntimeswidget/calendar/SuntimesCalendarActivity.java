@@ -543,6 +543,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     progressDialog = dialog;
                     progressDialog.setTitle(getString(R.string.progress_title));
                     progressDialog.setMessage(getString(R.string.progress_message));
+                    progressDialog.setCancelable(false);
+                    progressDialog.setOnCancelClickListener(onCancelClick);
                     return;
                 }
             }
@@ -551,7 +553,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             progressDialog.setTitle(getString(R.string.progress_title));
             progressDialog.setMessage(getString(R.string.progress_message));
             progressDialog.setCancelable(false);
+            progressDialog.setOnCancelClickListener(onCancelClick);
         }
+
+        private View.OnClickListener onCancelClick = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                // TODO
+            }
+        };
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

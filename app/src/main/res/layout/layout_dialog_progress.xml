@@ -40,4 +40,10 @@
         android:layout_gravity="end" android:layout_margin="8dp"
         tools:text="Progress message" />
 
+    <Button
+        android:id="@+id/btn_cancel"
+        android:text="@android:string/cancel"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
 </LinearLayout>
