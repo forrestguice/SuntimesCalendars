@@ -190,6 +190,18 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
+            public void onCancelled(Context context, SuntimesCalendarTask task)
+            {
+                if (listener != null) {
+                    listener.onCancelled(context, task);
+                }
+
+                signalOnBusyStatusChanged(false);
+                stopForeground(true);
+                stopSelf();
+            }
+
+            @Override
             public void onFailed(final Context context, final String errorMsg)
             {
                 if (listener != null) {

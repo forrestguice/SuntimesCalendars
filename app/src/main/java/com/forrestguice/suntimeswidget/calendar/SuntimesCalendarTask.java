@@ -163,13 +163,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     }
 
     @Override
-    protected void onCancelled ()
-    {
-        super.onCancelled();
-        Log.w(TAG, "task canceled!" );
-    }
-
-    @Override
     protected void onPreExecute()
     {
         Context context = contextRef.get();
@@ -311,6 +304,18 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             if (listener != null && context != null) {
                 listener.onFailed(context, lastError);
             }
+        }
+    }
+
+    @Override
+    protected void onCancelled ()
+    {
+        super.onCancelled();
+        Log.w(TAG, "task cancelled!" );
+
+        Context context = contextRef.get();
+        if (listener != null && context != null) {
+            listener.onCancelled(context, this);
         }
     }
 
@@ -916,6 +921,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
         public void onProgress(Context context, CalendarTaskProgress... progress) {}
         public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
+        public void onCancelled(Context context, SuntimesCalendarTask task) {}
         public void onFailed(Context context, String errorMsg) {}
 
         public SuntimesCalendarTaskListener() {}
