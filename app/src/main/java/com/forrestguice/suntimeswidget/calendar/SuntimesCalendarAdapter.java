@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -114,6 +115,10 @@ public class SuntimesCalendarAdapter
     }
     public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException {
         createCalendarEvent(calendarID, title, description, null, time);
+    }
+    public void createCalendarEvents(@NonNull ContentValues[] values) throws SecurityException
+    {
+        contentResolver.bulkInsert(CalendarContract.Events.CONTENT_URI, values);
     }
 
     /**

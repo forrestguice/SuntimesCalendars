@@ -18,7 +18,9 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,6 +36,8 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TreeSet;
@@ -397,6 +401,51 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
     }
 
+    private void createSunCalendarEvent(Context context, long calendarID, Cursor cursor, int i, ArrayList<ContentValues> values, String title, String desc0, String desc1, String desc_fallback)
+    {
+        int j = i + 1;             // [rise-start, rise-end, set-start, set-end]
+        int k = (i == 0) ? 2 : 0;  // rising [i, j, k, l] .. setting [k, l, i, j]
+        int l = k + 1;
+        String eventDesc;
+        Calendar eventStart = Calendar.getInstance();
+        Calendar eventEnd = Calendar.getInstance();
+
+        if (!cursor.isNull(i) && !cursor.isNull(j))                // avg case [i, j]
+        {
+            eventStart.setTimeInMillis(cursor.getLong(i));
+            eventEnd.setTimeInMillis(cursor.getLong(j));
+            eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+            values.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+
+        } else if (!cursor.isNull(i)) {
+            eventStart.setTimeInMillis(cursor.getLong(i));
+            if (i == 0)
+            {
+                if (!cursor.isNull(l)) {                          // edge [i, l] of [i, j, k, l]
+                    eventEnd.setTimeInMillis(cursor.getLong(l));
+                    eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                    values.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+                }
+
+            } else {
+                if (cursor.moveToNext())
+                {                                // peek forward
+                    if (!cursor.isNull(l))
+                    {
+                        eventEnd.setTimeInMillis(cursor.getLong(l));      // edge [i, +l] of [+k, +l, i, j]
+                        eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        values.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+
+                    } else {                                              // fallback (start-only; end-only events are ignored)
+                        eventDesc = context.getString(R.string.event_at_format, desc_fallback, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        values.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart));
+                    }
+                    cursor.moveToPrevious();
+                }
+            }
+        }
+    }
+
     /**
      *
      * @param context context
@@ -521,6 +570,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
      */
     private boolean initNauticalTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
+        long bench_start = System.nanoTime();
         if (isCancelled()) {
             return false;
         }
@@ -564,6 +614,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         c++;
                     }
                     cursor.close();
+
+                    long bench_end = System.nanoTime();
+                    Log.d(TAG, "initNauticalTwilight :: " + ((bench_end - bench_start) / 1000000.0) + " ms");
                     return !isCancelled();
 
                 } else {
@@ -585,6 +638,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
      */
     private boolean initAstroTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
+        long bench_start = System.nanoTime();
         if (isCancelled()) {
             return false;
         }
@@ -609,25 +663,36 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 if (cursor != null)
                 {
                     int c = 0;
-                    int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    int totalProgress = cursor.getCount();
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, notificationMsgAdding);
                     publishProgress(progress0, progress);
 
+                    ArrayList<ContentValues> eventValues = new ArrayList<>();
                     String title = calendarDisplay.get(calendarName);
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !isCancelled())
                     {
-                        createSunCalendarEvent(context, calendarID, cursor, 0, title, s_DAWN_TWILIGHT, s_NAUTICAL_NIGHT, s_ASTRO_TWILIGHT);
-                        createSunCalendarEvent(context, calendarID, cursor, 2, title, s_DUSK_TWILIGHT, s_ASTRO_TWILIGHT, s_ASTRO_TWILIGHT);
+                        createSunCalendarEvent(context, calendarID, cursor, 0, eventValues, title, s_DAWN_TWILIGHT, s_NAUTICAL_NIGHT, s_ASTRO_TWILIGHT);
+                        createSunCalendarEvent(context, calendarID, cursor, 2, eventValues, title, s_DUSK_TWILIGHT, s_ASTRO_TWILIGHT, s_ASTRO_TWILIGHT);
 
                         cursor.moveToNext();
-                        if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, calendarTitle);
+                        if (c % 1024 == 0) {
+                            adapter.createCalendarEvents( eventValues.toArray(new ContentValues[0]) );
+                            progress.setProgress(c, totalProgress, calendarTitle);
                             publishProgress(progress0, progress);
+                            eventValues.clear();
                         }
                         c++;
                     }
+                    adapter.createCalendarEvents( eventValues.toArray(new ContentValues[0]) );
+                    progress.setProgress(c, totalProgress, calendarTitle);
+                    publishProgress(progress0, progress);
+
                     cursor.close();
+
+                    long bench_end = System.nanoTime();
+                    Log.d(TAG, "initAstroTwilight :: " + ((bench_end - bench_start) / 1000000.0) + " ms");
+
                     return !isCancelled();
 
                 } else {
