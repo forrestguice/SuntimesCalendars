@@ -60,6 +60,10 @@
     <string name="confirm_clear_message0">Remove calendars?</string>
     <string name="confirm_clear_message1">Remove calendar?</string>
 
+    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
+    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
+    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+
     <string name="action_openCalendar">Open</string>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->

@@ -559,8 +559,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private View.OnClickListener onCancelClick = new View.OnClickListener()
         {
             @Override
-            public void onClick(View v) {
-                calendarTaskService.cancelRunningTask();
+            public void onClick(View v)
+            {
+                Context context = getActivity();
+                AlertDialog.Builder confirmCancel = new AlertDialog.Builder(context);
+                confirmCancel.setMessage(context.getString(R.string.confirm_cancel_message));
+                confirmCancel.setNegativeButton(context.getString(R.string.confirm_cancel_no), null);
+                confirmCancel.setPositiveButton(context.getString(R.string.confirm_cancel_yes), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        calendarTaskService.cancelRunningTask();
+                    }
+                });
+                confirmCancel.show();
             }
         };
     }
