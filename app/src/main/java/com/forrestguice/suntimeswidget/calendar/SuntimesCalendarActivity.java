@@ -801,15 +801,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return new ColorDialog.ColorChangeListener()
             {
                 @Override
-                public void onColorChanged(int color)
+                public void onColorChanged(final int color)
                 {
-                    Context context = getActivity();
-                    if (context != null) {
+                    final Context context = getActivity();
+                    if (context != null)
+                    {
                         SuntimesCalendarSettings.savePrefCalendarColor(context, calendar, color);
+
                         SuntimesCalendarPreference pref = calendarPrefs.get(calendar);
                         if (pref != null) {
                             pref.setIconColor(createColorStateList(color));
                         }
+
+                        Thread thread = new Thread( new Runnable() {
+                            @Override
+                            public void run() {
+                                SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver());
+                                adapter.updateCalendarColor(calendar, color);
+                            }
+                        });
+                        thread.start();
                     }
                 }
             };
