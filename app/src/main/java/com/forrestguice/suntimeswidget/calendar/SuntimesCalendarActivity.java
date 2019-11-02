@@ -24,6 +24,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -40,10 +41,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -682,6 +679,21 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
+        @Override
+        public void onResume()
+        {
+            super.onResume();
+
+            android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)    // restore color dialog listeners
+            {
+                ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
+                if (colorDialog != null) {
+                    colorDialog.setColorChangeListener(onColorChanged(calendar));
+                }
+            }
+        }
+
         /**@Override
         public void onStop()
         {
@@ -714,25 +726,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             initAboutDialog();
             initProgressDialog();
 
-            Context context = getActivity();
+            final Context context = getActivity();
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
+            for (final String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
                 SuntimesCalendarPreference calendarPref = (SuntimesCalendarPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
 
                 int calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
-                calendarPref.setIconColor(new ColorStateList(
-                        new int[][] {
-                            new int[] { android.R.attr.state_pressed},
-                            new int[] { android.R.attr.state_focused},
-                            new int[] {-android.R.attr.state_enabled}, new int[] {} },
-                        new int[] {pressedColor, calendarColor, disabledColor, calendarColor}));
+                calendarPref.setIconColor(createColorStateList(calendarColor));
                 calendarPref.setIcon(R.drawable.ic_action_calendar);
                 calendarPref.setOnIconClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "icon clicked .. TODO");
+                        showColorPicker(context, calendar);
                     }
                 });
 
@@ -758,6 +765,54 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
             }
             setIsBusy(isBusy);
+        }
+
+        private ColorStateList createColorStateList(int calendarColor)
+        {
+            return new ColorStateList(
+                    new int[][] {
+                            new int[] { android.R.attr.state_pressed},
+                            new int[] { android.R.attr.state_focused},
+                            new int[] {-android.R.attr.state_enabled}, new int[] {} },
+                    new int[] {pressedColor, calendarColor, disabledColor, calendarColor});
+        }
+
+        private static final String DIALOGTAG_COLOR = "colorchooser";
+        private void showColorPicker(Context context, String calendar)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.setShowAlpha(false);
+            colorDialog.setColor(SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar));
+            colorDialog.setColorChangeListener(onColorChanged(calendar));
+
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            if (fragmentManager != null) {
+                colorDialog.show(fragmentManager, DIALOGTAG_COLOR + "_" + calendar);
+
+            } else {
+                Log.w("showColorPicker", "fragmentManager is null; showing fallback ...");
+                Dialog dialog = colorDialog.getDialog();
+                dialog.show();
+            }
+        }
+
+        private ColorDialog.ColorChangeListener onColorChanged(final String calendar)
+        {
+            return new ColorDialog.ColorChangeListener()
+            {
+                @Override
+                public void onColorChanged(int color)
+                {
+                    Context context = getActivity();
+                    if (context != null) {
+                        SuntimesCalendarSettings.savePrefCalendarColor(context, calendar, color);
+                        SuntimesCalendarPreference pref = calendarPrefs.get(calendar);
+                        if (pref != null) {
+                            pref.setIconColor(createColorStateList(color));
+                        }
+                    }
+                }
+            };
         }
 
         private void initPrefListeners(Activity activity)
