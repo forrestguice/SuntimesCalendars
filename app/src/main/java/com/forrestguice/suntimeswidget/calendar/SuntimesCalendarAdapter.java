@@ -122,6 +122,66 @@ public class SuntimesCalendarAdapter
     }
 
     /**
+     * removeCalendarEventsBefore
+     * @param calendarID calendar ID
+     * @param timestamp remove all events occurring before timestamp
+     * @return the number of events removed
+     */
+    public int removeCalendarEventsBefore( long calendarID, long timestamp )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID), Long.toString(timestamp) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?) AND (" + CalendarContract.Events.DTSTART + " < ?))";
+        return contentResolver.delete(uri, select, args);
+    }
+
+    /**
+     * removeCalendarEventsAt
+     * @param calendarID calendar ID
+     * @param timestamp remove all events occurring on timestamp
+     * @return the number of events removed
+     */
+    public int removeCalendarEventsAt( long calendarID, long timestamp )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID), Long.toString(timestamp) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?) AND (" + CalendarContract.Events.DTSTART + " = ?))";
+        return contentResolver.delete(uri, select, args);
+    }
+
+    /**
+     * removeCalendarEventsAfter
+     * @param calendarID calendar ID
+     * @param timestamp remove all events occurring after timestamp
+     * @return the number of events removed
+     */
+    public int removeCalendarEventsAfter( long calendarID, long timestamp )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID), Long.toString(timestamp) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?) AND (" + CalendarContract.Events.DTSTART + " > ?))";
+        return contentResolver.delete(uri, select, args);
+    }
+
+    /**
+     * queryCalendarEvents
+     * @param calendarID calendar ID
+     * @param timestamp query events with start or end matching timestamp
+     * @return cursor
+     */
+    public Cursor queryCalendarEventsAt( long calendarID, long timestamp )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID), Long.toString(timestamp) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?) AND (" + CalendarContract.Events.DTSTART + " = ?))";
+        return contentResolver.query(uri, EVENT_PROJECTION, select, args, null);
+    }
+
+    public boolean hasCalendarEvents( long calendarID, long timestamp ) {
+        return (queryCalendarEventsAt(calendarID, timestamp).getCount() > 0);
+    }
+
+    /**
      * @return a Cursor to all calendars managed by the "Suntimes" local account
      */
     public Cursor queryCalendars()
