@@ -82,6 +82,10 @@
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
+    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
+    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
+    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
 
