@@ -36,6 +36,10 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -692,11 +696,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             initAboutDialog();
             initProgressDialog();
 
+            Context context = getActivity();
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
                 CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPrefs.put(calendar, calendarPref);
+
+                BitmapDrawable calendarIcon = (BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_action_calendar);
+                calendarIcon.mutate();
+                calendarIcon.setColorFilter(SuntimesCalendarSettings.loadPrefCalendarColor(context ,calendar), PorterDuff.Mode.SRC_IN);
+                calendarPref.setIcon(calendarIcon);
             }
 
             updatePrefs(activity);
