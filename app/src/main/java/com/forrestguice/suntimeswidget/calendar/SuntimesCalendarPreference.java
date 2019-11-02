@@ -19,17 +19,10 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.preference.CheckBoxPreference;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ImageViewCompat;
-import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -77,12 +70,9 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     private ColorStateList iconColor = null;
     public void setIconColor(ColorStateList color) {
         iconColor = color;
-    }
-
-    @Override
-    public void setIcon(int resId)
-    {
-        super.setIcon(resId);
+        if (icon != null && iconColor != null) {
+            ImageViewCompat.setImageTintList(icon, iconColor);
+        }
     }
 
     public View.OnClickListener onIconClick = null;
