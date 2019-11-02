@@ -227,7 +227,7 @@ public class AboutDialog extends BottomSheetDialogFragment
 
     public String htmlVersionString()
     {
-        String buildString = anchor(COMMIT_URL + BuildConfig.GIT_HASH, BuildConfig.GIT_HASH) + "@" + BuildConfig.BUILD_TIME.getTime();
+        String buildString = anchor(COMMIT_URL + BuildConfig.GIT_HASH, BuildConfig.GIT_HASH);
         String versionString = anchor(CHANGELOG_URL, BuildConfig.VERSION_NAME) + " " + smallText("(" + buildString + ")");
         if (BuildConfig.DEBUG)
         {

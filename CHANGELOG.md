@@ -1,5 +1,9 @@
 ### ~
 
+### v0.3.2 (2019-08-01)
+* improves support for polar regions (polar night). 
+* fixes bug "Twilight calendars are added with entries back to 1 Jan 1970" (#16).
+
 ### v0.3.1 (2019-04-30)
 * adds translation to Brazilian Portuguese (pt-br) (contributed by Neto Silva) (#14).
 * updates translations to Polish (pl) and Esperanto (eo) (#13 by Verdulo).
