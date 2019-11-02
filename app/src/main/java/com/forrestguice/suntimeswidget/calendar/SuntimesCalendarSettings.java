@@ -118,6 +118,12 @@ public class SuntimesCalendarSettings
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultCalendarColor(context, calendar));
     }
+    public static void savePrefCalendarColor(Context context, String calendar, int color)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_COLOR + calendar, color);
+        prefs.apply();
+    }
 
     public static int defaultCalendarColor(Context context, String calendar)
     {
