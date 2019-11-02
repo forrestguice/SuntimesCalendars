@@ -19,6 +19,7 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,9 +34,12 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -633,7 +637,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarsEnabledPref;
         }
 
-        private HashMap<String, CheckBoxPreference> calendarPrefs = new HashMap<>();
+        private HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
         public CheckBoxPreference getCalendarPref(String calendar)
         {
             return calendarPrefs.get(calendar);
@@ -684,6 +688,19 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onStop();
         }*/
 
+
+        @SuppressLint("ResourceType")
+        private void initColors(Context context)
+        {
+            int[] colorAttrs = { R.attr.text_accentColor, R.attr.text_disabledColor };
+            TypedArray typedArray = context.obtainStyledAttributes(colorAttrs);
+            pressedColor = ContextCompat.getColor(context, typedArray.getResourceId(0, R.color.text_accent_dark));
+            disabledColor = ContextCompat.getColor(context, typedArray.getResourceId(1, R.color.text_disabled_dark));
+            typedArray.recycle();
+        }
+        private int pressedColor = Color.WHITE;
+        private int disabledColor = Color.GRAY;
+
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
@@ -693,6 +710,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             addPreferencesFromResource(R.xml.preference_calendars);
 
             final Activity activity = getActivity();
+            initColors(activity);
             initAboutDialog();
             initProgressDialog();
 
@@ -700,13 +718,25 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
-                CheckBoxPreference calendarPref = (CheckBoxPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
-                calendarPrefs.put(calendar, calendarPref);
+                SuntimesCalendarPreference calendarPref = (SuntimesCalendarPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
 
-                BitmapDrawable calendarIcon = (BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_action_calendar);
-                calendarIcon.mutate();
-                calendarIcon.setColorFilter(SuntimesCalendarSettings.loadPrefCalendarColor(context ,calendar), PorterDuff.Mode.SRC_IN);
-                calendarPref.setIcon(calendarIcon);
+                int calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
+                calendarPref.setIconColor(new ColorStateList(
+                        new int[][] {
+                            new int[] { android.R.attr.state_pressed},
+                            new int[] { android.R.attr.state_focused},
+                            new int[] {-android.R.attr.state_enabled}, new int[] {} },
+                        new int[] {pressedColor, calendarColor, disabledColor, calendarColor}));
+                calendarPref.setIcon(R.drawable.ic_action_calendar);
+                calendarPref.setOnIconClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "icon clicked .. TODO");
+                    }
+                });
+
+                calendarPrefs.put(calendar, calendarPref);
             }
 
             updatePrefs(activity);
