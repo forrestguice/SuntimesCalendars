@@ -76,7 +76,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
         // solstice calendar resources
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_SOLSTICE, context.getString(R.string.calendar_solstice_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_SOLSTICE, ContextCompat.getColor(context, R.color.colorSolsticeCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_SOLSTICE));
 
         solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
         solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
@@ -107,24 +107,24 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         s_WHITE_NIGHT = context.getString(R.string.white_night);
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL));
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, context.getString(R.string.calendar_nautical_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL));
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, context.getString(R.string.calendar_astronomical_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO));
 
         // moonrise, moonset calendar resources
         moonStrings[0] = context.getString(R.string.moonrise);
         moonStrings[1] = context.getString(R.string.moonset);
 
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, context.getString(R.string.calendar_moonrise_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, ContextCompat.getColor(context, R.color.colorMoonriseCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONRISE));
 
         // moon phase calendar resources
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, ContextCompat.getColor(context, R.color.colorMoonCalendar));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONPHASE));
 
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
