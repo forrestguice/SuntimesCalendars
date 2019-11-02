@@ -543,6 +543,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     progressDialog = dialog;
                     progressDialog.setTitle(getString(R.string.progress_title));
                     progressDialog.setMessage(getString(R.string.progress_message));
+                    progressDialog.setCancelable(false);
+                    progressDialog.setOnCancelClickListener(onCancelClick);
                     return;
                 }
             }
@@ -551,7 +553,28 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             progressDialog.setTitle(getString(R.string.progress_title));
             progressDialog.setMessage(getString(R.string.progress_message));
             progressDialog.setCancelable(false);
+            progressDialog.setOnCancelClickListener(onCancelClick);
         }
+
+        private View.OnClickListener onCancelClick = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Context context = getActivity();
+                AlertDialog.Builder confirmCancel = new AlertDialog.Builder(context);
+                confirmCancel.setMessage(context.getString(R.string.confirm_cancel_message));
+                confirmCancel.setNegativeButton(context.getString(R.string.confirm_cancel_no), null);
+                confirmCancel.setPositiveButton(context.getString(R.string.confirm_cancel_yes), new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        calendarTaskService.cancelRunningTask();
+                    }
+                });
+                confirmCancel.show();
+            }
+        };
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
