@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.android.support:support-compat:25.4.0'
     compile 'com.android.support.constraint:constraint-layout:1.1.3'
+    compile 'com.github.QuadFlask:colorpicker:0.0.13'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.jraska:falcon:1.0.4'
