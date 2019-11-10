@@ -875,10 +875,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                 for (String calendar : calendarPrefs.keySet())
                 {
-                    CheckBoxPreference calendarPref = calendarPrefs.get(calendar);
+                    SuntimesCalendarPreference calendarPref = calendarPrefs.get(calendar);
                     if (calendarsEnabledPref.isChecked())
                     {
-                        boolean enabled0 = adapter.hasCalendar(calendar);
+                        boolean enabled0 = false;
+                        int color0 = -1;
+                        Cursor cursor = adapter.queryCalendar(calendar);
+                        if (cursor != null)
+                        {
+                            cursor.moveToFirst();
+                            if (cursor.getCount() > 0)
+                            {
+                                enabled0 = true;
+                                color0 = cursor.getInt(SuntimesCalendarAdapter.PROJECTION_CALENDAR_COLOR_INDEX);
+                            } else {
+                                enabled0 = false;
+                                color0 = -1;
+                            }
+                            cursor.close();
+                        }
+
                         boolean enabled1 = SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar);
                         if (enabled0 != enabled1)
                         {
@@ -886,6 +902,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             prefs.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar, enabled0);
                             prefs.apply();
                             calendarPref.setChecked(enabled0);
+                        }
+
+                        int color1 = SuntimesCalendarSettings.loadPrefCalendarColor(activity, calendar);
+                        if (color0 != -1 && color0 != color1) {
+                            Log.w(TAG, "onCreate: out of sync! setting " + calendar + " color to " + color0);
+                            prefs.putInt(SuntimesCalendarSettings.PREF_KEY_CALENDARS_COLOR + calendar, color0);
+                            prefs.apply();
+                            calendarPref.setIconColor(createColorStateList(color0));
                         }
                     }
                 }
