@@ -173,7 +173,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     {
         Context context = contextRef.get();
         if (context != null) {
-            lastSync = SuntimesCalendarSyncAdapter.readLastSyncTime(context);
+            lastSync = SuntimesCalendarSettings.readLastSyncTime(context);
         }
         lastError = null;
 
@@ -290,7 +290,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         if (result)
         {
             if (context != null) {
-                SuntimesCalendarSyncAdapter.writeLastSyncTime(context, Calendar.getInstance());
+                SuntimesCalendarSettings.writeLastSyncTime(context, Calendar.getInstance().getTimeInMillis());
             }
 
             String message = (flag_clear ? notificationMsgCleared : notificationMsgAdded);

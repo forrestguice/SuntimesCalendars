@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2019 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -35,12 +35,14 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
 
+    public static final String PREF_KEY_CALENDAR_LASTSYNC = "lastCalendarSync";
+
     public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
     public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
 
     /**
      * @param context
-     * @return
+     * @return timestamp
      */
     public static boolean isFirstLaunch(Context context)
     {
@@ -56,6 +58,26 @@ public class SuntimesCalendarSettings
         SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
         pref.putBoolean(PREF_KEY_CALENDARS_FIRSTLAUNCH, false);
         pref.apply();
+    }
+
+    /**
+     * @param context
+     * @return timestamp
+     */
+    public static long readLastSyncTime(Context context)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getLong(PREF_KEY_CALENDAR_LASTSYNC, -1L);
+    }
+
+    /**
+     * @param context
+     */
+    public static void writeLastSyncTime(Context context, long timeInMillis)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putLong(PREF_KEY_CALENDAR_LASTSYNC, timeInMillis);
+        prefs.apply();
     }
 
     /**
