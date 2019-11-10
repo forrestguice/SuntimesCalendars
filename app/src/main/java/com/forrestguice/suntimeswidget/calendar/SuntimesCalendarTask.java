@@ -380,6 +380,11 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         }
 
         boolean retValue = true;
+        long calendarID = adapter.queryCalendarID(calendar);
+        if (calendarID != -1) {
+            retValue = (adapter.removeCalendarEventsBefore(calendarID, window[0].getTimeInMillis()) > 0);
+        }
+
         long bench_start = System.nanoTime();
         if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
             retValue = retValue && initSolsticeCalendar(progress, window[0], window[1]);
