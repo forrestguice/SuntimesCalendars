@@ -21,6 +21,10 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+
+import com.forrestguice.suntimescalendars.R;
 
 public class SuntimesCalendarSettings
 {
@@ -34,6 +38,11 @@ public class SuntimesCalendarSettings
     public static final String PREF_DEF_CALENDAR_WINDOW1 = "63072000000";  // 2 years
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
+    public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
+
+    public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
+    public static final String NOTE_LOCATION_NAME = "location_name";
+    public static final String[] ALL_NOTES = new String[] { NOTE_LOCATION_NAME };
 
     public static final String PREF_KEY_CALENDAR_LASTSYNC = "lastCalendarSync";
 
@@ -129,5 +138,72 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
+    }
+
+    public static int loadPrefCalendarColor(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultCalendarColor(context, calendar));
+    }
+    public static void savePrefCalendarColor(Context context, String calendar, int color)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_COLOR + calendar, color);
+        prefs.apply();
+    }
+
+    public static int defaultCalendarColor(Context context, String calendar)
+    {
+        switch (calendar)
+        {
+            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
+                return ContextCompat.getColor(context, R.color.colorSolsticeCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
+                return ContextCompat.getColor(context, R.color.colorMoonCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
+                return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
+                return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
+                return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
+            default:
+                return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
+        }
+    }
+
+    /**
+     * @param context context
+     * @param calendar calendar name
+     * @param key note key (e.g. NOTE_LOCATION)
+     * @return the requested note (or null if dne)
+     */
+    @Nullable
+    public static String loadCalendarNote(Context context, String calendar, String key)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, null);
+    }
+    public static void saveCalendarNote(Context context, String calendar, String key, String note)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, note);
+        prefs.apply();
+    }
+    public static void clearNotes(Context context, String calendar)
+    {
+        if (context == null) {
+            return;
+        }
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        for (String key : ALL_NOTES) {
+            prefs.remove(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key);
+            prefs.apply();
+        }
     }
 }

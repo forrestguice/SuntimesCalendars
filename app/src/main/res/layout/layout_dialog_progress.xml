@@ -38,7 +38,8 @@
         android:id="@+id/txt_message1"
         android:layout_height="wrap_content" android:layout_width="wrap_content"
         android:layout_gravity="end" android:layout_margin="8dp"
-        tools:text="Progress message" />
+        android:gravity="end|right"
+        tools:text="Progress message\nsecond line" />
 
     <Button
         android:id="@+id/btn_cancel"

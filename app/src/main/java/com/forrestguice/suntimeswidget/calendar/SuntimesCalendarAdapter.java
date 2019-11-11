@@ -23,6 +23,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
@@ -63,6 +64,29 @@ public class SuntimesCalendarAdapter
         Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Calendars.CONTENT_URI);
         ContentValues contentValues = SuntimesCalendarAdapter.createCalendarContentValues(calendarName, calendarDisplayName, calendarColor);
         contentResolver.insert(uri, contentValues);
+    }
+
+    public boolean updateCalendarColor(String calendarName, int calendarColor)
+    {
+        Cursor cursor = queryCalendar(calendarName);
+        if (cursor != null && cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            ContentValues values = new ContentValues();
+            DatabaseUtils.cursorRowToContentValues(cursor, values);
+            cursor.close();
+
+            values.put(CalendarContract.Calendars.CALENDAR_COLOR, calendarColor);
+
+            Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Calendars.CONTENT_URI);
+            String[] args = new String[] { SuntimesCalendarSyncAdapter.ACCOUNT_NAME, CalendarContract.ACCOUNT_TYPE_LOCAL, calendarName, SuntimesCalendarSyncAdapter.ACCOUNT_NAME };
+            String select = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
+                    + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                    + CalendarContract.Calendars.NAME + " = ?) AND ("
+                    + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+            return (contentResolver.update(uri, values, select, args) > 0);
+        }
+        return false;
     }
 
     /**
@@ -344,11 +368,13 @@ public class SuntimesCalendarAdapter
             CalendarContract.Calendars._ID,                           // 0
             CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
             CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,         // 2
-            CalendarContract.Calendars.OWNER_ACCOUNT                  // 3
+            CalendarContract.Calendars.OWNER_ACCOUNT,                 // 3
+            CalendarContract.Calendars.CALENDAR_COLOR                 // 4
     };
-    private static final int PROJECTION_ID_INDEX = 0;
-    private static final int PROJECTION_ACCOUNT_NAME_INDEX = 1;
-    private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
-    private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
+    public static final int PROJECTION_ID_INDEX = 0;
+    public static final int PROJECTION_ACCOUNT_NAME_INDEX = 1;
+    public static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
+    public static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
+    public static final int PROJECTION_CALENDAR_COLOR_INDEX = 4;
 
 }
