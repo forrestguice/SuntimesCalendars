@@ -480,7 +480,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, progressTitle);
                     publishProgress(progress0, progress);
 
                     String title = calendarDisplay.get(calendarName);
@@ -492,7 +493,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, calendarTitle);
+                            progress.setProgress(c, numRows, progressTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -546,7 +547,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, progressTitle);
                     publishProgress(progress0, progress);
 
                     String title = calendarDisplay.get(calendarName);
@@ -558,7 +560,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, calendarTitle);
+                            progress.setProgress(c, numRows, progressTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -612,7 +614,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int numRows = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
+                    String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, progressTitle);
                     publishProgress(progress0, progress);
 
                     String title = calendarDisplay.get(calendarName);
@@ -624,7 +627,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                         cursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, calendarTitle);
+                            progress.setProgress(c, numRows, progressTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
@@ -678,7 +681,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int numRows = moonCursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
+                    String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
+                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, progressTitle);
                     publishProgress(progress0, progress);
 
                     String title, desc;
@@ -699,7 +703,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         }
                         moonCursor.moveToNext();
                         if (c % 8 == 0) {
-                            progress.setProgress(c, numRows, calendarTitle);
+                            progress.setProgress(c, numRows, progressTitle);
                             publishProgress(progress0, progress);
                         }
                         c++;
