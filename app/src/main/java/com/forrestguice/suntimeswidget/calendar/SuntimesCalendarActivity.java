@@ -756,6 +756,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 SuntimesCalendarPreference calendarPref = (SuntimesCalendarPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
 
                 int calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
+                calendarPref.setNoteFormat(R.string.summarylist_format);
+                calendarPref.setNote(SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
                 calendarPref.setIconColor(createColorStateList(calendarColor));
                 calendarPref.setIcon(R.drawable.ic_action_calendar);
                 calendarPref.setOnIconClickListener(new View.OnClickListener()
@@ -765,15 +767,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         showColorPicker(context, calendar);
                     }
                 });
-
-                String note1 = SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME);
-                if (note1 != null) {
-                    CharSequence note0 = calendarPref.getSummary();
-                    if (note0.toString().isEmpty()) {
-                        calendarPref.setSummary(note1);
-                    } else calendarPref.setSummary(context.getString(R.string.summarylist_format, note0, note1));
-                }
-
                 calendarPrefs.put(calendar, calendarPref);
             }
 
@@ -943,6 +936,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             calendarPref.setIconColor(createColorStateList(color0));
                         }
                     }
+                    calendarPref.setNote(SuntimesCalendarSettings.loadCalendarNote(activity, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
                 }
             }
         }

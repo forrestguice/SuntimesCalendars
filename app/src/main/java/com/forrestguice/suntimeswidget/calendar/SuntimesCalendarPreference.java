@@ -49,7 +49,8 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     }
 
     @Override
-    protected void onBindView(View view) {
+    protected void onBindView(View view)
+    {
         super.onBindView(view);
 
         View iconView = view.findViewById(android.R.id.icon);
@@ -65,6 +66,43 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
                 icon.setOnClickListener(onIconClick);
             }
         }
+    }
+
+    @Override
+    public void setSummary( CharSequence value )
+    {
+        if (summary0 == null) {
+            summary0 = getSummary();
+        }
+        super.setSummary(makeSummary(getContext()));
+    }
+
+    private CharSequence summary0 = null;
+    private CharSequence makeSummary(Context context)
+    {
+        if (resID_noteFormat != -1)
+        {
+            if (note != null) {
+                return (summary0 == null || summary0.toString().isEmpty())
+                        ? note : context.getString(resID_noteFormat, summary0, note);
+            } else {
+                return summary0;
+            }
+        } else {
+            return summary0 + " " + note;
+        }
+    }
+
+    private CharSequence note = null;
+    public void setNote(CharSequence value)
+    {
+        note = value;
+        setSummary(makeSummary(getContext()));
+    }
+
+    private int resID_noteFormat = -1;
+    public void setNoteFormat( int stringFormatResourceID ) {
+        resID_noteFormat = stringFormatResourceID;
     }
 
     private ColorStateList iconColor = null;

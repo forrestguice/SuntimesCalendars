@@ -247,6 +247,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
         if (flag_clear && !isCancelled()) {
             adapter.removeCalendars();
+            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+                SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
+            }
         }
 
         Calendar[] window = getWindow();
