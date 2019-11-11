@@ -256,6 +256,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
                         publishProgress(null, new CalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
+                        SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
@@ -475,6 +476,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    SuntimesCalendarSettings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, config_location_name);
+
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
@@ -539,6 +542,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    SuntimesCalendarSettings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, config_location_name);
+
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);
@@ -603,6 +608,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
+                    SuntimesCalendarSettings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, config_location_name);
+
                     int c = 0;
                     int numRows = cursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, notificationMsgAdding);
@@ -667,6 +674,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 Cursor moonCursor = resolver.query(moonUri, moonProjection, null, null, null);
                 if (moonCursor != null)
                 {
+                    SuntimesCalendarSettings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, config_location_name);
+
                     int c = 0;
                     int numRows = moonCursor.getCount();
                     CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, calendarTitle);

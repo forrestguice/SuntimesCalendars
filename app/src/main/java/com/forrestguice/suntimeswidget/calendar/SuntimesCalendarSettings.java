@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
@@ -38,6 +39,10 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
+
+    public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
+    public static final String NOTE_LOCATION_NAME = "location_name";
+    public static final String[] ALL_NOTES = new String[] { NOTE_LOCATION_NAME };
 
     public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
     public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
@@ -147,6 +152,36 @@ public class SuntimesCalendarSettings
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
             default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
+        }
+    }
+
+    /**
+     * @param context context
+     * @param calendar calendar name
+     * @param key note key (e.g. NOTE_LOCATION)
+     * @return the requested note (or null if dne)
+     */
+    @Nullable
+    public static String loadCalendarNote(Context context, String calendar, String key)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, null);
+    }
+    public static void saveCalendarNote(Context context, String calendar, String key, String note)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, note);
+        prefs.apply();
+    }
+    public static void clearNotes(Context context, String calendar)
+    {
+        if (context == null) {
+            return;
+        }
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        for (String key : ALL_NOTES) {
+            prefs.remove(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key);
+            prefs.apply();
         }
     }
 }

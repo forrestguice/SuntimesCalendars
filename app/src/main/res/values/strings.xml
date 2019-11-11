@@ -78,6 +78,7 @@
     <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="summarylist_format">%s\n%s</string>
 
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>

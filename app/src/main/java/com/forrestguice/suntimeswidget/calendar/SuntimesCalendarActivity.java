@@ -743,6 +743,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     }
                 });
 
+                String note1 = SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME);
+                if (note1 != null) {
+                    CharSequence note0 = calendarPref.getSummary();
+                    if (note0.toString().isEmpty()) {
+                        calendarPref.setSummary(note1);
+                    } else calendarPref.setSummary(context.getString(R.string.summarylist_format, note0, note1));
+                }
+
                 calendarPrefs.put(calendar, calendarPref);
             }
 
