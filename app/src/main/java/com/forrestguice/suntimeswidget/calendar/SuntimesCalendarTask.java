@@ -457,7 +457,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         {
             eventStart.setTimeInMillis(cursor.getLong(i));
             eventEnd.setTimeInMillis(cursor.getLong(j));
-            eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+            //eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+            eventDesc = context.getString(R.string.event_at_format, desc0, config_location_name);
             values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
 
         } else if (!cursor.isNull(i)) {
@@ -466,7 +467,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             {
                 if (!cursor.isNull(l)) {                          // edge [i, l] of [i, j, k, l]
                     eventEnd.setTimeInMillis(cursor.getLong(l));
-                    eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                    //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                    eventDesc = context.getString(R.string.event_at_format, desc1, config_location_name);
                     values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
                 }
 
@@ -476,11 +478,13 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     if (!cursor.isNull(l))
                     {
                         eventEnd.setTimeInMillis(cursor.getLong(l));      // edge [i, +l] of [+k, +l, i, j]
-                        eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        eventDesc = context.getString(R.string.event_at_format, desc1, config_location_name);
                         values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
 
                     } else {                                              // fallback (start-only; end-only events are ignored)
-                        eventDesc = context.getString(R.string.event_at_format, desc_fallback, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        //eventDesc = context.getString(R.string.event_at_format, desc_fallback, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                        eventDesc = context.getString(R.string.event_at_format, desc_fallback, config_location_name);
                         values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart));
                     }
                     cursor.moveToPrevious();
@@ -754,7 +758,8 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(moonCursor.getLong(i));
                                 title = moonStrings[i];
-                                desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                                //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
+                                desc = context.getString(R.string.event_at_format, moonStrings[i], config_location_name);
                                 eventValues.add(createEventContentValues(calendarID, title, desc, config_location_name, eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
