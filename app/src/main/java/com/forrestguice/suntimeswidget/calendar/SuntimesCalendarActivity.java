@@ -1084,6 +1084,32 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             builder.show();
         }
 
+        private CharSequence createLocationLabel(Context context)
+        {
+            String location = null;
+            ContentResolver resolver = context.getContentResolver();
+            if (resolver != null)
+            {
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG );
+                String[] projection = new String[] { CalculatorProviderContract.COLUMN_CONFIG_LOCATION };
+                try {
+                    Cursor cursor = resolver.query(uri, projection, null, null, null);
+                    if (cursor != null)
+                    {
+                        cursor.moveToFirst();
+                        location = (!cursor.isNull(0)) ? cursor.getString(0) : null;
+                        cursor.close();
+                    }
+                } catch (SecurityException e) {
+                    Log.e(TAG, "createLocationLabel: Unable to access SuntimesCalculatorProvider! " + e);
+                }
+            }
+
+            if (location != null) {
+                return location;
+            } else return null;
+        }
+
         private Snackbar snackbar;
         private void showSnackbar(String message)
         {
