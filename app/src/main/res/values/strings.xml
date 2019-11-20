@@ -66,6 +66,7 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Add calendar?</string>
     <string name="confirm_clear_message0">Remove calendars?</string>
     <string name="confirm_clear_message1">Remove calendar?</string>

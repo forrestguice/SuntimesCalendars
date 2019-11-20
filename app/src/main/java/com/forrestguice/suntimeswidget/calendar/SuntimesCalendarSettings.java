@@ -178,6 +178,44 @@ public class SuntimesCalendarSettings
     }
 
     /**
+     * getCalendarDisplayString
+     * @param context context
+     * @param calendarName the calendar's name
+     * @return display string
+     */
+    public static String getCalendarDisplayString(Context context, String calendarName, @Nullable CharSequence locationDisplay)
+    {
+        String calendarDisplay;
+        switch (calendarName)
+        {
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
+                calendarDisplay = context.getString(R.string.calendar_astronomical_twilight_displayName);
+                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
+                calendarDisplay = context.getString(R.string.calendar_nautical_twilight_displayName);
+                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
+                calendarDisplay = context.getString(R.string.calendar_civil_twilight_displayName);
+                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
+
+            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
+                calendarDisplay = context.getString(R.string.calendar_moonrise_displayName);
+                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
+
+            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
+                return context.getString(R.string.calendar_moonPhase_displayName);
+
+            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
+                return context.getString(R.string.calendar_solstice_displayName);
+
+            default:
+                return null;
+        }
+    }
+
+    /**
      * @param context context
      * @param calendar calendar name
      * @param key note key (e.g. NOTE_LOCATION)

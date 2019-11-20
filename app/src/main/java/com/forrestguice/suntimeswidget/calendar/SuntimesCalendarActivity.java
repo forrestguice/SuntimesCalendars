@@ -41,6 +41,8 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,13 +58,20 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
@@ -1024,11 +1033,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             }
 
                         } else {
-                            if (enabled) {
-                                showConfirmAddDialog(activity, calendar);
-                            } else {
-                                showConfirmClearDialog(activity, calendar);
-                            }
+                            showConfirmDialog(activity, calendar, enabled);
                             return false;
                         }
 
@@ -1054,37 +1059,62 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             builder.show();
         }
 
-        protected void showConfirmClearDialog(Context context, final String calendar)
+        protected void showConfirmDialog(Context context, final String calendar, boolean add)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(context.getString(R.string.confirm_clear_message1));
-            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            builder.setTitle(getString(add ? R.string.confirm_add_message1 : R.string.confirm_clear_message1));
+
+            TextView textView = new TextView(context);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            textView.setText(createConfirmDialogMessage(context, calendar, add));
+
+            int padding = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics()));
+            textView.setPadding(padding, padding, padding, padding);
+            textView.setGravity(Gravity.CENTER_VERTICAL);
+
+            Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar);
+            icon.setColorFilter(SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
+            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+            textView.setCompoundDrawablePadding(padding);
+            
+            builder.setView(textView);
+
+            DialogInterface.OnClickListener onOkClick = (add ? new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
+                    runCalendarTask1(getActivity(), calendar, true);
+                }
+            } : new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
                     runCalendarTask1(getActivity(), calendar, false);
                 }
             });
+            builder.setPositiveButton(android.R.string.yes, onOkClick);
             builder.setNegativeButton(android.R.string.cancel, null);
             builder.show();
         }
 
-        protected void showConfirmAddDialog(Context context, final String calendar)
+        private CharSequence createConfirmDialogMessage(Context context, String calendar, boolean add)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(context.getString(R.string.confirm_add_message1));
-            builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
-                    runCalendarTask1(getActivity(), calendar, true);
+            String locationDisplay = (add ? getLocationString(context) : SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
+            String calendarDisplay = SuntimesCalendarSettings.getCalendarDisplayString(context, calendar, locationDisplay);
+            if (locationDisplay != null)
+            {
+                SpannableString span = new SpannableString(calendarDisplay);
+                int start = calendarDisplay != null ? calendarDisplay.indexOf(locationDisplay) : -1;
+                if (start >= 0) {
+                    int end = start + locationDisplay.length();
+                    span.setSpan(new RelativeSizeSpan(0.8f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
-            });
-            builder.setNegativeButton(android.R.string.cancel, null);
-            builder.show();
+                return span;
+
+            } else {
+                return calendarDisplay;
+            }
         }
 
-        private CharSequence createLocationLabel(Context context)
+        private String getLocationString(Context context)
         {
             String location = null;
             ContentResolver resolver = context.getContentResolver();
@@ -1101,7 +1131,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         cursor.close();
                     }
                 } catch (SecurityException e) {
-                    Log.e(TAG, "createLocationLabel: Unable to access SuntimesCalculatorProvider! " + e);
+                    Log.e(TAG, "getLocationString: Unable to access SuntimesCalculatorProvider! " + e);
                 }
             }
 
