@@ -1,0 +1,5 @@
+* adds ability to change a calendar's color.
+* adds Supermoon, Micromoon, and distance labels for new and full moons.
+* improves confirmation dialogs (and other miscellaneous UI).
+* improves performance when adding calendars.
+
