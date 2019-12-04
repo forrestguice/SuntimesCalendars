@@ -26,16 +26,16 @@
     <string name="timeMode_moon_firstquarter">Pierwsza kwadra</string>                 <!-- setting -->
     <string name="timeMode_moon_full">Pełnia Księżyca</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">Ostatnia kwadra</string>                 <!-- setting -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_super">Superksiężyc</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Mikroksiężyc</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Superksiężyc w pełni</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_supernew">Superksiężyc w nowiu</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_microfull">Mikroksiężyc w pełni</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
+    <string name="timeMode_moon_micronew">Mikroksiężyc w nowiu</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->
@@ -75,9 +75,9 @@
     <string name="progress_title">Aktualizacja kalendarzy</string>
     <string name="progress_message">To może potrwać kilka minut…\n\nMożesz zamknąć aplikację. Operacja będzie się wykonywać w tle.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
-    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
-    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Wybierz kolor</string>
+    <string name="color_dialog_ok">Ustaw</string>
+    <string name="color_dialog_cancel">Anuluj</string>
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
