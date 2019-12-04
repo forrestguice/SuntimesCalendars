@@ -40,8 +40,6 @@ public class SuntimesCalendarSyncAdapter extends AbstractThreadedSyncAdapter
 {
     public static final String ACCOUNT_NAME = "Suntimes";
 
-    public static final String PREF_KEY_CALENDAR_LASTSYNC = "lastCalendarSync";
-
     public SuntimesCalendarSyncAdapter(Context context, boolean autoInitialize)
     {
         super(context, autoInitialize);
@@ -50,19 +48,6 @@ public class SuntimesCalendarSyncAdapter extends AbstractThreadedSyncAdapter
     public SuntimesCalendarSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs)
     {
         super(context, autoInitialize, allowParallelSyncs);
-    }
-
-    public static long readLastSyncTime(Context context)
-    {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getLong(PREF_KEY_CALENDAR_LASTSYNC, -1L);
-    }
-
-    public static void writeLastSyncTime(Context context, Calendar calendar)
-    {
-        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        prefs.putLong(PREF_KEY_CALENDAR_LASTSYNC, calendar.getTimeInMillis());
-        prefs.apply();
     }
 
     @Override

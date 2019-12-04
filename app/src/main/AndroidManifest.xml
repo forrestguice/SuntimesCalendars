@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.forrestguice.suntimescalendars">
 
     <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- needed to interact w/ Suntimes provider -->
@@ -9,6 +10,8 @@
 
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />      <!-- needed to add new Calendars (via SyncAdapter) -->
+
+    <uses-sdk tools:overrideLibrary="com.flask.colorpicker" />  <!-- requires api 14+ -->
 
     <application
         android:allowBackup="true"
