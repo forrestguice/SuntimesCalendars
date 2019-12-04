@@ -75,9 +75,9 @@
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
-    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
-    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Escollir color</string>
+    <string name="color_dialog_ok">Seleccionar</string>
+    <string name="color_dialog_cancel">Canceŀlar</string>
 
     <string name="calendar_solstice_displayName">Solsticis i equinoccis</string>
     <string name="calendar_moonPhase_displayName">Fases llunars</string>

@@ -90,9 +90,9 @@
     <string name="progress_title">Atualizando Calendário(s)</string>
     <string name="progress_message">Pode levar alguns minutos…\n\nVocê pode fechar o app. A atualização seguirá em segundo plano.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
-    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
-    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Escolher Cor</string>
+    <string name="color_dialog_ok">Selecionar</string>
+    <string name="color_dialog_cancel">Cancelar</string>
 
     <string name="about_dialog_title">Sobre o app</string>
     <string name="app_name">Calendários Suntimes</string>
