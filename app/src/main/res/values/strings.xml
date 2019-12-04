@@ -6,12 +6,12 @@
     <string name="timeMode_civil">Civil Twilight</string>
     <string name="timeMode_nautical">Nautical Twilight</string>
     <string name="timeMode_astronomical">Astronomical Twilight</string>
-    <string name="dawn">Dawn</string>    <!-- TODO -->
-    <string name="dusk">Dusk</string>    <!-- TODO -->
-    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
-    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
-    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
-    <string name="white_night">White night</string>    <!-- TODO -->
+    <string name="dawn">Dawn</string>
+    <string name="dusk">Dusk</string>
+    <string name="polar_twilight">Polar twilight</string>
+    <string name="civil_night">Civil polar night</string>
+    <string name="nautical_night">Nautical polar night</string>
+    <string name="white_night">White night</string>
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
@@ -26,15 +26,15 @@
     <string name="timeMode_moon_firstquarter">First Quarter</string>
     <string name="timeMode_moon_full">Full Moon</string>
     <string name="timeMode_moon_thirdquarter">Third Quarter</string>
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
@@ -71,9 +71,9 @@
     <string name="confirm_clear_message0">Remove calendars?</string>
     <string name="confirm_clear_message1">Remove calendar?</string>
 
-    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
-    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
-    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>
+    <string name="confirm_cancel_yes">Confirm</string>
+    <string name="confirm_cancel_no">Back</string>
 
     <string name="action_openCalendar">Open</string>
 
@@ -99,9 +99,9 @@
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
-    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
-    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Choose Colour</string>
+    <string name="color_dialog_ok">Select</string>
+    <string name="color_dialog_cancel">Cancel</string>
 
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
