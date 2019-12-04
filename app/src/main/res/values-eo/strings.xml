@@ -26,16 +26,16 @@
     <string name="timeMode_moon_firstquarter">Kreskanta Lunduono</string>                <!-- setting -->
     <string name="timeMode_moon_full">Plena Luno</string>                                <!-- setting -->
     <string name="timeMode_moon_thirdquarter">Malkreskanta Lunduono</string>             <!-- setting -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
-    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_super">Granda Luno</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Malgranda Luno</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Granda plena Luno</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_supernew">Granda nova Luno</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_microfull">Malgranda plena Luno</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
+    <string name="timeMode_moon_micronew">Malgranda nova Luno</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
 
 
     <!-- App Setting: calendars -->
@@ -76,9 +76,9 @@
     <string name="progress_title">Ĝisdatigado de kalendaroj</string>
     <string name="progress_message">Tio ĉi povas okupi kelkajn minutojn…\n\nVi povas fermi la aplikaĵon. La tasko pluiĝos fone.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
-    <string name="color_dialog_ok">Select</string>  <!-- TODO -->
-    <string name="color_dialog_cancel">Cancel</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Elekti koloron</string>
+    <string name="color_dialog_ok">Aktualigi</string>
+    <string name="color_dialog_cancel">Nuligi</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
     <string name="calendar_moonPhase_displayName">Lunfazoj</string>
