@@ -424,6 +424,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
             retValue = retValue && initMoonPhaseCalendar(progress, window[0], window[1]);
 
+        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS)) {
+            retValue = retValue && initMoonApsisCalendar(progress, window[0], window[1]);
+
         } else {
             Log.w(TAG, "initCalendar: unrecognized calendar " + calendar);
             retValue = false;
@@ -864,6 +867,16 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 return false;
             }
         } else return false;
+    }
+
+    /**
+     * initMoonApsisCalendar
+     */
+    private boolean initMoonApsisCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    {
+        // TODO
+        lastError = "TODO: implement this feature";
+        return false;
     }
 
     /**

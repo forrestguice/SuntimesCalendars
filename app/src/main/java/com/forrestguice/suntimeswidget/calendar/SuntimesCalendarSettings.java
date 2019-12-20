@@ -162,6 +162,9 @@ public class SuntimesCalendarSettings
             case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
                 return ContextCompat.getColor(context, R.color.colorMoonCalendar);
 
+            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
+                return ContextCompat.getColor(context, R.color.colorMoonApsisCalendar);
+
             case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
                 return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
 
@@ -206,6 +209,9 @@ public class SuntimesCalendarSettings
 
             case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
                 return context.getString(R.string.calendar_moonPhase_displayName);
+
+            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
+                return context.getString(R.string.calendar_moonApsis_displayName);
 
             case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
                 return context.getString(R.string.calendar_solstice_displayName);
