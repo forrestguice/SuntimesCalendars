@@ -931,9 +931,10 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         {
                             for (int i=0; i<2; i++)
                             {
-                                String desc = apsisStrings[i];
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
+                                double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
+                                String desc = ((distance != -1) ? context.getString(R.string.event_distance_format, apsisStrings[i], formatDistanceString(distance)) : apsisStrings[i]);
                                 eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
@@ -961,6 +962,19 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 return false;
             }
         } else return false;
+    }
+
+    private double lookupMoonDistance( @NonNull Context context, @NonNull ContentResolver resolver, long dateMillis )
+    {
+        double retValue = -1;
+        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS  + "/" + dateMillis);
+        Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_MOONPOS_DISTANCE }, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            retValue = cursor.getDouble(0);
+            cursor.close();
+        }
+        return retValue;
     }
 
     /**
