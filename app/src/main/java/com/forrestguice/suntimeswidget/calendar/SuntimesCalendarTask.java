@@ -64,6 +64,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private String[] phaseStrings = new String[4];     // {major phases}
     private String[] phaseStrings1 = new String[4];    // {major phases; supermoon}
     private String[] phaseStrings2 = new String[4];    // {major phases; micromoon}
+    private String[] apsisStrings = new String[2];    // {apogee, perigee}
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
     //private int[] solsticeColors = new int[4];
 
@@ -110,6 +111,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         phaseStrings2[2] = context.getString(R.string.timeMode_moon_microfull);
         phaseStrings2[3] = context.getString(R.string.timeMode_moon_thirdquarter);
 
+        apsisStrings[0] = context.getString(R.string.timeMode_moon_apogee);
+        apsisStrings[1] = context.getString(R.string.timeMode_moon_perigee);
+
         //solsticeColors[0] = ContextCompat.getColor(context, R.color.springColor_light);
         //solsticeColors[1] = ContextCompat.getColor(context, R.color.summerColor_light);
         //solsticeColors[2] = ContextCompat.getColor(context, R.color.fallColor_light);
@@ -147,6 +151,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         // moon phase calendar resources
         calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
         calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONPHASE));
+
+        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, context.getString(R.string.calendar_moonApsis_displayName));
+        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONAPSIS));
 
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
@@ -874,9 +881,86 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
      */
     private boolean initMoonApsisCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
-        // TODO
-        lastError = "TODO: implement this feature";
-        return false;
+        if (isCancelled()) {
+            return false;
+        }
+
+        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONAPSIS;
+        String calendarTitle = calendarDisplay.get(calendarName);
+        if (!adapter.hasCalendar(calendarName)) {
+            adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
+        } else return false;
+
+        String[] projection = new String[] {
+                CalculatorProviderContract.COLUMN_MOONPOS_APOGEE,
+                CalculatorProviderContract.COLUMN_MOONPOS_PERIGEE
+        };
+
+        long calendarID = adapter.queryCalendarID(calendarName);
+        if (calendarID != -1)
+        {
+            Context context = contextRef.get();
+            ContentResolver resolver = (context == null ? null : context.getContentResolver());
+            if (resolver != null)
+            {
+                int c = 0;
+                int totalProgress = (int)Math.ceil(1.25 * (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000d / 60d / 60d / 24d) / 27.554551d));
+                CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                publishProgress(progress0, progress);
+
+                Calendar date = Calendar.getInstance();
+                date.setTimeInMillis(startDate.getTimeInMillis());
+
+                while (date.before(endDate) && !isCancelled())
+                {
+                    Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS  + "/" + (date.getTimeInMillis()));
+                    Cursor cursor = resolver.query(uri, projection, null, null, null);
+                    if (cursor == null)
+                    {
+                        lastError = "Failed to resolve URI! " + uri;
+                        Log.w(TAG, lastError);
+                        return false;
+
+                    } else {
+                        progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                        publishProgress(progress0, progress);
+
+                        ArrayList<ContentValues> eventValues = new ArrayList<>();
+                        cursor.moveToFirst();
+                        while (!cursor.isAfterLast() && !isCancelled())
+                        {
+                            for (int i=0; i<2; i++)
+                            {
+                                String desc = apsisStrings[i];
+                                Calendar eventTime = Calendar.getInstance();
+                                eventTime.setTimeInMillis(cursor.getLong(i));
+                                eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
+                            }
+                            date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
+                            cursor.moveToNext();
+                            c++;
+
+                            progress.setProgress(c, totalProgress, calendarTitle);
+                            publishProgress(progress0, progress);
+                        }
+                        cursor.close();
+
+                        int chunk = 128;
+                        int n = eventValues.size();
+                        for (int i = 0; i < n; i += chunk) {
+                            int j = i + chunk;
+                            adapter.createCalendarEvents(eventValues.subList(i, (j > n ? n : j)).toArray(new ContentValues[0]));
+                        }
+                    }
+                }
+                return !isCancelled();
+
+            } else {
+                lastError = "Unable to getContentResolver!";
+                Log.e("initMoonApsisCalendar", lastError);
+                return false;
+            }
+        } else return false;
     }
 
     /**
