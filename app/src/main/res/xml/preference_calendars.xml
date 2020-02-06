@@ -40,8 +40,16 @@
         <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
             android:key="app_calendars_calendar_moonPhaseCalendar"
             android:title="@string/calendar_moonPhase_displayName"
+            android:summary="@string/calendar_moonPhase_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_moonphase" />
+
+        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+            android:key="app_calendars_calendar_moonApsisCalendar"
+            android:title="@string/calendar_moonApsis_displayName"
+            android:summary="@string/calendar_moonApsis_summary"
+            android:icon="?attr/icActionCalendar"
+            android:defaultValue="@string/def_calendars_calendar_moonapsis" />
 
         <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
             android:key="app_calendars_calendar_solsticeCalendar"

@@ -36,6 +36,8 @@
     <!--<string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
     <string name="timeMode_moon_micronew">Mikroksiężyc w nowiu</string>                             <!-- setting -->
     <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogeum</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perygeum</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->
@@ -81,6 +83,9 @@
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
+    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary" />
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>

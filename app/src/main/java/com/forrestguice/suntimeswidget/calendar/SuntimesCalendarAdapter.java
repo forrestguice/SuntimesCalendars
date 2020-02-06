@@ -44,7 +44,8 @@ public class SuntimesCalendarAdapter
     public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
     public static final String CALENDAR_MOONRISE = "moonriseCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
-    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
+    public static final String CALENDAR_MOONAPSIS = "moonApsisCalendar";
+    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONAPSIS, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
 
     private ContentResolver contentResolver;
 
