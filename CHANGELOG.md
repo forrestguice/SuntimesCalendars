@@ -1,6 +1,7 @@
 ### ~
 
-### v0.4.0 (2019-12-06)
+### v0.4.0 (2020-02-06)
+* adds "Moon Apsis" calendar (apogee, perigee).
 * adds ability to change a calendar's color.
 * adds labels for "super full moon", "super new moon", "micro full moon", and "micro new moon".
 * adds moon distance (km) to event description for new and full moons.
@@ -8,6 +9,8 @@
 * adds location labels when adding or listing existing calendars.
 * adds a "cancel" button to the progress dialog (stops update early).
 * improves performance when adding calendars (bulkInsert) (#9).
+* improves language resolution for Spanish locales (`es-rES` moved to `es`).
+* updates build; Android gradle plugin version updated to `com.android.tools.build:gradle:3.1.2`, gradle wrapper to `gradle-4.4`, and buildToolsVersion to `27.0.3`.
 
 ### v0.3.2 (2019-08-01)
 * improves support for polar regions (polar night). 
