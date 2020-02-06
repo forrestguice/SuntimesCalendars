@@ -14,6 +14,7 @@ An add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) that su
 * [Legal Stuff](#legal-stuff)
 * [Contributions](#project-contributions)
 
+<img alt="screenshot1" src='fastlane/metadata/en-US/images/screenshots/phoneScreenshots/1.png' width="280px" />
 
 ## Privacy and Permissions ##
 
