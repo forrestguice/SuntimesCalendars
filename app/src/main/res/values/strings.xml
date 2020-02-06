@@ -36,16 +36,16 @@
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
-    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
+    <string name="calendar_moonPhase_summary">Synodic month</string>
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Moonrise, moonset</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
