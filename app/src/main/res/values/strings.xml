@@ -36,15 +36,20 @@
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
+    <string name="calendar_moonPhase_summary">Synodic month</string>
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
-    <string name="calendar_moonrise_summary">Moonrise, moonset.</string>
+    <string name="calendar_moonrise_summary">Moonrise, moonset</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary">Sunrise, sunset.</string>
+    <string name="calendar_civil_twilight_summary">Sunrise, sunset</string>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
@@ -210,5 +215,6 @@
     <string name="def_calendars_calendar_astrotwilight" translatable="false">false</string>
     <string name="def_calendars_calendar_moonrise" translatable="false">false</string>
     <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
+    <string name="def_calendars_calendar_moonapsis" translatable="false">false</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 </resources>

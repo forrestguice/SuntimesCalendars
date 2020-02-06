@@ -4,6 +4,7 @@
     <color name="colorSolsticeCalendar">#03A9F4</color>
     <color name="colorMoonCalendar">#ff9e9e9e</color>
     <color name="colorMoonriseCalendar">#ff9e9eff</color>
+    <color name="colorMoonApsisCalendar">#ff9eeeff</color>
     <color name="colorCivilTwilightCalendar">#ffff9900</color>
     <color name="colorNauticalTwilightCalendar">#ff7ba3ff</color>
     <color name="colorAstroTwilightCalendar">#000066</color>
