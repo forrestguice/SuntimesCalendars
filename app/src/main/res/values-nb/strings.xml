@@ -36,8 +36,8 @@
     <!--<string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
     <string name="timeMode_moon_micronew">Mikronymåne</string>                             <!-- setting -->
     <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Apogeum</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigeum</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Kalendere</string>   <!-- group title -->
