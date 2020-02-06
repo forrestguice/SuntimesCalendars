@@ -40,6 +40,7 @@
         <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
             android:key="app_calendars_calendar_moonPhaseCalendar"
             android:title="@string/calendar_moonPhase_displayName"
+            android:summary="@string/calendar_moonPhase_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_moonphase" />
 
