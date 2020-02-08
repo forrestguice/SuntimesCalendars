@@ -356,6 +356,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private String config_location_latitude = "";
     private String config_location_longitude = "";
     private String config_location_altitude = "";
+    private int config_provider_version = 0;
 
     /**
      * initLocation
@@ -366,7 +367,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         ContentResolver resolver = (context == null ? null : context.getContentResolver());
         if (resolver != null) {
             Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
-            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE};
+            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE, CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE};
             Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
 
             if (configCursor != null) {
@@ -376,6 +377,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
                     config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
                     config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
+                    config_provider_version = configCursor.getInt(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE));
                 }
                 configCursor.close();
                 return true;
@@ -887,6 +889,16 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
         String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONAPSIS;
         String calendarTitle = calendarDisplay.get(calendarName);
+
+        if (config_provider_version < 2)    // sanity check.. moonApsis needs provider v2:0.3.0 (Suntimes v0.12.0+))
+        {
+            Context context = contextRef.get();
+            lastError = context != null ? context.getString(R.string.feature_not_supported_by_provider, calendarTitle, "Suntimes v0.12.0")
+                                        : calendarTitle + " is not supported by the current version; requires Suntimes v0.12.0 or greater.";
+            Log.e("initMoonApsisCalendar", lastError);
+            return (calendars.size() > 1);  // let other calendars finish
+        }
+
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
         } else return false;
@@ -929,6 +941,16 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast() && !isCancelled())
                         {
+                            if (cursor.getColumnCount() <= 2 || cursor.getLong(0) <= 0)
+                            {   // sanity check.. moonApsis needs provider v2:0.3.0 (Suntimes v0.12.0+))
+                                cursor.close();
+                                progress.setProgress(totalProgress, totalProgress, calendarTitle);
+                                publishProgress(progress0, progress);
+                                lastError = context.getString(R.string.feature_not_supported_by_provider, calendarTitle, "Suntimes v0.12.0");
+                                Log.e("initMoonApsisCalendar", lastError);
+                                return false;
+                            }
+
                             for (int i=0; i<2; i++)
                             {
                                 Calendar eventTime = Calendar.getInstance();
