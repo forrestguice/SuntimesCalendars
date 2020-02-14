@@ -1,0 +1,4 @@
+- adds "Moon Apsis" calendar (apogee, perigee).
+- adds Supermoon, Micromoon, and distance labels for new and full moons.
+- adds ability to change a calendar's color.
+- improves confirmation dialogs (miscellaneous UI).
