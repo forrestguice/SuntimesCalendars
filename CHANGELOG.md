@@ -1,6 +1,6 @@
 ### ~
 
-### v0.4.0 (2020-02-06)
+### v0.4.0 (2020-02-14)
 * adds "Moon Apsis" calendar (apogee, perigee).
 * adds ability to change a calendar's color.
 * adds labels for "super full moon", "super new moon", "micro full moon", and "micro new moon".
