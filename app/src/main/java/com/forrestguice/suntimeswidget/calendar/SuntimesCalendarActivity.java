@@ -825,8 +825,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             Intent intent = new Intent(Intent.ACTION_PICK);
             //intent.setComponent(new ComponentName("com.forrestguice.suntimeswidget", "com.forrestguice.suntimeswidget.settings.colors.ColorActivity"));
-            intent.setData(Uri.parse("color://" + color));
-            intent.putExtra("color", color);
+            intent.setData(Uri.parse("color://" + String.format("#%08X", color)));
+            //intent.putExtra("color", color);
             intent.putExtra("showAlpha", false);
             intent.putExtra("recentColors", recentColors);
 
@@ -869,8 +869,23 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             if (resultCode == RESULT_OK)
             {
                 String calendar = SuntimesCalendarAdapter.calendarName(requestCode - REQUEST_COLOR);
-                if (calendar != null) {
-                    onColorChanged(calendar).onColorChanged( data.getIntExtra("color", Color.WHITE) );
+                if (calendar != null)
+                {
+                    int color;
+                    Uri uri = data.getData();
+                    if (uri != null)
+                    {
+                        try {
+                            color = Color.parseColor("#" + uri.getFragment());
+
+                        } catch (IllegalArgumentException e) {
+                            color = Color.WHITE;
+                            Log.e("ColorActivity", e.toString());
+                        }
+                    } else {
+                        color = data.getIntExtra("color", Color.WHITE);
+                    }
+                    onColorChanged(calendar).onColorChanged( color );
                 }
             }
         }
