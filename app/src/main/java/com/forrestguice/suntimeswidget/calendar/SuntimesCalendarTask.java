@@ -18,22 +18,20 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
-import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -46,17 +44,13 @@ import java.util.TreeSet;
 import static com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter.createEventContentValues;
 
 @SuppressWarnings("Convert2Diamond")
-public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.SuntimesCalendarTaskItem, SuntimesCalendarTask.CalendarTaskProgress, Boolean>
+public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
 
     public static final double THRESHHOLD_SUPERMOON = 360000;    // km
     public static final double THRESHHOLD_MICROMOON = 405000;    // km
 
-    private SuntimesCalendarAdapter adapter;
-    private WeakReference<Context> contextRef;
-
-    private HashMap<String, SuntimesCalendarTaskItem> calendars = new HashMap<>();
     private HashMap<String, String> calendarDisplay = new HashMap<>();
     private HashMap<String, Integer> calendarColors = new HashMap<>();
 
@@ -72,16 +66,9 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     private String s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT;
     private String s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_WHITE_NIGHT;
 
-    private long lastSync = -1;
-    private long calendarWindow0 = -1, calendarWindow1 = -1;
-
-    private String notificationMsgAdding, notificationMsgAdded;
-    private String notificationMsgClearing, notificationMsgCleared;
-    private String notificationMsgAddFailed;
-    private String lastError = null;
-
     public SuntimesCalendarTask(Context context)
     {
+        super(context);
         contextRef = new WeakReference<Context>(context);
         adapter = new SuntimesCalendarAdapter(context.getContentResolver());
         calendarWindow0 = SuntimesCalendarSettings.loadPrefCalendarWindow0(context);
@@ -162,62 +149,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
     }
 
-    private boolean flag_notifications = true;
-    private boolean flag_clear = false;
-    public void setFlagClearCalendars( boolean flag )
-    {
-        flag_clear = flag;
-    }
-    public boolean getFlagClearCalendars()
-    {
-        return flag_clear;
-    }
-
-    public void setItems(SuntimesCalendarTaskItem... items)
-    {
-        calendars.clear();
-        for (SuntimesCalendarTaskItem item : items) {
-            calendars.put(item.getCalendar(), item);
-        }
-    }
-    public SuntimesCalendarTaskItem[] getItems() {
-        return calendars.values().toArray(new SuntimesCalendarTaskItem[0]);
-    }
-
-    public void addItems(SuntimesCalendarTaskItem... items)
-    {
-        for (SuntimesCalendarTaskItem item : items) {
-            calendars.put(item.getCalendar(), item);         // TODO: preserve existing
-        }
-    }
-
-    @Override
-    protected void onPreExecute()
-    {
-        Context context = contextRef.get();
-        if (context != null) {
-            lastSync = SuntimesCalendarSettings.readLastSyncTime(context);
-        }
-        lastError = null;
-
-        String message = "";
-        if (flag_clear) {
-            message = notificationMsgClearing;
-            triggerOnStarted(message);
-
-        } else {
-            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
-            if (items.length > 0) {
-                int action = items[0].getAction();
-                message = (action == SuntimesCalendarTaskItem.ACTION_DELETE) ? notificationMsgClearing : notificationMsgAdding;
-
-                if (action != SuntimesCalendarTaskItem.ACTION_DELETE) {
-                    triggerOnStarted(message);
-                } else triggerOnStarted("");
-            } else triggerOnStarted("");
-        }
-    }
-
     private Calendar[] getWindow()
     {
         Calendar startDate = Calendar.getInstance();
@@ -268,25 +199,25 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             return false;
         }
 
-        publishProgress(new CalendarTaskProgress(1, 1000, notificationMsgAdding));
+        publishProgress(new SuntimesCalendarTaskProgress(1, 1000, notificationMsgAdding));
         try {
             int c = 0;
-            int n = calendars.size();
-            TreeSet<String> calendarSet = new TreeSet<>(calendars.keySet());
+            int n = taskItems.size();
+            TreeSet<String> calendarSet = new TreeSet<>(taskItems.keySet());
             for (String calendar : calendarSet)
             {
-                SuntimesCalendarTaskItem item = calendars.get(calendar);
+                SuntimesCalendarTaskItem item = taskItems.get(calendar);
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        publishProgress(null, new CalendarTaskProgress(0, 1, notificationMsgClearing));
+                        publishProgress(null, new SuntimesCalendarTaskProgress(0, 1, notificationMsgClearing));
                         retValue = retValue && adapter.removeCalendar(calendar);
                         SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
                         break;
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        retValue = retValue && initCalendar(calendar, window, new CalendarTaskProgress(c, n, calendarDisplay.get(calendar)));
+                        retValue = retValue && initCalendar(calendar, window, new SuntimesCalendarTaskProgress(c, n, calendarDisplay.get(calendar)));
                         break;
                 }
                 c++;
@@ -301,103 +232,10 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
         return retValue;
     }
 
-    @Override
-    protected void onProgressUpdate(CalendarTaskProgress... progress)
-    {
-        Context context = contextRef.get();
-        if (listener != null && context != null) {
-            listener.onProgress(context, progress);
-        }
-    }
-
-    @Override
-    protected void onPostExecute(Boolean result)
-    {
-        Context context = contextRef.get();
-        if (result)
-        {
-            if (context != null) {
-                SuntimesCalendarSettings.writeLastSyncTime(context, Calendar.getInstance().getTimeInMillis());
-            }
-
-            String message = (flag_clear ? notificationMsgCleared : notificationMsgAdded);
-            SuntimesCalendarTaskItem[] items = calendars.values().toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]);
-            if (items.length > 0) {
-                if (items[0].getAction() == SuntimesCalendarTaskItem.ACTION_DELETE) {
-                    message = notificationMsgCleared;
-                }
-            }
-
-            if (listener != null && context != null) {
-                listener.onSuccess(context, this, message);
-            }
-
-        } else {
-            Log.w(TAG, "Failed to complete task!");
-            if (listener != null && context != null) {
-                listener.onFailed(context, lastError);
-            }
-        }
-    }
-
-    @Override
-    protected void onCancelled ()
-    {
-        super.onCancelled();
-        Log.w(TAG, "task cancelled!" );
-
-        Context context = contextRef.get();
-        if (listener != null && context != null) {
-            listener.onCancelled(context, this);
-        }
-    }
-
-    private String config_location_name = "";
-    private String config_location_latitude = "";
-    private String config_location_longitude = "";
-    private String config_location_altitude = "";
-    private int config_provider_version = 0;
-
-    /**
-     * initLocation
-     */
-    private boolean initLocation()
-    {
-        Context context = contextRef.get();
-        ContentResolver resolver = (context == null ? null : context.getContentResolver());
-        if (resolver != null) {
-            Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
-            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE, CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE};
-            Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
-
-            if (configCursor != null) {
-                configCursor.moveToFirst();
-                for (int i = 0; i < configProjection.length; i++) {
-                    config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
-                    config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
-                    config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
-                    config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
-                    config_provider_version = configCursor.getInt(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE));
-                }
-                configCursor.close();
-                return true;
-
-            } else {
-                lastError = "Failed to resolve URI! " + configUri;
-                Log.e(TAG, lastError);
-                return false;
-            }
-        } else {
-            lastError = "Unable to getContentResolver! ";
-            Log.e(TAG, lastError);
-            return false;
-        }
-    }
-
     /**
      * initCalendar
      */
-    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window, @NonNull CalendarTaskProgress progress) throws SecurityException
+    private boolean initCalendar(@NonNull String calendar, @NonNull Calendar[] window, @NonNull SuntimesCalendarTaskProgress progress) throws SecurityException
     {
         if (window.length != 2) {
             Log.e(TAG, "initCalendar: invalid window with length " + window.length);
@@ -508,7 +346,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initCivilTwilightCalendar
      */
-    private boolean initCivilTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initCivilTwilightCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -538,7 +376,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
                     int totalProgress = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, progressTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -580,7 +418,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initNauticalTwilightCalendar
      */
-    private boolean initNauticalTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initNauticalTwilightCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -610,7 +448,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int numRows = cursor.getCount();
                     String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, numRows, progressTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, numRows, progressTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -652,7 +490,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initAstroTwilightCalendar
      */
-    private boolean initAstroTwilightCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initAstroTwilightCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -683,7 +521,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int totalProgress = cursor.getCount();
                     String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, progressTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -726,7 +564,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonriseCalendar
      */
-    private boolean initMoonriseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
+    private boolean initMoonriseCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -755,7 +593,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                     int c = 0;
                     int totalProgress = moonCursor.getCount();
                     String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, config_location_name);
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, progressTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -808,7 +646,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initSolsticeCalendar
      */
-    private boolean initSolsticeCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initSolsticeCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -836,7 +674,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
 
                     int c = 0;
                     int totalProgress = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -881,7 +719,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonApsisCalendar
      */
-    private boolean initMoonApsisCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initMoonApsisCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -896,7 +734,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             lastError = context != null ? context.getString(R.string.feature_not_supported_by_provider, calendarTitle, "Suntimes v0.12.0")
                                         : calendarTitle + " is not supported by the current version; requires Suntimes v0.12.0 or greater.";
             Log.e("initMoonApsisCalendar", lastError);
-            return (calendars.size() > 1);  // let other calendars finish
+            return (taskItems.size() > 1);  // let other calendars finish
         }
 
         if (!adapter.hasCalendar(calendarName)) {
@@ -917,7 +755,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             {
                 int c = 0;
                 int totalProgress = (int)Math.ceil(1.25 * (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000d / 60d / 60d / 24d) / 27.554551d));
-                CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
                 publishProgress(progress0, progress);
 
                 Calendar date = Calendar.getInstance();
@@ -934,7 +772,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                         return false;
 
                     } else {
-                        progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                        progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
                         publishProgress(progress0, progress);
 
                         ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -1002,7 +840,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
     /**
      * initMoonPhaseCalendar
      */
-    private boolean initMoonPhaseCalendar(@NonNull CalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
+    private boolean initMoonPhaseCalendar(@NonNull SuntimesCalendarTaskProgress progress0, @NonNull Calendar startDate, @NonNull Calendar endDate ) throws SecurityException
     {
         if (isCancelled()) {
             return false;
@@ -1036,7 +874,7 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
                 {
                     int c = 0;
                     int totalProgress = cursor.getCount();
-                    CalendarTaskProgress progress = new CalendarTaskProgress(c, totalProgress, calendarTitle);
+                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
                     publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
@@ -1103,141 +941,6 @@ public class SuntimesCalendarTask extends AsyncTask<SuntimesCalendarTask.Suntime
             distanceFormatter.setMaximumFractionDigits(2);
         }
         return distanceFormatter.format(distance);
-    }
-
-    /**
-     * SuntimesCalendarTaskItem
-     */
-    public static class SuntimesCalendarTaskItem implements Parcelable
-    {
-        public static final int ACTION_UPDATE = 0;
-        public static final int ACTION_DELETE = 2;
-
-        private String calendar;
-        private int action;
-
-        public SuntimesCalendarTaskItem( String calendar, int action )
-        {
-            this.calendar = calendar;
-            this.action = action;
-        }
-
-        private SuntimesCalendarTaskItem(Parcel in)
-        {
-            this.calendar = in.readString();
-            this.action = in.readInt();
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags)
-        {
-            dest.writeString(calendar);
-            dest.writeInt(action);
-        }
-
-        @Override
-        public int describeContents()
-        {
-            return 0;
-        }
-
-        public String getCalendar()
-        {
-            return calendar;
-        }
-
-        public int getAction()
-        {
-            return action;
-        }
-
-        public static final Parcelable.Creator<SuntimesCalendarTaskItem> CREATOR = new Parcelable.Creator<SuntimesCalendarTaskItem>()
-        {
-            public SuntimesCalendarTaskItem createFromParcel(Parcel in)
-            {
-                return new SuntimesCalendarTaskItem(in);
-            }
-
-            public SuntimesCalendarTaskItem[] newArray(int size)
-            {
-                return new SuntimesCalendarTaskItem[size];
-            }
-        };
-    }
-
-    /**
-     * SuntimesCalendarTaskListener
-     */
-    public static abstract class SuntimesCalendarTaskListener implements Parcelable
-    {
-        public void onStarted(Context context, SuntimesCalendarTask task, String message) {}
-        public void onProgress(Context context, CalendarTaskProgress... progress) {}
-        public void onSuccess(Context context, SuntimesCalendarTask task, String message) {}
-        public void onCancelled(Context context, SuntimesCalendarTask task) {}
-        public void onFailed(Context context, String errorMsg) {}
-
-        public SuntimesCalendarTaskListener() {}
-
-        protected SuntimesCalendarTaskListener(Parcel in) {}
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {}
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-    }
-
-    private SuntimesCalendarTaskListener listener;
-    public void setTaskListener( SuntimesCalendarTaskListener listener )
-    {
-        this.listener = listener;
-    }
-    protected void triggerOnStarted(String message)
-    {
-        Context context = contextRef.get();
-        if (listener != null && context != null) {
-            listener.onStarted(context, this, message);
-        }
-    }
-
-    public static class CalendarTaskProgress
-    {
-        public CalendarTaskProgress(int i, int n, String message)
-        {
-            setProgress(i, n, message);
-        }
-        public void setProgress(int i, int n, String message)
-        {
-            this.i = i;
-            this.n = n;
-            this.message = message;
-        }
-
-        private int i;
-        public int itemNum() {
-            return i;
-        }
-
-        private int n;
-        public int getCount() {
-            return n;
-        }
-
-        private String message;
-        public String getMessage() {
-            return message;
-        }
-
-        public boolean isIndeterminate()
-        {
-            return (i == 0 || n == 0);
-        }
-
-        public String toString() {
-            return message + ": " + i + "/" + n + " (" + (isIndeterminate() ? "true" : "false") + ")";
-        }
     }
 
 }

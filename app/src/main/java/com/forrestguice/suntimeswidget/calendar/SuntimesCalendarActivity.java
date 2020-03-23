@@ -58,7 +58,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spannable;
@@ -70,12 +69,13 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -364,16 +364,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         Intent taskIntent = new Intent(this, SuntimesCalendarSyncService.class);
                         taskIntent.setAction(SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS);
 
-                        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = loadItems(this.getIntent(), true);
+                        ArrayList<SuntimesCalendarTaskItem> items = loadItems(this.getIntent(), true);
                         savePendingItems(this, taskIntent, items);
                         calendarTaskService.runCalendarTask(context, taskIntent, false, false, mainFragment.calendarTaskListener);
 
                         if (mainFragment != null)
                         {
                             SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                            for (SuntimesCalendarTask.SuntimesCalendarTaskItem item : items)
+                            for (SuntimesCalendarTaskItem item : items)
                             {
-                                boolean enabled = (item.getAction() == SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE);
+                                boolean enabled = (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE);
                                 pref.putBoolean(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + item.getCalendar(), enabled);
                                 pref.apply();
 
@@ -394,7 +394,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         Intent taskIntent = new Intent(this, SuntimesCalendarSyncService.class);
                         taskIntent.setAction( !enabled ? SuntimesCalendarTaskService.ACTION_CLEAR_CALENDARS : SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
 
-                        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
+                        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
                         if (enabled) {
                             items = loadItems(this.getIntent(), true);
                         }
@@ -1168,15 +1168,15 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        public SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener = new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        public SuntimesCalendarTaskListener calendarTaskListener = new SuntimesCalendarTaskListener()
         {
             @Override
-            public void onStarted(Context context, SuntimesCalendarTask task, String message) {
+            public void onStarted(Context context, SuntimesCalendarTaskBase task, String message) {
                 dismissSnackbar();
             }
 
             @Override
-            public void onSuccess(Context context, SuntimesCalendarTask task, String message) {
+            public void onSuccess(Context context, SuntimesCalendarTaskBase task, String message) {
                 showSnackbar(message);
             }
         };
@@ -1276,13 +1276,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     /**
      * loadItems
      */
-    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Intent intent, boolean clearPending)
+    public static ArrayList<SuntimesCalendarTaskItem> loadItems(Intent intent, boolean clearPending)
     {
-        SuntimesCalendarTask.SuntimesCalendarTaskItem[] items;
+        SuntimesCalendarTaskItem[] items;
         Parcelable[] parcelableArray = intent.getParcelableArrayExtra(SuntimesCalendarTaskService.EXTRA_CALENDAR_ITEMS);
         if (parcelableArray != null) {
-            items = Arrays.copyOf(parcelableArray, parcelableArray.length, SuntimesCalendarTask.SuntimesCalendarTaskItem[].class);
-        } else items = new SuntimesCalendarTask.SuntimesCalendarTaskItem[0];
+            items = Arrays.copyOf(parcelableArray, parcelableArray.length, SuntimesCalendarTaskItem[].class);
+        } else items = new SuntimesCalendarTaskItem[0];
 
         if (clearPending) {
             intent.removeExtra(SuntimesCalendarTaskService.EXTRA_CALENDAR_ITEMS);
@@ -1295,25 +1295,25 @@ public class SuntimesCalendarActivity extends AppCompatActivity
      */
     public static void savePendingItems(Activity activity, Intent intent)
     {
-        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
             if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
-                items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE));
+                items.add(new SuntimesCalendarTaskItem(calendar, SuntimesCalendarTaskItem.ACTION_UPDATE));
             }
         }
         savePendingItems(activity, intent, items);
     }
 
-    public static void savePendingItems(Activity activity, Intent intent, ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items)
+    public static void savePendingItems(Activity activity, Intent intent, ArrayList<SuntimesCalendarTaskItem> items)
     {
-        intent.putExtra(SuntimesCalendarTaskService.EXTRA_CALENDAR_ITEMS, items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
+        intent.putExtra(SuntimesCalendarTaskService.EXTRA_CALENDAR_ITEMS, items.toArray(new SuntimesCalendarTaskItem[0]));
     }
 
     public static void savePendingItem(Activity activity, Intent intent, String calendar, boolean enabled)
     {
-        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
-        int action = (enabled ? SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_DELETE);
-        items.add(new SuntimesCalendarTask.SuntimesCalendarTaskItem(calendar, action));
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
+        int action = (enabled ? SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTaskItem.ACTION_DELETE);
+        items.add(new SuntimesCalendarTaskItem(calendar, action));
         savePendingItems(activity, intent, items);
     }
 

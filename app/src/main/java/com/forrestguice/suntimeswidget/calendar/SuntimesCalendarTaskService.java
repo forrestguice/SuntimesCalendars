@@ -36,6 +36,10 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +76,7 @@ public class SuntimesCalendarTaskService extends Service
         if (action != null)
         {
             SuntimesCalendarServiceListener serviceListener = intent.getParcelableExtra(EXTRA_SERVICE_LISTENER);
-            SuntimesCalendarTask.SuntimesCalendarTaskListener listener = intent.getParcelableExtra(EXTRA_CALENDAR_LISTENER);
+            SuntimesCalendarTaskListener listener = intent.getParcelableExtra(EXTRA_CALENDAR_LISTENER);
             if (action.equals(ACTION_UPDATE_CALENDARS))
             {
                 Log.d(TAG, "onStartCommand: " + action);
@@ -101,12 +105,12 @@ public class SuntimesCalendarTaskService extends Service
     public static final int NOTIFICATION_PROGRESS = 10;
     public static final int NOTIFICATION_COMPLETE = 20;
 
-    private static SuntimesCalendarTask calendarTask = null;
-    private static SuntimesCalendarTask.SuntimesCalendarTaskListener calendarTaskListener;
+    private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask calendarTask = null;
+    private static SuntimesCalendarTaskListener calendarTaskListener;
     private static NotificationCompat.Builder progressNotification;
-    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTask.SuntimesCalendarTaskListener listener)
+    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
     {
-        ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> items = new ArrayList<>();
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (!clearCalendars) {
             items = loadItems(intent, clearPending);
         }
@@ -116,11 +120,11 @@ public class SuntimesCalendarTaskService extends Service
             return false;
         }
 
-        calendarTask = new SuntimesCalendarTask(context);
-        calendarTaskListener = new SuntimesCalendarTask.SuntimesCalendarTaskListener()
+        calendarTask = new com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask(context);
+        calendarTaskListener = new SuntimesCalendarTaskListener()
         {
             @Override
-            public void onStarted(Context context, SuntimesCalendarTask task, String message)
+            public void onStarted(Context context, SuntimesCalendarTaskBase task, String message)
             {
                 if (listener != null) {
                     listener.onStarted(context, task, message);
@@ -140,10 +144,10 @@ public class SuntimesCalendarTaskService extends Service
                 }
             }
 
-            private boolean hasUpdateAction(SuntimesCalendarTask.SuntimesCalendarTaskItem[] items)
+            private boolean hasUpdateAction(SuntimesCalendarTaskItem[] items)
             {
-                for (SuntimesCalendarTask.SuntimesCalendarTaskItem item : items) {
-                    if (item.getAction() == SuntimesCalendarTask.SuntimesCalendarTaskItem.ACTION_UPDATE) {
+                for (SuntimesCalendarTaskItem item : items) {
+                    if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE) {
                         return true;
                     }
                 }
@@ -151,7 +155,7 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
-            public void onProgress(Context context, SuntimesCalendarTask.CalendarTaskProgress... progress)
+            public void onProgress(Context context, SuntimesCalendarTaskProgress... progress)
             {
                 if (listener != null) {
                     listener.onProgress(context, progress);
@@ -175,7 +179,7 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
-            public void onSuccess(Context context, SuntimesCalendarTask task, String message)
+            public void onSuccess(Context context, SuntimesCalendarTaskBase task, String message)
             {
                 if (listener != null) {
                     listener.onSuccess(context, task, message);
@@ -190,7 +194,7 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
-            public void onCancelled(Context context, SuntimesCalendarTask task)
+            public void onCancelled(Context context, SuntimesCalendarTaskBase task)
             {
                 if (listener != null) {
                     listener.onCancelled(context, task);
@@ -223,7 +227,7 @@ public class SuntimesCalendarTaskService extends Service
         if (clearCalendars) {
             calendarTask.setFlagClearCalendars(true);
         }
-        calendarTask.setItems(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
+        calendarTask.setItems(items.toArray(new SuntimesCalendarTaskItem[0]));
         calendarTask.execute();
         return true;
     }
@@ -294,13 +298,13 @@ public class SuntimesCalendarTaskService extends Service
         return lastProgressMessage;
     }
 
-    public static ArrayList<SuntimesCalendarTask.SuntimesCalendarTaskItem> loadItems(Intent intent, boolean clearPending)
+    public static ArrayList<SuntimesCalendarTaskItem> loadItems(Intent intent, boolean clearPending)
     {
-        SuntimesCalendarTask.SuntimesCalendarTaskItem[] items;
+        SuntimesCalendarTaskItem[] items;
         Parcelable[] parcelableArray = intent.getParcelableArrayExtra(EXTRA_CALENDAR_ITEMS);
         if (parcelableArray != null) {
-            items = Arrays.copyOf(parcelableArray, parcelableArray.length, SuntimesCalendarTask.SuntimesCalendarTaskItem[].class);
-        } else items = new SuntimesCalendarTask.SuntimesCalendarTaskItem[0];
+            items = Arrays.copyOf(parcelableArray, parcelableArray.length, SuntimesCalendarTaskItem[].class);
+        } else items = new SuntimesCalendarTaskItem[0];
 
         if (clearPending) {
             intent.removeExtra(EXTRA_CALENDAR_ITEMS);
