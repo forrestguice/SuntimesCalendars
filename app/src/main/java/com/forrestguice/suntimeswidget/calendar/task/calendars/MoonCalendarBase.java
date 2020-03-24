@@ -19,7 +19,22 @@
 package com.forrestguice.suntimeswidget.calendar.task.calendars;
 
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 @SuppressWarnings("Convert2Diamond")
 public abstract class MoonCalendarBase extends SuntimesCalendarBase implements SuntimesCalendar
 {
+    protected NumberFormat distanceFormatter = null;
+    protected String formatDistanceString(double distance)
+    {
+        if (distanceFormatter == null)
+        {
+            distanceFormatter = new DecimalFormat();
+            distanceFormatter.setMinimumFractionDigits(0);
+            distanceFormatter.setMaximumFractionDigits(2);
+        }
+        return distanceFormatter.format(distance);
+    }
 }

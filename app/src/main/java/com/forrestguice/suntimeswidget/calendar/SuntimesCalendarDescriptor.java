@@ -28,6 +28,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
 
@@ -139,6 +140,10 @@ public class SuntimesCalendarDescriptor implements Comparable
         MoonriseCalendar moonriseCalendar = new MoonriseCalendar();
         moonriseCalendar.init(context, settings);
         SuntimesCalendarDescriptor.addValue(moonriseCalendar.getDescriptor());
+
+        MoonphaseCalendar moonphaseCalendar = new MoonphaseCalendar();
+        moonphaseCalendar.init(context, settings);
+        SuntimesCalendarDescriptor.addValue(moonphaseCalendar.getDescriptor());
 
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
