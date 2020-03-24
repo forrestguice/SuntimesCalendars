@@ -25,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarDescriptor;
 
 public class SuntimesCalendarSettings
 {
@@ -156,68 +157,27 @@ public class SuntimesCalendarSettings
     {
         switch (calendar)
         {
-            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
+            case SuntimesCalendarDescriptor.CALENDAR_SOLSTICE:
                 return ContextCompat.getColor(context, R.color.colorSolsticeCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
+            case SuntimesCalendarDescriptor.CALENDAR_MOONPHASE:
                 return ContextCompat.getColor(context, R.color.colorMoonCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
+            case SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS:
                 return ContextCompat.getColor(context, R.color.colorMoonApsisCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
+            case SuntimesCalendarDescriptor.CALENDAR_MOONRISE:
                 return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
+            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO:
                 return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
+            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL:
                 return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
 
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
+            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL:
             default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
-        }
-    }
-
-    /**
-     * getCalendarDisplayString
-     * @param context context
-     * @param calendarName the calendar's name
-     * @return display string
-     */
-    public static String getCalendarDisplayString(Context context, String calendarName, @Nullable CharSequence locationDisplay)
-    {
-        String calendarDisplay;
-        switch (calendarName)
-        {
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
-                calendarDisplay = context.getString(R.string.calendar_astronomical_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
-                calendarDisplay = context.getString(R.string.calendar_nautical_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
-                calendarDisplay = context.getString(R.string.calendar_civil_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
-                calendarDisplay = context.getString(R.string.calendar_moonrise_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
-                return context.getString(R.string.calendar_moonPhase_displayName);
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
-                return context.getString(R.string.calendar_moonApsis_displayName);
-
-            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
-                return context.getString(R.string.calendar_solstice_displayName);
-
-            default:
-                return null;
         }
     }
 

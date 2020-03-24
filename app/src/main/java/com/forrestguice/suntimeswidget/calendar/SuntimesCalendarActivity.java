@@ -56,6 +56,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -1108,8 +1109,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         private CharSequence createConfirmDialogMessage(Context context, String calendar, boolean add)
         {
+            SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
             String locationDisplay = (add ? getLocationString(context) : SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
-            String calendarDisplay = SuntimesCalendarSettings.getCalendarDisplayString(context, calendar, locationDisplay);
+            String calendarDisplay = getCalendarDisplayString(context, descriptor, locationDisplay);
             if (locationDisplay != null)
             {
                 SpannableString span = new SpannableString(calendarDisplay);
@@ -1123,6 +1125,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             } else {
                 return calendarDisplay;
             }
+        }
+
+        /**
+         * getCalendarDisplayString
+         */
+        public static String getCalendarDisplayString(Context context, SuntimesCalendarDescriptor descriptor, @Nullable CharSequence locationDisplay)
+        {
+            String calendarDisplay;
+            calendarDisplay = descriptor.calendarTitle();
+            return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
         }
 
         private String getLocationString(Context context)

@@ -49,7 +49,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
 
-    public static final String[] ALL_CALENDARS = new String[] {SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarAdapter.CALENDAR_MOONPHASE, SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, SuntimesCalendarAdapter.CALENDAR_MOONRISE, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO};
+    public static final String[] ALL_CALENDARS = new String[] {SuntimesCalendarDescriptor.CALENDAR_SOLSTICE, SuntimesCalendarDescriptor.CALENDAR_MOONPHASE, SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS, SuntimesCalendarDescriptor.CALENDAR_MOONRISE, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO};
 
     public static final double THRESHHOLD_SUPERMOON = 360000;    // km
     public static final double THRESHHOLD_MICROMOON = 405000;    // km
@@ -78,8 +78,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
 
         // solstice calendar resources
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_SOLSTICE, context.getString(R.string.calendar_solstice_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_SOLSTICE));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_SOLSTICE, context.getString(R.string.calendar_solstice_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_SOLSTICE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_SOLSTICE));
 
         solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
         solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
@@ -122,28 +122,28 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         s_DUSK_TWILIGHT = context.getString(R.string.dusk);
         s_WHITE_NIGHT = context.getString(R.string.white_night);
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL, context.getString(R.string.calendar_civil_twilight_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL));
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, context.getString(R.string.calendar_nautical_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL, context.getString(R.string.calendar_nautical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL));
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, context.getString(R.string.calendar_astronomical_twilight_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO, context.getString(R.string.calendar_astronomical_twilight_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO));
 
         // moonrise, moonset calendar resources
         moonStrings[0] = context.getString(R.string.moonrise);
         moonStrings[1] = context.getString(R.string.moonset);
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, context.getString(R.string.calendar_moonrise_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONRISE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONRISE));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_MOONRISE, context.getString(R.string.calendar_moonrise_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_MOONRISE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_MOONRISE));
 
         // moon phase calendar resources
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONPHASE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONPHASE));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_MOONPHASE, context.getString(R.string.calendar_moonPhase_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_MOONPHASE, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_MOONPHASE));
 
-        calendarDisplay.put(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, context.getString(R.string.calendar_moonApsis_displayName));
-        calendarColors.put(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_MOONAPSIS));
+        calendarDisplay.put(SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS, context.getString(R.string.calendar_moonApsis_displayName));
+        calendarColors.put(SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS, SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS));
 
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
@@ -256,25 +256,25 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         }
 
         long bench_start = System.nanoTime();
-        if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_SOLSTICE)) {
+        if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_SOLSTICE)) {
             retValue = retValue && initSolsticeCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL)) {
             retValue = retValue && initCivilTwilightCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL)) {
             retValue = retValue && initNauticalTwilightCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO)) {
             retValue = retValue && initAstroTwilightCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONRISE)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_MOONRISE)) {
             retValue = retValue && initMoonriseCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONPHASE)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_MOONPHASE)) {
             retValue = retValue && initMoonPhaseCalendar(progress, window[0], window[1]);
 
-        } else if (calendar.equals(SuntimesCalendarAdapter.CALENDAR_MOONAPSIS)) {
+        } else if (calendar.equals(SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS)) {
             retValue = retValue && initMoonApsisCalendar(progress, window[0], window[1]);
 
         } else {
@@ -355,7 +355,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
@@ -427,7 +427,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
@@ -499,7 +499,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
@@ -573,7 +573,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_MOONRISE;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
@@ -655,7 +655,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_SOLSTICE;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
@@ -728,7 +728,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONAPSIS;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS;
         String calendarTitle = calendarDisplay.get(calendarName);
 
         if (config_provider_version < 2)    // sanity check.. moonApsis needs provider v2:0.3.0 (Suntimes v0.12.0+))
@@ -849,7 +849,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             return false;
         }
 
-        String calendarName = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+        String calendarName = SuntimesCalendarDescriptor.CALENDAR_MOONPHASE;
         String calendarTitle = calendarDisplay.get(calendarName);
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColors.get(calendarName));
