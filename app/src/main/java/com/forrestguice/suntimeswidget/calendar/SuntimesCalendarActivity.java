@@ -765,6 +765,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             initAboutDialog();
             initProgressDialog();
 
+            SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
             PreferenceCategory category = (PreferenceCategory) findPreference("app_calendars");
 
             final Context context = getActivity();
@@ -780,9 +781,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 calendarPref.setTitle(descriptor.calendarTitle());
                 category.addPreference(calendarPref);
 
-                int calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
+                int calendarColor = settings.loadPrefCalendarColor(context, calendar);
                 calendarPref.setNoteFormat(R.string.summarylist_format);
-                calendarPref.setNote(SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
+                calendarPref.setNote(settings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
                 calendarPref.setIconColor(createColorStateList(calendarColor));
                 calendarPref.setIcon(R.drawable.ic_action_calendar);
                 calendarPref.setOnIconClickListener(new View.OnClickListener()
@@ -831,7 +832,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.setShowAlpha(false);
-            colorDialog.setColor(SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar));
+            colorDialog.setColor(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar));
             colorDialog.setColorChangeListener(onColorChanged(calendar));
 
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -855,7 +856,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     final Context context = getActivity();
                     if (context != null)
                     {
-                        SuntimesCalendarSettings.savePrefCalendarColor(context, calendar, color);
+                        new SuntimesCalendarSettings().savePrefCalendarColor(context, calendar, color);
 
                         SuntimesCalendarPreference pref = calendarPrefs.get(calendar);
                         if (pref != null) {
@@ -922,6 +923,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     calendarsEnabledPref.setChecked(calendarsEnabled0);
                 }
 
+                SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
                 for (String calendar : calendarPrefs.keySet())
                 {
                     SuntimesCalendarPreference calendarPref = calendarPrefs.get(calendar);
@@ -953,7 +955,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             calendarPref.setChecked(enabled0);
                         }
 
-                        int color1 = SuntimesCalendarSettings.loadPrefCalendarColor(activity, calendar);
+                        int color1 = settings.loadPrefCalendarColor(activity, calendar);
                         if (color0 != -1 && color0 != color1) {
                             Log.w(TAG, "onCreate: out of sync! setting " + calendar + " color to " + color0);
                             prefs.putInt(SuntimesCalendarSettings.PREF_KEY_CALENDARS_COLOR + calendar, color0);
@@ -961,7 +963,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             calendarPref.setIconColor(createColorStateList(color0));
                         }
                     }
-                    calendarPref.setNote(SuntimesCalendarSettings.loadCalendarNote(activity, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
+                    calendarPref.setNote(settings.loadCalendarNote(activity, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
                 }
             }
         }
@@ -1089,7 +1091,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             textView.setGravity(Gravity.CENTER_VERTICAL);
 
             Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar);
-            icon.setColorFilter(SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
+            icon.setColorFilter(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
             textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             textView.setCompoundDrawablePadding(padding);
             
@@ -1114,7 +1116,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private CharSequence createConfirmDialogMessage(Context context, String calendar, boolean add)
         {
             SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
-            String locationDisplay = (add ? getLocationString(context) : SuntimesCalendarSettings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
+            String locationDisplay = (add ? getLocationString(context) : new SuntimesCalendarSettings().loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
             String calendarDisplay = getCalendarDisplayString(context, descriptor, locationDisplay);
             if (locationDisplay != null)
             {

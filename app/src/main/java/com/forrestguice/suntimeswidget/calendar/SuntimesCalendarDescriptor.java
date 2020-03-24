@@ -130,12 +130,14 @@ public class SuntimesCalendarDescriptor implements Comparable
 
     public static void initDescriptors(Context context)
     {
+        SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
+
         SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
-        solsticeCalendar.init(context);
+        solsticeCalendar.init(context, settings);
         SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
 
         MoonriseCalendar moonriseCalendar = new MoonriseCalendar();
-        moonriseCalendar.init(context);
+        moonriseCalendar.init(context, settings);
         SuntimesCalendarDescriptor.addValue(moonriseCalendar.getDescriptor());
 
         PackageManager packageManager = context.getPackageManager();

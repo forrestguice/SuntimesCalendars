@@ -158,7 +158,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         }
 
         long bench_start = System.nanoTime();
-        retValue = retValue && calendar.initCalendar(adapter, this, progress, window);
+        retValue = retValue && calendar.initCalendar(new SuntimesCalendarSettings(), adapter, this, progress, window);
         long bench_end = System.nanoTime();
         Log.i(TAG, "initCalendar (" + calendar + ") in " + ((bench_end - bench_start) / 1000000.0) + " ms");
 

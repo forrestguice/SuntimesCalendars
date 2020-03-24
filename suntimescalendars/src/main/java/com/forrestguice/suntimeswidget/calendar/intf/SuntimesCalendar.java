@@ -24,11 +24,12 @@ import android.support.annotation.NonNull;
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
 {
-    void init(@NonNull Context context);
-    boolean initCalendar(@NonNull SuntimesCalendarAdapterInterface adapter,
-                         @NonNull SuntimesCalendarTaskInterface task,
-                         @NonNull SuntimesCalendarTaskProgressInterface progress0,
-                         @NonNull long[] window);
+    void init( @NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings );
+    boolean initCalendar( @NonNull SuntimesCalendarSettingsInterface settings,
+                          @NonNull SuntimesCalendarAdapterInterface adapter,
+                          @NonNull SuntimesCalendarTaskInterface task,
+                          @NonNull SuntimesCalendarTaskProgressInterface progress0,
+                          @NonNull long[] window);
 
     /**
      * @return last error message encountered during processing (if any)

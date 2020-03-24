@@ -32,6 +32,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
@@ -50,14 +51,14 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public void init(@NonNull Context context)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
     {
-        super.init(context);
+        super.init(context, settings);
 
         calendarTitle = context.getString(R.string.calendar_solstice_displayName);
         calendarSummary = null;
         calendarDesc = null;
-        calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_SOLSTICE);
+        calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 
         solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
         solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
@@ -66,7 +67,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;

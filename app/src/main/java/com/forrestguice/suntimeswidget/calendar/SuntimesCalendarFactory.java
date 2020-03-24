@@ -34,7 +34,7 @@ public class SuntimesCalendarFactory
         try {
             calendarClass = Class.forName(descriptor.calendarRef());
             calendar = (SuntimesCalendar) calendarClass.newInstance();
-            calendar.init(context);
+            calendar.init(context, new SuntimesCalendarSettings());
 
         } catch (ClassNotFoundException e) {
             Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);

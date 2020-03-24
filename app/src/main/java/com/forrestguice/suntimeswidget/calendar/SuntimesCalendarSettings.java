@@ -25,30 +25,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 
-public class SuntimesCalendarSettings
+public class SuntimesCalendarSettings implements SuntimesCalendarSettingsInterface
 {
-    public static final String PREF_KEY_CALENDARS_ENABLED = "app_calendars_enabled";
-    public static final boolean PREF_DEF_CALENDARS_ENABLED = false;
-
-    public static final String PREF_KEY_CALENDAR_WINDOW0 = "app_calendars_window0";
-    public static final String PREF_DEF_CALENDAR_WINDOW0 = "31536000000";  // 1 year
-
-    public static final String PREF_KEY_CALENDAR_WINDOW1 = "app_calendars_window1";
-    public static final String PREF_DEF_CALENDAR_WINDOW1 = "63072000000";  // 2 years
-
-    public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
-    public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
-
-    public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
-    public static final String NOTE_LOCATION_NAME = "location_name";
-    public static final String[] ALL_NOTES = new String[] { NOTE_LOCATION_NAME };
-
-    public static final String PREF_KEY_CALENDAR_LASTSYNC = "lastCalendarSync";
-
-    public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
-    public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
-
     /**
      * @param context
      * @return timestamp
@@ -140,12 +120,12 @@ public class SuntimesCalendarSettings
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 
-    public static int loadPrefCalendarColor(Context context, String calendar)
+    public int loadPrefCalendarColor(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultCalendarColor(context, calendar));
     }
-    public static void savePrefCalendarColor(Context context, String calendar, int color)
+    public void savePrefCalendarColor(Context context, String calendar, int color)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putInt(PREF_KEY_CALENDARS_COLOR + calendar, color);
@@ -187,12 +167,12 @@ public class SuntimesCalendarSettings
      * @return the requested note (or null if dne)
      */
     @Nullable
-    public static String loadCalendarNote(Context context, String calendar, String key)
+    public String loadCalendarNote(Context context, String calendar, String key)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, null);
     }
-    public static void saveCalendarNote(Context context, String calendar, String key, String note)
+    public void saveCalendarNote(Context context, String calendar, String key, String note)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, note);
