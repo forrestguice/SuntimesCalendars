@@ -62,7 +62,7 @@ public class SuntimesCalendarTaskService extends Service
     private final SuntimesCalendarTaskServiceBinder taskBinder = new SuntimesCalendarTaskServiceBinder();
     public class SuntimesCalendarTaskServiceBinder extends Binder
     {
-        SuntimesCalendarTaskService getService() {
+        public SuntimesCalendarTaskService getService() {
             return SuntimesCalendarTaskService.this;
         }
     }
