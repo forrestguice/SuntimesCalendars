@@ -53,7 +53,20 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
-    
+
+        <!-- Solstice Calendar Plugin -->
+        <activity android:name="com.forrestguice.suntimes.calendars.task.calendars.SolsticeCalendar">
+            <meta-data android:name="CalendarName" android:value="solsticeCalendar" />
+            <meta-data android:name="CalendarTitle" android:value="Solstices, Equinoxes" />
+            <meta-data android:name="CalendarSummary" android:value="" />
+            <meta-data android:name="CalendarColor" android:value="0" />
+            <meta-data android:name="CalendarReference" android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar" />
+            <intent-filter>
+                <action android:name="android.intent.action.RUN" />
+                <category android:name="com.forrestguice.suntimeswidget.SUNTIMES_CALENDAR" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
