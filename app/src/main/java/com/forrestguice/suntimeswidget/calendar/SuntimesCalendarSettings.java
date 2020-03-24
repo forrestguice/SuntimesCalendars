@@ -25,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 
 public class SuntimesCalendarSettings implements SuntimesCalendarSettingsInterface
@@ -136,25 +137,25 @@ public class SuntimesCalendarSettings implements SuntimesCalendarSettingsInterfa
     {
         switch (calendar)
         {
-            case SuntimesCalendarDescriptor.CALENDAR_SOLSTICE:
+            case SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE:
                 return ContextCompat.getColor(context, R.color.colorSolsticeCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_MOONPHASE:
+            case SuntimesCalendarAdapterInterface.CALENDAR_MOONPHASE:
                 return ContextCompat.getColor(context, R.color.colorMoonCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_MOONAPSIS:
+            case SuntimesCalendarAdapterInterface.CALENDAR_MOONAPSIS:
                 return ContextCompat.getColor(context, R.color.colorMoonApsisCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_MOONRISE:
+            case SuntimesCalendarAdapterInterface.CALENDAR_MOONRISE:
                 return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_ASTRO:
+            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_ASTRO:
                 return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_NAUTICAL:
+            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_NAUTICAL:
                 return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
 
-            case SuntimesCalendarDescriptor.CALENDAR_TWILIGHT_CIVIL:
+            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_CIVIL:
             default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
         }

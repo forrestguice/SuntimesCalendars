@@ -31,6 +31,14 @@ import java.util.Calendar;
 @TargetApi(14)
 public interface SuntimesCalendarAdapterInterface
 {
+    public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
+    public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
+    public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
+    public static final String CALENDAR_MOONRISE = "moonriseCalendar";
+    public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
+    public static final String CALENDAR_MOONAPSIS = "moonApsisCalendar";
+
     ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor);
     ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time);
 

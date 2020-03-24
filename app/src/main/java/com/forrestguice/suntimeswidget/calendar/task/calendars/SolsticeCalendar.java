@@ -28,13 +28,13 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
 
     @Override
     public String calendarName() {
-        return SuntimesCalendarDescriptor.CALENDAR_SOLSTICE;
+        return SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE;
     }
 
     @Override

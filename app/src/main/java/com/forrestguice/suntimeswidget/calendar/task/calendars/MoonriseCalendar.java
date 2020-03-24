@@ -28,7 +28,6 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
@@ -47,7 +46,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
     @Override
     public String calendarName() {
-        return SuntimesCalendarDescriptor.CALENDAR_MOONRISE;
+        return SuntimesCalendarAdapterInterface.CALENDAR_MOONRISE;
     }
 
     @Override
