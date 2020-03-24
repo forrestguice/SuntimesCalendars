@@ -22,14 +22,12 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
@@ -38,7 +36,6 @@ import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterfa
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -114,7 +111,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
                             }
                         }
                         cursor.moveToNext();

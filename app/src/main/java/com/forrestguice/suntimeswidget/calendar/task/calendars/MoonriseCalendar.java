@@ -39,8 +39,6 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgres
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter.createEventContentValues;
-
 @SuppressWarnings("Convert2Diamond")
 public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalendar
 {
@@ -112,7 +110,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                 title = moonStrings[i];
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
-                                eventValues.add(createEventContentValues(calendarID, title, desc, location[0], eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, title, desc, location[0], eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
                         }

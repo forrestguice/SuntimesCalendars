@@ -31,6 +31,9 @@ import java.util.Calendar;
 @TargetApi(14)
 public interface SuntimesCalendarAdapterInterface
 {
+    ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor);
+    ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time);
+
     void createCalendar(String calendarName, String calendarDisplayName, int calendarColor);
     boolean updateCalendarColor(String calendarName, int calendarColor);
     boolean removeCalendars();

@@ -32,9 +32,6 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -43,8 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TreeSet;
-
-import static com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter.createEventContentValues;
 
 /**
  * legacy task
@@ -317,7 +312,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
             eventEnd.setTimeInMillis(cursor.getLong(j));
             //eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
             eventDesc = context.getString(R.string.event_at_format, desc0, config_location_name);
-            values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+            values.add(adapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
 
         } else if (!cursor.isNull(i)) {
             eventStart.setTimeInMillis(cursor.getLong(i));
@@ -327,7 +322,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                     eventEnd.setTimeInMillis(cursor.getLong(l));
                     //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                     eventDesc = context.getString(R.string.event_at_format, desc1, config_location_name);
-                    values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+                    values.add(adapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
                 }
 
             } else {
@@ -338,12 +333,12 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                         eventEnd.setTimeInMillis(cursor.getLong(l));      // edge [i, +l] of [+k, +l, i, j]
                         //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                         eventDesc = context.getString(R.string.event_at_format, desc1, config_location_name);
-                        values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
+                        values.add(adapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart, eventEnd));
 
                     } else {                                              // fallback (start-only; end-only events are ignored)
                         //eventDesc = context.getString(R.string.event_at_format, desc_fallback, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                         eventDesc = context.getString(R.string.event_at_format, desc_fallback, config_location_name);
-                        values.add(createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart));
+                        values.add(adapter.createEventContentValues(calendarID, title, eventDesc, config_location_name, eventStart));
                     }
                     cursor.moveToPrevious();
                 }
@@ -618,7 +613,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                                 title = moonStrings[i];
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 desc = context.getString(R.string.event_at_format, moonStrings[i], config_location_name);
-                                eventValues.add(createEventContentValues(calendarID, title, desc, config_location_name, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, title, desc, config_location_name, eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
                         }
@@ -694,7 +689,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
                             }
                         }
                         cursor.moveToNext();
@@ -803,7 +798,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
                                 String desc = ((distance != -1) ? context.getString(R.string.event_distance_format, apsisStrings[i], formatDistanceString(distance)) : apsisStrings[i]);
-                                eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
                             cursor.moveToNext();
@@ -910,7 +905,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                                     : titleStrings[i];
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            eventValues.add(SuntimesCalendarAdapter.createEventContentValues(calendarID, titleStrings[i], desc, null, eventTime));
+                            eventValues.add(adapter.createEventContentValues(calendarID, titleStrings[i], desc, null, eventTime));
                         }
                         cursor.moveToNext();
                         c++;

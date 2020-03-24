@@ -59,7 +59,7 @@ public class SuntimesCalendarAdapter implements SuntimesCalendarAdapterInterface
     public void createCalendar(String calendarName, String calendarDisplayName, int calendarColor)
     {
         Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Calendars.CONTENT_URI);
-        ContentValues contentValues = SuntimesCalendarAdapter.createCalendarContentValues(calendarName, calendarDisplayName, calendarColor);
+        ContentValues contentValues = createCalendarContentValues(calendarName, calendarDisplayName, calendarColor);
         contentResolver.insert(uri, contentValues);
     }
 
@@ -131,7 +131,7 @@ public class SuntimesCalendarAdapter implements SuntimesCalendarAdapterInterface
      */
     public void createCalendarEvent(long calendarID, String title, String description, @Nullable String location, Calendar... time) throws SecurityException
     {
-        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, location, time);
+        ContentValues contentValues = createEventContentValues(calendarID, title, description, location, time);
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
     }
     public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException {
@@ -294,7 +294,7 @@ public class SuntimesCalendarAdapter implements SuntimesCalendarAdapterInterface
      * @param calendarColor
      * @return
      */
-    public static ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor)
+    public ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Calendars.ACCOUNT_NAME, SuntimesCalendarSyncAdapter.ACCOUNT_NAME);
@@ -325,7 +325,7 @@ public class SuntimesCalendarAdapter implements SuntimesCalendarAdapterInterface
      * @param time
      * @return
      */
-    public static ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
+    public ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);
