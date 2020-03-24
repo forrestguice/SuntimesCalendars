@@ -147,9 +147,12 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
             return false;
         }
     }
-    public String[] getLocation()
-    {
+    public String[] getLocation() {
         return new String[] { config_location_name, config_location_latitude, config_location_longitude, config_location_altitude };
+    }
+
+    public int getProviderVersion() {
+        return config_provider_version;
     }
 
     @Override
