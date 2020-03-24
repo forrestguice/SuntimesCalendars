@@ -719,7 +719,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onResume();
 
             android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
-            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)    // restore color dialog listeners
+            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore color dialog listeners
             {
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
@@ -764,7 +764,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             final Context context = getActivity();
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            for (final String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
+            for (final String calendar : SuntimesCalendarDescriptor.getCalendars(context))
             {
                 SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
                 if (descriptor == null) {
@@ -860,7 +860,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         Thread thread = new Thread( new Runnable() {
                             @Override
                             public void run() {
-                                SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver());
+                                SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
                                 adapter.updateCalendarColor(calendar, color);
                             }
                         });
@@ -902,12 +902,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             if (activity == null)
                 return;
 
-            SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver());
+            SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(activity));
             SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
 
             if (hasCalendarPermissions(activity))
             {
-                boolean calendarsEnabled0 = adapter.hasCalendars();
+                boolean calendarsEnabled0 = adapter.hasCalendars(activity);
                 boolean calendarsEnabled1 = calendarsEnabledPref.isChecked();
                 if (calendarsEnabled0 != calendarsEnabled1)
                 {
@@ -1307,7 +1307,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static void savePendingItems(Activity activity, Intent intent)
     {
         ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
-        for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+        for (String calendar : SuntimesCalendarDescriptor.getCalendars(activity)) {
             if (SuntimesCalendarSettings.loadPrefCalendarEnabled(activity, calendar)) {
                 items.add(new SuntimesCalendarTaskItem(calendar, SuntimesCalendarTaskItem.ACTION_UPDATE));
             }

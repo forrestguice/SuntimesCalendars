@@ -47,7 +47,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
     {
         super(context);
         contextRef = new WeakReference<Context>(context);
-        adapter = new SuntimesCalendarAdapter(context.getContentResolver());
+        adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
         calendarWindow0 = SuntimesCalendarSettings.loadPrefCalendarWindow0(context);
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
 
@@ -100,7 +100,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 
         if (flag_clear && !isCancelled()) {
             adapter.removeCalendars();
-            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+            for (String calendar : SuntimesCalendarDescriptor.getCalendars(contextRef.get())) {
                 SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
             }
         }

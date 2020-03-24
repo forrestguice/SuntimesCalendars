@@ -56,7 +56,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     public SuntimesCalendarTaskBase(Context context)
     {
         contextRef = new WeakReference<Context>(context);
-        adapter = new SuntimesCalendarAdapter(context.getContentResolver());
+        adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
         calendarWindow0 = SuntimesCalendarSettings.loadPrefCalendarWindow0(context);
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
         initDisplayStrings(context);

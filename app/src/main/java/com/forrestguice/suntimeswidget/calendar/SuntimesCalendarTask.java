@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
@@ -47,6 +48,8 @@ import static com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter.c
 public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
+
+    public static final String[] ALL_CALENDARS = new String[] {SuntimesCalendarAdapter.CALENDAR_SOLSTICE, SuntimesCalendarAdapter.CALENDAR_MOONPHASE, SuntimesCalendarAdapter.CALENDAR_MOONAPSIS, SuntimesCalendarAdapter.CALENDAR_MOONRISE, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL, SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO};
 
     public static final double THRESHHOLD_SUPERMOON = 360000;    // km
     public static final double THRESHHOLD_MICROMOON = 405000;    // km
@@ -70,7 +73,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
     {
         super(context);
         contextRef = new WeakReference<Context>(context);
-        adapter = new SuntimesCalendarAdapter(context.getContentResolver());
+        adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
         calendarWindow0 = SuntimesCalendarSettings.loadPrefCalendarWindow0(context);
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
 
@@ -185,7 +188,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 
         if (flag_clear && !isCancelled()) {
             adapter.removeCalendars();
-            for (String calendar : SuntimesCalendarAdapter.ALL_CALENDARS) {
+            for (String calendar : ALL_CALENDARS) {
                 SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
             }
         }

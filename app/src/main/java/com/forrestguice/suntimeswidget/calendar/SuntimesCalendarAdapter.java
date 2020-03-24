@@ -22,6 +22,7 @@ import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
@@ -45,13 +46,14 @@ public class SuntimesCalendarAdapter
     public static final String CALENDAR_MOONRISE = "moonriseCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
     public static final String CALENDAR_MOONAPSIS = "moonApsisCalendar";
-    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONAPSIS, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
 
     private ContentResolver contentResolver;
+    private String[] calendars = new String[0];
 
-    public SuntimesCalendarAdapter(ContentResolver contentResolver)
+    public SuntimesCalendarAdapter(ContentResolver contentResolver, String[] calendars)
     {
         this.contentResolver = contentResolver;
+        this.calendars = calendars;
     }
 
     /**
@@ -271,10 +273,10 @@ public class SuntimesCalendarAdapter
     /**
      * @return true if any calendars are being managed by the "Suntimes" local account, false no calendars exist.
      */
-    public boolean hasCalendars()
+    public boolean hasCalendars(Context context)
     {
         try {
-            for (String calendar : ALL_CALENDARS)
+            for (String calendar : calendars)
             {
                 Cursor cursor = queryCalendar(calendar);
                 if (cursor != null)
