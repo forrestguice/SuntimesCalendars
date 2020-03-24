@@ -51,6 +51,7 @@ import android.os.Parcelable;
 import android.preference.CheckBoxPreference;
 
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
@@ -73,6 +74,7 @@ import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
@@ -758,11 +760,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             initAboutDialog();
             initProgressDialog();
 
+            PreferenceCategory category = (PreferenceCategory) findPreference("app_calendars");
+
             final Context context = getActivity();
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             for (final String calendar : SuntimesCalendarAdapter.ALL_CALENDARS)
             {
-                SuntimesCalendarPreference calendarPref = (SuntimesCalendarPreference)findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
+                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
+                if (descriptor == null) {
+                    continue;
+                }
+                SuntimesCalendarPreference calendarPref = new SuntimesCalendarPreference(context);
+                calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
+                calendarPref.setTitle(descriptor.calendarTitle());
+                category.addPreference(calendarPref);
 
                 int calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
                 calendarPref.setNoteFormat(R.string.summarylist_format);
