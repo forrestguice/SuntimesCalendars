@@ -18,6 +18,13 @@
 
 package com.forrestguice.suntimeswidget.calendar.task.calendars;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+
+import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 import java.text.DecimalFormat;
@@ -36,5 +43,18 @@ public abstract class MoonCalendarBase extends SuntimesCalendarBase implements S
             distanceFormatter.setMaximumFractionDigits(2);
         }
         return distanceFormatter.format(distance);
+    }
+
+    protected double lookupMoonDistance(@NonNull Context context, @NonNull ContentResolver resolver, long dateMillis )
+    {
+        double retValue = -1;
+        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPOS  + "/" + dateMillis);
+        Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_MOONPOS_DISTANCE }, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            retValue = cursor.getDouble(0);
+            cursor.close();
+        }
+        return retValue;
     }
 }
