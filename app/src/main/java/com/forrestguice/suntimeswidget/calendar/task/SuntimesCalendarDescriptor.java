@@ -151,4 +151,20 @@ public class SuntimesCalendarDescriptor implements Comparable
         }
         return new HashMap<>(calendars);
     }
+
+    public static SuntimesCalendarDescriptor getDescriptor(Context context, String calendarName)
+    {
+        if (!initialized) {
+            initDescriptors(context);
+        }
+        return calendars.get(calendarName);
+    }
+
+    public static String[] getCalendars(Context context)
+    {
+        if (!initialized) {
+            initDescriptors(context);
+        }
+        return calendars.keySet().toArray(new String[0]);
+    }
 }
