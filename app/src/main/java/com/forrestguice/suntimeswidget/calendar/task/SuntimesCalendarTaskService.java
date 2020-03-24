@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar;
+package com.forrestguice.suntimeswidget.calendar.task;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -36,10 +36,8 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity;
+import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

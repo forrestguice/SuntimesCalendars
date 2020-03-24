@@ -32,11 +32,11 @@
         </activity>
 
         <!-- Error Dialog Activity (may be shown from notification service) -->
-        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarErrorActivity"
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
 
         <!-- Calendar Task Service -->
-        <service android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTaskService" android:exported="false" />
+        <service android:name="com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService" android:exported="false" />
 
         <!-- Calendar Provider -->
         <provider

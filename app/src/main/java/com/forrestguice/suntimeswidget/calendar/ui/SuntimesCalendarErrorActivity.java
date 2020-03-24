@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar;
+package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.app.Dialog;
 import android.content.ClipData;

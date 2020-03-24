@@ -78,6 +78,11 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
+import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
