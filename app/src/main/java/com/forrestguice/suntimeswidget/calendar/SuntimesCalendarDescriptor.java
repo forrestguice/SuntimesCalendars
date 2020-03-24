@@ -94,6 +94,12 @@ public class SuntimesCalendarDescriptor implements Comparable
         return this.calendarName().compareTo(otherDescriptor.calendarName());
     }
 
+    public SuntimesCalendar createCalendar(Context context)
+    {
+        SuntimesCalendarFactory factory = new SuntimesCalendarFactory();
+        return factory.createCalendar(context, this);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -39,8 +39,6 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
 
-    private HashMap<String, SuntimesCalendar> calendars = new HashMap<>();
-
     public SuntimesCalendarTask(Context context)
     {
         super(context);
@@ -48,18 +46,6 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
         calendarWindow0 = SuntimesCalendarSettings.loadPrefCalendarWindow0(context);
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
-
-        addCalendar(context, new SolsticeCalendar());
-        // TODO
-    }
-
-    protected void addCalendar(Context context, SuntimesCalendar calendar)
-    {
-        if (calendar != null)
-        {
-            calendar.init(context);
-            calendars.put(calendar.calendarName(), calendar);
-        }
     }
 
     private long[] getWindow()
@@ -117,7 +103,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             for (String calendarName : calendarSet)
             {
                 SuntimesCalendarTaskItem item = taskItems.get(calendarName);
-                SuntimesCalendar calendar = calendars.get(calendarName);
+                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(contextRef.get(), calendarName);
+                SuntimesCalendar calendar = descriptor.createCalendar(contextRef.get());
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
