@@ -55,7 +55,8 @@
         </service>
 
         <!-- Solstice Calendar Plugin -->
-        <activity android:name="com.forrestguice.suntimes.calendars.task.calendars.SolsticeCalendar">
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar"
+            android:permission="suntimes.permission.READ_CALCULATOR">
             <meta-data android:name="CalendarName" android:value="solsticeCalendar" />
             <meta-data android:name="CalendarTitle" android:value="Solstices, Equinoxes" />
             <meta-data android:name="CalendarSummary" android:value="" />

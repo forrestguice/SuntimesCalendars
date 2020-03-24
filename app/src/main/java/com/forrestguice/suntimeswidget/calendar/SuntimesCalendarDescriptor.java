@@ -20,9 +20,13 @@ package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
@@ -113,38 +117,67 @@ public class SuntimesCalendarDescriptor implements Comparable
     public static final String KEY_COLOR = "CalendarColor";
     public static final String KEY_REFERENCE = "CalendarReference";
 
+    public static final String REQUIRED_PERMISSION = "suntimes.permission.READ_CALCULATOR";
+
     protected static HashMap<String, SuntimesCalendarDescriptor> calendars = new HashMap<>();
     protected static boolean initialized = false;
 
     public static void initDescriptors(Context context)
     {
-        SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
-        solsticeCalendar.init(context);
-        SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
+        //SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
+        //solsticeCalendar.init(context);
+        //SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
 
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
         packageQuery.addCategory(CATEGORY_SUNTIMES_CALENDAR);
         List<ResolveInfo> packages = packageManager.queryIntentActivities(packageQuery, PackageManager.GET_META_DATA);
-        Log.i("initDescriptors", "Scanning for calculator plugins... found " + packages.size());
+        Log.i("initDescriptors", "Scanning for calendar plugins... found " + packages.size());
 
-        for (ResolveInfo packageInfo : packages)
+        for (ResolveInfo resolveInfo : packages)
         {
-            if (packageInfo.activityInfo != null && packageInfo.activityInfo.metaData != null)
+            if (resolveInfo.activityInfo != null && resolveInfo.activityInfo.metaData != null)
             {
-                String calendarName = packageInfo.activityInfo.metaData.getString(KEY_NAME);
-                String calendarTitle = packageInfo.activityInfo.metaData.getString(KEY_TITLE);
-                String calendarSummary = packageInfo.activityInfo.metaData.getString(KEY_SUMMARY);
-                int calendarColor = packageInfo.activityInfo.metaData.getInt(KEY_COLOR);
-                String calendarReference = packageInfo.activityInfo.metaData.getString(KEY_REFERENCE);
+                try {
+                    PackageInfo packageInfo = packageManager.getPackageInfo(resolveInfo.activityInfo.packageName, PackageManager.GET_PERMISSIONS);
+                    if (hasPermission(packageInfo, resolveInfo.activityInfo))
+                    {
+                        String calendarName = resolveInfo.activityInfo.metaData.getString(KEY_NAME);
+                        String calendarTitle = resolveInfo.activityInfo.metaData.getString(KEY_TITLE);
+                        String calendarSummary = resolveInfo.activityInfo.metaData.getString(KEY_SUMMARY);
+                        int calendarColor = resolveInfo.activityInfo.metaData.getInt(KEY_COLOR);
+                        String calendarReference = resolveInfo.activityInfo.metaData.getString(KEY_REFERENCE);
 
-                SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendarName, calendarTitle, calendarSummary, calendarColor, calendarReference);
-                descriptor.setIsPlugin(true);
-                SuntimesCalendarDescriptor.addValue(descriptor);
-                Log.i("initDescriptors", "..initialized plugin: " + descriptor.toString());
+                        SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendarName, calendarTitle, calendarSummary, calendarColor, calendarReference);
+                        descriptor.setIsPlugin(true);
+                        SuntimesCalendarDescriptor.addValue(descriptor);
+                        Log.i("initDescriptors", "..initialized plugin: " + descriptor.toString());
+
+                    } else {
+                        Log.w("initDescriptors", "Permission denied! " + packageInfo.packageName + " does not have required permissions.");
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    Log.e("initDescriptors", "Package not found! " + e);
+                }
             }
         }
         initialized = true;
+    }
+
+    private static boolean hasPermission(@NonNull PackageInfo packageInfo, @NonNull ActivityInfo activityInfo)
+    {
+        boolean hasPermission = false;
+        if (packageInfo.requestedPermissions != null && activityInfo.permission != null &&     // the package should request permission
+                activityInfo.permission.equals(REQUIRED_PERMISSION))                           // and activity should require permission
+        {
+            for (String permission : packageInfo.requestedPermissions) {
+                if (permission != null && permission.equals(REQUIRED_PERMISSION)) {
+                    hasPermission = true;
+                    break;
+                }
+            }
+        }
+        return hasPermission;
     }
 
     public static void addValue( SuntimesCalendarDescriptor calendar )
