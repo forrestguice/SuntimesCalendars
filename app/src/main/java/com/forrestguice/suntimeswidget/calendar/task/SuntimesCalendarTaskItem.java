@@ -21,8 +21,6 @@ package com.forrestguice.suntimeswidget.calendar.task;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTask;
-
 /**
  * SuntimesCalendarTaskItem
  */

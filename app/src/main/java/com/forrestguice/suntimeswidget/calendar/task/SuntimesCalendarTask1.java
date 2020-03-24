@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar;
+package com.forrestguice.suntimeswidget.calendar.task;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -29,6 +29,9 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
@@ -43,8 +46,11 @@ import java.util.TreeSet;
 
 import static com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter.createEventContentValues;
 
+/**
+ * legacy task
+ */
 @SuppressWarnings("Convert2Diamond")
-public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
+public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
 
@@ -68,7 +74,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
     private String s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT;
     private String s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_WHITE_NIGHT;
 
-    public SuntimesCalendarTask(Context context)
+    public SuntimesCalendarTask1(Context context)
     {
         super(context);
         contextRef = new WeakReference<Context>(context);
