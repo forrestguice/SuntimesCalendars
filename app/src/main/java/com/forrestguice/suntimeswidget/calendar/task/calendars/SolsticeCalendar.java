@@ -31,23 +31,23 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.WeakHashMap;
 
 @SuppressWarnings("Convert2Diamond")
 public class SolsticeCalendar implements SuntimesCalendar
 {
-    public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
-
     private WeakReference<Context> contextRef = null;
 
-    private String calendarName = CALENDAR_SOLSTICE;
+    private String calendarName = SuntimesCalendarDescriptor.CALENDAR_SOLSTICE;
     private String calendarTitle, calendarSummary, calendarDesc;
     private int calendarColor = Color.BLUE;
     private String lastError;
@@ -62,7 +62,7 @@ public class SolsticeCalendar implements SuntimesCalendar
         calendarTitle = context.getString(R.string.calendar_solstice_displayName);
         calendarSummary = null;
         calendarDesc = null;
-        calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, CALENDAR_SOLSTICE);
+        calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarDescriptor.CALENDAR_SOLSTICE);
 
         solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
         solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
@@ -71,7 +71,7 @@ public class SolsticeCalendar implements SuntimesCalendar
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -173,6 +173,10 @@ public class SolsticeCalendar implements SuntimesCalendar
     @Override
     public int calendarColor() {
         return calendarColor;
+    }
+
+    public SuntimesCalendarDescriptor getDescriptor() {
+        return new SuntimesCalendarDescriptor(calendarName, calendarTitle, calendarSummary, calendarColor, SolsticeCalendar.class.toString());
     }
 
 }

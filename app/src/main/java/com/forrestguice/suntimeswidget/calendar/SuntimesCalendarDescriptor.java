@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar.task;
+package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +24,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
 
 import java.util.HashMap;
 import java.util.List;
@@ -116,6 +118,10 @@ public class SuntimesCalendarDescriptor implements Comparable
 
     public static void initDescriptors(Context context)
     {
+        SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
+        solsticeCalendar.init(context);
+        SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
+
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
         packageQuery.addCategory(CATEGORY_SUNTIMES_CALENDAR);

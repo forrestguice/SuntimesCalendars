@@ -16,10 +16,12 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar.task;
+package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarFactory

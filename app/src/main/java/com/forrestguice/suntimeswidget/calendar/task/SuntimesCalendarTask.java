@@ -18,18 +18,16 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;

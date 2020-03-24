@@ -18,12 +18,20 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
-public class SuntimesCalendarTaskProgress
+import android.support.annotation.NonNull;
+
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+
+public class SuntimesCalendarTaskProgress implements SuntimesCalendarTaskProgressInterface
 {
     public SuntimesCalendarTaskProgress(int i, int n, String message)
     {
         setProgress(i, n, message);
     }
+    public SuntimesCalendarTaskProgress( @NonNull SuntimesCalendarTaskProgressInterface other) {
+        setProgress(other.itemNum(), other.getCount(), other.getMessage());
+    }
+
     public void setProgress(int i, int n, String message)
     {
         this.i = i;

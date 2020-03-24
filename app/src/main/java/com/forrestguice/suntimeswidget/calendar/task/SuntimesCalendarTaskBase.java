@@ -28,13 +28,17 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
 @SuppressWarnings("Convert2Diamond")
-public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean>
+public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean> implements SuntimesCalendarTaskInterface
 {
     protected SuntimesCalendarAdapter adapter;
     protected WeakReference<Context> contextRef;
@@ -212,8 +216,9 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         }
     }
 
-    public void publishProgress(SuntimesCalendarTaskProgress primary, SuntimesCalendarTaskProgress secondary) {
-        super.publishProgress(primary, secondary);
+    public void publishProgress(SuntimesCalendarTaskProgressInterface primary, SuntimesCalendarTaskProgressInterface secondary) {
+        super.publishProgress( primary != null ? new SuntimesCalendarTaskProgress(primary) : null,
+                               secondary != null ? new SuntimesCalendarTaskProgress(secondary) : null );
     }
 
     @Override

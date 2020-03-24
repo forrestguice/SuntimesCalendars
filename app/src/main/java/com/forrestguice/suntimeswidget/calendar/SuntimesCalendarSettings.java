@@ -25,7 +25,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarDescriptor;
 
 public class SuntimesCalendarSettings
 {

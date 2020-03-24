@@ -16,19 +16,18 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar.task;
+package com.forrestguice.suntimeswidget.calendar.intf;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
 {
     void init(@NonNull Context context);
-    boolean initCalendar(@NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task,
-                         @NonNull SuntimesCalendarTaskProgress progress0,
+    boolean initCalendar(@NonNull SuntimesCalendarAdapterInterface adapter,
+                         @NonNull SuntimesCalendarTaskInterface task,
+                         @NonNull SuntimesCalendarTaskProgressInterface progress0,
                          @NonNull long[] window);
 
     /**
