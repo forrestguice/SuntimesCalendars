@@ -43,9 +43,11 @@ import java.util.WeakHashMap;
 @SuppressWarnings("Convert2Diamond")
 public class SolsticeCalendar implements SuntimesCalendar
 {
+    public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
+
     private WeakReference<Context> contextRef = null;
 
-    private String calendarName = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
+    private String calendarName = CALENDAR_SOLSTICE;
     private String calendarTitle, calendarSummary, calendarDesc;
     private int calendarColor = Color.BLUE;
     private String lastError;
@@ -60,7 +62,7 @@ public class SolsticeCalendar implements SuntimesCalendar
         calendarTitle = context.getString(R.string.calendar_solstice_displayName);
         calendarSummary = null;
         calendarDesc = null;
-        calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, SuntimesCalendarAdapter.CALENDAR_SOLSTICE);
+        calendarColor = SuntimesCalendarSettings.loadPrefCalendarColor(context, CALENDAR_SOLSTICE);
 
         solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
         solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
