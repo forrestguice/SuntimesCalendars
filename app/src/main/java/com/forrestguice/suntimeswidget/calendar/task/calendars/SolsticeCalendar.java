@@ -43,21 +43,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
-public class SolsticeCalendar implements SuntimesCalendar
+public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCalendar
 {
-    private WeakReference<Context> contextRef = null;
-
-    private String calendarName = SuntimesCalendarDescriptor.CALENDAR_SOLSTICE;
-    private String calendarTitle, calendarSummary, calendarDesc;
-    private int calendarColor = Color.BLUE;
-    private String lastError;
-
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
+
+    @Override
+    public String calendarName() {
+        return SuntimesCalendarDescriptor.CALENDAR_SOLSTICE;
+    }
 
     @Override
     public void init(@NonNull Context context)
     {
-        contextRef = new WeakReference<>(context);
+        super.init(context);
 
         calendarTitle = context.getString(R.string.calendar_solstice_displayName);
         calendarSummary = null;
@@ -77,6 +75,7 @@ public class SolsticeCalendar implements SuntimesCalendar
             return false;
         }
 
+        String calendarName = calendarName();
         if (!adapter.hasCalendar(calendarName)) {
             adapter.createCalendar(calendarName, calendarTitle, calendarColor);
         } else return false;
@@ -143,40 +142,6 @@ public class SolsticeCalendar implements SuntimesCalendar
                 return false;
             }
         } else return false;
-    }
-
-    @Override
-    public String lastError() {
-        return lastError;
-    }
-
-    @Override
-    public String calendarName() {
-        return calendarName;
-    }
-
-    @Override
-    public String calendarTitle() {
-        return calendarTitle;
-    }
-
-    @Override
-    public String calendarSummary() {
-        return calendarSummary;
-    }
-
-    @Override
-    public String calendarDescription() {
-        return calendarDesc;
-    }
-
-    @Override
-    public int calendarColor() {
-        return calendarColor;
-    }
-
-    public SuntimesCalendarDescriptor getDescriptor() {
-        return new SuntimesCalendarDescriptor(calendarName, calendarTitle, calendarSummary, calendarColor, SolsticeCalendar.class.toString());
     }
 
 }
