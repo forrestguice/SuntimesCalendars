@@ -27,6 +27,10 @@ import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -126,9 +130,13 @@ public class SuntimesCalendarDescriptor implements Comparable
 
     public static void initDescriptors(Context context)
     {
-        //SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
-        //solsticeCalendar.init(context);
-        //SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
+        SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
+        solsticeCalendar.init(context);
+        SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
+
+        MoonriseCalendar moonriseCalendar = new MoonriseCalendar();
+        moonriseCalendar.init(context);
+        SuntimesCalendarDescriptor.addValue(moonriseCalendar.getDescriptor());
 
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
