@@ -22,6 +22,7 @@ public interface SuntimesCalendarTaskInterface
 {
     boolean isCancelled();
     void publishProgress(SuntimesCalendarTaskProgressInterface primary, SuntimesCalendarTaskProgressInterface secondary);
+    SuntimesCalendarTaskProgressInterface createProgressObj(int i, int n, String message);
     String[] getLocation();    // [title, lat, lon, altitude]
     int getProviderVersion();
 }

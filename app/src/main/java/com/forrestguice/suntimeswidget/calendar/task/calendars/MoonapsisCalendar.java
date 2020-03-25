@@ -34,7 +34,6 @@ import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInte
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,7 +100,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
             {
                 int c = 0;
                 int totalProgress = (int)Math.ceil(1.25 * (((window[1] - window[0]) / 1000d / 60d / 60d / 24d) / 27.554551d));
-                SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
+                SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
                 task.publishProgress(progress0, progress);
 
                 Calendar date = Calendar.getInstance();
@@ -121,7 +120,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         return false;
 
                     } else {
-                        progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
+                        progress = task.createProgressObj(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
 
                         ArrayList<ContentValues> eventValues = new ArrayList<>();

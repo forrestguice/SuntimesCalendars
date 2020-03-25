@@ -111,10 +111,6 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         return flag_clear;
     }
 
-    public int providerVersion() {
-        return config_provider_version;
-    }
-
     protected boolean initLocation()
     {
         Context context = contextRef.get();
@@ -235,6 +231,11 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         if (listener != null && context != null) {
             listener.onProgress(context, progress);
         }
+    }
+
+    @Override
+    public SuntimesCalendarTaskProgressInterface createProgressObj(int i, int n, String message) {
+        return new SuntimesCalendarTaskProgress(i, n, message);
     }
 
     protected SuntimesCalendarTaskListener listener;

@@ -29,8 +29,6 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
@@ -100,7 +98,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
 
                     int c = 0;
                     int totalProgress = cursor.getCount();
-                    SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, calendarTitle);
+                    SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();

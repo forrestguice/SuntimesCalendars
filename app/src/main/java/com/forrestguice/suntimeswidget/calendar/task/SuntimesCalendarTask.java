@@ -26,6 +26,7 @@ import android.util.Log;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
