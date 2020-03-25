@@ -31,6 +31,7 @@ import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro;
 
 import java.util.HashMap;
 import java.util.List;
@@ -118,22 +119,11 @@ public class SuntimesCalendarDescriptor implements Comparable
     public static void initDescriptors(Context context)
     {
         SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
-
-        SolsticeCalendar solsticeCalendar = new SolsticeCalendar();
-        solsticeCalendar.init(context, settings);
-        SuntimesCalendarDescriptor.addValue(solsticeCalendar.getDescriptor());
-
-        MoonriseCalendar moonriseCalendar = new MoonriseCalendar();
-        moonriseCalendar.init(context, settings);
-        SuntimesCalendarDescriptor.addValue(moonriseCalendar.getDescriptor());
-
-        MoonphaseCalendar moonphaseCalendar = new MoonphaseCalendar();
-        moonphaseCalendar.init(context, settings);
-        SuntimesCalendarDescriptor.addValue(moonphaseCalendar.getDescriptor());
-
-        MoonapsisCalendar moonapsisCalendar = new MoonapsisCalendar();
-        moonapsisCalendar.init(context, settings);
-        SuntimesCalendarDescriptor.addValue(moonapsisCalendar.getDescriptor());
+        SuntimesCalendarDescriptor.addValue(SolsticeCalendar.getDescriptor(context, settings));
+        SuntimesCalendarDescriptor.addValue(MoonriseCalendar.getDescriptor(context, settings));
+        SuntimesCalendarDescriptor.addValue(MoonphaseCalendar.getDescriptor(context, settings));
+        SuntimesCalendarDescriptor.addValue(MoonapsisCalendar.getDescriptor(context, settings));
+        SuntimesCalendarDescriptor.addValue(TwilightCalendarAstro.getDescriptor(context, settings));
 
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins

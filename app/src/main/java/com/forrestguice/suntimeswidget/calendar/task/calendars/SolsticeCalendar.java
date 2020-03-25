@@ -29,6 +29,7 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
@@ -41,11 +42,21 @@ import java.util.Calendar;
 @SuppressWarnings("Convert2Diamond")
 public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCalendar
 {
+    private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE;
+    private static final int resID_calendarTitle = R.string.calendar_solstice_displayName;
+    private static final int resID_calendarSummary = R.string.calendar_solstice_summary;
+
+    public static SuntimesCalendarDescriptor getDescriptor(Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    {
+        return new SuntimesCalendarDescriptor( CALENDAR_NAME, context.getString(resID_calendarTitle), context.getString(resID_calendarSummary),
+                settings.loadPrefCalendarColor(context, CALENDAR_NAME), SolsticeCalendar.class.getName() );
+    }
+
     private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
 
     @Override
     public String calendarName() {
-        return SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE;
+        return CALENDAR_NAME;
     }
 
     @Override
@@ -53,8 +64,8 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     {
         super.init(context, settings);
 
-        calendarTitle = context.getString(R.string.calendar_solstice_displayName);
-        calendarSummary = null;
+        calendarTitle = context.getString(resID_calendarTitle);
+        calendarSummary = context.getString(resID_calendarSummary);
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 

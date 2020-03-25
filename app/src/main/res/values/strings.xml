@@ -42,6 +42,7 @@
     <string name="configLabel_calendars">Suntimes Calendars</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
+    <string name="calendar_solstice_summary" />
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
     <string name="calendar_moonPhase_summary">Synodic month</string>
     <string name="calendar_moonApsis_displayName">Moon Apsis</string>
