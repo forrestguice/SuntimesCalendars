@@ -27,7 +27,6 @@ import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
@@ -98,12 +97,6 @@ public class SuntimesCalendarDescriptor implements Comparable
     public int compareTo(@NonNull Object other) {
         SuntimesCalendarDescriptor otherDescriptor = (SuntimesCalendarDescriptor)other;
         return this.calendarName().compareTo(otherDescriptor.calendarName());
-    }
-
-    public SuntimesCalendar createCalendar(Context context)
-    {
-        SuntimesCalendarFactory factory = new SuntimesCalendarFactory();
-        return factory.createCalendar(context, this);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

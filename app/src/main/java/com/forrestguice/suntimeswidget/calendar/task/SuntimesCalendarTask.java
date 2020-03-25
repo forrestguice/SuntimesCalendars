@@ -25,6 +25,7 @@ import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
@@ -101,11 +102,12 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             int c = 0;
             int n = taskItems.size();
             TreeSet<String> calendarSet = new TreeSet<>(taskItems.keySet());
+            SuntimesCalendarFactory factory = new SuntimesCalendarFactory();
             for (String calendarName : calendarSet)
             {
                 SuntimesCalendarTaskItem item = taskItems.get(calendarName);
                 SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(contextRef.get(), calendarName);
-                SuntimesCalendar calendar = descriptor.createCalendar(contextRef.get());
+                SuntimesCalendar calendar = factory.createCalendar(contextRef.get(), descriptor);
                 switch (item.getAction())
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
