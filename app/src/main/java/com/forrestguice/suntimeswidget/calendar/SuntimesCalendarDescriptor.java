@@ -32,6 +32,7 @@ import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar
 import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical;
 
 import java.util.HashMap;
 import java.util.List;
@@ -124,6 +125,7 @@ public class SuntimesCalendarDescriptor implements Comparable
         SuntimesCalendarDescriptor.addValue(MoonphaseCalendar.getDescriptor(context, settings));
         SuntimesCalendarDescriptor.addValue(MoonapsisCalendar.getDescriptor(context, settings));
         SuntimesCalendarDescriptor.addValue(TwilightCalendarAstro.getDescriptor(context, settings));
+        SuntimesCalendarDescriptor.addValue(TwilightCalendarNautical.getDescriptor(context, settings));
 
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
