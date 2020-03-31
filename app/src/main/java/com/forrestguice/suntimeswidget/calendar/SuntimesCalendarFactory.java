@@ -19,9 +19,9 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 @SuppressWarnings("Convert2Diamond")
