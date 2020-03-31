@@ -219,4 +219,7 @@
     <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
     <string name="def_calendars_calendar_moonapsis" translatable="false">false</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
+
+    <string name="calendar_solunar_displayName">Solunar Periods</string>
+    <string name="calendar_solunar_summary" />
 </resources>
