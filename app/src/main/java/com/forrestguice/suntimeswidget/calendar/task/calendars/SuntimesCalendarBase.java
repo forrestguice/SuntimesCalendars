@@ -40,7 +40,6 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         contextRef = new WeakReference<>(context);
     }
 
-
     @Override
     public String lastError() {
         return lastError;
@@ -60,16 +59,8 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     }
 
     @Override
-    public String calendarDescription() {
-        return calendarDesc;
-    }
-
-    @Override
     public int calendarColor() {
         return calendarColor;
     }
 
-    public SuntimesCalendarDescriptor getDescriptor() {
-        return new SuntimesCalendarDescriptor(calendarName(), calendarTitle, calendarSummary, calendarColor, getClass().getName());
-    }
 }

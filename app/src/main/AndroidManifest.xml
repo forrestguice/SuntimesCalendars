@@ -29,6 +29,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="suntimes.action.ADD_CALENDAR" />
+                <category android:name="suntimes.SUNTIMES_CALENDAR" />
+            </intent-filter>
+            <meta-data android:name="SuntimesCalendarReference"
+                android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarCivil |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar" />
         </activity>
 
         <!-- Error Dialog Activity (may be shown from notification service) -->
@@ -53,20 +66,6 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
-
-        <!-- Solstice Calendar Plugin -->
-        <activity android:name="com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar"
-            android:permission="suntimes.permission.READ_CALCULATOR">
-            <meta-data android:name="CalendarName" android:value="solsticeCalendar" />
-            <meta-data android:name="CalendarTitle" android:value="Solstices, Equinoxes" />
-            <meta-data android:name="CalendarSummary" android:value="" />
-            <meta-data android:name="CalendarColor" android:value="0" />
-            <meta-data android:name="CalendarReference" android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar" />
-            <intent-filter>
-                <action android:name="android.intent.action.RUN" />
-                <category android:name="com.forrestguice.suntimeswidget.SUNTIMES_CALENDAR" />
-            </intent-filter>
-        </activity>
 
     </application>
 

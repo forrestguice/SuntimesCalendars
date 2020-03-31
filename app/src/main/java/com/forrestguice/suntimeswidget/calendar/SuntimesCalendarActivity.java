@@ -770,12 +770,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             final Context context = getActivity();
             calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
-            for (final String calendar : SuntimesCalendarDescriptor.getCalendars(context))
+            for (final SuntimesCalendarDescriptor descriptor : SuntimesCalendarDescriptor.getDescriptors(context))
             {
-                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
                 if (descriptor == null) {
                     continue;
                 }
+                final String calendar = descriptor.calendarName();
                 SuntimesCalendarPreference calendarPref = new SuntimesCalendarPreference(context);
                 calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPref.setTitle(descriptor.calendarTitle());

@@ -27,27 +27,24 @@ import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarCivil;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical;
+import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarDescriptor implements Comparable
 {
-    public SuntimesCalendarDescriptor(String name, String title, String summary, int color, String classRef)
+    public SuntimesCalendarDescriptor(String name, String title, String summary, int color, int priority, String classRef)
     {
         calendarName = name;
         calendarTitle = title;
         calendarSummary = summary;
         calendarColor = color;
         calendarRef = classRef;
+        this.priority = priority;
     }
 
     protected String calendarRef;
@@ -75,14 +72,9 @@ public class SuntimesCalendarDescriptor implements Comparable
         return calendarColor;
     }
 
-    protected boolean isPlugin = false;
-    public boolean isPlugin()
-    {
-        return isPlugin;
-    }
-    public void setIsPlugin( boolean value )
-    {
-        isPlugin = value;
+    protected int priority;
+    public int getPriority() {
+        return priority;
     }
 
     @Override
@@ -97,22 +89,19 @@ public class SuntimesCalendarDescriptor implements Comparable
     }
 
     @Override
-    public int compareTo(@NonNull Object other) {
-        SuntimesCalendarDescriptor otherDescriptor = (SuntimesCalendarDescriptor)other;
-        return this.calendarName().compareTo(otherDescriptor.calendarName());
+    public int compareTo(@NonNull Object other)
+    {
+        SuntimesCalendarDescriptor otherDescriptor = (SuntimesCalendarDescriptor) other;
+        //noinspection UseCompareMethod
+        return Integer.valueOf(this.getPriority()).compareTo(otherDescriptor.getPriority());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static final String CATEGORY_SUNTIMES_CALENDAR = "com.forrestguice.suntimeswidget.SUNTIMES_CALENDAR";
-
-    public static final String KEY_NAME = "CalendarName";
-    public static final String KEY_TITLE = "CalendarTitle";
-    public static final String KEY_SUMMARY = "CalendarSummary";
-    public static final String KEY_COLOR = "CalendarColor";
-    public static final String KEY_REFERENCE = "CalendarReference";
-
+    public static final String ACTION_SUNTIMES_CALENDAR = "suntimes.action.ADD_CALENDAR";
+    public static final String CATEGORY_SUNTIMES_CALENDAR = "suntimes.SUNTIMES_CALENDAR";
+    public static final String KEY_REFERENCE = "SuntimesCalendarReference";
     public static final String REQUIRED_PERMISSION = "suntimes.permission.READ_CALCULATOR";
 
     protected static HashMap<String, SuntimesCalendarDescriptor> calendars = new HashMap<>();
@@ -120,21 +109,13 @@ public class SuntimesCalendarDescriptor implements Comparable
 
     public static void initDescriptors(Context context)
     {
-        SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
-        SuntimesCalendarDescriptor.addValue(SolsticeCalendar.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(MoonriseCalendar.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(MoonphaseCalendar.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(MoonapsisCalendar.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(TwilightCalendarAstro.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(TwilightCalendarNautical.getDescriptor(context, settings));
-        SuntimesCalendarDescriptor.addValue(TwilightCalendarCivil.getDescriptor(context, settings));
-
         PackageManager packageManager = context.getPackageManager();
-        Intent packageQuery = new Intent(Intent.ACTION_RUN);    // get a list of installed plugins
+        Intent packageQuery = new Intent(ACTION_SUNTIMES_CALENDAR);
         packageQuery.addCategory(CATEGORY_SUNTIMES_CALENDAR);
         List<ResolveInfo> packages = packageManager.queryIntentActivities(packageQuery, PackageManager.GET_META_DATA);
-        Log.i("initDescriptors", "Scanning for calendar plugins... found " + packages.size());
+        Log.i("initDescriptors", "Scanning for SuntimesCalendar references... found " + packages.size());
 
+        SuntimesCalendarFactory factory = new SuntimesCalendarFactory();
         for (ResolveInfo resolveInfo : packages)
         {
             if (resolveInfo.activityInfo != null && resolveInfo.activityInfo.metaData != null)
@@ -143,16 +124,18 @@ public class SuntimesCalendarDescriptor implements Comparable
                     PackageInfo packageInfo = packageManager.getPackageInfo(resolveInfo.activityInfo.packageName, PackageManager.GET_PERMISSIONS);
                     if (hasPermission(packageInfo, resolveInfo.activityInfo))
                     {
-                        String calendarName = resolveInfo.activityInfo.metaData.getString(KEY_NAME);
-                        String calendarTitle = resolveInfo.activityInfo.metaData.getString(KEY_TITLE);
-                        String calendarSummary = resolveInfo.activityInfo.metaData.getString(KEY_SUMMARY);
-                        int calendarColor = resolveInfo.activityInfo.metaData.getInt(KEY_COLOR);
-                        String calendarReference = resolveInfo.activityInfo.metaData.getString(KEY_REFERENCE);
-
-                        SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendarName, calendarTitle, calendarSummary, calendarColor, calendarReference);
-                        descriptor.setIsPlugin(true);
-                        SuntimesCalendarDescriptor.addValue(descriptor);
-                        Log.i("initDescriptors", "..initialized plugin: " + descriptor.toString());
+                        String metaData = resolveInfo.activityInfo.metaData.getString(KEY_REFERENCE);
+                        String[] references = ((metaData != null) ? metaData.replace(" ","").split("\\|") : new String[0]);
+                        for (int i=0; i<references.length; i++)
+                        {
+                            SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
+                            if (calendar != null)
+                            {
+                                SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), i, references[i]);
+                                SuntimesCalendarDescriptor.addValue(descriptor);
+                                Log.i("initDescriptors", "..added " + descriptor.toString());
+                            }
+                        }
 
                     } else {
                         Log.w("initDescriptors", "Permission denied! " + packageInfo.packageName + " does not have required permissions.");
@@ -168,8 +151,7 @@ public class SuntimesCalendarDescriptor implements Comparable
     private static boolean hasPermission(@NonNull PackageInfo packageInfo, @NonNull ActivityInfo activityInfo)
     {
         boolean hasPermission = false;
-        if (packageInfo.requestedPermissions != null && activityInfo.permission != null &&     // the package should request permission
-                activityInfo.permission.equals(REQUIRED_PERMISSION))                           // and activity should require permission
+        if (packageInfo.requestedPermissions != null)
         {
             for (String permission : packageInfo.requestedPermissions) {
                 if (permission != null && permission.equals(REQUIRED_PERMISSION)) {
@@ -206,6 +188,16 @@ public class SuntimesCalendarDescriptor implements Comparable
             initDescriptors(context);
         }
         return calendars.get(calendarName);
+    }
+
+    public static SuntimesCalendarDescriptor[] getDescriptors(Context context)
+    {
+        if (!initialized) {
+            initDescriptors(context);
+        }
+        ArrayList<SuntimesCalendarDescriptor> descriptors = new ArrayList<>(calendars.values());
+        Collections.sort(descriptors);
+        return descriptors.toArray(new SuntimesCalendarDescriptor[0]);
     }
 
     public static String[] getCalendars(Context context)

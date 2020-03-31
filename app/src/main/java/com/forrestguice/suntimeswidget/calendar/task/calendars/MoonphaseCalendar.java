@@ -30,7 +30,6 @@ import com.forrestguice.suntimescalendars.R;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
@@ -46,12 +45,6 @@ public class MoonphaseCalendar extends MoonCalendarBase implements SuntimesCalen
     private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_MOONPHASE;
     private static final int resID_calendarTitle = R.string.calendar_moonPhase_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonPhase_summary;
-
-    public static SuntimesCalendarDescriptor getDescriptor(Context context, @NonNull SuntimesCalendarSettingsInterface settings)
-    {
-        return new SuntimesCalendarDescriptor( CALENDAR_NAME, context.getString(resID_calendarTitle), context.getString(resID_calendarSummary),
-                settings.loadPrefCalendarColor(context, CALENDAR_NAME), MoonphaseCalendar.class.getName() );
-    }
 
     public static final double THRESHHOLD_SUPERMOON = 360000;    // km
     public static final double THRESHHOLD_MICROMOON = 405000;    // km

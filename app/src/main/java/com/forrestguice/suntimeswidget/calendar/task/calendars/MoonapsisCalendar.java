@@ -29,7 +29,6 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
@@ -45,12 +44,6 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_MOONAPSIS;
     private static final int resID_calendarTitle = R.string.calendar_moonApsis_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonApsis_summary;
-
-    public static SuntimesCalendarDescriptor getDescriptor(Context context, @NonNull SuntimesCalendarSettingsInterface settings)
-    {
-        return new SuntimesCalendarDescriptor( CALENDAR_NAME, context.getString(resID_calendarTitle), context.getString(resID_calendarSummary),
-                settings.loadPrefCalendarColor(context, CALENDAR_NAME), MoonapsisCalendar.class.getName() );
-    }
 
     private String[] apsisStrings = new String[2];    // {apogee, perigee}
 

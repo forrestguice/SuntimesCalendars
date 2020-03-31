@@ -27,21 +27,27 @@ import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarFactory
 {
-    public SuntimesCalendar createCalendar(Context context, SuntimesCalendarDescriptor descriptor)
+    public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor) {
+        return createCalendar(context, descriptor.calendarRef());
+    }
+    public SuntimesCalendar createCalendar(Context context, String classRef)
     {
         SuntimesCalendar calendar = null;
-        Class calendarClass = null;
-        try {
-            calendarClass = Class.forName(descriptor.calendarRef());
-            calendar = (SuntimesCalendar) calendarClass.newInstance();
-            calendar.init(context, new SuntimesCalendarSettings());
+        if (classRef != null)
+        {
+            Class calendarClass = null;
+            try {
+                calendarClass = Class.forName(classRef);
+                calendar = (SuntimesCalendar) calendarClass.newInstance();
+                calendar.init(context, new SuntimesCalendarSettings());
 
-        } catch (ClassNotFoundException e) {
-            Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
-        } catch (IllegalAccessException e) {
-            Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
-        } catch (InstantiationException e) {
-            Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+            } catch (ClassNotFoundException e) {
+                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+            } catch (IllegalAccessException e) {
+                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+            } catch (InstantiationException e) {
+                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+            }
         }
         return calendar;
     }
