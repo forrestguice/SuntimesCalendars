@@ -28,6 +28,9 @@ import android.support.annotation.Nullable;
 
 import java.util.Calendar;
 
+/**
+ * @version 0.1.0
+ */
 @TargetApi(14)
 public interface SuntimesCalendarAdapterInterface
 {

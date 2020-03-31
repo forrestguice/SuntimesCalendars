@@ -21,6 +21,9 @@ package com.forrestguice.suntimeswidget.calendar.intf;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+/**
+ * @version 0.1.0
+ */
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
 {
@@ -50,11 +53,6 @@ public interface SuntimesCalendar
      * @return one-line display summary / subtitle
      */
     String calendarSummary();
-
-    /**
-     * @return a longer descriptive summary
-     */
-    String calendarDescription();
 
     /**
      * @return display color

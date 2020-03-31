@@ -18,6 +18,9 @@
 
 package com.forrestguice.suntimeswidget.calendar.intf;
 
+/**
+ * @version 0.1.0
+ */
 public interface SuntimesCalendarTaskProgressInterface
 {
     void setProgress(int i, int n, String message);

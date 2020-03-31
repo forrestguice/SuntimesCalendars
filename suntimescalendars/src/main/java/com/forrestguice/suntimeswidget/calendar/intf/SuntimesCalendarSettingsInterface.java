@@ -20,6 +20,9 @@ package com.forrestguice.suntimeswidget.calendar.intf;
 
 import android.content.Context;
 
+/**
+ * @version 0.1.0
+ */
 public interface SuntimesCalendarSettingsInterface
 {
     public static final String PREF_KEY_CALENDARS_ENABLED = "app_calendars_enabled";
