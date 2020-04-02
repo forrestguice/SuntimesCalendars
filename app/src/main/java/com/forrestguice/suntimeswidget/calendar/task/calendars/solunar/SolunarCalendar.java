@@ -99,115 +99,25 @@ public class SolunarCalendar implements SuntimesCalendar
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                Calendar startDate = Calendar.getInstance();
-                startDate.setTimeInMillis(window[0]);
+                int c = 0;
+                int totalProgress = (int)(((window[1] - window[0]) / CHUNK_MILLIS) * CHUNK_DAYS);
+                task.publishProgress(progress0, task.createProgressObj(0, totalProgress, calendarTitle));
+                SuntimesCalendarTaskParams params = new SuntimesCalendarTaskParams(settings, adapter, task, progress0, calendarID, window);
 
-                Calendar endDate = Calendar.getInstance();
-                endDate.setTimeInMillis(window[1]);
-
-                /**
-                 * COLUMN_SOLUNAR_DATE,
-                 * COLUMN_SOLUNAR_RATING,
-                        COLUMN_SOLUNAR_SUNRISE, COLUMN_SOLUNAR_SUNSET,
-                        COLUMN_SOLUNAR_MOON_ILLUMINATION, COLUMN_SOLUNAR_MOON_PHASE,
-                        COLUMN_SOLUNAR_PERIOD_MOONRISE, COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP,
-                        COLUMN_SOLUNAR_PERIOD_MOONSET, COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP,
-                        COLUMN_SOLUNAR_PERIOD_MOONNOON, COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP,
-                        COLUMN_SOLUNAR_PERIOD_MOONNIGHT, COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP,
-                        COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH, COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH,
-                        COLUMN_SOLUNAR_LOCATION, COLUMN_SOLUNAR_LATITUDE, COLUMN_SOLUNAR_LONGITUDE, COLUMN_SOLUNAR_ALTITUDE, COLUMN_SOLUNAR_TIMEZONE
-                 */
-
-                Uri uri = Uri.parse("content://" + SolunarProviderContract.AUTHORITY + "/" + SolunarProviderContract.QUERY_SOLUNAR + "/" + window[0] + "-" + window[1]);
-                String[] projection = SolunarProviderContract.QUERY_SOLUNAR_PROJECTION;
-                Cursor cursor = resolver.query(uri, projection, null, null, null);
-                if (cursor != null)
+                long start = window[0];
+                for (long i = window[0]; i < window[1]; i += DAY_MILLIS)
                 {
-                    cursor.moveToFirst();
-
-                    int c = 0;
-                    int totalProgress = cursor.getCount();
-                    SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
-                    task.publishProgress(progress0, progress);
-
-                    ArrayList<ContentValues> eventValues = new ArrayList<>();
-                    while (!cursor.isAfterLast() && !task.isCancelled())
+                    if ((i - start) > CHUNK_MILLIS)
                     {
-                        long minorLength = cursor.getLong(cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH));
-                        long majorLength = cursor.getLong(cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH));
-                        double dayRating = cursor.getDouble(cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_RATING));
-                        String moonPhase = cursor.getString(cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE));
-                        double moonIllum = cursor.getDouble(cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION));
-
-                        int[] i_minor = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET) };
-                        int[] i_minor_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP) };
-                        String[] minorTitles = {"Moonrise", "Moonset"};  // TODO: i18n
-                        for (int j=0; j<i_minor.length; j++)
-                        {
-                            int i = i_minor[j];
-                            if (i != -1 && !cursor.isNull(i))
-                            {
-                                Calendar eventStart = Calendar.getInstance();
-                                Calendar eventEnd = Calendar.getInstance();
-                                eventStart.setTimeInMillis(cursor.getLong(i));
-                                eventEnd.setTimeInMillis(eventStart.getTimeInMillis() + minorLength);
-
-                                String title = minorTitles[j];
-                                String desc = "Minor Period" + "\n" + moonPhase + " (" + dayRating + ")";  // TODO: i18n, formatting
-                                int overlap = cursor.getInt(i_minor_overlap[j]);
-                                if (overlap == 1) {
-                                    desc += "\n" + "Close to Sunrise.";  // TODO
-                                } else if (overlap == 2) {
-                                    desc += "\n" + "Close to Sunset.";  // TODO
-                                }
-                                eventValues.add(adapter.createEventContentValues(calendarID, title, desc, task.getLocation()[0], eventStart, eventEnd));
-                            }
+                        if (!readCursor(params, queryCursor(resolver, new long[] {start, i}), c, totalProgress)) {
+                            return false;
                         }
-
-                        int[] i_major = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT) };
-                        int[] i_major_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP) };
-                        String[] majorTitles = {"Lunar Noon", "Lunar Midnight"};  // TODO: i18n
-                        for (int j=0; j<i_major.length; j++)
-                        {
-                            int i = i_major[j];
-                            if (i != -1 && !cursor.isNull(i))
-                            {
-                                Calendar eventStart = Calendar.getInstance();
-                                Calendar eventEnd = Calendar.getInstance();
-                                eventStart.setTimeInMillis(cursor.getLong(i));
-                                eventEnd.setTimeInMillis(eventStart.getTimeInMillis() + majorLength);
-
-                                String title = majorTitles[j];
-                                String desc = "Major Period" + "\n" + dayRating;  // TODO: i18n, formatting
-                                int overlap = cursor.getInt(i_major_overlap[j]);
-                                if (overlap == 1) {
-                                    desc += "\n" + "Close to Sunrise.";  // TODO
-                                } else if (overlap == 2) {
-                                    desc += "\n" + "Close to Sunset.";  // TODO
-                                }
-                                eventValues.add(adapter.createEventContentValues(calendarID, title, desc, task.getLocation()[0], eventStart, eventEnd));
-                            }
-                        }
-
-                        cursor.moveToNext();
-                        c++;
-
-                        if (c % 128 == 0 || cursor.isLast())
-                        {
-                            adapter.createCalendarEvents(eventValues.toArray(new ContentValues[0]));
-                            eventValues.clear();
-                        }
-                        progress.setProgress(c, totalProgress, calendarTitle);
-                        task.publishProgress(progress0, progress);
+                        c += CHUNK_DAYS;
+                        start = i;
                     }
-                    cursor.close();
-                    return !task.isCancelled();
-
-                } else {
-                    lastError = "Failed to resolve URI! " + uri;
-                    Log.e(getClass().getSimpleName(), lastError);
-                    return false;
                 }
+                return true;
+
             } else {
                 lastError = "Unable to getContentResolver! ";
                 Log.e(getClass().getSimpleName(), lastError);
@@ -216,10 +126,135 @@ public class SolunarCalendar implements SuntimesCalendar
         } else return false;
     }
 
+    public static final long DAY_MILLIS = 24 * 60 * 60 * 1000;
+    public static final int CHUNK_DAYS = 7;
+    public static final long CHUNK_MILLIS = CHUNK_DAYS * DAY_MILLIS;
+
+    /**
+     * queryCursor
+     */
+    private Cursor queryCursor(ContentResolver resolver, long[] window)
+    {
+        Uri uri = Uri.parse("content://" + SolunarProviderContract.AUTHORITY + "/" + SolunarProviderContract.QUERY_SOLUNAR + "/" + window[0] + "-" + window[1]);
+        String[] projection = SolunarProviderContract.QUERY_SOLUNAR_PROJECTION;
+        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        if (cursor == null) {
+            lastError = "Failed to resolve URI! " + uri;
+            Log.e(getClass().getSimpleName(), lastError);
+        }
+        return cursor;
+    }
+
+    /**
+     * readCursor
+     */
+    private boolean readCursor(SuntimesCalendarTaskParams params, Cursor cursor, int c, int totalProgress)
+    {
+        if (cursor == null) {
+            return false;
+        }
+        cursor.moveToFirst();
+
+        //int c = 0;
+        //int totalProgress = cursor.getCount();
+        SuntimesCalendarTaskProgressInterface progress = params.task.createProgressObj(c, totalProgress, calendarTitle);
+        params.task.publishProgress(params.progress, progress);
+
+        String[] minorTitles = {"Minor Period", "Minor Period"};  // TODO: i18n
+        String[] minorDesc = {"Moonrise" + "\n %s (%s)%s", "Moonrise" + "\n %s (%s)"};
+        int[] i_minor = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET) };
+        int[] i_minor_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP) };
+
+        String[] majorTitles = {"Major Period", "Major Period"};  // TODO: i18n
+        String[] majorDesc = {"Lunar Noon" + "\n %s (%s)%s", "Lunar Midnight" + "\n %s (%s)"};
+        int[] i_major = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT) };
+        int[] i_major_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP) };
+        String[] overlap = {"", "\nNear Sunrise", "\nNear Sunset"};
+
+        int i_minor_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH);
+        int i_major_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH);
+        int i_dayRating = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_RATING);
+        int i_moonPhase = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE);
+        int i_moonIllum = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION);
+
+        ArrayList<ContentValues> eventValues = new ArrayList<>();
+        while (!cursor.isAfterLast() && !params.task.isCancelled())
+        {
+            double dayRating = cursor.getDouble(i_dayRating);
+            String moonPhase = cursor.getString(i_moonPhase);
+            //double moonIllum = cursor.getDouble(i_moonIllum);
+
+            for (int i=0; i<2; i++) {
+                minorDesc[i] = String.format(minorDesc[i], moonPhase, dayRating, overlap[i]);
+                majorDesc[i] = String.format(majorDesc[i], moonPhase, dayRating, overlap[i]);
+            }
+
+            addPeriods(params, eventValues, cursor, i_minor, minorTitles, minorDesc, cursor.getLong(i_minor_length));
+            addPeriods(params, eventValues, cursor, i_major, majorTitles, majorDesc, cursor.getLong(i_major_length));
+            cursor.moveToNext();
+            c++;
+
+            if (c % 128 == 0 || cursor.isLast())
+            {
+                params.adapter.createCalendarEvents(eventValues.toArray(new ContentValues[0]));
+                eventValues.clear();
+            }
+            progress.setProgress(c, totalProgress, calendarTitle);
+            params.task.publishProgress(params.progress, progress);
+        }
+        cursor.close();
+        return !params.task.isCancelled();
+    }
+
+    /**
+     * addPeriods
+     */
+    private void addPeriods( @NonNull SuntimesCalendarTaskParams params, @NonNull ArrayList<ContentValues> eventValues, @NonNull Cursor cursor,
+                             int[] index, String[] titles, String[] desc, long periodLength )
+    {
+        for (int j=0; j<index.length; j++)
+        {
+            int i = index[j];
+            if (i != -1 && !cursor.isNull(i))
+            {
+                Calendar eventStart = Calendar.getInstance();
+                Calendar eventEnd = Calendar.getInstance();
+                eventStart.setTimeInMillis(cursor.getLong(i));
+                eventEnd.setTimeInMillis(eventStart.getTimeInMillis() + periodLength);
+                eventValues.add(params.adapter.createEventContentValues(params.calendarID, titles[j], desc[j], params.task.getLocation()[0], eventStart, eventEnd));
+            }
+        }
+    }
+
     @Override
     public String lastError() {
         return lastError;
     }
     private String lastError;
+
+    /**
+     * SuntimesCalendarTaskParams
+     */
+    public static class SuntimesCalendarTaskParams
+    {
+        public SuntimesCalendarSettingsInterface settings;
+        public SuntimesCalendarAdapterInterface adapter;
+        public SuntimesCalendarTaskInterface task;
+        public SuntimesCalendarTaskProgressInterface progress;
+        public long calendarID;
+        public long[] window;
+
+        public SuntimesCalendarTaskParams(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter,
+                                          @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress,
+                                          long calendarID, @NonNull long[] window)
+        {
+            this.settings = settings;
+            this.adapter = adapter;
+            this.task = task;
+            this.progress = progress;
+            this.calendarID = calendarID;
+            this.window = window;
+        }
+    }
 
 }
