@@ -26,6 +26,18 @@
     <string name="timeMode_moon_firstquarter">Ny, halvmåne</string>                 <!-- setting -->
     <string name="timeMode_moon_full">Fullmåne</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">Ne, halvmåne</string>                 <!-- setting -->
+    <string name="timeMode_moon_super">Supermåne</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Mikromåne</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Superfullmåne</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_supernew">Supernymåne</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>-->     <!-- label -->
+    <string name="timeMode_moon_microfull">Mikrofullmåne</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
+    <string name="timeMode_moon_micronew">Mikronymåne</string>                             <!-- setting -->
+    <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogeum</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigeum</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Kalendere</string>   <!-- group title -->
@@ -61,8 +73,15 @@
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
+    <string name="color_dialog_msg">Velg farge</string>
+    <string name="color_dialog_ok">OK</string>
+    <string name="color_dialog_cancel">Avbryt</string>
+
     <string name="calendar_solstice_displayName">Solverv og jevndøgn</string>
     <string name="calendar_moonPhase_displayName">Månefaser</string>
+    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary" />
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
@@ -134,7 +153,7 @@
         <item>Baskisk</item>
         <item>Norsk</item>
         <item>Tradisjonell kinesisk</item>
-        <item>Portuguese</item>  <!-- TODO -->
+        <item>Portugisisk</item>
     </string-array>
 
 </resources>

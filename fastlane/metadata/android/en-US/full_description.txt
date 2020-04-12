@@ -1,10 +1,8 @@
-<p>Provides calendar events for the solstices, equinoxes, twilight periods (astronomical, nautical, civil (sunrise, sunset)), and the moon (moonrise, moonset, major phases).</p>
+Provides calendar events for the solstices, equinoxes, twilight periods (astronomical, nautical, civil (sunrise, sunset)), and the moon (moonrise, moonset, major phases, apogee, perigee).
 
-<p>This add-on for Suntimes adds events to the Calendar app. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.</p>
+This add-on for Suntimes adds events to the Calendar app. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.
 
 The following permissions are required:
-<ul>
-<li><small><u>WRITE_SYNC_SETTINGS</u></small> is used to create and add custom calendars to the Calendar app.</li>
-<li><small><u>WRITE_CALENDAR</u></small> is used to populate custom calendars with events.</li>
-<li><small><u>suntimes.permission.READ_CALCULATOR</u></small> is used to read data from the Suntimes provider.</li>
-</ul>
+* <small><u>WRITE_SYNC_SETTINGS</u></small> is used to create and add custom calendars to the Calendar app.
+* <small><u>WRITE_CALENDAR</u></small> is used to populate custom calendars with events.
+* <small><u>suntimes.permission.READ_CALCULATOR</u></small> is used to read data from the Suntimes provider.

@@ -190,6 +190,18 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
+            public void onCancelled(Context context, SuntimesCalendarTask task)
+            {
+                if (listener != null) {
+                    listener.onCancelled(context, task);
+                }
+
+                signalOnBusyStatusChanged(false);
+                stopForeground(true);
+                stopSelf();
+            }
+
+            @Override
             public void onFailed(final Context context, final String errorMsg)
             {
                 if (listener != null) {
@@ -214,6 +226,13 @@ public class SuntimesCalendarTaskService extends Service
         calendarTask.setItems(items.toArray(new SuntimesCalendarTask.SuntimesCalendarTaskItem[0]));
         calendarTask.execute();
         return true;
+    }
+
+    public void cancelRunningTask()
+    {
+        if (calendarTask != null) {
+            calendarTask.cancel(true);
+        }
     }
 
     private static NotificationCompat.Builder createProgressNotification(Context context, String message)

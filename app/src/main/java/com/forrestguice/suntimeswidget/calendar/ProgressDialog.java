@@ -32,6 +32,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class ProgressDialog extends DialogFragment
 {
     private TextView txtMessage, txtMessageSecondary;
     private ProgressBar progressPrimary, progressSecondary;
+    private Button cancelButton;
 
     @NonNull @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -88,6 +90,8 @@ public class ProgressDialog extends DialogFragment
         txtMessageSecondary = (TextView)dialogContent.findViewById(R.id.txt_message1);
         progressPrimary = (ProgressBar)dialogContent.findViewById(R.id.progress0);
         progressSecondary = (ProgressBar)dialogContent.findViewById(R.id.progress1);
+        cancelButton = (Button)dialogContent.findViewById(R.id.btn_cancel);
+        cancelButton.setOnClickListener(onCancelClickListener);
     }
 
     private void updateViews()
@@ -100,6 +104,14 @@ public class ProgressDialog extends DialogFragment
         if (txtMessageSecondary != null) {
             txtMessageSecondary.setText(message1);
             txtMessageSecondary.setVisibility((message1 == null || message1.isEmpty()) ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private View.OnClickListener onCancelClickListener = null;
+    public void setOnCancelClickListener( View.OnClickListener listener ) {
+        onCancelClickListener = listener;
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(onCancelClickListener);
         }
     }
 

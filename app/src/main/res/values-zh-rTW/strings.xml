@@ -26,6 +26,18 @@
     <string name="timeMode_moon_firstquarter">上弦月</string>                 <!-- setting -->
     <string name="timeMode_moon_full">滿月</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">下弦月</string>                 <!-- setting -->
+    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
+    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
+    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">日曆</string>   <!-- group title -->
@@ -49,6 +61,10 @@
     <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
     <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
 
+    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
+    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
+    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+
     <string name="action_openCalendar">Open</string> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
@@ -61,8 +77,15 @@
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
+    <string name="color_dialog_msg">選擇顏色</string>
+    <string name="color_dialog_ok">選擇</string>
+    <string name="color_dialog_cancel">取消</string>
+
     <string name="calendar_solstice_displayName">夏冬至和春秋分</string>
     <string name="calendar_moonPhase_displayName">月相</string>
+    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary" />
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
