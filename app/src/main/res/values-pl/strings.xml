@@ -53,17 +53,18 @@
 
     <string name="calendars_notification_adding">Dodawanie do kalendarza…</string>
     <string name="calendars_notification_added">Dodano wydarzenia do kalendarza.</string>
+    <string name="calendars_notification_adding_failed">Nie udało się dodać kalendarzy!</string>
 
     <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
     <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
 
     <string name="confirm_add_message1">Czy dodać kalendarz?</string>
     <string name="confirm_clear_message0">Czy usunąć kalendarze?</string>
-    <string name="confirm_clear_message1">RCzy usunąć kalendarz?</string>
+    <string name="confirm_clear_message1">Czy usunąć kalendarz?</string>
 
-    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
-    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
-    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+    <string name="confirm_cancel_message">Czy przerwać wykonywane zadanie?\n\nKalendarze mogą być niepełne lub może nie być ich wcale.</string>
+    <string name="confirm_cancel_yes">Przerwij</string>
+    <string name="confirm_cancel_no">Nie przerywaj</string>
 
     <string name="action_openCalendar">Otwórz</string>
 
@@ -83,11 +84,11 @@
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
-    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
+    <string name="calendar_moonPhase_summary">Miesiąc synodyczny</string>
+    <string name="calendar_moonApsis_displayName">Apsydy Księżyca</string>
+    <string name="calendar_moonApsis_summary">Miesiąc anomalistyczny</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
-    <string name="calendar_moonrise_summary" />
+    <string name="calendar_moonrise_summary">Wschody i zachody Księżyca</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
     <string name="calendar_civil_twilight_summary" />
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
