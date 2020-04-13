@@ -62,9 +62,9 @@
     <string name="confirm_clear_message0">Ĉu forigi kalendarojn?</string>
     <string name="confirm_clear_message1">Ĉu forigi kalendaron?</string>
 
-    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
-    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
-    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+    <string name="confirm_cancel_message">Ĉu ĉesigi la taskon?\n\nKalendaroj povos manki aŭ esti nekompletaj.</string>
+    <string name="confirm_cancel_yes">Ĉesigi</string>
+    <string name="confirm_cancel_no">Ne ĉesigi</string>
 
     <string name="action_openCalendar">Malfermi</string>
 
@@ -83,12 +83,12 @@
     <string name="color_dialog_cancel">Nuligi</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
-    <string name="calendar_moonPhase_displayName">Lunfazoj</string>
-    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
+    <string name="calendar_moonPhase_displayName">Fazoj de Luno</string>
+    <string name="calendar_moonPhase_summary">Monato sinodika</string>
+    <string name="calendar_moonApsis_displayName">Apsidoj de Luno</string>
+    <string name="calendar_moonApsis_summary">Monato anomalista</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
-    <string name="calendar_moonrise_summary" />
+    <string name="calendar_moonrise_summary">Lunleviĝoj kaj lunsubiroj</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
     <string name="calendar_civil_twilight_summary" />
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
