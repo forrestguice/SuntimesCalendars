@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -38,6 +39,7 @@ import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgres
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 @SuppressWarnings("Convert2Diamond")
 public class SolunarCalendar implements SuntimesCalendar
@@ -47,6 +49,20 @@ public class SolunarCalendar implements SuntimesCalendar
     private static final int resID_calendarSummary = R.string.calendar_solunar_summary;
 
     private WeakReference<Context> contextRef;
+
+    private String majorTitle;
+    private String minorTitle;
+    private String descPattern;
+    private String[] overlapDisplay;
+
+    private String[] minorTitles;
+    private String[] minorDesc;
+    private String[] majorTitles;
+    private String[] majorDesc;
+
+    private String[] ratingLabels;
+    private int[] ratingBrackets;
+    private HashMap<String, String> moonPhaseDisplay;
 
     @Override
     public String calendarName() {
@@ -78,6 +94,33 @@ public class SolunarCalendar implements SuntimesCalendar
         calendarTitle = context.getString(resID_calendarTitle);
         calendarSummary = context.getString(resID_calendarSummary);
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
+
+        majorTitle = context.getString(R.string.solunarevent_title_major);
+        majorTitles = new String[] {majorTitle, majorTitle};
+        minorTitle = context.getString(R.string.solunarevent_title_minor);
+        minorTitles = new String[] {minorTitle, minorTitle};
+
+        overlapDisplay = context.getResources().getStringArray(R.array.solunarevent_overlap);
+        ratingLabels = context.getResources().getStringArray(R.array.solunarevent_ratings_labels);
+        ratingBrackets = context.getResources().getIntArray(R.array.solunarevent_ratings_brackets);
+
+        String lunarRise = context.getString(R.string.solunarevent_lunar_rise);
+        String lunarSet = context.getString(R.string.solunarevent_lunar_set);
+        String lunarNoon = context.getString(R.string.solunarevent_lunar_noon);
+        String lunarNight = context.getString(R.string.solunarevent_lunar_night);
+        descPattern = context.getString(R.string.solunarevent_desc_pattern1);
+        minorDesc = new String[] {context.getString(R.string.solunarevent_desc_pattern0, lunarRise, descPattern), context.getString(R.string.solunarevent_desc_pattern0, lunarSet, descPattern)};
+        majorDesc = new String[] {context.getString(R.string.solunarevent_desc_pattern0, lunarNoon, descPattern), context.getString(R.string.solunarevent_desc_pattern0, lunarNight, descPattern)};
+
+        moonPhaseDisplay = new HashMap<>();
+        moonPhaseDisplay.put("NEW", context.getString(R.string.timeMode_moon_new));
+        moonPhaseDisplay.put("WAXING_CRESCENT", context.getString(R.string.timeMode_moon_waxingcrescent));
+        moonPhaseDisplay.put("FIRST_QUARTER", context.getString(R.string.timeMode_moon_firstquarter));
+        moonPhaseDisplay.put("WAXING_GIBBOUS", context.getString(R.string.timeMode_moon_waxinggibbous));
+        moonPhaseDisplay.put("FULL", context.getString(R.string.timeMode_moon_full));
+        moonPhaseDisplay.put("WANING_GIBBOUS", context.getString(R.string.timeMode_moon_waninggibbous));
+        moonPhaseDisplay.put("THIRD_QUARTER", context.getString(R.string.timeMode_moon_thirdquarter));
+        moonPhaseDisplay.put("WANING_CRESCENT", context.getString(R.string.timeMode_moon_waningcrescent));
     }
 
     @Override
@@ -160,33 +203,34 @@ public class SolunarCalendar implements SuntimesCalendar
         SuntimesCalendarTaskProgressInterface progress = params.task.createProgressObj(c, totalProgress, calendarTitle);
         params.task.publishProgress(params.progress, progress);
 
-        String[] minorTitles = {"Minor Period", "Minor Period"};  // TODO: i18n
-        String[] minorDesc = {"Moonrise" + "\n %s (%s)%s", "Moonrise" + "\n %s (%s)"};
         int[] i_minor = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET) };
         int[] i_minor_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONRISE_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONSET_OVERLAP) };
 
-        String[] majorTitles = {"Major Period", "Major Period"};  // TODO: i18n
-        String[] majorDesc = {"Lunar Noon" + "\n %s (%s)%s", "Lunar Midnight" + "\n %s (%s)"};
         int[] i_major = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT) };
         int[] i_major_overlap = new int[] { cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNOON_OVERLAP), cursor.getColumnIndex(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MOONNIGHT_OVERLAP) };
-        String[] overlap = {"", "\nNear Sunrise", "\nNear Sunset"};
 
         int i_minor_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MINOR_LENGTH);
         int i_major_length = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_PERIOD_MAJOR_LENGTH);
         int i_dayRating = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_RATING);
         int i_moonPhase = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_PHASE);
-        int i_moonIllum = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION);
+        //int i_moonIllum = cursor.getColumnIndexOrThrow(SolunarProviderContract.COLUMN_SOLUNAR_MOON_ILLUMINATION);
 
         ArrayList<ContentValues> eventValues = new ArrayList<>();
         while (!cursor.isAfterLast() && !params.task.isCancelled())
         {
             double dayRating = cursor.getDouble(i_dayRating);
-            String moonPhase = cursor.getString(i_moonPhase);
+            String dayRatingDisplay = formatRating(dayRating);
+
+            String phase = cursor.getString(i_moonPhase);
+            String phaseDisplay = moonPhaseDisplay.get(phase);
             //double moonIllum = cursor.getDouble(i_moonIllum);
 
-            for (int i=0; i<2; i++) {
-                minorDesc[i] = String.format(minorDesc[i], moonPhase, dayRating, overlap[i]);
-                majorDesc[i] = String.format(majorDesc[i], moonPhase, dayRating, overlap[i]);
+            for (int i=0; i<2; i++)
+            {
+                String minor_overlap = cursor.getString(i_minor_overlap[i]);
+                String major_overlap = cursor.getString(i_major_overlap[i]);
+                minorDesc[i] = String.format(minorDesc[i], phaseDisplay, dayRatingDisplay, minor_overlap + "(" + i_minor_overlap[i] + ") boogers");
+                majorDesc[i] = String.format(majorDesc[i], phaseDisplay, dayRatingDisplay, major_overlap + "(" + i_major_overlap[i] + ") boogers");
             }
 
             addPeriods(params, eventValues, cursor, i_minor, minorTitles, minorDesc, cursor.getLong(i_minor_length));
@@ -224,6 +268,25 @@ public class SolunarCalendar implements SuntimesCalendar
                 eventValues.add(params.adapter.createEventContentValues(params.calendarID, titles[j], desc[j], params.task.getLocation()[0], eventStart, eventEnd));
             }
         }
+    }
+
+
+    private String formatRating(double rating)
+    {
+        if (ratingBrackets.length != ratingLabels.length) {
+            throw new ArrayIndexOutOfBoundsException("length of ratings_labels and ratings_brackets don't match");
+        }
+
+        int last = -1;
+        for (int i=0; i<ratingBrackets.length; i++)
+        {
+            if (rating > (last * 0.01d)
+                    && rating <= (ratingBrackets[i] * 0.01d)) {
+                return ratingLabels[i];
+            }
+            last = ratingBrackets[i];
+        }
+        return "";
     }
 
     @Override

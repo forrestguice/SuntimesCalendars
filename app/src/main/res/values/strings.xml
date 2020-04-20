@@ -38,6 +38,10 @@
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
+    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>
+    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
+    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
 
     <string name="configLabel_calendars">Suntimes Calendars</string>
 
@@ -220,6 +224,4 @@
     <string name="def_calendars_calendar_moonapsis" translatable="false">false</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
 
-    <string name="calendar_solunar_displayName">Solunar Periods</string>
-    <string name="calendar_solunar_summary" />
 </resources>
