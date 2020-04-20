@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +91,7 @@ public class ProgressDialog extends DialogFragment
         txtMessageSecondary = (TextView)dialogContent.findViewById(R.id.txt_message1);
         progressPrimary = (ProgressBar)dialogContent.findViewById(R.id.progress0);
         progressSecondary = (ProgressBar)dialogContent.findViewById(R.id.progress1);
+        progressSecondary.setInterpolator(new LinearOutSlowInInterpolator());
         cancelButton = (Button)dialogContent.findViewById(R.id.btn_cancel);
         cancelButton.setOnClickListener(onCancelClickListener);
     }
@@ -143,6 +145,7 @@ public class ProgressDialog extends DialogFragment
 
     public void setProgress(int value)
     {
+        progressPrimary.setIndeterminate(value == 0);
         if (Build.VERSION.SDK_INT >= 24) {
             progressPrimary.setProgress(value, true);
         } else progressPrimary.setProgress(value);
@@ -154,6 +157,7 @@ public class ProgressDialog extends DialogFragment
 
     public void setSecondaryProgress(int value)
     {
+        progressSecondary.setIndeterminate(value == 0);
         if (Build.VERSION.SDK_INT >= 24) {
             progressSecondary.setProgress(value, true);
         } else progressSecondary.setProgress(value);
