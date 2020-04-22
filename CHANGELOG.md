@@ -1,5 +1,8 @@
 ### ~
 
+### v0.4.1 (2020-04-22)
+* updates translations to Polish (pl) and Esperanto (eo) (#23 by Verdulo).
+
 ### v0.4.0 (2020-02-14)
 * adds "Moon Apsis" calendar (apogee, perigee).
 * adds ability to change a calendar's color.
