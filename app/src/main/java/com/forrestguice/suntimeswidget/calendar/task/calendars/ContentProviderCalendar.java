@@ -36,6 +36,15 @@ import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgres
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * Acts as a ContentProvider -> SuntimesCalendar bridge; the constructor accepts a URI pointing to
+ * a ContentProvider supporting creation of calendar entries.
+ *
+ * The referenced ContentProvider needs to support:
+ * * SuntimeCalendar.QUERY_CALENDAR_INFO to retrieve calendar meta-data; row of [calendar_name(string), calendar_title(string), calendar_summary(string), calendar_color(int)]
+ * * SuntimesCalendar.QUERY_CALENDAR_CONTENT to retrieve calendar entries; rows of [title(string), description(string), eventTimezone(string), dtstart(long), dtend(long), eventLocation(string), ...]
+ *   ready to be passed to the SuntimesCalendarAdapter.createCalendarEntries method.
+ */
 @SuppressWarnings("Convert2Diamond")
 public class ContentProviderCalendar extends SuntimesCalendarBase implements SuntimesCalendar
 {
