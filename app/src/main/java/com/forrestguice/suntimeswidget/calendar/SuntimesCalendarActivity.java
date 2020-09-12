@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2020 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -779,6 +779,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 SuntimesCalendarPreference calendarPref = new SuntimesCalendarPreference(context);
                 calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPref.setTitle(descriptor.calendarTitle());
+                calendarPref.setSummary(descriptor.calendarSummary());
                 category.addPreference(calendarPref);
 
                 int calendarColor = settings.loadPrefCalendarColor(context, calendar);

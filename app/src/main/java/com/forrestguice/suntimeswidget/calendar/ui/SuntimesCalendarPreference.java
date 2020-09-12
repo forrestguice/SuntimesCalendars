@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2019 Forrest Guice
+    Copyright (C) 2019-2020 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -72,7 +72,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     public void setSummary( CharSequence value )
     {
         if (summary0 == null) {
-            summary0 = getSummary();
+            summary0 = ((value != null) ? value : getSummary());
         }
         super.setSummary(makeSummary(getContext()));
     }
