@@ -27,6 +27,19 @@ import android.support.annotation.NonNull;
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
 {
+    String COLUMN_CALENDAR_NAME = "calendar_name";             // String (calendar ID)
+    String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
+    String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
+    String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
+
+    String QUERY_CALENDAR_INFO = "calendarInfo";
+    String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
+            COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
+    };
+
+
+    String QUERY_CALENDAR_CONTENT = "calendarContent";
+
     void init( @NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings );
     boolean initCalendar( @NonNull SuntimesCalendarSettingsInterface settings,
                           @NonNull SuntimesCalendarAdapterInterface adapter,

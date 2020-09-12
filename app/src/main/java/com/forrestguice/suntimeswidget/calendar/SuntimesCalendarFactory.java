@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.calendars.ContentProviderCalendar;
 
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarFactory
@@ -35,18 +36,29 @@ public class SuntimesCalendarFactory
         SuntimesCalendar calendar = null;
         if (classRef != null)
         {
-            Class calendarClass = null;
-            try {
-                calendarClass = Class.forName(classRef);
-                calendar = (SuntimesCalendar) calendarClass.newInstance();
+            if (classRef.startsWith("content:"))
+            {
+                calendar = new ContentProviderCalendar(classRef);
                 calendar.init(context, new SuntimesCalendarSettings());
+                if (calendar.calendarName() == null) {
+                    Log.e(getClass().getSimpleName(), "Failed to createCalendar! No such content provider: " + classRef);
+                    calendar = null;
+                }
 
-            } catch (ClassNotFoundException e) {
-                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
-            } catch (IllegalAccessException e) {
-                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
-            } catch (InstantiationException e) {
-                Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+            } else {
+                Class calendarClass = null;
+                try {
+                    calendarClass = Class.forName(classRef);
+                    calendar = (SuntimesCalendar) calendarClass.newInstance();
+                    calendar.init(context, new SuntimesCalendarSettings());
+
+                } catch (ClassNotFoundException e) {
+                    Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+                } catch (IllegalAccessException e) {
+                    Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+                } catch (InstantiationException e) {
+                    Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);
+                }
             }
         }
         return calendar;
