@@ -27,6 +27,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
 import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
@@ -119,6 +121,9 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                String[] location = task.getLocation();
+                new SuntimesCalendarSettings().saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
+
                 Calendar startDate = Calendar.getInstance();
                 startDate.setTimeInMillis(window[0]);
 
@@ -126,6 +131,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 endDate.setTimeInMillis(window[1]);
 
                 int c = 0;
+                String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, location[0]);
                 int totalProgress = (int)((window[1] - window[0]) / CHUNK_MILLIS);
                 long start = window[0];
                 for (long i = window[0]; i < window[1] && !task.isCancelled(); i += DAY_MILLIS)
@@ -137,8 +143,8 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                         c++;
                         start = i;
 
-                        SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
-                        progress.setProgress(c, totalProgress, calendarTitle);
+                        SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, progressTitle);
+                        progress.setProgress(c, totalProgress, progressTitle);
                         task.publishProgress(progress0, progress);
                     }
                 }
