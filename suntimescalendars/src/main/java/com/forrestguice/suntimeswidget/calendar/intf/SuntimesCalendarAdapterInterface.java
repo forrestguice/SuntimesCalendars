@@ -67,6 +67,10 @@ public interface SuntimesCalendarAdapterInterface
     boolean hasCalendar(String calendarName);
     boolean hasCalendars(Context context);
 
+    int calendarOrdinal(String calendar);
+    String calendarName( int calendarOrdinal );
+    String[] getCalendarList();
+
     /**
      * EVENT_PROJECTION
      */

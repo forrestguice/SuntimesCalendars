@@ -44,7 +44,7 @@ public class CalendarAdapterTest
 
     @Before
     public void initAdapter() {
-        adapter = new SuntimesCalendarAdapter(activityRule.getActivity().getContentResolver());
+        SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activityRule.getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(activityRule.getActivity()));
     }
     private SuntimesCalendarAdapter adapter;
 
@@ -54,7 +54,7 @@ public class CalendarAdapterTest
         assertNotNull(adapter);
         adapter.removeCalendars();
 
-        assertTrue("hasCalendars should return false", !adapter.hasCalendars());
+        assertTrue("hasCalendars should return false", !adapter.hasCalendars(activityRule.getActivity()));
         long calendarID = adapter.queryCalendarID(CALENDAR_TEST0);
         assertTrue(CALENDAR_TEST0 + " shouldn't exist", (calendarID == -1));
         assertTrue(CALENDAR_TEST0 + " shouldn't exist", !adapter.hasCalendar(CALENDAR_TEST0));

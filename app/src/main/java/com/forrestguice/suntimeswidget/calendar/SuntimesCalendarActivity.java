@@ -835,10 +835,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private static final String DIALOGTAG_COLOR = "colorchooser";
         private void showColorPicker(Context context, String calendar)
         {
-            int color = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
+            SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(getActivity()));
+            SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
+            int color = settings.loadPrefCalendarColor(context, calendar);
             ArrayList<Integer> recentColors = new ArrayList<>();
-            for (String item : SuntimesCalendarAdapter.ALL_CALENDARS) {
-                recentColors.add(SuntimesCalendarSettings.loadPrefCalendarColor(context, item));
+            for (String item : adapter.getCalendarList()) {
+                recentColors.add(settings.loadPrefCalendarColor(context, item));
             }
 
             Intent intent = new Intent(Intent.ACTION_PICK);
@@ -851,7 +853,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             List<ResolveInfo> info = getActivity().getPackageManager().queryIntentActivities(intent, 0);
             if (!info.isEmpty())
             {
-                int calendarNum = SuntimesCalendarAdapter.calendarOrdinal(calendar);
+                int calendarNum = adapter.calendarOrdinal(calendar);
                 if (calendarNum >= 0) {
                     startActivityForResult(intent, REQUEST_COLOR + calendarNum);
                 }
@@ -886,7 +888,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                String calendar = SuntimesCalendarAdapter.calendarName(requestCode - REQUEST_COLOR);
+                SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(getActivity()));
+                String calendar = adapter.calendarName(requestCode - REQUEST_COLOR);
                 if (calendar != null)
                 {
                     int color;
