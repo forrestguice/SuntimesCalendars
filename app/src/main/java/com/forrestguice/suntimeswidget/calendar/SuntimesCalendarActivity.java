@@ -35,6 +35,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
+import android.content.pm.ResolveInfo;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -65,6 +66,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -72,6 +74,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
@@ -87,6 +90,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -831,6 +835,34 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private static final String DIALOGTAG_COLOR = "colorchooser";
         private void showColorPicker(Context context, String calendar)
         {
+            int color = SuntimesCalendarSettings.loadPrefCalendarColor(context, calendar);
+            ArrayList<Integer> recentColors = new ArrayList<>();
+            for (String item : SuntimesCalendarAdapter.ALL_CALENDARS) {
+                recentColors.add(SuntimesCalendarSettings.loadPrefCalendarColor(context, item));
+            }
+
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            //intent.setComponent(new ComponentName("com.forrestguice.suntimeswidget", "com.forrestguice.suntimeswidget.settings.colors.ColorActivity"));
+            intent.setData(Uri.parse("color://" + String.format("#%08X", color)));
+            //intent.putExtra("color", color);
+            intent.putExtra("showAlpha", false);
+            intent.putExtra("recentColors", recentColors);
+
+            List<ResolveInfo> info = getActivity().getPackageManager().queryIntentActivities(intent, 0);
+            if (!info.isEmpty())
+            {
+                int calendarNum = SuntimesCalendarAdapter.calendarOrdinal(calendar);
+                if (calendarNum >= 0) {
+                    startActivityForResult(intent, REQUEST_COLOR + calendarNum);
+                }
+            } else {
+                showColorPickerFallback(context, calendar);
+            }
+        }
+        private static final int REQUEST_COLOR = 1000;
+
+        private void showColorPickerFallback(Context context, String calendar)
+        {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.setShowAlpha(false);
             colorDialog.setColor(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar));
@@ -839,11 +871,40 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager != null) {
                 colorDialog.show(fragmentManager, DIALOGTAG_COLOR + "_" + calendar);
-
             } else {
                 Log.w("showColorPicker", "fragmentManager is null; showing fallback ...");
                 Dialog dialog = colorDialog.getDialog();
                 dialog.show();
+            }
+        }
+
+        /**
+         * onActivityResult
+         */
+        @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                String calendar = SuntimesCalendarAdapter.calendarName(requestCode - REQUEST_COLOR);
+                if (calendar != null)
+                {
+                    int color;
+                    Uri uri = data.getData();
+                    if (uri != null)
+                    {
+                        try {
+                            color = Color.parseColor("#" + uri.getFragment());
+
+                        } catch (IllegalArgumentException e) {
+                            color = Color.WHITE;
+                            Log.e("ColorActivity", e.toString());
+                        }
+                    } else {
+                        color = data.getIntExtra("color", Color.WHITE);
+                    }
+                    onColorChanged(calendar).onColorChanged( color );
+                }
             }
         }
 

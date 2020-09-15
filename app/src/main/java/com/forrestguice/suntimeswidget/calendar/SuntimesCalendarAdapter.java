@@ -289,6 +289,32 @@ public class SuntimesCalendarAdapter implements SuntimesCalendarAdapterInterface
     }
 
     /**
+     * @param calendar calendar name
+     * @return the calendar's position within ALL_CALENDARS (or -1 if calendar dne)
+     */
+    public static int calendarOrdinal(String calendar)
+    {
+        for (int i=0; i<ALL_CALENDARS.length; i++)
+        {
+            if (ALL_CALENDARS[i].equals(calendar)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * @param calendarOrdinal calendar number
+     * @return the calendar's name (or null if calendar dne)
+     */
+    public static String calendarName( int calendarOrdinal )
+    {
+        if (calendarOrdinal >= 0 && calendarOrdinal < SuntimesCalendarAdapter.ALL_CALENDARS.length)
+            return ALL_CALENDARS[calendarOrdinal];
+        else return null;
+    }
+
+    /**
      * @param calendarName
      * @param displayName
      * @param calendarColor
