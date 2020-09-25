@@ -1,6 +1,6 @@
 ### ~
 
-### v0.4.2 (2020-04-18)
+### v0.4.2 (2020-09-24)
 * enhances color selection; use external color picker if available (#25) (requires Suntimes v0.13.0+). 
 
 ### v0.4.1 (2020-04-22)
