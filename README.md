@@ -34,7 +34,7 @@ The app requires the following permissions...
 
 ## Donations ##
 
-Do you find value in this software? Pay as you feel. 
+Do you find value in this software? Please pay as you feel. Putting a price on the binary is a great way to show support for software you care about. 
 
 [![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
 
@@ -46,7 +46,7 @@ You can report bugs using the issue tracker.
 When submitting a bug please be detailed and specific. What did you expect the app to do, what did you actually observe? Bugs that can't be reproduced won't get fixed. Useful information includes Android OS version and your specific device model.
 
 ## Legal Stuff
-Copyright © 2018-2019 Forrest Guice <br />
+Copyright © 2018-2020 Forrest Guice <br />
 The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
 
 > This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
