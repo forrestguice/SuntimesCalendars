@@ -1,1 +1,2 @@
 - use external color picker if available (requires Suntimes v0.13.0+).
+- fixes a bug that prevents adding the moon apsis calendar.
