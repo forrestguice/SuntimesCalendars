@@ -10,8 +10,8 @@ android {
         minSdkVersion 11
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 25
-        versionCode 8
-        versionName "0.4.1"
+        versionCode 9
+        versionName "0.4.2"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
 

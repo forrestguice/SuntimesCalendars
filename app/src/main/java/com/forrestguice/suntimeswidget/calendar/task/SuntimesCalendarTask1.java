@@ -785,7 +785,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast() && !isCancelled())
                         {
-                            if (cursor.getColumnCount() <= 2 || cursor.getLong(0) <= 0)
+                            if (cursor.getColumnCount() < 2 || cursor.getLong(0) <= 0)
                             {   // sanity check.. moonApsis needs provider v2:0.3.0 (Suntimes v0.12.0+))
                                 cursor.close();
                                 progress.setProgress(totalProgress, totalProgress, calendarTitle);
