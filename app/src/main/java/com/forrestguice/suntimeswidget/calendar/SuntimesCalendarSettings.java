@@ -25,11 +25,30 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
 
-public class SuntimesCalendarSettings implements SuntimesCalendarSettingsInterface
+public class SuntimesCalendarSettings
 {
+    public static final String PREF_KEY_CALENDARS_ENABLED = "app_calendars_enabled";
+    public static final boolean PREF_DEF_CALENDARS_ENABLED = false;
+
+    public static final String PREF_KEY_CALENDAR_WINDOW0 = "app_calendars_window0";
+    public static final String PREF_DEF_CALENDAR_WINDOW0 = "31536000000";  // 1 year
+
+    public static final String PREF_KEY_CALENDAR_WINDOW1 = "app_calendars_window1";
+    public static final String PREF_DEF_CALENDAR_WINDOW1 = "63072000000";  // 2 years
+
+    public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
+    public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
+
+    public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
+    public static final String NOTE_LOCATION_NAME = "location_name";
+    public static final String[] ALL_NOTES = new String[] { NOTE_LOCATION_NAME };
+
+    public static final String PREF_KEY_CALENDAR_LASTSYNC = "lastCalendarSync";
+
+    public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
+    public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
+
     /**
      * @param context
      * @return timestamp
@@ -137,25 +156,25 @@ public class SuntimesCalendarSettings implements SuntimesCalendarSettingsInterfa
     {
         switch (calendar)
         {
-            case SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE:
+            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
                 return ContextCompat.getColor(context, R.color.colorSolsticeCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_MOONPHASE:
+            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
                 return ContextCompat.getColor(context, R.color.colorMoonCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_MOONAPSIS:
+            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
                 return ContextCompat.getColor(context, R.color.colorMoonApsisCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_MOONRISE:
+            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
                 return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_ASTRO:
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
                 return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_NAUTICAL:
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
                 return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
 
-            case SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_CIVIL:
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
             default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
         }

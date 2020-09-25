@@ -30,19 +30,18 @@ import com.forrestguice.suntimescalendars.R;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
-public class MoonphaseCalendar extends MoonCalendarBase implements SuntimesCalendar
+public class MoonphaseCalendar extends MoonCalendarBase
 {
-    private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_MOONPHASE;
+    private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
     private static final int resID_calendarTitle = R.string.calendar_moonPhase_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonPhase_summary;
 
@@ -55,11 +54,11 @@ public class MoonphaseCalendar extends MoonCalendarBase implements SuntimesCalen
 
     @Override
     public String calendarName() {
-        return SuntimesCalendarAdapterInterface.CALENDAR_MOONPHASE;
+        return SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
     }
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
 
@@ -85,7 +84,7 @@ public class MoonphaseCalendar extends MoonCalendarBase implements SuntimesCalen
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -118,7 +117,7 @@ public class MoonphaseCalendar extends MoonCalendarBase implements SuntimesCalen
                 {
                     int c = 0;
                     int totalProgress = cursor.getCount();
-                    SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
+                    SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();

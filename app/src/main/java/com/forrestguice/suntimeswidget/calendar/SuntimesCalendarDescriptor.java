@@ -27,7 +27,7 @@ import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 
 import java.util.ArrayList;
 import java.util.Collections;

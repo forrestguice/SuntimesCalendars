@@ -21,9 +21,8 @@ package com.forrestguice.suntimeswidget.calendar.task.calendars;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 
 import java.lang.ref.WeakReference;
 
@@ -36,7 +35,7 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     protected String lastError;
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings) {
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings) {
         contextRef = new WeakReference<>(context);
     }
 

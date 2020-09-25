@@ -28,12 +28,10 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ import java.util.ArrayList;
 @SuppressWarnings("Convert2Diamond")
 public class TwilightCalendarNautical extends TwilightCalendarBase implements SuntimesCalendar
 {
-    private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_TWILIGHT_NAUTICAL;
+    private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL;
     private static final int resID_calendarTitle = R.string.calendar_nautical_twilight_displayName;
     private static final int resID_calendarSummary = R.string.calendar_nautical_twilight_summary;
 
@@ -51,7 +49,7 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
     }
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
         calendarTitle = context.getString(resID_calendarTitle);
@@ -61,7 +59,7 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;

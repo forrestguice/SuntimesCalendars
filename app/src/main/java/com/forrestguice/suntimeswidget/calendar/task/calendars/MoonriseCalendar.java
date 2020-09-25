@@ -28,12 +28,11 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
-
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +40,7 @@ import java.util.Calendar;
 @SuppressWarnings("Convert2Diamond")
 public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalendar
 {
-    private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_MOONRISE;
+    private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
     private static final int resID_calendarTitle = R.string.calendar_moonrise_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonrise_summary;
 
@@ -53,7 +52,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     }
 
     @Override
-    public void init(@NonNull Context context, SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
 
@@ -67,7 +66,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -91,12 +90,12 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                 if (moonCursor != null)
                 {
                     String[] location = task.getLocation();
-                    settings.saveCalendarNote(context, calendarName, SuntimesCalendarSettingsInterface.NOTE_LOCATION_NAME, location[0]);
+                    settings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
 
                     int c = 0;
                     int totalProgress = moonCursor.getCount();
                     String progressTitle = context.getString(R.string.summarylist_format, calendarTitle, location[0]);
-                    SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, progressTitle);
+                    SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();

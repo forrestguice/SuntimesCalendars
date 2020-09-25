@@ -24,10 +24,10 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,7 +40,7 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
     protected String s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_WHITE_NIGHT;
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
         s_SUNRISE = context.getString(R.string.sunrise);
@@ -66,7 +66,7 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
      * @param desc0 avg case description (e.g. ending in sunrise, starting at sunset)
      * @param desc1 edge case description (e.g. polar twilight)
      */
-    protected void createSunCalendarEvent(Context context, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task,
+    protected void createSunCalendarEvent(Context context, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task,
                                           ArrayList<ContentValues> values, long calendarID, Cursor cursor, int i, String title, String desc0, String desc1, String desc_fallback)
     {
         int j = i + 1;             // [rise-start, rise-end, set-start, set-end]

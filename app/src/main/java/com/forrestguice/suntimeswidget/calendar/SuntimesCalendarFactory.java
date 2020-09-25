@@ -22,7 +22,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.calendars.ContentProviderCalendar;
 
 @SuppressWarnings("Convert2Diamond")

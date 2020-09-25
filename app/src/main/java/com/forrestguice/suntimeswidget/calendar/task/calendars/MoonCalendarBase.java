@@ -25,13 +25,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 @SuppressWarnings("Convert2Diamond")
-public abstract class MoonCalendarBase extends SuntimesCalendarBase implements SuntimesCalendar
+public abstract class MoonCalendarBase extends SuntimesCalendarBase
 {
     protected NumberFormat distanceFormatter = null;
     protected String formatDistanceString(double distance)

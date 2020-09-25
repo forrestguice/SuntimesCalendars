@@ -16,10 +16,13 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar.intf;
+package com.forrestguice.suntimeswidget.calendar.task;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 
 /**
  * @version 0.1.0
@@ -40,12 +43,12 @@ public interface SuntimesCalendar
 
     String QUERY_CALENDAR_CONTENT = "calendarContent";
 
-    void init( @NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings );
-    boolean initCalendar( @NonNull SuntimesCalendarSettingsInterface settings,
-                          @NonNull SuntimesCalendarAdapterInterface adapter,
-                          @NonNull SuntimesCalendarTaskInterface task,
-                          @NonNull SuntimesCalendarTaskProgressInterface progress0,
-                          @NonNull long[] window);
+    void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings);
+    boolean initCalendar(@NonNull SuntimesCalendarSettings settings,
+                         @NonNull SuntimesCalendarAdapter adapter,
+                         @NonNull SuntimesCalendarTask task,
+                         @NonNull SuntimesCalendarTaskProgress progress0,
+                         @NonNull long[] window);
 
     /**
      * @return last error message encountered during processing (if any)

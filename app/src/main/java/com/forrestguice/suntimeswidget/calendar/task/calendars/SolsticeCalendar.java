@@ -29,11 +29,11 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +41,7 @@ import java.util.Calendar;
 @SuppressWarnings("Convert2Diamond")
 public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCalendar
 {
-    private static final String CALENDAR_NAME = SuntimesCalendarAdapterInterface.CALENDAR_SOLSTICE;
+    private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_SOLSTICE;
     private static final int resID_calendarTitle = R.string.calendar_solstice_displayName;
     private static final int resID_calendarSummary = R.string.calendar_solstice_summary;
 
@@ -53,7 +53,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
 
@@ -69,7 +69,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -102,7 +102,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
 
                     int c = 0;
                     int totalProgress = cursor.getCount();
-                    SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, calendarTitle);
+                    SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();

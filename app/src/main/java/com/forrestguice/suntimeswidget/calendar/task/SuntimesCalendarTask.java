@@ -27,13 +27,9 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
-import com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.TreeSet;
 
 @SuppressWarnings("Convert2Diamond")

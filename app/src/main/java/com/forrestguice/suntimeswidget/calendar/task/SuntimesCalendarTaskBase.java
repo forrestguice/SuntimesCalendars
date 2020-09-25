@@ -30,15 +30,13 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
 
 @SuppressWarnings("Convert2Diamond")
-public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean> implements SuntimesCalendarTaskInterface
+public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean>
 {
     protected SuntimesCalendarAdapter adapter;
     protected WeakReference<Context> contextRef;
@@ -219,7 +217,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         }
     }
 
-    public void publishProgress(SuntimesCalendarTaskProgressInterface primary, SuntimesCalendarTaskProgressInterface secondary) {
+    public void publishProgress(SuntimesCalendarTaskProgress primary, SuntimesCalendarTaskProgress secondary) {
         super.publishProgress( primary != null ? new SuntimesCalendarTaskProgress(primary) : null,
                                secondary != null ? new SuntimesCalendarTaskProgress(secondary) : null );
     }
@@ -233,8 +231,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         }
     }
 
-    @Override
-    public SuntimesCalendarTaskProgressInterface createProgressObj(int i, int n, String message) {
+    public SuntimesCalendarTaskProgress createProgressObj(int i, int n, String message) {
         return new SuntimesCalendarTaskProgress(i, n, message);
     }
 

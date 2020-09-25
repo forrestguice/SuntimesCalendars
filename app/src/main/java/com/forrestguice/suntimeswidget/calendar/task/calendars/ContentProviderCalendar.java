@@ -28,12 +28,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarAdapterInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarSettingsInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskInterface;
-import com.forrestguice.suntimeswidget.calendar.intf.SuntimesCalendarTaskProgressInterface;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,7 +73,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     private String calenderName = null;
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettingsInterface settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
         queryCalendarInfo();
@@ -103,7 +102,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettingsInterface settings, @NonNull SuntimesCalendarAdapterInterface adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgressInterface progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -143,7 +142,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                         c++;
                         start = i;
 
-                        SuntimesCalendarTaskProgressInterface progress = task.createProgressObj(c, totalProgress, progressTitle);
+                        SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, progressTitle);
                         progress.setProgress(c, totalProgress, progressTitle);
                         task.publishProgress(progress0, progress);
                     }
@@ -169,7 +168,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         return cursor;
     }
 
-    private ArrayList<ContentValues> readCursor(long calendarID, Cursor cursor, @NonNull SuntimesCalendarTaskInterface task)
+    private ArrayList<ContentValues> readCursor(long calendarID, Cursor cursor, @NonNull SuntimesCalendarTask task)
     {
         cursor.moveToFirst();
 
