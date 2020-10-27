@@ -24,8 +24,11 @@ import android.content.res.ColorStateList;
 import android.preference.CheckBoxPreference;
 import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.forrestguice.suntimescalendars.R;
 
 public class SuntimesCalendarPreference extends CheckBoxPreference
 {
@@ -54,13 +57,17 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         super.onBindView(view);
 
         View iconView = view.findViewById(android.R.id.icon);
-        if (iconView != null && iconView instanceof ImageView)
+        if (iconView instanceof ImageView)
         {
             icon = (ImageView)iconView;
 
             if (iconColor != null) {
                 ImageViewCompat.setImageTintList(icon, iconColor);
             }
+
+            TypedValue selectableItemBackground = new TypedValue();
+            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, selectableItemBackground, true);
+            icon.setBackgroundResource(selectableItemBackground.resourceId);
 
             if (onIconClick != null) {
                 icon.setOnClickListener(onIconClick);
