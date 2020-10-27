@@ -112,9 +112,21 @@ public class SuntimesCalendarDescriptor implements Comparable
         PackageManager packageManager = context.getPackageManager();
         Intent packageQuery = new Intent(ACTION_SUNTIMES_CALENDAR);
         packageQuery.addCategory(CATEGORY_SUNTIMES_CALENDAR);
-        List<ResolveInfo> packages = packageManager.queryIntentActivities(packageQuery, PackageManager.GET_META_DATA);
+        ArrayList<ResolveInfo> packages = new ArrayList<>(packageManager.queryIntentActivities(packageQuery, PackageManager.GET_META_DATA));
         Log.i("initDescriptors", "Scanning for SuntimesCalendar references... found " + packages.size());
 
+        for (ResolveInfo p : packages)    // display our package first
+        {
+            if (context.getPackageName().equals(p.activityInfo.packageName))
+            {
+                packages.remove(p);
+                packages.add(0, p);
+                Log.i("initDescriptors", "Moved SuntimesCalendar package to front.");
+                break;
+            }
+        }
+
+        int c = 0;
         SuntimesCalendarFactory factory = new SuntimesCalendarFactory();
         for (ResolveInfo resolveInfo : packages)
         {
@@ -131,8 +143,9 @@ public class SuntimesCalendarDescriptor implements Comparable
                             SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
                             if (calendar != null)
                             {
-                                SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), i, references[i]);
+                                SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), c, references[i]);
                                 SuntimesCalendarDescriptor.addValue(descriptor);
+                                c++;
                                 Log.i("initDescriptors", "..added " + descriptor.toString());
                             }
                         }
