@@ -33,14 +33,14 @@ import com.forrestguice.suntimescalendars.R;
 
 public class CalendarWindowPreference extends DialogPreference
 {
-    public static final String KEY_START= "_START";
-    public static final String KEY_END = "_END";
+    public static final String KEY_START= "0";
+    public static final String KEY_END = "1";
 
     public static final double YEARS_FROM_MILLIS = 1d / 1000d / 60d / 60d / 24d / 365d;
     public static final long YEARS_TO_MILLIS = 1000L * 60L * 60L * 24L * 365L;
 
-    protected long defaultStartValue = YEARS_TO_MILLIS;
-    protected long defaultEndValue = YEARS_TO_MILLIS;
+    protected String defaultStartValue = YEARS_TO_MILLIS + "";
+    protected String defaultEndValue = YEARS_TO_MILLIS + "";
 
     protected TextView text0, text1;
     protected SeekBar seek0, seek1;
@@ -127,8 +127,8 @@ public class CalendarWindowPreference extends DialogPreference
         {
             String key = getKey();
             SharedPreferences.Editor editor = getEditor();
-            editor.putLong(key + KEY_START, years0 * YEARS_TO_MILLIS);
-            editor.putLong(key + KEY_END, years1 * YEARS_TO_MILLIS);
+            editor.putString(key + KEY_START, years0 * YEARS_TO_MILLIS + "");
+            editor.putString(key + KEY_END, years1 * YEARS_TO_MILLIS + "");
             editor.commit();
 
             updateSummary();
@@ -150,15 +150,15 @@ public class CalendarWindowPreference extends DialogPreference
         {
             String[] v = defaultValue.split(",");
             if (v.length >= 2) {
-                defaultStartValue = Long.parseLong(v[0]);
-                defaultEndValue = Long.parseLong(v[1]);
+                defaultStartValue = v[0];
+                defaultEndValue = v[1];
             }
         }
 
         String key = getKey();
         SharedPreferences sharedPreferences = getSharedPreferences();
-        long millis0 = sharedPreferences.getLong(key + KEY_START, defaultStartValue);
-        long millis1 = sharedPreferences.getLong(key + KEY_END, defaultEndValue);
+        long millis0 = Long.parseLong(sharedPreferences.getString(key + KEY_START, defaultStartValue));
+        long millis1 = Long.parseLong(sharedPreferences.getString(key + KEY_END, defaultEndValue));
         years0 = (int)(millis0 * YEARS_FROM_MILLIS);
         years1 = (int)(millis1 * YEARS_FROM_MILLIS);
         updateSummary();
