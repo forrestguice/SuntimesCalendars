@@ -495,8 +495,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 return true;
 
             case android.R.id.home:
-                onBackPressed();
-                //onHomePressed();
+                //onBackPressed();
+                onHomePressed();
                 return true;
 
             default:
