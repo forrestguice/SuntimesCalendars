@@ -59,7 +59,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     public static final String KEY_PROVIDERVERSION = "paramProviderVersion";
     public static final String KEY_PROVIDER_PERMISSIONDENIED = "paramProviderDenied";
 
-    private int param_iconID = R.mipmap.ic_launcher;
+    private int param_iconID = R.drawable.ic_suntimes_calendar;
     public void setIconID( int resID )
     {
         param_iconID = resID;
