@@ -332,7 +332,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setHomeAsUpIndicator(R.drawable.ic_action_calendar);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_suntimes_calendar);
         }
 
         if (SuntimesCalendarSettings.isFirstLaunch(context) && !hasCalendarPermissions(this)) {
