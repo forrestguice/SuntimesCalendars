@@ -83,7 +83,8 @@ public class AboutDialog extends BottomSheetDialogFragment
                 if (layout != null)
                 {
                     BottomSheetBehavior.from(layout).setHideable(true);
-                    BottomSheetBehavior.from(layout).setSkipCollapsed(true);
+                    BottomSheetBehavior.from(layout).setPeekHeight((int)getResources().getDimension(R.dimen.about_peekheight));
+                    //BottomSheetBehavior.from(layout).setSkipCollapsed(true);
                     BottomSheetBehavior.from(layout).setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
