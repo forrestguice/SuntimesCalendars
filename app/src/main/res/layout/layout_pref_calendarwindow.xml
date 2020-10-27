@@ -1,21 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="8dp">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <SeekBar android:id="@+id/seekbar_past"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seekbar_future"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+        android:rotation="180"
+        app:layout_constraintWidth_max="300dp" app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintTop_toTopOf="@+id/layout_edit_past"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_edit_past"
+        app:layout_constraintEnd_toEndOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout android:id="@+id/layout_edit_past"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        android:layout_margin="8dp">
+
+        <TextView android:id="@+id/label_past"
+            tools:text="1 year ago"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <SeekBar android:id="@+id/seekbar_future"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/seekbar_past"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="300dp" app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintTop_toTopOf="@+id/layout_edit_future"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_edit_future"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout android:id="@+id/layout_edit_future"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/layout_edit_past"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        android:layout_margin="8dp">
+
+        <TextView android:id="@+id/label_future"
+            tools:text="2 years from now"
+            android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

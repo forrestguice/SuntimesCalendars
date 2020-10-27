@@ -64,8 +64,8 @@
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
 
-    <string name="configLabel_calendars_window">Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g> ago and ending <xliff:g id="calendars_window_display" example="one year">%2$s</xliff:g> from now</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -103,6 +103,15 @@
         <item>157680000000</item>
         <item>315360000000</item>
     </string-array>
+
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>
 
     <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
