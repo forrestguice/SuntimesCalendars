@@ -28,8 +28,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.forrestguice.suntimescalendars.R;
-
 public class SuntimesCalendarPreference extends CheckBoxPreference
 {
     private ImageView icon;
