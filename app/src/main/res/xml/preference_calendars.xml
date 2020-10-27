@@ -10,7 +10,7 @@
             android:title="@string/configLabel_calendars_enabled"
             android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
 
-        <!--
+        <!-- commented since these entries are now created/added dynamically
         <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_astroTwilightCalendar"
             android:title="@string/calendar_astronomical_twilight_displayName"
@@ -63,7 +63,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/configLabel_calendars">
+        android:title="@string/configLabel_options">
 
         <ListPreference
             android:key="app_calendars_window0"
