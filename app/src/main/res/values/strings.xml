@@ -89,7 +89,8 @@
     <string name="confirm_cancel_yes">Confirm</string>
     <string name="confirm_cancel_no">Back</string>
 
-    <string name="action_openCalendar">Open</string>
+    <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>

@@ -490,6 +490,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id)
         {
+            case R.id.action_openCalendar:
+                startActivity(SuntimesCalendarTaskService.getCalendarIntent());
+                return true;
+
             case R.id.action_about:
                 showAbout();
                 return true;
