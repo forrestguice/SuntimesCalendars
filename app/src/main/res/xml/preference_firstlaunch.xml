@@ -6,10 +6,10 @@
         android:persistent="false"
         android:title="@string/privacy_permissiondialog_title" />
 
-    <Preference
+    <!--<Preference
         android:key="app_about"
         android:persistent="false"
         android:icon="?attr/icActionAbout"
-        android:title="@string/about_dialog_title" />
+        android:title="@string/about_dialog_title" />-->
 
 </PreferenceScreen>
