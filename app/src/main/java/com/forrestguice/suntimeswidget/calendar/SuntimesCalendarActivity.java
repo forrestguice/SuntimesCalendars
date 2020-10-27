@@ -61,7 +61,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -72,6 +74,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +91,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -317,6 +322,18 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         super.onCreate(icicle);
+        setContentView(R.layout.layout_activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+        {
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setHomeAsUpIndicator(R.drawable.ic_action_calendar);
+        }
 
         if (SuntimesCalendarSettings.isFirstLaunch(context) && !hasCalendarPermissions(this)) {
             initFirstLaunchFragment();
@@ -332,7 +349,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         firstLaunchFragment.setAboutClickListener(onAboutClick);
         firstLaunchFragment.setProviderVersion(providerVersionCode);
         firstLaunchFragment.setSupportFragmentManager(getSupportFragmentManager());
-        getFragmentManager().beginTransaction().replace(android.R.id.content, firstLaunchFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.content, firstLaunchFragment).commit();
     }
 
     private void initMainFragment()
@@ -344,7 +361,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         if (boundToTaskService) {
             mainFragment.setIsBusy(calendarTaskService.isBusy());
         }
-        getFragmentManager().beginTransaction().replace(android.R.id.content, mainFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.content, mainFragment).commit();
     }
 
     private static boolean hasCalendarPermissions(Activity activity)
@@ -450,6 +467,48 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     {
         super.onRestoreInstanceState(bundle);
         needsSuntimesPermissions = bundle.getBoolean("needsSuntimesPermissions");
+    }
+
+
+    @SuppressWarnings("RestrictedApi")
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu)
+    {
+        forceActionBarIcons(menu);
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.action_about:
+                showAbout();
+                return true;
+
+            case android.R.id.home:
+                onBackPressed();
+                //onHomePressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    protected void onHomePressed() {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.forrestguice.suntimeswidget", "com.forrestguice.suntimeswidget.SuntimesActivity"));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1436,5 +1495,26 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
         else return Html.fromHtml(htmlString);
+    }
+
+    /**
+     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
+     */
+    public static void forceActionBarIcons(Menu menu)
+    {
+        if (menu != null)
+        {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
+            {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+
+                } catch (Exception e) {
+                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
+                }
+            }
+        }
     }
 }
