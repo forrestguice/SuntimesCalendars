@@ -64,6 +64,9 @@
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
 
+    <string name="configLabel_calendars_window">Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g> ago and ending <xliff:g id="calendars_window_display" example="one year">%2$s</xliff:g> from now</string> <!-- TODO -->
+
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
 
@@ -217,6 +220,7 @@
 
     <!-- pref defaults -->
     <string name="def_app_calendars_enabled" translatable="false">false</string>
+    <string name="def_calendars_window" translatable="false">31536000000,63072000000</string>
     <string name="def_calendars_window0" translatable="false">31536000000</string>
     <string name="def_calendars_window1" translatable="false">63072000000</string>
     <string name="def_calendars_calendar_civiltwilight" translatable="false">false</string>
