@@ -45,6 +45,7 @@
 
     <string name="configLabel_calendars">Calendars</string>   <!-- TODO (was shortened) -->
     <string name="configLabel_options">Options</string>   <!-- TODO -->
+    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_solstice_summary" />
@@ -152,6 +153,13 @@
     ]]></string>
     <string name="actionCopyError">Copy to clipboard</string>
     <string name="actionCopyError_toast">Error copied to clipboard.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>  <!-- TODO -->

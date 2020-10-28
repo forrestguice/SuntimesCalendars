@@ -88,6 +88,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListene
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 
@@ -106,6 +107,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static String TAG = "SuntimesCalendar";
 
     public static final String DIALOGTAG_ABOUT = "aboutdialog";
+    public static final String DIALOGTAG_HELP = "helpdialog";
     public static final String DIALOGTAG_PROGRESS = "progressdialog";
 
     public static final String THEME_LIGHT = "light";
@@ -1031,6 +1033,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
+        private Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference)
+            {
+                HelpDialog helpDialog = new HelpDialog();
+                helpDialog.setContent(getString(R.string.help_location) + "<br/>");
+                helpDialog.show(getSupportFragmentManager(), DIALOGTAG_HELP);
+                return false;
+            }
+        };
+
         private void updatePrefs(Activity activity)
         {
             if (activity == null)
@@ -1038,6 +1051,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activity.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(activity));
             SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+
+            Preference locationPref = findPreference("app_calendars_location");
+            if (locationPref != null) {
+                locationPref.setSummary(getLocationString(activity));
+                locationPref.setOnPreferenceClickListener(onLocationPrefClicked);
+            }
 
             if (hasCalendarPermissions(activity))
             {

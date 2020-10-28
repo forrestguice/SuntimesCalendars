@@ -81,6 +81,12 @@
             android:entries="@array/calendars_window_display" android:entryValues="@array/calendars_window_values"
             android:defaultValue="@string/def_calendars_window1" />-->
 
+        <Preference
+            android:key="app_calendars_location"
+            android:persistent="false"
+            android:title="@string/configLabel_calendars_location"
+            android:summary="%s" />
+
         <com.forrestguice.suntimeswidget.calendar.ui.CalendarWindowPreference
             android:key="app_calendars_window"
             android:title="@string/configLabel_calendars_window"
