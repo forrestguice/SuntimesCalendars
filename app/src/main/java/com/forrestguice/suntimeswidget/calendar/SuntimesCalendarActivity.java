@@ -877,15 +877,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
-                if (!calendarsEnabledPref.isChecked())
-                {
-                    calendarsEnabledPref.setEnabled(false);
-                    Preference windowStart = findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDAR_WINDOW0);
-                    windowStart.setEnabled(false);
-                    Preference windowEnd = findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDAR_WINDOW1);
-                    windowEnd.setEnabled(false);
-                }
-
                 if (needsSuntimesPermissions)
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
