@@ -1243,7 +1243,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             textView.setPadding(padding, padding, padding, padding);
             textView.setGravity(Gravity.CENTER_VERTICAL);
 
-            Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar);
+            Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar).mutate();
             icon.setColorFilter(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
             textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
             textView.setCompoundDrawablePadding(padding);

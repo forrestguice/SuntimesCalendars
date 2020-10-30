@@ -60,6 +60,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
             icon = (ImageView)iconView;
 
             if (iconColor != null) {
+                icon.setImageDrawable(icon.getDrawable().mutate());
                 ImageViewCompat.setImageTintList(icon, iconColor);
             }
 
@@ -114,6 +115,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     public void setIconColor(ColorStateList color) {
         iconColor = color;
         if (icon != null && iconColor != null) {
+            icon.setImageDrawable(icon.getDrawable().mutate());
             ImageViewCompat.setImageTintList(icon, iconColor);
         }
     }
