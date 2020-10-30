@@ -114,8 +114,8 @@
         Permeso mankas!<br />
         Ne povas aliri al la aplikaĵo Suntempoj. La necesa permeso estis rifuzita (aŭ neniam akceptita).<br />
         <br />
-        <b>Reinstalado de la aplikaĵo <u>Suntempoj: kalendaro</u> probable riparos tion.</b>
-    ]]></string>
+        <b>Reinstalado de la aplikaĵo <u>%s</u> probable riparos tion.</b>
+    ]]></string>  <!-- TODO: update from default -->
     <string name="actionCopyError">Kopii al tondujo</string>
     <string name="actionCopyError_toast">Eraro kopiita al tondujo.</string>
 

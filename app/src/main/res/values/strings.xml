@@ -147,10 +147,10 @@
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
-        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
-        <br />
-        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order. Install Suntimes first before installing add-ons.
+    ]]></string>  <!-- TODO -->
     <string name="actionCopyError">Copy to clipboard</string>
     <string name="actionCopyError_toast">Error copied to clipboard.</string>
 

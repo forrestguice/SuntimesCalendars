@@ -1430,7 +1430,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     {
         if (view != null)
         {
-            CharSequence message = fromHtml(context.getString(R.string.snackbar_missing_permission));
+            CharSequence message = fromHtml(context.getString(R.string.snackbar_missing_permission, context.getString(R.string.app_name)));
             Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));
@@ -1447,7 +1447,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             if (textView != null)
             {
                 textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));
-                textView.setMaxLines(7);
+                textView.setMaxLines(9);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             }
 

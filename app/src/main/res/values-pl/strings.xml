@@ -114,8 +114,8 @@
         Brak uprawnień!<br />
         Brak dostępu do aplikacji Czasy Słońca. Wymagane uprawnienia zostały odmówione (lub nieudzielone).<br />
         <br />
-        <b>Reinstalacja aplikacji <u>Czasy Słońca: kalendarz</u> powinna pomóc to naprawić.</b>
-    ]]></string>
+        <b>Reinstalacja aplikacji <u>%s</u> powinna pomóc to naprawić.</b>
+    ]]></string>  <!-- TODO: update -->
     <string name="actionCopyError">Skopiuj do schowka</string>
     <string name="actionCopyError_toast">Skopiowano błąd do schowka.</string>
 
