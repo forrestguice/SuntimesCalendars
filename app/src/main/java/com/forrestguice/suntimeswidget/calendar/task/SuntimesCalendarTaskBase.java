@@ -113,25 +113,33 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     {
         Context context = contextRef.get();
         ContentResolver resolver = (context == null ? null : context.getContentResolver());
-        if (resolver != null) {
+        if (resolver != null)
+        {
             Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
             String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE, CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE};
-            Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
 
-            if (configCursor != null) {
-                configCursor.moveToFirst();
-                for (int i = 0; i < configProjection.length; i++) {
-                    config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
-                    config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
-                    config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
-                    config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
-                    config_provider_version = configCursor.getInt(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE));
+            try {
+                Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
+                if (configCursor != null)
+                {
+                    configCursor.moveToFirst();
+                    for (int i = 0; i < configProjection.length; i++) {
+                        config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
+                        config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
+                        config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
+                        config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
+                        config_provider_version = configCursor.getInt(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE));
+                    }
+                    configCursor.close();
+                    return true;
+
+                } else {
+                    lastError = "Failed to resolve URI! " + configUri;
+                    Log.e(getClass().getSimpleName(), lastError);
+                    return false;
                 }
-                configCursor.close();
-                return true;
-
-            } else {
-                lastError = "Failed to resolve URI! " + configUri;
+            } catch (SecurityException e) {
+                lastError = "Permission Denied! " + configUri;
                 Log.e(getClass().getSimpleName(), lastError);
                 return false;
             }
