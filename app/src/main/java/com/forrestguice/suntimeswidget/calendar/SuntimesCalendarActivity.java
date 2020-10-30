@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -510,11 +511,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     }
 
-    protected void onHomePressed() {
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.forrestguice.suntimeswidget", "com.forrestguice.suntimeswidget.SuntimesActivity"));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    protected void onHomePressed()
+    {
+        try {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("com.forrestguice.suntimeswidget", "com.forrestguice.suntimeswidget.SuntimesActivity"));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.e(getClass().getSimpleName(), "Failed to start activity: " + e);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
