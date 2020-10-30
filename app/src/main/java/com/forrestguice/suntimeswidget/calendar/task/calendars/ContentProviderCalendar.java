@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -73,7 +74,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     private String calenderName = null;
 
     @Override
-    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings) throws SecurityException
     {
         super.init(context, settings);
         queryCalendarInfo();
@@ -81,7 +82,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         calendarColor = (calenderName != null ? settings.loadPrefCalendarColor(context, calendarName()) : calendarColor);
     }
 
-    protected void queryCalendarInfo()
+    protected void queryCalendarInfo() throws SecurityException
     {
         Context context = contextRef.get();
         ContentResolver resolver = (context == null ? null : context.getContentResolver());

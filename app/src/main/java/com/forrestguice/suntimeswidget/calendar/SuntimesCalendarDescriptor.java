@@ -140,13 +140,18 @@ public class SuntimesCalendarDescriptor implements Comparable
                         String[] references = ((metaData != null) ? metaData.replace(" ","").split("\\|") : new String[0]);
                         for (int i=0; i<references.length; i++)
                         {
-                            SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
-                            if (calendar != null)
-                            {
-                                SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), c, references[i]);
-                                SuntimesCalendarDescriptor.addValue(descriptor);
-                                c++;
-                                Log.i("initDescriptors", "..added " + descriptor.toString());
+                            try {
+                                SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
+                                if (calendar != null)
+                                {
+                                    SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), c, references[i]);
+                                    SuntimesCalendarDescriptor.addValue(descriptor);
+                                    c++;
+                                    Log.i("initDescriptors", "..added " + descriptor.toString());
+                                }
+
+                            } catch (SecurityException e) {
+                                Log.e("initDescriptors", "Permission denied! " + e);
                             }
                         }
 
