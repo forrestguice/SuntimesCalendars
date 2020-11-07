@@ -109,12 +109,7 @@
         This app requires<br />
         <b><u>%s</u></b> or greater!
     ]]></string>  <!-- TODO -->
-    <string name="snackbar_missing_permission"><![CDATA[
-        Permission Denied!<br />
-        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
-        <br />
-        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>  <!-- TODO -->
+
     <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
     <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
 

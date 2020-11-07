@@ -38,10 +38,17 @@
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
+    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>
+    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
+    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
 
-    <string name="configLabel_calendars">Suntimes Calendars</string>
+    <string name="configLabel_calendars">Calendars</string>   <!-- TODO (was shortened) -->
+    <string name="configLabel_options">Options</string>   <!-- TODO -->
+    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
+    <string name="calendar_solstice_summary" />
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
     <string name="calendar_moonPhase_summary">Synodic month</string>
     <string name="calendar_moonApsis_displayName">Moon Apsis</string>
@@ -57,6 +64,9 @@
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
+
+    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -80,7 +90,8 @@
     <string name="confirm_cancel_yes">Confirm</string>
     <string name="confirm_cancel_no">Back</string>
 
-    <string name="action_openCalendar">Open</string>
+    <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
@@ -95,11 +106,22 @@
         <item>315360000000</item>
     </string-array>
 
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>
+
     <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%s\n%s</string>
+
+    <string name="toolbar_title">Calendars</string>
 
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
@@ -125,12 +147,19 @@
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
-        Unable to access the Suntimes provider. The necessary permissions may have been revoked (or never granted).<br />
-        <br />
-        <b>Re-installing <u>Suntimes Calendars</u> should fix this.</b>
-    ]]></string>
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order. Install Suntimes first before installing add-ons.
+    ]]></string>  <!-- TODO -->
     <string name="actionCopyError">Copy to clipboard</string>
     <string name="actionCopyError_toast">Error copied to clipboard.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>  <!-- TODO -->
@@ -143,7 +172,7 @@
     ]]></xliff:g></string>
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
-        Copyright &#169 2018-2019 Forrest Guice <br />
+        Copyright &#169 2018-2020 Forrest Guice <br />
         Source code available under GPLv3.
     ]]></string>
     <string name="app_legal2"><![CDATA[
@@ -209,6 +238,7 @@
 
     <!-- pref defaults -->
     <string name="def_app_calendars_enabled" translatable="false">false</string>
+    <string name="def_calendars_window" translatable="false">31536000000,63072000000</string>
     <string name="def_calendars_window0" translatable="false">31536000000</string>
     <string name="def_calendars_window1" translatable="false">63072000000</string>
     <string name="def_calendars_calendar_civiltwilight" translatable="false">false</string>
@@ -218,4 +248,5 @@
     <string name="def_calendars_calendar_moonphase" translatable="false">true</string>
     <string name="def_calendars_calendar_moonapsis" translatable="false">false</string>
     <string name="def_calendars_calendar_solstice" translatable="false">true</string>
+
 </resources>

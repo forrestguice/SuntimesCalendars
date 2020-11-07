@@ -29,14 +29,27 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="suntimes.action.ADD_CALENDAR" />
+                <category android:name="suntimes.SUNTIMES_CALENDAR" />
+            </intent-filter>
+            <meta-data android:name="SuntimesCalendarReference"
+                android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarCivil |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar" />
         </activity>
 
         <!-- Error Dialog Activity (may be shown from notification service) -->
-        <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarErrorActivity"
+        <activity android:name="com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity"
             android:theme="@style/Theme.AppCompat.Translucent"/>
 
         <!-- Calendar Task Service -->
-        <service android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarTaskService" android:exported="false" />
+        <service android:name="com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService" android:exported="false" />
 
         <!-- Calendar Provider -->
         <provider
@@ -53,7 +66,7 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
-    
+
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
@@ -38,20 +39,22 @@ public class SuntimesCalendarAdapter
 {
     public static final String TAG = "SuntimesCalendarAdapter";
 
-    public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
+    public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
     public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
     public static final String CALENDAR_MOONRISE = "moonriseCalendar";
     public static final String CALENDAR_MOONPHASE = "moonPhaseCalendar";
     public static final String CALENDAR_MOONAPSIS = "moonApsisCalendar";
-    public static final String[] ALL_CALENDARS = new String[] {CALENDAR_SOLSTICE, CALENDAR_MOONPHASE, CALENDAR_MOONAPSIS, CALENDAR_MOONRISE, CALENDAR_TWILIGHT_CIVIL, CALENDAR_TWILIGHT_NAUTICAL, CALENDAR_TWILIGHT_ASTRO};
+
 
     private ContentResolver contentResolver;
+    private String[] calendars = new String[0];
 
-    public SuntimesCalendarAdapter(ContentResolver contentResolver)
+    public SuntimesCalendarAdapter(ContentResolver contentResolver, String[] calendars)
     {
         this.contentResolver = contentResolver;
+        this.calendars = calendars;
     }
 
     /**
@@ -63,7 +66,7 @@ public class SuntimesCalendarAdapter
     public void createCalendar(String calendarName, String calendarDisplayName, int calendarColor)
     {
         Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Calendars.CONTENT_URI);
-        ContentValues contentValues = SuntimesCalendarAdapter.createCalendarContentValues(calendarName, calendarDisplayName, calendarColor);
+        ContentValues contentValues = createCalendarContentValues(calendarName, calendarDisplayName, calendarColor);
         contentResolver.insert(uri, contentValues);
     }
 
@@ -135,7 +138,7 @@ public class SuntimesCalendarAdapter
      */
     public void createCalendarEvent(long calendarID, String title, String description, @Nullable String location, Calendar... time) throws SecurityException
     {
-        ContentValues contentValues = SuntimesCalendarAdapter.createEventContentValues(calendarID, title, description, location, time);
+        ContentValues contentValues = createEventContentValues(calendarID, title, description, location, time);
         contentResolver.insert(CalendarContract.Events.CONTENT_URI, contentValues);
     }
     public void createCalendarEvent(long calendarID, String title, String description, Calendar... time) throws SecurityException {
@@ -271,10 +274,10 @@ public class SuntimesCalendarAdapter
     /**
      * @return true if any calendars are being managed by the "Suntimes" local account, false no calendars exist.
      */
-    public boolean hasCalendars()
+    public boolean hasCalendars(Context context)
     {
         try {
-            for (String calendar : ALL_CALENDARS)
+            for (String calendar : calendars)
             {
                 Cursor cursor = queryCalendar(calendar);
                 if (cursor != null)
@@ -296,11 +299,11 @@ public class SuntimesCalendarAdapter
      * @param calendar calendar name
      * @return the calendar's position within ALL_CALENDARS (or -1 if calendar dne)
      */
-    public static int calendarOrdinal(String calendar)
+    public int calendarOrdinal(String calendar)
     {
-        for (int i=0; i<ALL_CALENDARS.length; i++)
+        for (int i=0; i<calendars.length; i++)
         {
-            if (ALL_CALENDARS[i].equals(calendar)) {
+            if (calendars[i].equals(calendar)) {
                 return i;
             }
         }
@@ -311,11 +314,15 @@ public class SuntimesCalendarAdapter
      * @param calendarOrdinal calendar number
      * @return the calendar's name (or null if calendar dne)
      */
-    public static String calendarName( int calendarOrdinal )
+    public String calendarName( int calendarOrdinal )
     {
-        if (calendarOrdinal >= 0 && calendarOrdinal < SuntimesCalendarAdapter.ALL_CALENDARS.length)
-            return ALL_CALENDARS[calendarOrdinal];
+        if (calendarOrdinal >= 0 && calendarOrdinal < calendars.length)
+            return calendars[calendarOrdinal];
         else return null;
+    }
+
+    public String[] getCalendarList() {
+        return calendars;
     }
 
     /**
@@ -324,7 +331,7 @@ public class SuntimesCalendarAdapter
      * @param calendarColor
      * @return
      */
-    public static ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor)
+    public ContentValues createCalendarContentValues(String calendarName, String displayName, int calendarColor)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Calendars.ACCOUNT_NAME, SuntimesCalendarSyncAdapter.ACCOUNT_NAME);
@@ -355,7 +362,7 @@ public class SuntimesCalendarAdapter
      * @param time
      * @return
      */
-    public static ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
+    public ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);

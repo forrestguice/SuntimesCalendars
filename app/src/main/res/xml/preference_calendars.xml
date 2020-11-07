@@ -2,62 +2,70 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/configLabel_calendars">
+        android:title="@string/configLabel_calendars"
+        android:key="app_calendars">
 
         <CheckBoxPreference
             android:key="app_calendars_enabled"
             android:title="@string/configLabel_calendars_enabled"
             android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <!-- commented since these entries are now created/added dynamically
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_astroTwilightCalendar"
             android:title="@string/calendar_astronomical_twilight_displayName"
             android:summary="@string/calendar_astronomical_twilight_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_astrotwilight" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_nauticalTwilightCalendar"
             android:title="@string/calendar_nautical_twilight_displayName"
             android:summary="@string/calendar_nautical_twilight_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_nauticaltwilight" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_civilTwilightCalendar"
             android:title="@string/calendar_civil_twilight_displayName"
             android:summary="@string/calendar_civil_twilight_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_civiltwilight" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_moonriseCalendar"
             android:title="@string/calendar_moonrise_displayName"
             android:summary="@string/calendar_moonrise_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_moonrise" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_moonPhaseCalendar"
             android:title="@string/calendar_moonPhase_displayName"
             android:summary="@string/calendar_moonPhase_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_moonphase" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_moonApsisCalendar"
             android:title="@string/calendar_moonApsis_displayName"
             android:summary="@string/calendar_moonApsis_summary"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_moonapsis" />
 
-        <com.forrestguice.suntimeswidget.calendar.SuntimesCalendarPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference
             android:key="app_calendars_calendar_solsticeCalendar"
             android:title="@string/calendar_solstice_displayName"
             android:icon="?attr/icActionCalendar"
             android:defaultValue="@string/def_calendars_calendar_solstice" />
+            -->
 
-        <ListPreference
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/configLabel_options">
+
+        <!--<ListPreference
             android:key="app_calendars_window0"
             android:title="@string/configLabel_calendars_window0"
             android:dialogTitle="@string/configLabel_calendars_window0"
@@ -71,13 +79,26 @@
             android:dialogTitle="@string/configLabel_calendars_window1"
             android:summary="@string/configLabel_calendars_window1_summary"
             android:entries="@array/calendars_window_display" android:entryValues="@array/calendars_window_values"
-            android:defaultValue="@string/def_calendars_window1" />
+            android:defaultValue="@string/def_calendars_window1" />-->
 
         <Preference
+            android:key="app_calendars_location"
+            android:persistent="false"
+            android:title="@string/configLabel_calendars_location"
+            android:summary="%s" />
+
+        <com.forrestguice.suntimeswidget.calendar.ui.CalendarWindowPreference
+            android:key="app_calendars_window"
+            android:title="@string/configLabel_calendars_window"
+            android:dialogTitle="@string/configLabel_calendars_window"
+            android:summary="@string/configLabel_calendars_window_summary"
+            android:defaultValue="@string/def_calendars_window" />
+
+        <!--<Preference
             android:key="app_about"
             android:persistent="false"
             android:icon="?attr/icActionAbout"
-            android:title="@string/about_dialog_title" />
+            android:title="@string/about_dialog_title" />-->
 
     </PreferenceCategory>
 

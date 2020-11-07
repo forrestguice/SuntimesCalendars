@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2019 Forrest Guice
+    Copyright (C) 2019-2020 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar;
+package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -24,6 +24,7 @@ import android.content.res.ColorStateList;
 import android.preference.CheckBoxPreference;
 import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -54,13 +55,18 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         super.onBindView(view);
 
         View iconView = view.findViewById(android.R.id.icon);
-        if (iconView != null && iconView instanceof ImageView)
+        if (iconView instanceof ImageView)
         {
             icon = (ImageView)iconView;
 
             if (iconColor != null) {
+                icon.setImageDrawable(icon.getDrawable().mutate());
                 ImageViewCompat.setImageTintList(icon, iconColor);
             }
+
+            TypedValue selectableItemBackground = new TypedValue();
+            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, selectableItemBackground, true);
+            icon.setBackgroundResource(selectableItemBackground.resourceId);
 
             if (onIconClick != null) {
                 icon.setOnClickListener(onIconClick);
@@ -72,7 +78,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     public void setSummary( CharSequence value )
     {
         if (summary0 == null) {
-            summary0 = getSummary();
+            summary0 = ((value != null) ? value : getSummary());
         }
         super.setSummary(makeSummary(getContext()));
     }
@@ -109,6 +115,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     public void setIconColor(ColorStateList color) {
         iconColor = color;
         if (icon != null && iconColor != null) {
+            icon.setImageDrawable(icon.getDrawable().mutate());
             ImageViewCompat.setImageTintList(icon, iconColor);
         }
     }

@@ -16,7 +16,7 @@
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package com.forrestguice.suntimeswidget.calendar;
+package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -59,7 +59,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     public static final String KEY_PROVIDERVERSION = "paramProviderVersion";
     public static final String KEY_PROVIDER_PERMISSIONDENIED = "paramProviderDenied";
 
-    private int param_iconID = R.mipmap.ic_launcher;
+    private int param_iconID = R.drawable.ic_suntimes_calendar;
     public void setIconID( int resID )
     {
         param_iconID = resID;
@@ -83,7 +83,8 @@ public class AboutDialog extends BottomSheetDialogFragment
                 if (layout != null)
                 {
                     BottomSheetBehavior.from(layout).setHideable(true);
-                    BottomSheetBehavior.from(layout).setSkipCollapsed(true);
+                    BottomSheetBehavior.from(layout).setPeekHeight((int)getResources().getDimension(R.dimen.about_peekheight));
+                    //BottomSheetBehavior.from(layout).setSkipCollapsed(true);
                     BottomSheetBehavior.from(layout).setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }

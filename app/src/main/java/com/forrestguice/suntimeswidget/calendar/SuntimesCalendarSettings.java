@@ -140,12 +140,12 @@ public class SuntimesCalendarSettings
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 
-    public static int loadPrefCalendarColor(Context context, String calendar)
+    public int loadPrefCalendarColor(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultCalendarColor(context, calendar));
     }
-    public static void savePrefCalendarColor(Context context, String calendar, int color)
+    public void savePrefCalendarColor(Context context, String calendar, int color)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putInt(PREF_KEY_CALENDARS_COLOR + calendar, color);
@@ -181,59 +181,18 @@ public class SuntimesCalendarSettings
     }
 
     /**
-     * getCalendarDisplayString
-     * @param context context
-     * @param calendarName the calendar's name
-     * @return display string
-     */
-    public static String getCalendarDisplayString(Context context, String calendarName, @Nullable CharSequence locationDisplay)
-    {
-        String calendarDisplay;
-        switch (calendarName)
-        {
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
-                calendarDisplay = context.getString(R.string.calendar_astronomical_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
-                calendarDisplay = context.getString(R.string.calendar_nautical_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
-                calendarDisplay = context.getString(R.string.calendar_civil_twilight_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
-                calendarDisplay = context.getString(R.string.calendar_moonrise_displayName);
-                return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONPHASE:
-                return context.getString(R.string.calendar_moonPhase_displayName);
-
-            case SuntimesCalendarAdapter.CALENDAR_MOONAPSIS:
-                return context.getString(R.string.calendar_moonApsis_displayName);
-
-            case SuntimesCalendarAdapter.CALENDAR_SOLSTICE:
-                return context.getString(R.string.calendar_solstice_displayName);
-
-            default:
-                return null;
-        }
-    }
-
-    /**
      * @param context context
      * @param calendar calendar name
      * @param key note key (e.g. NOTE_LOCATION)
      * @return the requested note (or null if dne)
      */
     @Nullable
-    public static String loadCalendarNote(Context context, String calendar, String key)
+    public String loadCalendarNote(Context context, String calendar, String key)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, null);
     }
-    public static void saveCalendarNote(Context context, String calendar, String key, String note)
+    public void saveCalendarNote(Context context, String calendar, String key, String note)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putString(PREF_KEY_CALENDARS_NOTES + calendar + "_" + key, note);
