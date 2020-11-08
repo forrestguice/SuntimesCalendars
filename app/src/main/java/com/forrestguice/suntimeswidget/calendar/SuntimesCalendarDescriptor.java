@@ -214,7 +214,7 @@ public class SuntimesCalendarDescriptor implements Comparable
             initDescriptors(context);
         }
         ArrayList<SuntimesCalendarDescriptor> descriptors = new ArrayList<>(calendars.values());
-        Collections.sort(descriptors);
+        Collections.sort(descriptors, null);
         return descriptors.toArray(new SuntimesCalendarDescriptor[0]);
     }
 
