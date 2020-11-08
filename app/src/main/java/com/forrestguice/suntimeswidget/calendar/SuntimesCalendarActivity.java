@@ -65,11 +65,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -79,7 +76,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
@@ -92,6 +88,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -571,7 +568,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             String permissionMessage = activity.getString(R.string.privacy_permission_calendar);
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle(activity.getString(R.string.privacy_permissiondialog_title))
-                    .setMessage(fromHtml(permissionMessage))
+                    .setMessage(Utils.fromHtml(permissionMessage))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener()
                     {
                         public void onClick(DialogInterface dialog, int which)
@@ -1388,7 +1385,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     {
         if (view != null)
         {
-            CharSequence message = fromHtml(context.getString(R.string.snackbar_missing_dependency, MIN_SUNTIMES_VERSION_STRING));
+            CharSequence message = Utils.fromHtml(context.getString(R.string.snackbar_missing_dependency, MIN_SUNTIMES_VERSION_STRING));
             Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));
@@ -1421,7 +1418,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     {
         if (view != null)
         {
-            CharSequence message = fromHtml(context.getString(R.string.snackbar_missing_permission, context.getString(R.string.app_name)));
+            CharSequence message = Utils.fromHtml(context.getString(R.string.snackbar_missing_permission, context.getString(R.string.app_name)));
             Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));
@@ -1509,13 +1506,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return false;
         }
     };
-
-    public static Spanned fromHtml(String htmlString )
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
-    }
 
     /**
      * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar

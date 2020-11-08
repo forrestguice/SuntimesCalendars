@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2020 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -32,8 +32,6 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,36 +134,36 @@ public class AboutDialog extends BottomSheetDialogFragment
 
         TextView versionView = (TextView) dialogContent.findViewById(R.id.txt_about_version);
         versionView.setMovementMethod(LinkMovementMethod.getInstance());
-        versionView.setText(fromHtml(htmlVersionString()));
+        versionView.setText(Utils.fromHtml(htmlVersionString()));
 
         TextView providerView = (TextView) dialogContent.findViewById(R.id.txt_about_provider);
-        providerView.setText(fromHtml(providerVersionString(context)));
+        providerView.setText(Utils.fromHtml(providerVersionString(context)));
 
         TextView urlView = (TextView) dialogContent.findViewById(R.id.txt_about_url);
         urlView.setMovementMethod(LinkMovementMethod.getInstance());
-        urlView.setText(fromHtml(context.getString(R.string.app_url)));
+        urlView.setText(Utils.fromHtml(context.getString(R.string.app_url)));
 
         TextView supportView = (TextView) dialogContent.findViewById(R.id.txt_about_support);
         supportView.setMovementMethod(LinkMovementMethod.getInstance());
-        supportView.setText(fromHtml(context.getString(R.string.app_support_url)));
+        supportView.setText(Utils.fromHtml(context.getString(R.string.app_support_url)));
 
         TextView legalView1 = (TextView) dialogContent.findViewById(R.id.txt_about_legal1);
         legalView1.setMovementMethod(LinkMovementMethod.getInstance());
-        legalView1.setText(fromHtml(context.getString(R.string.app_legal1)));
+        legalView1.setText(Utils.fromHtml(context.getString(R.string.app_legal1)));
 
         TextView legalView2 = (TextView) dialogContent.findViewById(R.id.txt_about_legal2);
         legalView2.setMovementMethod(LinkMovementMethod.getInstance());
-        legalView2.setText(fromHtml(context.getString(R.string.app_legal2, initTranslationCredits(context))));
+        legalView2.setText(Utils.fromHtml(context.getString(R.string.app_legal2, initTranslationCredits(context))));
 
         TextView legalView4 = (TextView) dialogContent.findViewById(R.id.txt_about_legal4);
         String permissionsExplained = context.getString(R.string.privacy_permission_calendar);
 
         String privacy = context.getString(R.string.privacy_policy, permissionsExplained);
-        legalView4.setText(fromHtml(privacy));
+        legalView4.setText(Utils.fromHtml(privacy));
 
         TextView legalView5 = (TextView) dialogContent.findViewById(R.id.txt_about_legal5);
         legalView5.setMovementMethod(LinkMovementMethod.getInstance());
-        legalView5.setText(fromHtml(context.getString(R.string.privacy_url)));
+        legalView5.setText(Utils.fromHtml(context.getString(R.string.privacy_url)));
     }
 
     /**
@@ -207,13 +205,6 @@ public class AboutDialog extends BottomSheetDialogFragment
                                                     : (appVersion + " (" + ((providerVersion != null) ? providerVersion
                                                                                                       : (providerPermissionsDenied ? denied : missingVersion)) + ")");
         return context.getString(R.string.app_provider_version, versionString);
-    }
-
-    public static Spanned fromHtml(String htmlString )
-    {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            return Html.fromHtml(htmlString, Html.FROM_HTML_MODE_LEGACY);
-        else return Html.fromHtml(htmlString);
     }
 
     public static String anchor(String url, String text)
