@@ -8,7 +8,7 @@ android {
         applicationId "com.forrestguice.suntimescalendars"
         //noinspection MinSdkTooLow
         minSdkVersion 11
-        //noinspection ExpiredTargetSdkVersion
+        //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 25
         versionCode 9
         versionName "0.4.2"
