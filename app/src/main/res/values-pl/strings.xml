@@ -40,10 +40,15 @@
     <string name="timeMode_moon_perigee">Perygeum</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->
+    <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->  <!-- TODO: update (was shortened) -->
+    <string name="configLabel_options">Options</string>   <!-- TODO -->
+    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
     <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
+
+    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
     <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>
@@ -67,6 +72,7 @@
     <string name="confirm_cancel_no">Nie przerywaj</string>
 
     <string name="action_openCalendar">Otwórz</string>
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
@@ -106,6 +112,7 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Brak uprawnień!</b></font>
     ]]></string>
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
     <string name="snackbar_missing_dependency"><![CDATA[
         Wymagana jest aplikacja<br />
         <b><u>%s</u></b> lub nowsza!
@@ -120,7 +127,7 @@
     <string name="actionCopyError_toast">Skopiowano błąd do schowka.</string>
 
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>
+    <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[

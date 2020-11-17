@@ -26,20 +26,22 @@
     <string name="timeMode_moon_firstquarter">Quarto Crescente</string>
     <string name="timeMode_moon_full">Lua Cheia</string>
     <string name="timeMode_moon_thirdquarter">Terço Crescente</string>
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_super">Superlua</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Microlua</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Superlua Cheia</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">Superlua Nova</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">Microlua Cheia</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">Microlua Nova</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Apogeu</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigeu</string>                             <!-- label -->
 
-    <string name="configLabel_calendars">Calendário Suntimes</string>
+    <string name="configLabel_calendars">Calendários</string>
+    <string name="configLabel_options">Opções</string>
+    <string name="configLabel_calendars_location">Localização</string>
 
     <string name="calendar_solstice_displayName">Solstícios e Equinócios</string>
     <string name="calendar_moonPhase_displayName">Fases da Lua</string>
@@ -57,6 +59,9 @@
 
     <string name="configLabel_calendars_enabled">Integração com Calendário</string>
     <string name="configLabel_calendars_enabled_summary">Transferir eventos ao app de Calendário nativo do aparelho.</string>
+
+    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Janela (início)</string>
     <string name="configLabel_calendars_window0_summary">Período começando há <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
@@ -80,6 +85,7 @@
     <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
 
     <string name="action_openCalendar">Abrir</string>
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>um ano</item>
@@ -109,16 +115,23 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
     ]]></string>
-    <string name="snackbar_missing_dependency"><![CDATA[
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+    <!--<string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
-    ]]></string>
+    ]]></string>-->
+    <!--<string name="snackbar_missing_permission"><![CDATA[
+    Permission Denied!<br />
+    <u>%s</u> must be reinstalled to work correctly.
+    <br /><br />
+    This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+]]></string>-->  <!-- TODO -->
 
     <string name="actionCopyError">Copiar</string>
     <string name="actionCopyError_toast">Erro ao copiar.</string>
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Um adicional de calendário(s) para o app Suntimes.</string>  <!-- TODO -->
+    <string name="app_shortdesc">Um adicional de calendário(s) para o app Suntimes.</string>    <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Suporte:</b> visite 
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> e deixe uma mensagem (em inglês).
@@ -143,9 +156,9 @@
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
     ]]></xliff:g></string>
 
-    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> por <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> por <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
-    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, e <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, e <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
     <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
         <item>Inglês</item>
         <item>Esperanto</item>

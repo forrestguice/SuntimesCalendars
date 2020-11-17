@@ -40,9 +40,14 @@
     <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
 
     <string name="configLabel_calendars">Calendarios</string>
+    <string name="configLabel_options">Options</string>   <!-- TODO -->
+    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Integración con el calendario</string>
     <string name="configLabel_calendars_enabled_summary">Proporcionar eventos a la aplicación de calendario.</string>
+
+    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Ventana (inicio)</string>
     <string name="configLabel_calendars_window0_summary">Un periodo empezó <xliff:g example="one year" id="calendars_window_display">%s</xliff:g> atrás</string>
@@ -65,6 +70,7 @@
     <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
 
     <string name="action_openCalendar">Open</string> <!-- TODO -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
     <string-array name="calendars_window_display">   
         <item>un año</item>
@@ -103,16 +109,23 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
     ]]></string>  <!-- TODO -->
-    <string name="snackbar_missing_dependency"><![CDATA[
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+    <!--<string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
-    ]]></string>  <!-- TODO -->
+    ]]></string>-->  <!-- TODO -->
+    <!--<string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+    ]]></string>-->  <!-- TODO -->
 
     <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
     <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
 
     <string name="app_version"><![CDATA[<b>Versión:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Muestra las horas del amanecer, noche, luz crepuscular y lunar.</string>
+    <string name="app_shortdesc">Muestra las horas del amanecer, noche, luz crepuscular y lunar.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
     <b>Soporte:</b> visita el
     <a href="https://github.com/forrestguice/SuntimesWidget/issues">seguimiento de incidencias</a> para enviar una petición.
