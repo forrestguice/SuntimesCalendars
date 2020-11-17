@@ -62,4 +62,4 @@ Basque translation by <u>beriain</u>.<br/>
 Norwegian translation by <u>FTno</u>.<br/>
 Italian translation by <u>Matteo Caoduro</u>.<br/>
 Traditional Chinese translation by <u><a href=https://github.com/pggdt>ft42</a></u>.<br />
-Brazilian Portuguese translation by <u><a href=https://github.com/netosilva15>NetoSilva</a></u>.<br />
+Brazilian Portuguese translation by <u><a href=https://github.com/netosilva15>NetoSilva</a></u>, <u><a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a></u>, and <u><a href=https://github.com/efraletti>Enrico S. B. Fraletti</a></u>.<br />
