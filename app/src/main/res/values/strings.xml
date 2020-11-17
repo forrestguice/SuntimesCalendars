@@ -43,9 +43,9 @@
     <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
     <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
 
-    <string name="configLabel_calendars">Calendars</string>   <!-- TODO (was shortened) -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_calendars">Calendars</string>
+    <string name="configLabel_options">Options</string>
+    <string name="configLabel_calendars_location">Location</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
     <string name="calendar_solstice_summary" />
@@ -65,8 +65,8 @@
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Calendar Window</string>
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Window (start)</string>
     <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
@@ -91,7 +91,7 @@
     <string name="confirm_cancel_no">Back</string>
 
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
-    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
@@ -140,7 +140,7 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>  <!-- TODO -->
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
@@ -149,8 +149,8 @@
         Permission Denied!<br />
         <u>%s</u> must be reinstalled to work correctly.
         <br /><br />
-        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order. Install Suntimes first before installing add-ons.
-    ]]></string>  <!-- TODO -->
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+    ]]></string>
     <string name="actionCopyError">Copy to clipboard</string>
     <string name="actionCopyError_toast">Error copied to clipboard.</string>
 
@@ -162,7 +162,7 @@
     ]]></string>
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>  <!-- TODO -->
+    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
@@ -204,7 +204,7 @@
         <item>Norwegian</item>
         <item>Traditional Chinese</item>
         <item>Portuguese</item>
-    </string-array>    <!-- TODO -->
+    </string-array>
     <string-array name="locale_values" translatable="false">  <!-- one-to-one with locale_display -->
         <item>en</item>
         <item>eo</item>
@@ -233,7 +233,7 @@
         <item><![CDATA[<a href=https://github.com/beriain>beriain</a>]]></item>
         <item><![CDATA[<a href=https://github.com/FTno>FTno</a>]]></item>
         <item><![CDATA[<a href=https://github.com/pggdt>ft42</a>]]></item>
-        <item><![CDATA[<a href=https://github.com/NetoSilva>Neto Silva</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/NetoSilva>Neto Silva</a>|<a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a>|<a href=https://github.com/efraletti>Enrico S. B. Fraletti</a>]]></item>
     </string-array>
 
     <!-- pref defaults -->

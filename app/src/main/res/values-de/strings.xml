@@ -41,9 +41,14 @@
 
   <!-- App Setting: calendars -->
   <string name="configLabel_calendars">Calendars</string>   <!-- group title -->  <!-- TODO -->
+  <string name="configLabel_options">Options</string>   <!-- TODO -->
+  <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
 
   <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
   <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
+
+  <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
+  <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
   <string name="configLabel_calendars_window0">Window (start)</string>  <!-- TODO -->
   <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>  <!-- TODO -->
@@ -66,6 +71,7 @@
   <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
 
   <string name="action_openCalendar">Open</string> <!-- TODO -->
+  <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
 
   <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
     <item>one year</item>
@@ -109,12 +115,19 @@
         This app requires<br />
         <b><u>%s</u></b> or greater!
     ]]></string>  <!-- TODO -->
+  <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+  <!--<string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+    ]]></string>-->  <!-- TODO -->
 
     <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
     <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
 
   <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-  <string name="app_shortdesc">Eine App, die Auf- und Untergangszeiten von Sonne und Mond anzeigt.</string>
+  <string name="app_shortdesc">Eine App, die Auf- und Untergangszeiten von Sonne und Mond anzeigt.</string>  <!-- TODO: update -->
   <string name="app_support_url"><![CDATA[
       <b>Unterst&uuml;tzung:</b> besuchen Sie
       <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> um eine Anfrage zu stellen.
