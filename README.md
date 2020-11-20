@@ -6,7 +6,7 @@ An add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) that su
 
 [![F-Droid](https://img.shields.io/f-droid/v/com.forrestguice.suntimescalendars.svg)](https://f-droid.org/en/packages/com.forrestguice.suntimescalendars/)
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
-[![Build Status](https://travis-ci.org/forrestguice/SuntimesCalendars.svg?branch=master)](https://travis-ci.org/forrestguice/SuntimesCalendars)
+[![Android CI](https://github.com/forrestguice/SuntimesWidget/workflows/Android%20CI/badge.svg?branch=master)](https://github.com/forrestguice/SuntimesCalendars/actions?query=branch%3Amaster)
 
 * [Privacy and Permissions](#privacy-and-permissions)
 * [Donations](#donations)
@@ -34,7 +34,7 @@ The app requires the following permissions...
 
 ## Donations ##
 
-Do you find value in this software? Please pay as you feel. Putting a price on the binary is a great way to show support for software you care about. 
+Do you find value in this software? Please pay as you feel. 
 
 [![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
 
