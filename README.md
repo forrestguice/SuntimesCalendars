@@ -38,6 +38,7 @@ Do you find value in this software? Please pay as you feel. Putting a price on t
 
 [![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
 
+[:heart: Sponsor](https://github.com/sponsors/forrestguice)
 
 ## Bug Reports ##
 
