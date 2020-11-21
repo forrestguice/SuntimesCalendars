@@ -1,0 +1,2 @@
+- support for add-on calendars.
+- miscellaneous UI changes.
