@@ -204,6 +204,7 @@
         <item>Norwegian</item>
         <item>Traditional Chinese</item>
         <item>Portuguese</item>
+        <item>Dutch</item>
     </string-array>
     <string-array name="locale_values" translatable="false">  <!-- one-to-one with locale_display -->
         <item>en</item>
@@ -219,6 +220,7 @@
         <item>nb</item>
         <item>zh_TW</item>
         <item>pt_BR</item>
+        <item>nl</item>
     </string-array>
     <string-array name="locale_credits" translatable="false">  <!-- one-to-one with locale_display -->
         <item />
@@ -234,6 +236,7 @@
         <item><![CDATA[<a href=https://github.com/FTno>FTno</a>]]></item>
         <item><![CDATA[<a href=https://github.com/pggdt>ft42</a>]]></item>
         <item><![CDATA[<a href=https://github.com/NetoSilva>Neto Silva</a>|<a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a>|<a href=https://github.com/efraletti>Enrico S. B. Fraletti</a>]]></item>
+        <item><![CDATA[<a href=optionalUrlHere>TODO</a>]]></item>
     </string-array>
 
     <!-- pref defaults -->

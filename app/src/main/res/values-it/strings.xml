@@ -169,6 +169,7 @@
         <item>Norwegian</item>
         <item>Traditional Chinese</item>
         <item>Portuguese</item>
+        <item>Dutch</item>  <!-- TODO -->
     </string-array> <!-- TODO -->
 
 </resources>
