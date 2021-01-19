@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_astronomical">Astronomical Twilight</string>
+    <string name="dawn">Dawn</string>
+    <string name="dusk">Dusk</string>
+    <string name="polar_twilight">Polar twilight</string>
+    <string name="civil_night">Civil polar night</string>
+    <string name="nautical_night">Nautical polar night</string>
+    <string name="white_night">White night</string>
+
+    <string name="moonrise">Moonrise</string>
+    <string name="moonset">Moonset</string>
+
+    <string name="timeMode_equinox_vernal">Spring Equinox</string>
+    <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
+    <string name="timeMode_solstice_summer">Summer Solstice</string>
+    <string name="timeMode_solstice_winter">Winter Solstice</string>
+
+    <string name="timeMode_moon">Moon</string>
+    <string name="timeMode_moon_new">New Moon</string>
+    <string name="timeMode_moon_firstquarter">First Quarter</string>
+    <string name="timeMode_moon_full">Full Moon</string>
+    <string name="timeMode_moon_thirdquarter">Third Quarter</string>
+    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
+    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>
+    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
+    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
+
+    <string name="configLabel_calendars">Calendars</string>
+    <string name="configLabel_options">Options</string>
+    <string name="configLabel_calendars_location">Location</string>
+
+    <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
+    <string name="calendar_solstice_summary" />
+    <string name="calendar_moonPhase_displayName">Moon Phases</string>
+    <string name="calendar_moonPhase_summary">Synodic month</string>
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
+    <string name="calendar_moonrise_summary">Moonrise, moonset</string>
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary">Sunrise, sunset</string>
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
+
+    <string name="configLabel_calendars_enabled">Calendar Integration</string>
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
+
+    <string name="configLabel_calendars_window">Calendar Window</string>
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+
+    <string name="configLabel_calendars_window0">Window (start)</string>
+    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
+
+    <string name="configLabel_calendars_window1">Window (end)</string>
+    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>
+
+    <string name="calendars_notification_adding">Adding calendars…</string>
+    <string name="calendars_notification_added">Calendars have been added.</string>
+    <string name="calendars_notification_adding_failed">Failed to add calendars!</string>
+
+    <string name="calendars_notification_clearing">Clearing calendars…</string>
+    <string name="calendars_notification_cleared">Calendars have been cleared.</string>
+
+    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_add_message1">Add calendar?</string>
+    <string name="confirm_clear_message0">Remove calendars?</string>
+    <string name="confirm_clear_message1">Remove calendar?</string>
+
+    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>
+    <string name="confirm_cancel_yes">Confirm</string>
+    <string name="confirm_cancel_no">Back</string>
+
+    <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>one year</item>
+        <item>two years</item>
+        <item>five years</item>
+        <item>ten years</item>
+    </string-array>
+
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>
+
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%s\n%s</string>
+
+    <string name="toolbar_title">Calendars</string>
+
+    <string name="progress_title">Updating Calendars</string>
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
+
+    <string name="color_dialog_msg">Choose Colour</string>
+    <string name="color_dialog_ok">Select</string>
+    <string name="color_dialog_cancel">Cancel</string>
+
+    <string name="about_dialog_title">About</string>
+    <string name="app_name">Suntimes Calendars</string>
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Missing!</b></font>
+    ]]></string>
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Permission Denied!</b></font>
+    ]]></string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>
+    <string name="snackbar_missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>
+    <string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+    ]]></string>
+    <string name="actionCopyError">Copy to clipboard</string>
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string>
+
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Support:</b> visit the
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></xliff:g></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Source Code:</b><br />
+        Copyright &#169 2018-2020 Forrest Guice <br />
+        Source code available under GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Translations:</b><br/>
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string>
+    <string name="privacy_permissiondialog_title">Permissions</string>
+    <!--<string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
+    ]]></xliff:g></string>-->
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> by <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
+    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, and <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Hungarian</item>
+        <item>Italian</item>
+        <item>Polish</item>
+        <item>Spanish</item>
+        <item>Catalan</item>
+        <item>Basque</item>
+        <item>Norwegian</item>
+        <item>Traditional Chinese</item>
+        <item>Portuguese</item>
+        <item>Dutch</item>
+    </string-array>  <!-- should contain localized language names -->
+
+</resources>
