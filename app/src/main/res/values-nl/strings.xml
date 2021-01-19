@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
-    <string name="sunrise">Sunrise</string>
-    <string name="sunset">Sunset</string>
-    <string name="timeMode_civil">Civil Twilight</string>
-    <string name="timeMode_nautical">Nautical Twilight</string>
-    <string name="timeMode_astronomical">Astronomical Twilight</string>
-    <string name="dawn">Dawn</string>
-    <string name="dusk">Dusk</string>
-    <string name="polar_twilight">Polar twilight</string>
-    <string name="civil_night">Civil polar night</string>
-    <string name="nautical_night">Nautical polar night</string>
-    <string name="white_night">White night</string>
+    <string name="sunrise">Zonsopgang</string>
+    <string name="sunset">Zonsondergang</string>
+    <string name="timeMode_civil">Civiele Schemering</string>
+    <string name="timeMode_nautical">Nautische Schemering</string>
+    <string name="timeMode_astronomical">Astronomische Schemering</string>
+    <string name="dawn">Dageraad</string>
+    <string name="dusk">Schemer</string>
+    <string name="polar_twilight">Polaire schemering</string>
+    <string name="civil_night">Civiele poolnacht</string>
+    <string name="nautical_night">Nautische poolnacht</string>
+    <string name="white_night">Middernachtzon</string>
 
-    <string name="moonrise">Moonrise</string>
-    <string name="moonset">Moonset</string>
+    <string name="moonrise">Maanopkomst</string>
+    <string name="moonset">Maansondergang</string>
 
-    <string name="timeMode_equinox_vernal">Spring Equinox</string>
-    <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
-    <string name="timeMode_solstice_summer">Summer Solstice</string>
-    <string name="timeMode_solstice_winter">Winter Solstice</string>
+    <string name="timeMode_equinox_vernal">Lente Equinox</string>
+    <string name="timeMode_equinox_autumnal">Herfst Equinox</string>
+    <string name="timeMode_solstice_summer">Zomerwende</string>
+    <string name="timeMode_solstice_winter">Winterwende</string>
 
-    <string name="timeMode_moon">Moon</string>
-    <string name="timeMode_moon_new">New Moon</string>
-    <string name="timeMode_moon_firstquarter">First Quarter</string>
-    <string name="timeMode_moon_full">Full Moon</string>
-    <string name="timeMode_moon_thirdquarter">Third Quarter</string>
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon">Maan</string>
+    <string name="timeMode_moon_new">Nieuwe Maan</string>
+    <string name="timeMode_moon_firstquarter">Eerste Kwartier</string>
+    <string name="timeMode_moon_full">Volle Maan</string>
+    <string name="timeMode_moon_thirdquarter">Laatste Kwartier</string>
+    <string name="timeMode_moon_super">Supermaan</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Micromaan</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Super Volle Maan</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_supernew">Super Nieuwe Maan</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_microfull">Micro Volle Maan</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->
+    <string name="timeMode_moon_micronew">Micro Nieuwe Maan</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->
-    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>
-    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>
-    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>
-    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>
+    <string name="timeMode_moon_apogee">Apogeum</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigeum</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Jonge Maansikkel</string>
+    <string name="timeMode_moon_waxinggibbous">Wassende Maan</string>
+    <string name="timeMode_moon_waninggibbous">Krimpende Maan</string>
+    <string name="timeMode_moon_waningcrescent">Asgrauwe Maan</string>
 
-    <string name="configLabel_calendars">Calendars</string>
-    <string name="configLabel_options">Options</string>
-    <string name="configLabel_calendars_location">Location</string>
+    <string name="configLabel_calendars">Kalenders</string>
+    <string name="configLabel_options">Opties</string>
+    <string name="configLabel_calendars_location">Locatie</string>
 
-    <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
+    <string name="calendar_solstice_displayName">Zonnewendes, Equinoxes</string>
     <string name="calendar_solstice_summary" />
-    <string name="calendar_moonPhase_displayName">Moon Phases</string>
-    <string name="calendar_moonPhase_summary">Synodic month</string>
-    <string name="calendar_moonApsis_displayName">Moon Apsis</string>
-    <string name="calendar_moonApsis_summary">Anomalistic month</string>
+    <string name="calendar_moonPhase_displayName">Schijngestalten van de Maan</string>
+    <string name="calendar_moonPhase_summary">Synodische Maand</string>
+    <string name="calendar_moonApsis_displayName">Maan Apsis</string>
+    <string name="calendar_moonApsis_summary">Anomalistische Maand</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
-    <string name="calendar_moonrise_summary">Moonrise, moonset</string>
+    <string name="calendar_moonrise_summary">Maansopkomst, -ondergang</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary">Sunrise, sunset</string>
+    <string name="calendar_civil_twilight_summary">Zonsopkomst, -ondergang</string>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
 
-    <string name="configLabel_calendars_enabled">Calendar Integration</string>
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
+    <string name="configLabel_calendars_enabled">Kalender Intergratie</string>
+    <string name="configLabel_calendars_enabled_summary">Voeg gebeurtenissen toe aan de kalender app</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window">Kalenderscherm</string>
+    <string name="configLabel_calendars_window_summary">Een periode start <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, eindigt <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
-    <string name="configLabel_calendars_window0">Window (start)</string>
-    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>
+    <string name="configLabel_calendars_window0">(start-) scherm</string>
+    <string name="configLabel_calendars_window0_summary">Een periode start <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> geleden</string>
 
     <string name="configLabel_calendars_window1">Window (end)</string>
-    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>
+    <string name="configLabel_calendars_window1_summary">Een periode start <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> vanaf nu</string>
 
-    <string name="calendars_notification_adding">Adding calendars…</string>
-    <string name="calendars_notification_added">Calendars have been added.</string>
-    <string name="calendars_notification_adding_failed">Failed to add calendars!</string>
+    <string name="calendars_notification_adding">Voeg kalenders toe ...</string>
+    <string name="calendars_notification_added">Kalenders zijn toegevoegd.</string>
+    <string name="calendars_notification_adding_failed">Kalenders toevoegen is mislukt!</string>
 
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
