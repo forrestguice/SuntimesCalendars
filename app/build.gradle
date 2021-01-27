@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:25.4.0'
     implementation 'com.android.support:support-compat:25.4.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.github.QuadFlask:colorpicker:0.0.13'
+    implementation 'com.github.forrestguice:colorpicker:0.0.13post1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.jraska:falcon:1.0.4'
