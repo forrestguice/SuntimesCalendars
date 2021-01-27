@@ -86,7 +86,7 @@
     <string name="confirm_clear_message0">Kalenders verwijderen?</string>
     <string name="confirm_clear_message1">Kalender verwijderen?</string>
 
-    <string name="confirm_cancel_message">Lopende taak afbreken?\n\nDit kan ertoe leiden dat agenda's ontbreken of onvolledig zijn.</string>
+    <string name="confirm_cancel_message">Lopende taak afbreken?\n\nDit kan ertoe leiden dat agenda\'s ontbreken of onvolledig zijn.</string>
     <string name="confirm_cancel_yes">Bevestig</string>
     <string name="confirm_cancel_no">Terug</string>
 
@@ -117,7 +117,7 @@
 
     <string name="toolbar_title">Kalenders</string>
 
-    <string name="progress_title">Agenda's bijwerken</string>
+    <string name="progress_title">Agenda\'s bijwerken</string>
     <string name="progress_message">Dit kan een paar minuten duren…\n\nJe kan de app sluiten. De update wordt op de achtergrond voortgezet.</string>
 
     <string name="color_dialog_msg">Kies kleur</string>
@@ -150,7 +150,7 @@
 
     <string name="help_location"><![CDATA[
         <h1>Locatie</h1>
-        De locatie wordt geconfigureerd vanuit Suntimes. Deze instelling wordt toegepast wanneer agenda's worden toegevoegd.
+        De locatie wordt geconfigureerd vanuit Suntimes. Deze instelling wordt toegepast wanneer agenda\'s worden toegevoegd.
         <br/><br/>
         Om de locatie van een agenda te wijzigen, wijzigt u eerst de locatie in Suntimes, verwijdert u de agenda en voegt u deze opnieuw toe.
     ]]></string>
@@ -175,7 +175,7 @@
     ]]></string>
 
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars verzamelt, bewaart, of verzendt geen persoonlijke gebruikersgegevens. Het bevat <b>geen advertenties</b>, <b>geen analyses</b>, <b>geen trackers</b>, en <b>onnodige toestemmingen</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
-    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars gebruikt <b>agenda</b>-toestemmingen voor de intergratie met de agenda-app. Met deze toestemmingen kan de app aangepaste agenda's en evenementen maken.<br/><br/>Toestemmingen zijn ook vereist bij het uitschakelen van de agenda-intergratie (om aangepaste agenda's te verwijderen).]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars gebruikt <b>agenda</b>-toestemmingen voor de intergratie met de agenda-app. Met deze toestemmingen kan de app aangepaste agenda\'s en evenementen maken.<br/><br/>Toestemmingen zijn ook vereist bij het uitschakelen van de agenda-intergratie (om aangepaste agenda's te verwijderen).]]></string>
     <string name="privacy_permissiondialog_title">Toestemmingen</string>
     <!--<string name="privacy_url"><xliff:g id="url"><![CDATA[
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
