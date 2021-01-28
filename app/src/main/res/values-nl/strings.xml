@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="sunrise">Zonsopgang</string>
+    <string name="sunset">Zonsondergang</string>
+    <string name="timeMode_civil">Civiele Schemering</string>
+    <string name="timeMode_nautical">Nautische Schemering</string>
+    <string name="timeMode_astronomical">Astronomische Schemering</string>
+    <string name="dawn">Dageraad</string>
+    <string name="dusk">Schemer</string>
+    <string name="polar_twilight">Polaire schemering</string>
+    <string name="civil_night">Civiele poolnacht</string>
+    <string name="nautical_night">Nautische poolnacht</string>
+    <string name="white_night">Middernachtzon</string>
+
+    <string name="moonrise">Maanopkomst</string>
+    <string name="moonset">Maansondergang</string>
+
+    <string name="timeMode_equinox_vernal">Lente Equinox</string>
+    <string name="timeMode_equinox_autumnal">Herfst Equinox</string>
+    <string name="timeMode_solstice_summer">Zomerwende</string>
+    <string name="timeMode_solstice_winter">Winterwende</string>
+
+    <string name="timeMode_moon">Maan</string>
+    <string name="timeMode_moon_new">Nieuwe Maan</string>
+    <string name="timeMode_moon_firstquarter">Eerste Kwartier</string>
+    <string name="timeMode_moon_full">Volle Maan</string>
+    <string name="timeMode_moon_thirdquarter">Laatste Kwartier</string>
+    <string name="timeMode_moon_super">Supermaan</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Micromaan</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Super Volle Maan</string>                             <!-- setting -->
+    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_supernew">Super Nieuwe Maan</string>                             <!-- setting -->
+    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_microfull">Micro Volle Maan</string>                             <!-- setting -->
+    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_micronew">Micro Nieuwe Maan</string>                             <!-- setting -->
+    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_apogee">Apogeum</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Perigeum</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Jonge Maansikkel</string>
+    <string name="timeMode_moon_waxinggibbous">Wassende Maan</string>
+    <string name="timeMode_moon_waninggibbous">Krimpende Maan</string>
+    <string name="timeMode_moon_waningcrescent">Asgrauwe Maan</string>
+
+    <string name="configLabel_calendars">Kalenders</string>
+    <string name="configLabel_options">Opties</string>
+    <string name="configLabel_calendars_location">Locatie</string>
+
+    <string name="calendar_solstice_displayName">Zonnewendes, Equinoxes</string>
+    <string name="calendar_solstice_summary" />
+    <string name="calendar_moonPhase_displayName">Schijngestalten van de Maan</string>
+    <string name="calendar_moonPhase_summary">Synodische Maand</string>
+    <string name="calendar_moonApsis_displayName">Maan Apsis</string>
+    <string name="calendar_moonApsis_summary">Anomalistische Maand</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
+    <string name="calendar_moonrise_summary">Maansopkomst, -ondergang</string>
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary">Zonsopkomst, -ondergang</string>
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
+
+    <string name="configLabel_calendars_enabled">Agenda-intergratie</string>
+    <string name="configLabel_calendars_enabled_summary">Voeg gebeurtenissen toe aan de kalender app</string>
+
+    <string name="configLabel_calendars_window">Agendascherm</string>
+    <string name="configLabel_calendars_window_summary">Een periode start <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, eindigt <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+
+    <string name="configLabel_calendars_window0">(start-) scherm</string>
+    <string name="configLabel_calendars_window0_summary">Een periode start <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> geleden</string>
+
+    <string name="configLabel_calendars_window1">Window (end)</string>
+    <string name="configLabel_calendars_window1_summary">Een periode start <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> vanaf nu</string>
+
+    <string name="calendars_notification_adding">Voeg kalender toe ...</string>
+    <string name="calendars_notification_added">Kalenders zijn toegevoegd.</string>
+    <string name="calendars_notification_adding_failed">Kalenders toevoegen is mislukt!</string>
+
+    <string name="calendars_notification_clearing">Kalenders wissen…</string>
+    <string name="calendars_notification_cleared">Kalenders zijn gewist.</string>
+
+    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_add_message1">Kalender toevoegen?</string>
+    <string name="confirm_clear_message0">Kalenders verwijderen?</string>
+    <string name="confirm_clear_message1">Kalender verwijderen?</string>
+
+    <string name="confirm_cancel_message">Lopende taak afbreken?\n\nDit kan ertoe leiden dat agenda\'s ontbreken of onvolledig zijn.</string>
+    <string name="confirm_cancel_yes">Bevestig</string>
+    <string name="confirm_cancel_no">Terug</string>
+
+    <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
+    <string name="action_openCalendar1">Open kalender</string>  <!-- actionbar version -->
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>één jaar</item>
+        <item>twee jaren</item>
+        <item>vijf jaren</item>
+        <item>tien jaren</item>
+    </string-array>
+
+    <plurals name="units_years_ago">
+        <item quantity="one">%s jaar geleden</item>
+        <item quantity="other">%s jaren geleden</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d jaar vanaf nu</item>
+        <item quantity="other">%d jaren vanaf nu</item>
+    </plurals>
+
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%s\n%s</string>
+
+    <string name="toolbar_title">Kalenders</string>
+
+    <string name="progress_title">Agenda\'s bijwerken</string>
+    <string name="progress_message">Dit kan een paar minuten duren…\n\nJe kan de app sluiten. De update wordt op de achtergrond voortgezet.</string>
+
+    <string name="color_dialog_msg">Kies kleur</string>
+    <string name="color_dialog_ok">Selecteer</string>
+    <string name="color_dialog_cancel">Annuleer</string>
+
+    <string name="about_dialog_title">Over</string>
+    <string name="app_name">Suntimes Calendars</string>
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Ontbreekt!</b></font>
+    ]]></string>
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Toestemming gewijgerd!</b></font>
+    ]]></string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> wordt niet ondersteunt door de actuele versie; vereist <xliff:g id="versionString">%s</xliff:g> of hoger.</string>
+    <string name="snackbar_missing_dependency"><![CDATA[
+        Deze app vereist<br />
+        <b><u>%s</u></b> of hoger!
+    ]]></string>
+    <string name="snackbar_missing_permission"><![CDATA[
+        Toegang geweigerd!<br />
+        <u>%s</u> moet geherinstalleerd worden om correct te werken.
+        <br /><br />
+        Deze app ontbreekt rechten die worden toegekend tijdens de installatie. Dit gebeurt wanneer apps in de verkeerde volgorde worden geïnstalleerd - installeer Suntimes voordat u add-ons installeert.
+    ]]></string>
+    <string name="actionCopyError">Kopieer naar het klembord</string>
+    <string name="actionCopyError_toast">Fout gekopieerd naar het klembord.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Locatie</h1>
+        De locatie wordt geconfigureerd vanuit Suntimes. Deze instelling wordt toegepast wanneer agenda\'s worden toegevoegd.
+        <br/><br/>
+        Om de locatie van een agenda te wijzigen, wijzigt u eerst de locatie in Suntimes, verwijdert u de agenda en voegt u deze opnieuw toe.
+    ]]></string>
+
+    <string name="app_version"><![CDATA[<b>Versie:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Een kalenderprovider-add-on voor Suntimes.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Ondersteuning:</b> bezoek de
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> om een verzoek in te dienen.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+    ]]></xliff:g></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Broncode:</b><br />
+        Copyright &#169 2018-2020 Forrest Guice <br />
+        Broncode beschikbaar onder GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Vertalingen:</b><br/>
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars verzamelt, bewaart, of verzendt geen persoonlijke gebruikersgegevens. Het bevat <b>geen advertenties</b>, <b>geen analyses</b>, <b>geen trackers</b>, en <b>onnodige toestemmingen</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars gebruikt <b>agenda</b>-toestemmingen voor de intergratie met de agenda-app. Met deze toestemmingen kan de app aangepaste agenda\'s en evenementen maken.<br/><br/>Toestemmingen zijn ook vereist bij het uitschakelen van de agenda-intergratie (om aangepaste agenda's te verwijderen).]]></string>
+    <string name="privacy_permissiondialog_title">Toestemmingen</string>
+    <!--<string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
+    ]]></xliff:g></string>-->
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> door <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
+    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, en <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Engels</item>
+        <item>Esperanto</item>
+        <item>Frans</item>
+        <item>Duits</item>
+        <item>Hongaars</item>
+        <item>Italiaans</item>
+        <item>Pools</item>
+        <item>Spaans</item>
+        <item>Catalaans</item>
+        <item>Baskisch</item>
+        <item>Noors</item>
+        <item>Traditioneel Chinees</item>
+        <item>Portugees</item>
+        <item>Nederlands</item>
+    </string-array>  <!-- should contain localized language names -->
+
+</resources>

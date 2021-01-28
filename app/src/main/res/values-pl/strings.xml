@@ -156,6 +156,7 @@
         <item>Norweski</item>
         <item>Chiński tradycyjny</item>
         <item>Portugalski</item>
+        <item>Dutch</item>  <!-- TODO -->
     </string-array>
 
 </resources>

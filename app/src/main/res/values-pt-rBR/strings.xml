@@ -173,6 +173,7 @@
         <item>Norueguês</item>
         <item>Chinês Tradicional</item>
         <item>Português</item>
+        <item>Dutch</item>  <!-- TODO -->
     </string-array>
 
 </resources>
