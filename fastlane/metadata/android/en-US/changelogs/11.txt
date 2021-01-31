@@ -1,1 +1,1 @@
-- adds translation to Dutch (nl) (by Joppla).
+- adds translation to Dutch (nl).
