@@ -47,7 +47,7 @@ Use the issue tracker to submit a bug report or a feature request.
 When reporting a bug **please be detailed as possible**. What did you expect the app to do, what did you actually observe? Include the app version number in your report. Other useful information includes the Android OS version (and sometimes your specific device model).
 
 ## Legal Stuff
-Copyright © 2018-2020 Forrest Guice <br />
+Copyright © 2018-2021 Forrest Guice <br />
 The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
 
 > This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
@@ -64,3 +64,4 @@ Norwegian translation by <u>FTno</u>.<br/>
 Italian translation by <u>Matteo Caoduro</u>.<br/>
 Traditional Chinese translation by <u><a href=https://github.com/pggdt>ft42</a></u>.<br />
 Brazilian Portuguese translation by <u><a href=https://github.com/netosilva15>NetoSilva</a></u>, <u><a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a></u>, and <u><a href=https://github.com/efraletti>Enrico S. B. Fraletti</a></u>.<br />
+Dutch translation by <u><a href=https://github.com/joppla>Joppla</a></u>.<br />

@@ -1,5 +1,8 @@
 ### ~
 
+### v0.5.0 (2021-01-30)
+* adds translation to Dutch (nl) (contributed by Joppla) (#30).
+
 ### v0.5.0 (2020-11-20)
 * adds support for add-on calendars; add-on apps may now declare their own calendars (e.g. https://github.com/forrestguice/SolunarPeriods). These calendars will show up in the list automatically when available.
 * misc UI changes; enhances "Calendar Window" preference, adds ActionBar, adds "Open Calendar" menu item, moves "About" to overflow menu.

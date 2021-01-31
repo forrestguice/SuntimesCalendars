@@ -129,7 +129,7 @@
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
-    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2019 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
+    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2021 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Tłumaczenia:</b><br/>
         <xliff:g id="locale_credits">%1$s</xliff:g>
