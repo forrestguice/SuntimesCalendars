@@ -62,8 +62,8 @@
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
 
-    <string name="configLabel_calendars_enabled">Agenda-intergratie</string>
-    <string name="configLabel_calendars_enabled_summary">Voeg gebeurtenissen toe aan de kalender app</string>
+    <string name="configLabel_calendars_enabled">Agenda-integratie</string>
+    <string name="configLabel_calendars_enabled_summary">Voeg gebeurtenissen toe aan de Agenda-App</string>
 
     <string name="configLabel_calendars_window">Agendascherm</string>
     <string name="configLabel_calendars_window_summary">Een periode start <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, eindigt <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
