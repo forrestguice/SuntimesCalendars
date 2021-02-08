@@ -1,6 +1,6 @@
 ### ~
 
-### v0.5.0 (2021-01-30)
+### v0.5.1 (2021-01-30)
 * adds translation to Dutch (nl) (contributed by Joppla) (#30).
 
 ### v0.5.0 (2020-11-20)
