@@ -106,10 +106,10 @@
     <string name="app_name">Suntimes</string>
 
     <string name="app_provider_version_missing"><![CDATA[
-        <font color="#e65100"><b>Missing!</b></font>
+        <font color="#e65100"><b>No trobat!</b></font>
     ]]></string>  
     <string name="app_provider_version_denied"><![CDATA[
-        <font color="#e65100"><b>Permission Denied!</b></font>
+        <font color="#e65100"><b>Permís denegat!</b></font>
     ]]></string>  
     <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  
     <!--<string name="snackbar_missing_dependency"><![CDATA[
