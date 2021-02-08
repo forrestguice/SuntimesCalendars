@@ -2,16 +2,16 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
     <string name="sunrise">Alba</string>                             <!-- contentDescription -->
-    <string name="sunset">Capvespre</string>                               <!-- contentDescription -->
+    <string name="sunset">Crepuscle</string>                               <!-- contentDescription -->
     <string name="timeMode_civil">Crepuscle civil</string>               <!-- setting -->
     <string name="timeMode_nautical">Crepuscle nàutic</string>         <!-- setting -->
     <string name="timeMode_astronomical">Crepuscle astrònomic</string> <!-- setting -->
-    <string name="dawn">Dawn</string>    <!-- TODO -->
-    <string name="dusk">Dusk</string>    <!-- TODO -->
-    <string name="polar_twilight">Polar twilight</string>    <!-- TODO -->
-    <string name="civil_night">Civil polar night</string>    <!-- TODO -->
-    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
-    <string name="white_night">White night</string>    <!-- TODO -->
+    <string name="dawn">Matinada</string>    
+    <string name="dusk">Capvespre</string>    
+    <string name="polar_twilight">Crepuscle polar</string>    
+    <string name="civil_night">Nit polar civil</string>    
+    <string name="nautical_night">Nit polar nàutica</string>    
+    <string name="white_night">Sol de mitjanit o nit blanca</string>    
 
     <string name="moonrise">Sortida de la Lluna</string>                             <!-- contentDescription -->
     <string name="moonset">Posta de la Lluna</string>                             <!-- contentDescription -->
@@ -26,52 +26,52 @@
     <string name="timeMode_moon_firstquarter">Quart creixent</string>                 <!-- setting -->
     <string name="timeMode_moon_full">Lluna plena</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">Quart minvant</string>                 <!-- setting -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_super">Superlluna</string>               <!-- label -->    
+    <string name="timeMode_moon_micro">Microlluna</string>               <!-- label -->    
+    <string name="timeMode_moon_superfull">Superlluna plena</string>                             <!-- setting -->    
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">Superlluna nova</string>                             <!-- setting -->    
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">Microlluna nova</string>                             <!-- setting -->    
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">Microlluna nova</string>                             <!-- setting -->    
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Apogeu</string>                             <!-- label -->  
+    <string name="timeMode_moon_perigee">Perigeu</string>                             <!-- label -->  
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Calendaris</string>   <!-- group title -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_options">Opcions</string>   
+    <string name="configLabel_calendars_location">Localització</string>  
 
     <string name="configLabel_calendars_enabled">Integració amb el calendari</string>
     <string name="configLabel_calendars_enabled_summary">Proporcionar esdeveniments a l\'aplicació de calendari.</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Finestra de calendari</string>  
+    <string name="configLabel_calendars_window_summary">Període començant fa <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, acabant d\'aquí a <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> 
 
     <string name="configLabel_calendars_window0">Finestra (inici)</string>
-    <string name="configLabel_calendars_window0_summary">Un període començà <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> enrere</string>
+    <string name="configLabel_calendars_window0_summary">Un període començà fa <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Finestra (fi)</string>
-    <string name="configLabel_calendars_window1_summary">Un període finalitzarà en <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> comptant des d\'ara</string>
+    <string name="configLabel_calendars_window1_summary">Un període finalitzarà d\'aquí a <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
 
     <string name="calendars_notification_adding">Afegint calendaris…</string>
     <string name="calendars_notification_added">Els calendaris s\'han afegit.</string>
 
-    <string name="calendars_notification_clearing">Netejant calendaris…</string>
-    <string name="calendars_notification_cleared">Els calendaris s\'han afegit.</string>
+    <string name="calendars_notification_clearing">Eliminant calendaris…</string>
+    <string name="calendars_notification_cleared">Els calendaris s\'han eliminat.</string>
 
-    <string name="confirm_add_message1">Add calendar?</string>  <!-- TODO -->
-    <string name="confirm_clear_message0">Remove calendars?</string>  <!-- TODO -->
-    <string name="confirm_clear_message1">Remove calendar?</string>  <!-- TODO -->
+    <string name="confirm_add_message1">Afegir calendari?</string>  
+    <string name="confirm_clear_message0">Eliminar calendaris?</string>  
+    <string name="confirm_clear_message1">Eliminar calendari?</string>  
 
-    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>  <!-- TODO -->
-    <string name="confirm_cancel_yes">Confirm</string>  <!-- TODO -->
-    <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
+    <string name="confirm_cancel_message">Canceŀlar la tasca en execució?\n\nPot causar calendaris incomplerts o desapareguts.</string>  
+    <string name="confirm_cancel_yes">Confirmar</string>  
+    <string name="confirm_cancel_no">Tornar</string>  
 
-    <string name="action_openCalendar">Open</string> <!-- TODO -->
-    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
+    <string name="action_openCalendar">Obrir</string> 
+    <string name="action_openCalendar1">Obrir Calendari</string>  <!-- actionbar version --> 
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>un any</item>
@@ -80,18 +80,18 @@
         <item>deu anys</item>
     </string-array>
 
-    <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
-    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
+    <string name="progress_title">Actualitzant Calendaris</string>  
+    <string name="progress_message">Pot trigar uns minuts…\n\nPots tancar l\'aplicació. L\'actualització continuará en segon pla.</string>  
 
     <string name="color_dialog_msg">Escollir color</string>
     <string name="color_dialog_ok">Seleccionar</string>
     <string name="color_dialog_cancel">Canceŀlar</string>
 
     <string name="calendar_solstice_displayName">Solsticis i equinoccis</string>
-    <string name="calendar_moonPhase_displayName">Fases llunars</string>
-    <string name="calendar_moonPhase_summary">Synodic month</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_displayName">Moon Apsis</string>  <!-- TODO -->
-    <string name="calendar_moonApsis_summary">Anomalistic month</string>  <!-- TODO -->
+    <string name="calendar_moonPhase_displayName">Fases lunars</string>
+    <string name="calendar_moonPhase_summary">Mes sinòdic</string>  
+    <string name="calendar_moonApsis_displayName">Apsis de la Lluna</string>  
+    <string name="calendar_moonApsis_summary">Mes anomalístic</string>  
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary" />
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
@@ -107,24 +107,24 @@
 
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing!</b></font>
-    ]]></string>  <!-- TODO -->
+    ]]></string>  
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
-    ]]></string>  <!-- TODO -->
-    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+    ]]></string>  
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  
     <!--<string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
         <b><u>%s</u></b> or greater!
-    ]]></string>-->  <!-- TODO -->
+    ]]></string>-->  
     <!--<string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
         <u>%s</u> must be reinstalled to work correctly.
         <br /><br />
         This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
-    ]]></string>-->  <!-- TODO -->
+    ]]></string>-->  
 
-    <string name="actionCopyError">Copy to clipboard</string>           <!-- TODO -->
-    <string name="actionCopyError_toast">Error copied to clipboard.</string>  <!-- TODO -->
+    <string name="actionCopyError">Copia al porta-retalls</string>           
+    <string name="actionCopyError_toast">Error copiat al porta-retalls.</string>  
 
     <string name="app_version"><![CDATA[<b>Versió:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Mostra les hores de l\'alba, capvespre, llum crepuscular i lunar.</string>  <!-- TODO: update -->
@@ -144,7 +144,7 @@
 
     <string name="privacy_policy"><![CDATA[<b>Privadesa:</b><br/>Suntimes no coŀlecta, emmagatzema, o transmet dades personals. <b>No contè anuncis</b>, <b>càlculs estadístics</b>, <b>rastrejadors</b>, i <b>no utilitza permissos innecessaris</b>. <br/><br/>L\'aplicació es configura amb dades de localització. Aquesta informació (i qualsevol altra dada configurada emprada per l\'aplicació) s\'emmagatzema localment i no surt del dispositiu.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilitza el permís de <b>calendari</b> per integrar-se amb l\'aplicació Calendari. Aquests permisos permeten crear calendaris i esdeveniments personalitzats.<br/><br/>També es necessiten permisos quan es desactiva la integració amb el calendari (per eliminar calendaris personalitzats).]]></string>
-    <string name="privacy_permissiondialog_title">Permissos</string>
+    <string name="privacy_permissiondialog_title">Permisos</string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> per <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
@@ -162,8 +162,8 @@
         <item>Basc</item>
         <item>Noruec</item>
         <item>Xinès tradicional</item>
-        <item>Portuguese</item>  <!-- TODO -->
-        <item>Dutch</item>  <!-- TODO -->
+        <item>Portuguès</item>  
+        <item>Holandès</item>  
     </string-array>
 
 </resources>

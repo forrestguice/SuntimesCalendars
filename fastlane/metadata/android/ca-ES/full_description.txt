@@ -1,0 +1,8 @@
+Proporciona esdeveniments del calendari per als solsticis, equinoccis, períodes crepusculars -astronòmics, nàutics, civils (sortida del sol, posta de sol)- i la lluna (sortida de la lluna, posta de la lluna, fases principals, apogeu, perigeu).
+
+Aquest complement per Suntimes afegeix esdeveniments a l'aplicació Calendari. Depèn de <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/"> Suntimes v0.10.3 </a> o posterior.
+
+Es requereixen els permisos següents:
+* <small><u>WRITE_SYNC_SETTINGS</u> </small> s’utilitza per crear i afegir calendaris personalitzats a l’aplicació Calendari.
+* <small><u>WRITE_CALENDAR</u> </small> s'utilitza per emplenar calendaris personalitzats amb esdeveniments.
+* <small><u>suntimes.permission.READ_CALCULATOR</u> </small> s’utilitza per llegir dades del proveïdor Suntimes.
