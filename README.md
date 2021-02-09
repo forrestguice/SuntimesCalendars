@@ -58,7 +58,7 @@ German translation by <u>Henrik "HerHde" Hüttemann</u> and <u>Wolkenschieber</u
 Polish and Esperanto translations by <u>Verdulo</u>.<br/>
 French translation by <u>Jej</u> and <u>Aloha</u>.<br/>
 Hungarian translation by <u>Erci</u>.<br/>
-Catalan and Spanish translations by <u><a href="https://github.com/Raulvo">Raulvo</a></u>.<br/>
+Catalan and Spanish translations by <u><a href="https://github.com/Raulvo">Raulvo</a></u> and <u><a href="https://github.com/gnusuari0">gnusuari0</a></u>.<br/>
 Basque translation by <u>beriain</u>.<br/>
 Norwegian translation by <u>FTno</u>.<br/>
 Italian translation by <u>Matteo Caoduro</u>.<br/>
