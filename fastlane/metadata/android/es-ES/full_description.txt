@@ -1,0 +1,8 @@
+Proporciona eventos de calendario para los solsticios, equinoccios, períodos crepusculares (astronómico, náutico, civil (amanecer, atardecer)) y la luna (salida, puesta de la luna, fases principales, apogeo, perigeo).
+
+Este complemento para Suntimes agrega eventos a la aplicación Calendario. Depende de <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/"> Suntimes v0.10.3 </a> o posterior.
+
+Se requieren los siguientes permisos:
+* <small><u>WRITE_SYNC_SETTINGS</u> </small> se usa para crear y agregar calendarios personalizados a la aplicación Calendario.
+* <small><u>WRITE_CALENDAR</u> </small> se usa para completar calendarios personalizados con eventos.
+* <small><u>suntimes.permission.READ_CALCULATOR</u> </small> se usa para leer datos del proveedor de Suntimes.
