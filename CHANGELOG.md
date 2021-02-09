@@ -1,5 +1,9 @@
 ### ~
 
+### v0.5.2 (2021-02-09)
+* updates translation to Dutch (nl) (#33 by Joppla).
+* updates translations to Catalan (ca) and Spanish (es) (#34, #35 by gnusuari0).
+
 ### v0.5.1 (2021-01-30)
 * adds translation to Dutch (nl) (contributed by Joppla) (#30).
 
