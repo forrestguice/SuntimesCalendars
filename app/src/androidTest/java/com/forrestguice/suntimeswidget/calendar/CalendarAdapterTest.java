@@ -44,7 +44,7 @@ public class CalendarAdapterTest
 
     @Before
     public void initAdapter() {
-        SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(activityRule.getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(activityRule.getActivity()));
+        adapter = new SuntimesCalendarAdapter(activityRule.getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(activityRule.getActivity()));
     }
     private SuntimesCalendarAdapter adapter;
 
