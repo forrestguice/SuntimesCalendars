@@ -126,6 +126,13 @@
     <string name="actionCopyError">Kopii al tondujo</string>
     <string name="actionCopyError_toast">Eraro kopiita al tondujo.</string>
 
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string> <!-- TODO -->
+
     <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Ebligas interagi la aplikaĵon Suntempoj kun kalendaro.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[

@@ -124,7 +124,14 @@
     ]]></string>-->  
 
     <string name="actionCopyError">Copia al porta-retalls</string>           
-    <string name="actionCopyError_toast">Error copiat al porta-retalls.</string>  
+    <string name="actionCopyError_toast">Error copiat al porta-retalls.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string> <!-- TODO -->
 
     <string name="app_version"><![CDATA[<b>Versió:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Mostra les hores de l\'alba, capvespre, llum crepuscular i lunar.</string>  <!-- TODO: update -->
