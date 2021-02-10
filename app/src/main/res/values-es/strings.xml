@@ -79,6 +79,15 @@
         <item>diez años</item>
     </string-array>
 
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>  <!-- TODO -->
+
     <string name="progress_title">Actualizando Calendarios</string>  
     <string name="progress_message">Esto puede tomar varios minutos…\n\nPuedes cerrar la aplicación. La actualización continuará en segundo plano.</string>  
 

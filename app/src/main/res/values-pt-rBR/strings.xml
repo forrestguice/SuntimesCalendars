@@ -94,6 +94,15 @@
         <item>dez anos</item>
     </string-array>
 
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals>  <!-- TODO -->
+
     <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->

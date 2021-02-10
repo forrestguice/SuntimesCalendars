@@ -80,6 +80,13 @@
         <item>十年</item>
     </string-array>
 
+    <plurals name="units_years_ago">
+        <item quantity="other">%s years ago</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="other">%d years from now</item>
+    </plurals>  <!-- TODO -->
+
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 

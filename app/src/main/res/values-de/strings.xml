@@ -80,6 +80,15 @@
     <item>ten years</item>
   </string-array>  <!-- TODO -->
 
+  <plurals name="units_years_ago">
+    <item quantity="one">%s year ago</item>
+    <item quantity="other">%s years ago</item>
+  </plurals>
+  <plurals name="units_years_fromnow">
+    <item quantity="one">%d year from now</item>
+    <item quantity="other">%d years from now</item>
+  </plurals>  <!-- TODO -->
+
   <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
   <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
