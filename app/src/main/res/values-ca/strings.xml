@@ -81,13 +81,13 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">fa %s any</item>
+        <item quantity="other">fa %s anys</item>
     </plurals>
     <plurals name="units_years_fromnow">
-        <item quantity="one">%d year from now</item>
-        <item quantity="other">%d years from now</item>
-    </plurals>  <!-- TODO -->
+        <item quantity="one">D\'aquí a %d any</item>
+        <item quantity="other">D\'aquí a %d anys</item>
+    </plurals>
 
     <string name="progress_title">Actualitzant Calendaris</string>  
     <string name="progress_message">Pot trigar uns minuts…\n\nPots tancar l\'aplicació. L\'actualització continuará en segon pla.</string>  
@@ -136,11 +136,11 @@
     <string name="actionCopyError_toast">Error copiat al porta-retalls.</string>
 
     <string name="help_location"><![CDATA[
-        <h1>Location</h1>
-        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <h1>Localització</h1>
+        La localització s'obté de Suntimes. Aquesta configuració es aplicada quan s\'afegeixen calendaris.
         <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+        Per canviar la localització del calendari, primer canvia-la a Suntimes, després esborra i torna afegir el calendari.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versió:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Mostra les hores de l\'alba, capvespre, llum crepuscular i lunar.</string>  <!-- TODO: update -->
