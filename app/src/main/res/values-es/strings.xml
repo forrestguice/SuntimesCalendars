@@ -41,7 +41,7 @@
 
     <string name="configLabel_calendars">Calendarios</string>
     <string name="configLabel_options">Opciones</string>   
-    <string name="configLabel_calendars_location">Localización</string>  
+    <string name="configLabel_calendars_location">Ubicación</string>  
 
     <string name="configLabel_calendars_enabled">Integración con el calendario</string>
     <string name="configLabel_calendars_enabled_summary">Proporcionar eventos a la aplicación de calendario.</string>
@@ -80,13 +80,13 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">Hace %s año</item>
+        <item quantity="other">Hace %s años</item>
     </plurals>
     <plurals name="units_years_fromnow">
-        <item quantity="one">%d year from now</item>
-        <item quantity="other">%d years from now</item>
-    </plurals>  <!-- TODO -->
+        <item quantity="one">De aquí a %d año</item>
+        <item quantity="other">De aquí a %d años</item>
+    </plurals>
 
     <string name="progress_title">Actualizando Calendarios</string>  
     <string name="progress_message">Esto puede tomar varios minutos…\n\nPuedes cerrar la aplicación. La actualización continuará en segundo plano.</string>  
@@ -134,11 +134,11 @@
     <string name="actionCopyError_toast">Error copiado al portapapeles.</string>
 
     <string name="help_location"><![CDATA[
-        <h1>Location</h1>
-        The location is configured from Suntimes. This setting is applied when calendars are added.
-        <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+<h1> Ubicación </h1>
+         La ubicación se configura desde Suntimes. Esta configuración se aplica cuando se agregan calendarios.
+         <br/> <br/>
+         Para cambiar la ubicación de un calendario, primero cambie la ubicación en Suntimes, luego elimine y vuelva a añadir el calendario.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versión:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Muestra las horas del amanecer, noche, luz crepuscular y lunar.</string>  <!-- TODO: update -->
@@ -156,7 +156,7 @@
     <xliff:g id="locale_credits">%1$s</xliff:g>
 ]]></string>
 
-    <string name="privacy_policy"><![CDATA[<b>Privacidad:</b> <br /> Suntimes no colectivo, almacena, o transmite datos personales. <b>No contiene anuncios</b>, <b>cálculos estadísticos</b>, <b>rastreadores</b>, y <b>no utiliza permisos innecesarios</b>. <br/><br/> La aplicación se configura con datos de localización. Esta información (y cualquier otro dato configurada empleada por la aplicación) se almacena localmente y no sale del dispositivo. <br/><br/> <xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Privacidad:</b> <br /> Suntimes no colectivo, almacena, o transmite datos personales. <b>No contiene anuncios</b>, <b>cálculos estadísticos</b>, <b>rastreadores</b>, y <b>no utiliza permisos innecesarios</b>. <br/><br/> La aplicación se configura con datos de ubicación. Esta información (y cualquier otro dato configurada empleada por la aplicación) se almacena localmente y no sale del dispositivo. <br/><br/> <xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utiliza el permiso de <b>calendario</b> para integrarse con la aplicación Calendario. Estos permisos permiten crear calendarios y eventos personalizados. <br /><br /> También se necesitan permisos cuando se desactiva la integración con el calendario (para eliminar calendarios personalizados).]]></string>
     <string name="privacy_permissiondialog_title">Permisos</string>
 
