@@ -42,7 +42,7 @@
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">Calendaris</string>   <!-- group title -->
     <string name="configLabel_options">Opcions</string>   
-    <string name="configLabel_calendars_location">Localització</string>  
+    <string name="configLabel_calendars_location">Ubicació</string>  
 
     <string name="configLabel_calendars_enabled">Integració amb el calendari</string>
     <string name="configLabel_calendars_enabled_summary">Proporcionar esdeveniments a l\'aplicació de calendari.</string>
@@ -81,13 +81,13 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">fa %s any</item>
+        <item quantity="other">fa %s anys</item>
     </plurals>
     <plurals name="units_years_fromnow">
-        <item quantity="one">%d year from now</item>
-        <item quantity="other">%d years from now</item>
-    </plurals>  <!-- TODO -->
+        <item quantity="one">D\'aquí a %d any</item>
+        <item quantity="other">D\'aquí a %d anys</item>
+    </plurals>
 
     <string name="progress_title">Actualitzant Calendaris</string>  
     <string name="progress_message">Pot trigar uns minuts…\n\nPots tancar l\'aplicació. L\'actualització continuará en segon pla.</string>  
@@ -136,11 +136,11 @@
     <string name="actionCopyError_toast">Error copiat al porta-retalls.</string>
 
     <string name="help_location"><![CDATA[
-        <h1>Location</h1>
-        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <h1>Ubicació</h1>
+        La ubicació s'obté de Suntimes. Aquesta configuració es aplicada quan s\'afegeixen calendaris.
         <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+        Per canviar la ubicació del calendari, primer canvia-la a Suntimes, després esborra i torna afegir el calendari.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versió:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Mostra les hores de l\'alba, capvespre, llum crepuscular i lunar.</string>  <!-- TODO: update -->
@@ -158,7 +158,7 @@
     <xliff:g id="locale_credits">%1$s</xliff:g>
 ]]></string>
 
-    <string name="privacy_policy"><![CDATA[<b>Privadesa:</b><br/>Suntimes no coŀlecta, emmagatzema, o transmet dades personals. <b>No contè anuncis</b>, <b>càlculs estadístics</b>, <b>rastrejadors</b>, i <b>no utilitza permissos innecessaris</b>. <br/><br/>L\'aplicació es configura amb dades de localització. Aquesta informació (i qualsevol altra dada configurada emprada per l\'aplicació) s\'emmagatzema localment i no surt del dispositiu.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Privadesa:</b><br/>Suntimes no coŀlecta, emmagatzema, o transmet dades personals. <b>No contè anuncis</b>, <b>càlculs estadístics</b>, <b>rastrejadors</b>, i <b>no utilitza permissos innecessaris</b>. <br/><br/>L\'aplicació es configura amb dades de ubicació. Aquesta informació (i qualsevol altra dada configurada emprada per l\'aplicació) s\'emmagatzema localment i no surt del dispositiu.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilitza el permís de <b>calendari</b> per integrar-se amb l\'aplicació Calendari. Aquests permisos permeten crear calendaris i esdeveniments personalitzats.<br/><br/>També es necessiten permisos quan es desactiva la integració amb el calendari (per eliminar calendaris personalitzats).]]></string>
     <string name="privacy_permissiondialog_title">Permisos</string>
 
