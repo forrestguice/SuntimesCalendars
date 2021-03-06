@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="sunrise">Восход солнца</string>
+    <string name="sunset">Заход солнца</string>
+    <string name="timeMode_civil">Гражданские сумерки</string>
+    <string name="timeMode_nautical">Навигационные сумерки</string>
+    <string name="timeMode_astronomical">Астрономические сумерки</string>
+    <string name="dawn">Рассвет</string>
+    <string name="dusk">Сумерки</string>
+    <string name="polar_twilight">Полярные сумерки</string>
+    <string name="civil_night">Гражданская полярная ночь</string>
+    <string name="nautical_night">Навигационная полярная ночь</string>
+    <string name="white_night">Белые ночи</string>
+
+    <string name="moonrise">Восход луны</string>
+    <string name="moonset">Заход луны</string>
+
+    <string name="timeMode_equinox_vernal">Весеннее равноденствие</string>
+    <string name="timeMode_equinox_autumnal">Осеннее равноденствие</string>
+    <string name="timeMode_solstice_summer">Летнее солнцестояние</string>
+    <string name="timeMode_solstice_winter">Зимнее солнцестояние</string>
+
+    <string name="timeMode_moon">Луна</string>
+    <string name="timeMode_moon_new">Новолуние</string>
+    <string name="timeMode_moon_firstquarter">Первая четверть</string>
+    <string name="timeMode_moon_full">Полнолуние</string>
+    <string name="timeMode_moon_thirdquarter">Третья четверть</string>
+    <string name="timeMode_moon_super">Суперлуние</string>
+    <string name="timeMode_moon_micro">Микролуние</string>
+    <string name="timeMode_moon_superfull">Суперполнолуние</string>
+    <string name="timeMode_moon_supernew">Суперноволуние</string>
+    <string name="timeMode_moon_microfull">Микрополнолуние</string>
+    <string name="timeMode_moon_micronew">Микроноволуние</string>
+    <string name="timeMode_moon_apogee">Апогей</string>
+    <string name="timeMode_moon_perigee">Перигей</string>
+
+    <string name="configLabel_calendars">Календари</string>
+    <string name="configLabel_options">Параметры</string>
+    <string name="configLabel_calendars_location">Местоположение</string>
+
+    <string name="calendar_solstice_displayName">Солнцестояние и равноденствие</string>
+    <string name="calendar_moonPhase_displayName">Фазы луны</string>
+    <string name="calendar_moonPhase_summary">Синодический месяц</string>
+    <string name="calendar_moonApsis_displayName">Апсиды луны</string>
+    <string name="calendar_moonApsis_summary">Аномалистический месяц</string>
+    <string name="calendar_moonrise_summary">Восход и заход луны</string>
+    <string name="calendar_civil_twilight_summary">Восход и заход солнца</string>
+
+    <string name="configLabel_calendars_enabled">Интеграция в систему</string>
+    <string name="configLabel_calendars_enabled_summary">Добавлять события в системный календарь.</string>
+
+    <string name="configLabel_calendars_window">Интервал событий</string>
+    <string name="configLabel_calendars_window_summary">Начинается <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, заканчивается <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+
+    <string name="calendars_notification_adding">Добавление календарей…</string>
+    <string name="calendars_notification_added">Календари добавлены.</string>
+
+    <string name="calendars_notification_clearing">Удаление календарей…</string>
+    <string name="calendars_notification_cleared">Календари удалены.</string>
+
+    <string name="confirm_add_message1">Добавить календарь?</string>
+    <string name="confirm_clear_message0">Удалить календари?</string>
+    <string name="confirm_clear_message1">Удалить календарь?</string>
+
+    <string name="action_openCalendar">Открыть</string>
+    <string name="action_openCalendar1">Открыть календарь</string>
+
+    <plurals name="units_years_ago">
+        <item quantity="one">%s год назад</item>
+        <item quantity="few">%s года назад</item>
+        <item quantity="many">%s лет назад</item>
+    </plurals>
+    <plurals name="units_years_fromnow">
+        <item quantity="one">через %d год</item>
+        <item quantity="few">через %d года</item>
+        <item quantity="many">через %d лет</item>
+    </plurals>
+
+    <string name="toolbar_title">Календари</string>
+
+    <string name="progress_title">Обновление календарей</string>
+    <string name="progress_message">Это может занять несколько минут…\n\nВы можете закрыть приложение. Обновление продолжится в фоне.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Местоположение</h1>
+        Местоположение настраивается в приложении Suntimes и используется при добавлении календарей.
+        <br/><br/>
+        Чтобы изменить местоположение календаря, измените сначала местоположение в приложении Suntimes, затем удалите календарь и добавьте его снова.
+    ]]></string>
+
+</resources>
