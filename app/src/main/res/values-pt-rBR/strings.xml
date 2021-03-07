@@ -190,6 +190,7 @@
         <item>Chinês Tradicional</item>
         <item>Português</item>
         <item>Dutch</item>  <!-- TODO -->
+        <item>Russian</item>  <!-- TODO -->
     </string-array>
 
 </resources>
