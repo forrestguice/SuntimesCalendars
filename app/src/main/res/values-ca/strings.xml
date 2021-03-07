@@ -137,7 +137,7 @@
 
     <string name="help_location"><![CDATA[
         <h1>Ubicació</h1>
-        La ubicació s'obté de Suntimes. Aquesta configuració es aplicada quan s\'afegeixen calendaris.
+        La ubicació s\'obté de Suntimes. Aquesta configuració es aplicada quan s\'afegeixen calendaris.
         <br/><br/>
         Per canviar la ubicació del calendari, primer canvia-la a Suntimes, després esborra i torna afegir el calendari.
     ]]></string>
