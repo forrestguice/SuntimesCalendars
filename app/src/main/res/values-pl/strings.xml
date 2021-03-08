@@ -177,6 +177,7 @@
         <item>Chiński tradycyjny</item>
         <item>Portugalski</item>
         <item>Dutch</item>  <!-- TODO -->
+        <item>Russian</item>  <!-- TODO -->
     </string-array>
 
 </resources>

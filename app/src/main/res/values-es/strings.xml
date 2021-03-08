@@ -177,7 +177,8 @@
         <item>Noruego</item>
         <item>Chino tradicional</item>
         <item>Portugués</item>  
-        <item>Holandés</item>  
+        <item>Holandés</item>
+        <item>Russian</item>  <!-- TODO -->
     </string-array>
 
 </resources>
