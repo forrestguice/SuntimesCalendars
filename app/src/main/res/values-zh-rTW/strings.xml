@@ -184,6 +184,7 @@
         <item>正體中文</item>
         <item>Portuguese</item>
         <item>Dutch</item>  <!-- TODO -->
+        <item>Russian</item>  <!-- TODO -->
     </string-array>  <!-- TODO -->
 
 </resources>

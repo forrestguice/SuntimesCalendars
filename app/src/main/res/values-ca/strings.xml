@@ -179,7 +179,8 @@
         <item>Noruec</item>
         <item>Xinès tradicional</item>
         <item>Portuguès</item>  
-        <item>Holandès</item>  
+        <item>Holandès</item>
+        <item>Russian</item>  <!-- TODO -->
     </string-array>
 
 </resources>
