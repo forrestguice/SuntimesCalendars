@@ -1,0 +1,2 @@
+- adds translation to Russian.
+- updates translations to Catalan and Spanish.
