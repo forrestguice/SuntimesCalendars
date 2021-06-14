@@ -1,5 +1,8 @@
 ### ~
 
+### v0.5.4 (2021-06-16)
+* updates translation to German (de) (#41 by wolkenschieber).
+
 ### v0.5.3 (2021-03-09)
 * adds translation to Russian (ru) (contributed by ddanilov) (#39).
 * updates translations to Catalan (ca) and Spanish (es) (#37, #38 by gnusuari0).
