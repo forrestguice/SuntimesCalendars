@@ -38,6 +38,10 @@
     <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
     <string name="timeMode_moon_apogee">Apogeo</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Perigeo</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Kreskanta antaŭ-Lunduono</string>
+    <string name="timeMode_moon_waxinggibbous">Kreskanta post-Lunduono/string>
+    <string name="timeMode_moon_waninggibbous">Malkreskanta antaŭ-Lunduono</string>
+    <string name="timeMode_moon_waningcrescent">Malkreskanta post-Lunduono</string>
 
 
     <!-- App Setting: calendars -->
@@ -59,6 +63,7 @@
 
     <string name="calendars_notification_adding">Aldonado al kalendaro…</string>
     <string name="calendars_notification_added">Aldonis okazaĵojn al la kalendaro.</string>
+    <string name="calendars_notification_adding_failed">Fiaskis aldoni kalendarojn!</string>
 
     <string name="calendars_notification_clearing">Forviŝado el kalendaroj…</string>
     <string name="calendars_notification_cleared">Forigis okazaĵojn el la kalendaro.</string>
@@ -89,6 +94,10 @@
         <item quantity="one">%d jaro de nun</item>
         <item quantity="other">%d jaroj de nun</item>
     </plurals>
+        
+    <string name="event_at_format">%s en %s</string>  <!-- e.g. moonrise at location_format -->
+        
+    <string name="toolbar_title">Kalendaroj</string>
 
     <string name="progress_title">Ĝisdatigado de kalendaroj</string>
     <string name="progress_message">Tio ĉi povas okupi kelkajn minutojn…\n\nVi povas fermi la aplikaĵon. La tasko pluiĝos fone.</string>
@@ -98,6 +107,7 @@
     <string name="color_dialog_cancel">Nuligi</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
+    <string name="calendar_solstice_summary">Solsticoj kaj ekvinoksoj</string>
     <string name="calendar_moonPhase_displayName">Fazoj de Luno</string>
     <string name="calendar_moonPhase_summary">Monato sinodika</string>
     <string name="calendar_moonApsis_displayName">Apsidoj de Luno</string>
@@ -113,8 +123,10 @@
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">Pri</string>
-    <string name="app_name">Suntempoj: kalendaro</string>
+    <string name="app_name">Suntempoj: kalendaroj</string>
 
+        
+    <string name="app_provider_version"><![CDATA[<b>Suntempoj:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Mankas!</b></font>
     ]]></string>
@@ -140,11 +152,11 @@
         <h1>Loko</h1>
         Geografia loko estas agordata de la aplikaĵo Suntempoj. Tiu ĉi agordo aplikiĝas dum aldoni kalendarojn.
         <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+        Por ŝanĝi lokon de kalendaraj okazaĵoj, ŝanĝu la lokon en la aplikaĵo Suntempoj kaj sekve forigu kaj realdonu la kalendaron.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Ebligas interagi la aplikaĵon Suntempoj kun kalendaro.</string>  <!-- TODO: update -->
+    <string name="app_shortdesc">Suntempoj-aldonaĵo: liveranto de kalendaroj.</string>
     <string name="app_support_url"><![CDATA[
         <b>Subteno:</b> vizitu la
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">erar‑spurilon</a> por raporti problemon.
@@ -158,7 +170,7 @@
         <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
-    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj: kalendaro ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo “Suntempoj: kalendaro” ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniun reklamon</b>, <b>neniun analizilon</b>, <b>neniun spurilon</b> kaj <b>neniun malnecesan permeson</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[La <b>kalendaraj</b> permesoj estas uzataj por interagi kun la aplikaĵo de kalendaro. Ili estas bezonataj por krei proprajn kalendarojn kaj okazaĵojn. Ili estas ankaŭ bezonataj por elŝalti interagon kun la kalendaro (aŭ forigi proprajn kalendarojn).]]></string>
     <string name="privacy_permissiondialog_title">Permesoj</string>
 
@@ -179,8 +191,8 @@
         <item>Norvega</item>
         <item>Ĉina tradicia</item>
         <item>Portugala</item>
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
+        <item>Nederlanda</item>
+        <item>Rusa</item>
     </string-array>
 
 </resources>
