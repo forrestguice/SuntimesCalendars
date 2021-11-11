@@ -47,7 +47,7 @@
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
     <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
 
-    <string name="configLabel_calendars_window">Przedział kalendarza/string>
+    <string name="configLabel_calendars_window">Przedział kalendarza</string>
     <string name="configLabel_calendars_window_summary">Dodaj do kalendarza wydarzenia z przedziału zaczynającego się <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> i kończącego się za <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
@@ -93,6 +93,10 @@
         <item quantity="few">%d lata od teraz</item>
         <item quantity="many">%d lat od teraz</item>
     </plurals>
+    
+    <string name="event_at_format">%s (%s)</string>  <!-- e.g. moonrise at location_format -->
+    
+    <string name="toolbar_title">Kalendarze</string>
 
     <string name="progress_title">Aktualizacja kalendarzy</string>
     <string name="progress_message">To może potrwać kilka minut…\n\nMożesz zamknąć aplikację. Operacja będzie się wykonywać w tle.</string>
@@ -119,13 +123,14 @@
     <string name="about_dialog_title">O programie</string>
     <string name="app_name">Czasy Słońca: kalendarz</string>
 
+    <string name="app_provider_version"><![CDATA[<b>Czasy Słońca:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Brak!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Brak uprawnień!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider">Funkcja “<xliff:g id="featureName">%s</xliff:g>” nie jest wspierana przez tę wersję aplikacji – wymagana jest wersja <xliff:g id="versionString">%s</xliff:g> lub nowsza.</string>
+    <string name="feature_not_supported_by_provider">Funkcja „<xliff:g id="featureName">%s</xliff:g>” nie jest wspierana przez tę wersję aplikacji – wymagana jest wersja <xliff:g id="versionString">%s</xliff:g> lub nowsza.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
     <string name="snackbar_missing_dependency"><![CDATA[
         Wymagana jest aplikacja<br />
@@ -156,7 +161,7 @@
         <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
     
-    <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja Czasy Słońca: kalendarz nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Prywatność:</b><br/>Aplikacja „Czasy Słońca: kalendarz” nie zbiera, przechowuje i przesyła osobistych danych użytkownika. Ta aplikacja nie zawiera reklam, narzędzi analitycznych i zbędnych uprawnień.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Uprawnienie do <b>odczytu kalendarza</b> jest używane do integracji z aplikacją kalendarza. Pozwala to na dodanie własnych wydarzeń do kalendarza. Jest ono także wymagane, aby wyłączyć integrację z kalendarzem (lub usunąć własne kalendarze).]]></string>
     <string name="privacy_permissiondialog_title">Uprawnienia</string>
 
