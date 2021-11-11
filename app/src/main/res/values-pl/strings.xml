@@ -40,15 +40,15 @@
     <string name="timeMode_moon_perigee">Perygeum</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Czasy Słońca: kalendarz</string>   <!-- group title -->  <!-- TODO: update (was shortened) -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_calendars">Kalendarze</string>   <!-- group title -->
+    <string name="configLabel_options">Ustawienia</string>
+    <string name="configLabel_calendars_location">Lokalizacja</string>
 
     <string name="configLabel_calendars_enabled">Integracja z kalendarzem</string>
     <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Przedział kalendarza/string>
+    <string name="configLabel_calendars_window_summary">Dodaj do kalendarza wydarzenia z przedziału zaczynającego się <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> i kończącego się za <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
     <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>
@@ -72,7 +72,7 @@
     <string name="confirm_cancel_no">Nie przerywaj</string>
 
     <string name="action_openCalendar">Otwórz</string>
-    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
+    <string name="action_openCalendar1">Otwórz kalendarz</string>  <!-- actionbar version -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
@@ -82,17 +82,17 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
-        <item quantity="few">%s years ago</item>
-        <item quantity="many">%s years ago</item>
+        <item quantity="one">%s rok temu</item>
+        <item quantity="other">%s lat temu</item>
+        <item quantity="few">%s lata temu</item>
+        <item quantity="many">%s lat temu</item>
     </plurals>
     <plurals name="units_years_fromnow">
-        <item quantity="one">%d year from now</item>
-        <item quantity="other">%d years from now</item>
-        <item quantity="few">%d years from now</item>
-        <item quantity="many">%d years from now</item>
-    </plurals>  <!-- TODO -->
+        <item quantity="one">%d rok od teraz</item>
+        <item quantity="other">%d lat od teraz</item>
+        <item quantity="few">%d lata od teraz</item>
+        <item quantity="many">%d lat od teraz</item>
+    </plurals>
 
     <string name="progress_title">Aktualizacja kalendarzy</string>
     <string name="progress_message">To może potrwać kilka minut…\n\nMożesz zamknąć aplikację. Operacja będzie się wykonywać w tle.</string>
@@ -125,29 +125,30 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Brak uprawnień!</b></font>
     ]]></string>
-    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+    <string name="feature_not_supported_by_provider">Funkcja “<xliff:g id="featureName">%s</xliff:g>” nie jest wspierana przez tę wersję aplikacji – wymagana jest wersja <xliff:g id="versionString">%s</xliff:g> lub nowsza.</string>
+    <string name="snackbar_missing_dependency"><![CDATA[
     <string name="snackbar_missing_dependency"><![CDATA[
         Wymagana jest aplikacja<br />
         <b><u>%s</u></b> lub nowsza!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Brak uprawnień!<br />
-        Brak dostępu do aplikacji Czasy Słońca. Wymagane uprawnienia zostały odmówione (lub nieudzielone).<br />
-        <br />
-        <b>Reinstalacja aplikacji <u>%s</u> powinna pomóc to naprawić.</b>
-    ]]></string>  <!-- TODO: update -->
+        Do poprawnego działania konieczna jest reinstalacja aplikacji<u>%s</u>.
+        <br /><br />
+        Nie udzielono uprawnień, które są przyznawane podczas instalacji. Problem ten zwykle się pojawia podczas instalacji w nieprawidłowej kolejności – najpierw zainstaluj aplikację Czasy Słońca, a następnie dodatki.
+    ]]></string>
     <string name="actionCopyError">Skopiuj do schowka</string>
     <string name="actionCopyError_toast">Skopiowano błąd do schowka.</string>
 
     <string name="help_location"><![CDATA[
-        <h1>Location</h1>
-        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <h1>Lokalizacja</h1>
+        Lokalizacja jest pobierana z aplikacji Czasy Słońca. To ustawienie jest stosowane podczas dodawania kalendarzy.
         <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+        Aby zmienić lokalizację dla wydarzeń z kalendarza, zmień ją w programie Czasy Słońca, a następnie usuń i ponownie dodaj kalendarz.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Umożliwia integrację aplikacji Czasy Słońca z kalendarzem.</string>  <!-- TODO: update -->
+    <string name="app_shortdesc">Dodatek do apki Czasy Słońca: integracja z kalendarzem.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2021 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
@@ -176,8 +177,8 @@
         <item>Norweski</item>
         <item>Chiński tradycyjny</item>
         <item>Portugalski</item>
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
+        <item>Holenderski</item>
+        <item>Rosyjski</item>
     </string-array>
 
 </resources>
