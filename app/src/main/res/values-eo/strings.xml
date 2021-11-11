@@ -38,10 +38,10 @@
     <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
     <string name="timeMode_moon_apogee">Apogeo</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Perigeo</string>                             <!-- label -->
-    <string name="timeMode_moon_waxingcrescent">Kreskanta antaŭ-Lunduono</string>
-    <string name="timeMode_moon_waxinggibbous">Kreskanta post-Lunduono</string>
-    <string name="timeMode_moon_waninggibbous">Malkreskanta antaŭ-Lunduono</string>
-    <string name="timeMode_moon_waningcrescent">Malkreskanta post-Lunduono</string>
+    <string name="timeMode_moon_waxingcrescent">Kreskanta antaŭ-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waxinggibbous">Kreskanta post-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waninggibbous">Malkreskanta antaŭ-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waningcrescent">Malkreskanta post-Lunduono</string> <!-- TODO - unused string to remove (?) -->
 
 
     <!-- App Setting: calendars -->
