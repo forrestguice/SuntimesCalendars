@@ -1,1 +1,1 @@
-Aldonaĵo al aplikaĵo Suntempoj ebliganta interagi kun kalendaro.
+Suntempoj-aldonaĵo: liveranto de kalendaroj.

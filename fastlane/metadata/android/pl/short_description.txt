@@ -1,1 +1,1 @@
-Integruje aplikację Czasy Słońca z kalendarzem.
+Dodatek do apki Czasy Słońca: integracja z kalendarzem.

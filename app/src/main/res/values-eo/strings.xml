@@ -38,27 +38,32 @@
     <!--<string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>-->     <!-- label -->
     <string name="timeMode_moon_apogee">Apogeo</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Perigeo</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Kreskanta antaŭ-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waxinggibbous">Kreskanta post-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waninggibbous">Malkreskanta antaŭ-Lunduono</string> <!-- TODO - unused string to remove (?) -->
+    <string name="timeMode_moon_waningcrescent">Malkreskanta post-Lunduono</string> <!-- TODO - unused string to remove (?) -->
 
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Suntempoj: kalendaro</string>   <!-- group title -->  <!-- TODO: update (was shortened) -->
-    <string name="configLabel_options">Opcioj</string>
+    <string name="configLabel_calendars">Kalendaroj</string>   <!-- group title -->
+    <string name="configLabel_options">Agordoj</string>
     <string name="configLabel_calendars_location">Loko</string>
 
     <string name="configLabel_calendars_enabled">Interagi kun kalendaro</string>
     <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro.</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Amplekso de kalendaro</string>
+    <string name="configLabel_calendars_window_summary">Aldoni al la kalendaro okazaĵojn de <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ĝis <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
-    <string name="configLabel_calendars_window0">Komenco de tempintervalo</string>
+    <string name="configLabel_calendars_window0">Komenco de intertempo</string>
     <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%s</xliff:g></string>
 
-    <string name="configLabel_calendars_window1">Fino de tempintervalo</string>
+    <string name="configLabel_calendars_window1">Fino de intertempo</string>
     <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g id="calendars_window_display" example="du jaroj">%s</xliff:g></string>
 
     <string name="calendars_notification_adding">Aldonado al kalendaro…</string>
     <string name="calendars_notification_added">Aldonis okazaĵojn al la kalendaro.</string>
+    <string name="calendars_notification_adding_failed">Fiaskis aldoni kalendarojn!</string>
 
     <string name="calendars_notification_clearing">Forviŝado el kalendaroj…</string>
     <string name="calendars_notification_cleared">Forigis okazaĵojn el la kalendaro.</string>
@@ -72,7 +77,7 @@
     <string name="confirm_cancel_no">Ne ĉesigi</string>
 
     <string name="action_openCalendar">Malfermi</string>
-    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
+    <string name="action_openCalendar1">Malfermi kalendaron</string>  <!-- actionbar version -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>unu jaro</item>
@@ -82,13 +87,17 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">antaŭ %s jaro</item>
+        <item quantity="other">antaŭ %s jaroj</item>
     </plurals>
     <plurals name="units_years_fromnow">
-        <item quantity="one">%d year from now</item>
-        <item quantity="other">%d years from now</item>
-    </plurals>  <!-- TODO -->
+        <item quantity="one">%d jaro de nun</item>
+        <item quantity="other">%d jaroj de nun</item>
+    </plurals>
+        
+    <string name="event_at_format">%s en %s</string>  <!-- e.g. moonrise at location_format -->
+        
+    <string name="toolbar_title">Kalendaroj</string>
 
     <string name="progress_title">Ĝisdatigado de kalendaroj</string>
     <string name="progress_message">Tio ĉi povas okupi kelkajn minutojn…\n\nVi povas fermi la aplikaĵon. La tasko pluiĝos fone.</string>
@@ -98,6 +107,7 @@
     <string name="color_dialog_cancel">Nuligi</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
+    <string name="calendar_solstice_summary">Solsticoj kaj ekvinoksoj</string>
     <string name="calendar_moonPhase_displayName">Fazoj de Luno</string>
     <string name="calendar_moonPhase_summary">Monato sinodika</string>
     <string name="calendar_moonApsis_displayName">Apsidoj de Luno</string>
@@ -113,8 +123,10 @@
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">Pri</string>
-    <string name="app_name">Suntempoj: kalendaro</string>
+    <string name="app_name">Suntempoj: kalendaroj</string>
 
+        
+    <string name="app_provider_version"><![CDATA[<b>Suntempoj:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Mankas!</b></font>
     ]]></string>
@@ -125,25 +137,26 @@
         Postulas la aplikaĵon<br />
         <b><u>%s</u></b> aŭ pli nova!
     ]]></string>
-    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
-    <string name="snackbar_missing_permission"><![CDATA[
+    
+    <string name="feature_not_supported_by_provider">La eblo “<xliff:g id="featureName">%s</xliff:g>” ne estas subtenata de la nuna versio de la aplikaĵo; postulas version <xliff:g id="versionString">%s</xliff:g> aŭ pli novan.</string>
+   <string name="snackbar_missing_permission"><![CDATA[
         Permeso mankas!<br />
-        Ne povas aliri al la aplikaĵo Suntempoj. La necesa permeso estis rifuzita (aŭ neniam akceptita).<br />
-        <br />
-        <b>Reinstalado de la aplikaĵo <u>%s</u> probable riparos tion.</b>
-    ]]></string>  <!-- TODO: update from default -->
+        La aplikaĵo <u>%s</u> estu reinstalita por funkcii.
+        <br /><br />
+        Mankas la aplikaĵaj permesoj, kiuj estas donataj dum instalado. Tiu ĉi eraro okazas kiam la aplikaĵoj estas instalitaj laŭ malĝusta ordo – instalu la aplikaĵon Suntempoj antaŭ instali aldonaĵojn.
+    ]]></string>
     <string name="actionCopyError">Kopii al tondujo</string>
     <string name="actionCopyError_toast">Eraro kopiita al tondujo.</string>
 
     <string name="help_location"><![CDATA[
-        <h1>Location</h1>
-        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <h1>Loko</h1>
+        Geografia loko estas agordata de la aplikaĵo Suntempoj. Tiu ĉi agordo aplikiĝas dum aldoni kalendarojn.
         <br/><br/>
-        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
-    ]]></string> <!-- TODO -->
+        Por ŝanĝi lokon de kalendaraj okazaĵoj, ŝanĝu la lokon en la aplikaĵo Suntempoj kaj sekve forigu kaj realdonu la kalendaron.
+    ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
-    <string name="app_shortdesc">Ebligas interagi la aplikaĵon Suntempoj kun kalendaro.</string>  <!-- TODO: update -->
+    <string name="app_shortdesc">Suntempoj-aldonaĵo: liveranto de kalendaroj.</string>
     <string name="app_support_url"><![CDATA[
         <b>Subteno:</b> vizitu la
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">erar‑spurilon</a> por raporti problemon.
@@ -157,7 +170,7 @@
         <xliff:g id="locale_credits">%1$s</xliff:g>
     ]]></string>
 
-    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo Suntempoj: kalendaro ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniujn reklamojn</b>, <b>neniujn analizilojn</b>, <b>neniujn spurilojn</b> kaj <b>neniujn malnecesajn permesojn</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_policy"><![CDATA[<b>Privateco:</b><br/>La aplikaĵo “Suntempoj: kalendaro” ne kolektas, konservas aŭ transigas personajn informojn de la uzanto. Ĝi enhavas <b>neniun reklamon</b>, <b>neniun analizilon</b>, <b>neniun spurilon</b> kaj <b>neniun malnecesan permeson</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[La <b>kalendaraj</b> permesoj estas uzataj por interagi kun la aplikaĵo de kalendaro. Ili estas bezonataj por krei proprajn kalendarojn kaj okazaĵojn. Ili estas ankaŭ bezonataj por elŝalti interagon kun la kalendaro (aŭ forigi proprajn kalendarojn).]]></string>
     <string name="privacy_permissiondialog_title">Permesoj</string>
 
@@ -178,8 +191,8 @@
         <item>Norvega</item>
         <item>Ĉina tradicia</item>
         <item>Portugala</item>
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
+        <item>Nederlanda</item>
+        <item>Rusa</item>
     </string-array>
 
 </resources>
