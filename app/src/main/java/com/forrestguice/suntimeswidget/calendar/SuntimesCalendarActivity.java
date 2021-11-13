@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2021 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -491,7 +491,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         switch (id)
         {
             case R.id.action_openCalendar:
-                startActivity(SuntimesCalendarTaskService.getCalendarIntent());
+                openCalendarApp(this);
                 return true;
 
             case R.id.action_about:
@@ -517,6 +517,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Log.e(getClass().getSimpleName(), "Failed to start activity: " + e);
+        }
+    }
+
+    protected static void openCalendarApp(@Nullable Activity context)
+    {
+        if (context != null) {
+            try {
+                Intent intent = SuntimesCalendarTaskService.getCalendarIntent();
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Log.e("SuntimesCalendar", "Failed to start activity: " + e);
+            }
+        } else {
+            Log.e("SuntimesCalendar", "Failed to start activity: null context");
         }
     }
 
@@ -1321,10 +1335,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(View v)
-                    {
-                        Intent intent = SuntimesCalendarTaskService.getCalendarIntent();
-                        startActivity(intent);
+                    public void onClick(View v) {
+                        openCalendarApp(getActivity());
                     }
                 });
                 snackbar.show();
