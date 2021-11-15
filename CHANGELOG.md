@@ -1,5 +1,9 @@
 ### ~
 
+### v0.5.5 (2021-11-15)
+* updates translations to Polish (pl) and Esperanto (eo) (#44 by Verdulo).
+* fixes "app crash when clicking the `Open Calendar` button" (#43).
+
 ### v0.5.4 (2021-06-16)
 * updates translation to German (de) (#41 by wolkenschieber).
 
