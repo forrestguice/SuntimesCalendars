@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.System" parent="AppTheme.System.Base">
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.BottomSheetDialog</item>
+    </style>
+</resources>

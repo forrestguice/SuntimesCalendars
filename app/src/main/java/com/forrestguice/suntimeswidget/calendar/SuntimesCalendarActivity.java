@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2018-2021 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -64,6 +64,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -110,6 +111,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static final String THEME_LIGHT = "light";
     public static final String THEME_DARK = "dark";
+    public static final String THEME_SYSTEM = "system";
     public static final int MIN_PROVIDER_VERSION = 1;
     public static final String MIN_SUNTIMES_VERSION = "0.10.3";
     public static final String MIN_SUNTIMES_VERSION_STRING = "Suntimes v" + MIN_SUNTIMES_VERSION;
@@ -317,8 +319,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         setResult(RESULT_OK);
         context = this;
 
-        if (config_apptheme != null) {
-            setTheme(config_apptheme.equals(THEME_LIGHT) ? R.style.AppTheme_Light : R.style.AppTheme_Dark);
+        if (config_apptheme != null)
+        {
+            int resId = config_apptheme.startsWith(THEME_SYSTEM) ? R.style.AppTheme_System
+                    : config_apptheme.startsWith(THEME_LIGHT) ? R.style.AppTheme_Light
+                    : config_apptheme.startsWith(THEME_DARK) ? R.style.AppTheme_Dark
+                    : R.style.AppTheme_Dark;
+            setTheme(this, resId);
         }
 
         super.onCreate(icicle);
@@ -341,6 +348,19 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         } else {
             initMainFragment();
         }
+    }
+
+    private static int setTheme(Activity activity, int themeResID)
+    {
+        activity.setTheme(themeResID);
+        if (themeResID == R.style.AppTheme_System) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        } else if (themeResID == R.style.AppTheme_Light) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (themeResID == R.style.AppTheme_Dark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        return themeResID;
     }
 
     private void initFirstLaunchFragment()
