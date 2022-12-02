@@ -1,5 +1,8 @@
 ### ~
 
+### v0.5.6 (2022-12-05)
+* updates translation to Norwegian (nb) (#49 by FTno).
+
 ### v0.5.5 (2021-11-15)
 * updates translations to Polish (pl) and Esperanto (eo) (#44 by Verdulo).
 * fixes "app crash when clicking the `Open Calendar` button" (#43).
