@@ -28,5 +28,9 @@
     <color name="red_800">#c62828</color>
     <color name="orange_900">#e65100</color>
 
+    <!--- Night overridable -->
+    <color name="hr">@color/hr_light</color>
+    <color name="text_accent">@color/text_accent_light</color>
+    <color name="text_disabled">@color/text_disabled_light</color>
 
 </resources>

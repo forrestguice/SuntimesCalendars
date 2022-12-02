@@ -2,10 +2,23 @@
     <style name="AppTheme" parent="AppTheme.Dark">
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
-        <item name="hrColor">@color/hr_light</item>
+    <style name="AppTheme.System.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="hrColor">@color/hr</item>
+        <item name="text_accentColor">@color/text_accent</item>
+        <item name="text_disabledColor">@color/text_disabled</item>
+        <item name="icActionCalendar">@drawable/ic_action_calendar_ref</item>
+        <item name="icActionUpdate">@drawable/ic_action_update_ref</item>
+        <item name="icActionAbout">@drawable/ic_action_about_ref</item>
+        <item name="icActionSettings">@drawable/ic_action_settings_ref</item>
+        <item name="icActionHelp">@drawable/ic_action_help_ref</item>
+    </style>
+    <style name="AppTheme.System" parent="AppTheme.System.Base">
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="hrColor">@color/hr_light</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
@@ -13,12 +26,12 @@
         <item name="icActionAbout">@drawable/ic_action_about_light</item>
         <item name="icActionSettings">@drawable/ic_action_settings_light</item>
         <item name="icActionHelp">@drawable/ic_action_help_light</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-        <item name="bottomSheetDialogTheme">@style/Theme.Design.BottomSheetDialog</item>
         <item name="hrColor">@color/hr_dark</item>
-        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
@@ -26,6 +39,8 @@
         <item name="icActionAbout">@drawable/ic_action_about</item>
         <item name="icActionSettings">@drawable/ic_action_settings</item>
         <item name="icActionHelp">@drawable/ic_action_help</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.Design.BottomSheetDialog</item>
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
@@ -34,6 +49,11 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
 
+    </style>
+
+    <style name="ToastTextAppearance">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

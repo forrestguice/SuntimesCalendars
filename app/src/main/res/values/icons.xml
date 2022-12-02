@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="ic_action_calendar_ref">@drawable/ic_action_calendar_light</drawable>
+    <drawable name="ic_action_update_ref">@drawable/ic_action_update_light</drawable>
+    <drawable name="ic_action_about_ref">@drawable/ic_action_about_light</drawable>
+    <drawable name="ic_action_settings_ref">@drawable/ic_action_settings_light</drawable>
+    <drawable name="ic_action_help_ref">@drawable/ic_action_help_light</drawable>
+</resources>

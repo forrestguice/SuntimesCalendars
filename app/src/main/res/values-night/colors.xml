@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="hr">@color/hr_dark</color>
+    <color name="text_accent">@color/text_accent_dark</color>
+    <color name="text_disabled">@color/text_disabled_dark</color>
+</resources>
