@@ -1,5 +1,11 @@
 ### ~
 
+### v0.5.6 (2022-12-05)
+* adds support for system dark mode (night mode).
+* fixes bug where Toasts are unreadable (white-on-white); Android 13 (api33+).
+* updates build; gradle wrapper to `gradle-5.0`.
+* updates translation to Norwegian (nb) (#49 by FTno).
+
 ### v0.5.5 (2021-11-15)
 * updates translations to Polish (pl) and Esperanto (eo) (#44 by Verdulo).
 * fixes "app crash when clicking the `Open Calendar` button" (#43).
