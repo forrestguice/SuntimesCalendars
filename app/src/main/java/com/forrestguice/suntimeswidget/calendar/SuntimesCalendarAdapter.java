@@ -149,6 +149,10 @@ public class SuntimesCalendarAdapter
         contentResolver.bulkInsert(CalendarContract.Events.CONTENT_URI, values);
     }
 
+    public void createCalendarReminders(@NonNull ContentValues[] values) throws SecurityException {
+        contentResolver.bulkInsert(CalendarContract.Reminders.CONTENT_URI, values);
+    }
+
     /**
      * removeCalendarEventsBefore
      * @param calendarID calendar ID
@@ -396,9 +400,26 @@ public class SuntimesCalendarAdapter
     }
 
     /**
+     * @param calendarID
+     * @param eventID
+     * @param minutesBeforeEvent
+     * @param method e.g. CalendarContract.Reminders.METHOD_DEFAULT
+     * @return
+     */
+    public ContentValues createReminderContentValues(long calendarID, long eventID, int minutesBeforeEvent, int method)
+    {
+        ContentValues v = new ContentValues();
+        v.put(CalendarContract.Reminders.CALENDAR_ID, calendarID);
+        v.put(CalendarContract.Reminders.EVENT_ID, eventID);
+        v.put(CalendarContract.Reminders.MINUTES, minutesBeforeEvent);
+        v.put(CalendarContract.Reminders.METHOD, method);
+        return v;
+    }
+
+    /**
      * EVENT_PROJECTION
      */
-    public static final String[] EVENT_PROJECTION = new String[]{
+    public static final String[] EVENT_PROJECTION = new String[] {
             CalendarContract.Calendars._ID,                           // 0
             CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
             CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,         // 2
@@ -410,5 +431,14 @@ public class SuntimesCalendarAdapter
     public static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
     public static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
     public static final int PROJECTION_CALENDAR_COLOR_INDEX = 4;
+
+
+    /**
+     * REMINDERS_PROJECTION
+     */
+    public static final String[] REMINDERS_PROJECTION = new String[] {
+            CalendarContract.Reminders.MINUTES,
+            CalendarContract.Reminders.METHOD,
+    };
 
 }
