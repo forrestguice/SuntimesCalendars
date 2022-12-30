@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
@@ -39,8 +40,10 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
-    public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method";
-    public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes";
+
+    public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
+    public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
+    public static final String PREF_KEY_CALENDARS_REMINDER_COUNT = "app_calendars_reminder_count_";
 
     public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
     public static final String NOTE_LOCATION_NAME = "location_name";
@@ -142,22 +145,27 @@ public class SuntimesCalendarSettings
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 
-    public static int loadPrefCalendarReminderMethod(Context context, String calendar)
+    public static int loadPrefCalendarReminderCount(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_METHOD + calendar, defaultCalendarReminderMethod(context, calendar));
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, 1);
     }
-    public static int loadPrefCalendarReminderMinutes(Context context, String calendar)
+    public static int loadPrefCalendarReminderMethod(Context context, String calendar, int reminderNum)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + calendar, defaultCalendarReminderMinutes(context, calendar));
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar, defaultCalendarReminderMethod(context, calendar, reminderNum));
+    }
+    public static int loadPrefCalendarReminderMinutes(Context context, String calendar, int reminderNum)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, defaultCalendarReminderMinutes(context, calendar, reminderNum));
     }
 
-    public static int defaultCalendarReminderMethod(Context context, String calendar) {
-        return -1;   // -1 (no reminder); 0 (system default)
+    public static int defaultCalendarReminderMethod(Context context, String calendar, int reminderNum) {
+        return 3;   // -1 (no reminder); 0 (system default)
     }
-    public static int defaultCalendarReminderMinutes(Context context, String calendar) {
-        return 0;
+    public static int defaultCalendarReminderMinutes(Context context, String calendar, int reminderNum) {
+        return -5;
     }
 
     public int loadPrefCalendarColor(Context context, String calendar)

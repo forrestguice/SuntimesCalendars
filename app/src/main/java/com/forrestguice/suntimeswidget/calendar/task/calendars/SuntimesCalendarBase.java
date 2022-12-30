@@ -68,10 +68,14 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         String calendar = calendarName();
         //adapter.removeCalendarReminders(calendar);
 
-        int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar);
-        int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar);
-        if (method != -1) {
-            adapter.createCalendarReminders(calendar, minutes, method);
+        int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
+        for (int i=0; i<count; i++)
+        {
+            int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
+            int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar, i);
+            if (method != -1) {
+                adapter.createCalendarReminders(calendar, minutes, method);
+            }
         }
     }
 
