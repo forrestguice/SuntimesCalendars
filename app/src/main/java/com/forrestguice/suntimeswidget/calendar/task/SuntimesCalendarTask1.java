@@ -45,6 +45,7 @@ import java.util.TreeSet;
  * legacy task
  */
 @SuppressWarnings("Convert2Diamond")
+@Deprecated
 public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
