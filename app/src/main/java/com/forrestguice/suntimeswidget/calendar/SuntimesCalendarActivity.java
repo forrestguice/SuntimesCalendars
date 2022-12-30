@@ -65,6 +65,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -87,9 +88,11 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
+import com.forrestguice.suntimeswidget.views.Toast;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -494,7 +497,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu)
     {
-        forceActionBarIcons(menu);
+        PopupMenuCompat.forceActionBarIcons(menu);
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -897,7 +900,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 {
                     @Override
                     public void onClick(View v) {
-                        showColorPicker(context, calendar);
+                        showContextMenu(context, v, calendar);
                     }
                 });
                 calendarPrefs.put(calendar, calendarPref);
@@ -914,6 +917,46 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
             setIsBusy(isBusy);
         }
+
+        /**
+         * showContextMenu
+         * @param context
+         * @param calendar
+         */
+        protected boolean showContextMenu(Context context, View v, String calendar)
+        {
+            PopupMenu menu = PopupMenuCompat.createMenu(context, v, R.menu.menu_context, onContextMenuClick(context, calendar));
+            updateContextMenu(context, menu, calendar);
+            menu.show();
+            return true;
+        }
+
+        protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
+        {
+        }
+
+        protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
+        {
+            return new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item)
+                {
+                    switch (item.getItemId())
+                    {
+                        case R.id.action_color:
+                            showColorPicker(context, calendar);
+                            return true;
+
+                        default:
+                            return false;
+                    }
+                }
+            };
+        }
+
+        /**
+         * showColorPicker
+         */
 
         private ColorStateList createColorStateList(int calendarColor)
         {
@@ -1539,24 +1582,5 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     };
 
-    /**
-     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
-     */
-    public static void forceActionBarIcons(Menu menu)
-    {
-        if (menu != null)
-        {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-            {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
 
-                } catch (Exception e) {
-                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
-                }
-            }
-        }
-    }
 }
