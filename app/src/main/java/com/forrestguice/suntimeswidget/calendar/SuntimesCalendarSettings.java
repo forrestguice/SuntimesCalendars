@@ -145,10 +145,13 @@ public class SuntimesCalendarSettings
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 
+    /**
+     * loadPrefCalendarReminder
+     */
     public static int loadPrefCalendarReminderCount(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, 1);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, defaultCalendarReminderCount(context, calendar));
     }
     public static int loadPrefCalendarReminderMethod(Context context, String calendar, int reminderNum)
     {
@@ -161,13 +164,34 @@ public class SuntimesCalendarSettings
         return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, defaultCalendarReminderMinutes(context, calendar, reminderNum));
     }
 
-    public static int defaultCalendarReminderMethod(Context context, String calendar, int reminderNum) {
-        return 3;   // -1 (no reminder); 0 (system default)
+    /**
+     * defaultCalendarReminder
+     */
+    public static int defaultCalendarReminderCount(Context context, String calendar)
+    {
+        return 1;
     }
-    public static int defaultCalendarReminderMinutes(Context context, String calendar, int reminderNum) {
-        return -5;
+    public static int defaultCalendarReminderMethod(Context context, String calendar, int reminderNum)
+    {
+        switch (reminderNum)
+        {
+            case 1: case 0: return 0;    // 0; CalendarContract.Reminders.METHOD_DEFAULT
+            default: return -1;  // -1; disabled
+        }
+    }
+    public static int defaultCalendarReminderMinutes(Context context, String calendar, int reminderNum)
+    {
+        switch (reminderNum)
+        {
+            case 2: return -5;     // 5m after
+            case 1: return 5;      // 5m before
+            case 0: default: return 0;
+        }
     }
 
+    /**
+     * loadPrefCalendarColor
+     */
     public int loadPrefCalendarColor(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
