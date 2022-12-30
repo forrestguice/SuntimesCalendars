@@ -947,11 +947,24 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             showColorPicker(context, calendar);
                             return true;
 
+                        case R.id.action_reminders:
+                            showReminderDialog(context, calendar);
+                            return true;
+
                         default:
                             return false;
                     }
                 }
             };
+        }
+
+        /**
+         * showReminderDialog
+         */
+        protected void showReminderDialog(Context context, String calendar)
+        {
+            Toast.makeText(context, "TODO: " + calendar, Toast.LENGTH_SHORT).show();
+            // TODO
         }
 
         /**

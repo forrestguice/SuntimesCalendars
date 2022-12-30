@@ -126,7 +126,9 @@
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>
+    <string name="reminder_dialog_msg">Reminders</string>
+
+    <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
     <string name="color_dialog_cancel">Cancel</string>
 
