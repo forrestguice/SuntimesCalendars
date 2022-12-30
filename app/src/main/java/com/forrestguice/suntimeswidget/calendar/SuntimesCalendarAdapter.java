@@ -19,14 +19,18 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.annotation.TargetApi;
+import android.content.ContentProviderOperation;
+import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Build;
+import android.os.RemoteException;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -179,6 +183,51 @@ public class SuntimesCalendarAdapter
         cursor.close();
         Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
         createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
+    }
+
+    /**
+     * removeCalendarReminders
+     * @param calendar
+     * @return number of entries deleted from reminders table
+     */
+    public void removeCalendarReminders(String calendar)
+    {
+        long calendarID = queryCalendarID(calendar);
+        if (calendarID != -1) {
+            removeCalendarReminders(calendarID);
+        } else Log.w(TAG, "removeCalendarReminders: calendar not found! " + calendar);
+    }
+    public int removeCalendarReminders(long calendarID)
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Reminders.CONTENT_URI);
+        ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
+        int retValue = 0;
+
+        Cursor cursor = queryCalendarEvents(calendarID);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            int i_rowID = cursor.getColumnIndex(CalendarContract.Events._ID);
+            if (i_rowID != -1)
+            {
+                long eventID = cursor.getLong(i_rowID);
+                String[] args = new String[] { Long.toString(eventID) };
+                batch.add(ContentProviderOperation.newDelete(uri)
+                        .withSelection(CalendarContract.Events._ID + " = ?", args).build());
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        try {
+            ContentProviderResult[] result = contentResolver.applyBatch(CalendarContract.AUTHORITY, batch);
+            retValue = (result != null ? result.length : 0);
+            Log.d("DEBUG", "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
+
+        } catch (RemoteException | OperationApplicationException e) {
+            Log.e(TAG, "removeCalendarReminders: failed to remove reminders: " + e);
+        }
+        return retValue;
     }
 
     /**
