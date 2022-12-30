@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -39,6 +39,8 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
+    public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method";
+    public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes";
 
     public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
     public static final String NOTE_LOCATION_NAME = "location_name";
@@ -138,6 +140,24 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
+    }
+
+    public static int loadPrefCalendarReminderMethod(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_METHOD + calendar, defaultCalendarReminderMethod(context, calendar));
+    }
+    public static int loadPrefCalendarReminderMinutes(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + calendar, defaultCalendarReminderMinutes(context, calendar));
+    }
+
+    public static int defaultCalendarReminderMethod(Context context, String calendar) {
+        return -1;   // -1 (no reminder); 0 (system default)
+    }
+    public static int defaultCalendarReminderMinutes(Context context, String calendar) {
+        return 0;
     }
 
     public int loadPrefCalendarColor(Context context, String calendar)

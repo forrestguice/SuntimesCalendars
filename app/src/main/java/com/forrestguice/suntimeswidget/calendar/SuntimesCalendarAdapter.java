@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 @TargetApi(14)
@@ -153,6 +154,33 @@ public class SuntimesCalendarAdapter
         contentResolver.bulkInsert(CalendarContract.Reminders.CONTENT_URI, values);
     }
 
+    public void createCalendarReminders(String calendar, int minutes, int method)
+    {
+        long calendarID = queryCalendarID(calendar);
+        if (calendarID != -1) {
+            createCalendarReminders(calendarID, minutes, method);
+        } else Log.w(TAG, "createCalendarReminders: calendar not found! " + calendar);
+    }
+    public void createCalendarReminders(long calendarID, int minutes, int method)
+    {
+        ArrayList<ContentValues> reminderValues = new ArrayList<>();
+        Cursor cursor = queryCalendarEvents(calendarID);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            int i_rowID = cursor.getColumnIndex(CalendarContract.Events._ID);
+            if (i_rowID != -1)
+            {
+                long eventID = cursor.getLong(i_rowID);
+                reminderValues.add(createReminderContentValues(calendarID, eventID, minutes, method));
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+        Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
+        createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
+    }
+
     /**
      * removeCalendarEventsBefore
      * @param calendarID calendar ID
@@ -211,6 +239,14 @@ public class SuntimesCalendarAdapter
 
     public boolean hasCalendarEvents( long calendarID, long timestamp ) {
         return (queryCalendarEventsAt(calendarID, timestamp).getCount() > 0);
+    }
+
+    public Cursor queryCalendarEvents( long calendarID )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?))";
+        return contentResolver.query(uri, EVENT_PROJECTION, select, args, null);
     }
 
     /**
@@ -409,7 +445,6 @@ public class SuntimesCalendarAdapter
     public ContentValues createReminderContentValues(long calendarID, long eventID, int minutesBeforeEvent, int method)
     {
         ContentValues v = new ContentValues();
-        v.put(CalendarContract.Reminders.CALENDAR_ID, calendarID);
         v.put(CalendarContract.Reminders.EVENT_ID, eventID);
         v.put(CalendarContract.Reminders.MINUTES, minutesBeforeEvent);
         v.put(CalendarContract.Reminders.METHOD, method);

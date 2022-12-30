@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -159,6 +159,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
+                    createCalendarReminders(context, adapter);
                     return !task.isCancelled();
 
                 } else {

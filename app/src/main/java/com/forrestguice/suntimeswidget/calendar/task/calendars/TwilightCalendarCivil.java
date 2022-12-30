@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -112,6 +112,7 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                         }
                     }
                     cursor.close();
+                    createCalendarReminders(context, adapter);
                     return !task.isCancelled();
 
                 } else {

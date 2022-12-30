@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -156,6 +156,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                             progress.setProgress(c, totalProgress, calendarTitle);
                             task.publishProgress(progress0, progress);
                         }
+                        createCalendarReminders(context, adapter);
                         cursor.close();
 
                         int chunk = 128;

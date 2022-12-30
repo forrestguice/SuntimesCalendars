@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.task.calendars;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 
@@ -60,6 +61,16 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     @Override
     public int calendarColor() {
         return calendarColor;
+    }
+
+    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarAdapter adapter)
+    {
+        String calendar = calendarName();
+        int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar);
+        int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar);
+        if (method != -1) {
+            adapter.createCalendarReminders(calendar, minutes, method);
+        }
     }
 
 }
