@@ -165,6 +165,55 @@ public class SuntimesCalendarSettings
     }
 
     /**
+     * savePrefCalendarReminder
+     */
+    public static void savePrefCalendarReminderCount(Context context, String calendar, int count)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, count);
+        prefs.apply();
+    }
+    public static void savePrefCalendarReminder(Context context, String calendar, int reminderNum, int minutes, int method)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, minutes);
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar, method);
+        prefs.apply();
+    }
+
+    public static void addCalendarReminder(Context context, String calendar, int minute, int method)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        savePrefCalendarReminder(context, calendar, n, minute, method);
+        savePrefCalendarReminderCount(context, calendar, n+1);
+    }
+
+    /**
+     * removeCalendarReminders
+     */
+    public static void removeCalendarReminders(Context context, String calendar)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        while (n > 0)
+        {
+            removeCalendarReminder(context, calendar);
+            n = loadPrefCalendarReminderCount(context, calendar);
+        }
+    }
+    public static void removeCalendarReminder(Context context, String calendar)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        int reminderNum = n - 1;
+
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar);
+        prefs.apply();
+
+        savePrefCalendarReminderCount(context, calendar, (Math.max(reminderNum, 0)));
+    }
+
+    /**
      * defaultCalendarReminder
      */
     public static int defaultCalendarReminderCount(Context context, String calendar)
