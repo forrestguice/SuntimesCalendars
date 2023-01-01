@@ -3,4 +3,6 @@
 
     <dimen name="about_peekheight">140dp</dimen>
 
+    <dimen name="calendarpref_icon_padding">8dp</dimen>
+
 </resources>

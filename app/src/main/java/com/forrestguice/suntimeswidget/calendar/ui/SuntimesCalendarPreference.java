@@ -28,6 +28,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.forrestguice.suntimescalendars.R;
+
 public class SuntimesCalendarPreference extends CheckBoxPreference
 {
     private ImageView icon;
@@ -59,8 +61,11 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         {
             icon = (ImageView)iconView;
 
-            if (iconColor != null) {
+            if (iconColor != null)
+            {
                 icon.setImageDrawable(icon.getDrawable().mutate());
+                int padding = (int) getContext().getResources().getDimension(R.dimen.calendarpref_icon_padding);
+                icon.setPadding(padding, padding, padding, padding);
                 ImageViewCompat.setImageTintList(icon, iconColor);
             }
 
