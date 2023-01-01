@@ -5,6 +5,7 @@
     <attr name="text_disabledColor" format="reference" />
     <attr name="toolbarTheme" format="reference" />
 
+    <attr name="icActionDelete" format="reference" />
     <attr name="icActionAppearance" format="reference" />
     <attr name="icActionReminder" format="reference" />
     <attr name="icActionCalendar" format="reference" />

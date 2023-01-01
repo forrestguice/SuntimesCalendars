@@ -2,6 +2,7 @@
 <resources>
     <drawable name="ic_action_reminder_ref">@drawable/ic_action_reminder_light</drawable>
     <drawable name="ic_action_appearance_ref">@drawable/ic_action_appearance_light</drawable>
+    <drawable name="ic_action_delete_ref">@drawable/ic_action_delete_light</drawable>
     <drawable name="ic_action_calendar_ref">@drawable/ic_action_calendar_light</drawable>
     <drawable name="ic_action_update_ref">@drawable/ic_action_update_light</drawable>
     <drawable name="ic_action_about_ref">@drawable/ic_action_about_light</drawable>
