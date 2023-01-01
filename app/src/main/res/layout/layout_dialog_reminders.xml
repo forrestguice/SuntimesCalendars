@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2022 Forrest Guice
+    This file is part of SuntimesCalendars.
+
+    SuntimesCalendars is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SuntimesCalendars is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary" android:padding="8dp">
+
+        <TextView android:id="@+id/text_title"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="?android:textColorPrimary"
+            android:text="@string/reminder_dialog_msg" />
+
+        <TextView android:id="@+id/text_subtitle"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="?android:textColorSecondary"
+            android:text="@string/calendar_moonPhase_displayName" />
+
+    </LinearLayout>
+
+    <ScrollView android:id="@+id/scroll_reminders"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <LinearLayout android:id="@+id/layout_reminders" android:orientation="vertical"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:paddingLeft="8dp" android:paddingRight="8dp">
+
+                <include layout="@layout/layout_item_reminder" />
+                <include layout="@layout/layout_item_reminder" />
+                <include layout="@layout/layout_item_reminder" />
+
+            </LinearLayout>
+
+            <TextView android:id="@+id/text_add_reminder"
+                android:layout_width="match_parent" android:layout_height="48dp"
+                android:padding="8dp" android:background="?attr/selectableItemBackground"
+                android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/action_add_reminder" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
