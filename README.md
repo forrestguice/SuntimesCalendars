@@ -6,7 +6,7 @@ An add-on for [Suntimes](https://github.com/forrestguice/SuntimesWidget) that su
 
 [![F-Droid](https://img.shields.io/f-droid/v/com.forrestguice.suntimescalendars.svg)](https://f-droid.org/en/packages/com.forrestguice.suntimescalendars/)
 [![GitHub release](https://img.shields.io/github/release/forrestguice/SuntimesCalendars.svg)](https://github.com/forrestguice/SuntimesCalendars/releases)
-[![Android CI](https://github.com/forrestguice/SuntimesWidget/workflows/Android%20CI/badge.svg?branch=master)](https://github.com/forrestguice/SuntimesCalendars/actions?query=branch%3Amaster)
+[![Android CI](https://github.com/forrestguice/SuntimesCalendars/workflows/Android%20CI/badge.svg?branch=master)](https://github.com/forrestguice/SuntimesCalendars/actions?query=branch%3Amaster)
 
 * [Privacy and Permissions](#privacy-and-permissions)
 * [Donations](#donations)
