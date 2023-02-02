@@ -109,6 +109,7 @@
     </string-array>
 
     <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 minutes</item>
         <item>1 minute</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
@@ -130,6 +131,7 @@
         <item>4 weeks</item>
     </string-array>
     <string-array name="reminder_minutes_values" translatable="false">     <!-- minute config values -->
+        <item>0</item>
         <item>1</item>
         <item>5</item>
         <item>10</item>
