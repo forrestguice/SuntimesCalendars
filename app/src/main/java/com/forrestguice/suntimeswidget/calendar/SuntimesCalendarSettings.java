@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.Reminder;
 
 public class SuntimesCalendarSettings
 {
@@ -44,6 +45,7 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
     public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
     public static final String PREF_KEY_CALENDARS_REMINDER_COUNT = "app_calendars_reminder_count_";
+    public static final int MAX_REMINDERS = 10;
 
     public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
     public static final String NOTE_LOCATION_NAME = "location_name";
@@ -163,6 +165,9 @@ public class SuntimesCalendarSettings
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, defaultCalendarReminderMinutes(context, calendar, reminderNum));
     }
+    public static Reminder loadPrefCalendarReminder(Context context, String calendar, int reminderNum) {
+        return new Reminder(loadPrefCalendarReminderMinutes(context, calendar, reminderNum), loadPrefCalendarReminderMethod(context, calendar, reminderNum));
+    }
 
     /**
      * savePrefCalendarReminder
@@ -181,11 +186,15 @@ public class SuntimesCalendarSettings
         prefs.apply();
     }
 
-    public static void addCalendarReminder(Context context, String calendar, int minute, int method)
+    public static boolean addCalendarReminder(Context context, String calendar, int minute, int method)
     {
         int n = loadPrefCalendarReminderCount(context, calendar);
-        savePrefCalendarReminder(context, calendar, n, minute, method);
-        savePrefCalendarReminderCount(context, calendar, n+1);
+        if (n < MAX_REMINDERS)
+        {
+            savePrefCalendarReminder(context, calendar, n, minute, method);
+            savePrefCalendarReminderCount(context, calendar, n+1);
+            return true;
+        } else return false;
     }
 
     /**
@@ -196,11 +205,12 @@ public class SuntimesCalendarSettings
         int n = loadPrefCalendarReminderCount(context, calendar);
         while (n > 0)
         {
-            removeCalendarReminder(context, calendar);
+            removeLastCalendarReminder(context, calendar);
             n = loadPrefCalendarReminderCount(context, calendar);
         }
     }
-    public static void removeCalendarReminder(Context context, String calendar)
+
+    public static boolean removeLastCalendarReminder(Context context, String calendar)
     {
         int n = loadPrefCalendarReminderCount(context, calendar);
         int reminderNum = n - 1;
@@ -208,9 +218,31 @@ public class SuntimesCalendarSettings
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.remove(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar);
         prefs.remove(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar);
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, (Math.max(reminderNum, 0)));
         prefs.apply();
+        return true;
+    }
 
-        savePrefCalendarReminderCount(context, calendar, (Math.max(reminderNum, 0)));
+    public static boolean removeCalendarReminder(Context context, String calendar, int reminderNum)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        if (reminderNum >= 0 && reminderNum < n)
+        {
+            for (int i=reminderNum; i<n-1; i++)    // shift entries left (overwrite reminderNum)
+            {
+                int minutes = loadPrefCalendarReminderMinutes(context, calendar, i+1);
+                int method = loadPrefCalendarReminderMethod(context, calendar, i+1);
+                savePrefCalendarReminder(context, calendar, i, minutes, method);
+            }
+
+            SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            prefs.remove(PREF_KEY_CALENDARS_REMINDER_MINUTES + (n-1) + "_" + calendar);    // remove final entry (now a duplicate)
+            prefs.remove(PREF_KEY_CALENDARS_REMINDER_METHOD + (n-1) + "_" + calendar);
+            prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, (Math.max(n-1, 0)));
+            prefs.apply();
+            return true;
+        }
+        return false;
     }
 
     /**
