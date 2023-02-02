@@ -250,7 +250,7 @@ public class SuntimesCalendarSettings
      */
     public static int defaultCalendarReminderCount(Context context, String calendar)
     {
-        return 1;
+        return 0;
     }
     public static int defaultCalendarReminderMethod(Context context, String calendar, int reminderNum)
     {

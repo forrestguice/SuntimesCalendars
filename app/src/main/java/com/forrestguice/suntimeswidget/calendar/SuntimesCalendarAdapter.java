@@ -131,6 +131,7 @@ public class SuntimesCalendarAdapter
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
             contentResolver.delete(deleteUri, null, null);
             Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
+            removeCalendarReminders(calendarID);
             return true;
         } else return false;
     }
@@ -185,6 +186,19 @@ public class SuntimesCalendarAdapter
         createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
     }
 
+    public void createCalendarReminders(Context context, String calendar)
+    {
+        int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
+        for (int i=0; i<count; i++)
+        {
+            int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
+            int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar, i);
+            if (method != -1) {
+                createCalendarReminders(calendar, minutes, method);
+            }
+        }
+    }
+
     /**
      * removeCalendarReminders
      * @param calendar
@@ -222,7 +236,7 @@ public class SuntimesCalendarAdapter
         try {
             ContentProviderResult[] result = contentResolver.applyBatch(CalendarContract.AUTHORITY, batch);
             retValue = (result != null ? result.length : 0);
-            Log.d("DEBUG", "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
+            Log.d(TAG, "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
 
         } catch (RemoteException | OperationApplicationException e) {
             Log.e(TAG, "removeCalendarReminders: failed to remove reminders: " + e);
