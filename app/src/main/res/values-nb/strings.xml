@@ -47,7 +47,7 @@
     <string name="calendar_solstice_displayName">Solverv, Jevndøgn</string>
     <string name="calendar_solstice_summary" />
     <string name="calendar_moonPhase_displayName">Månefaser</string>
-    <string name="calendar_moonPhase_summary">Synodisk måne</string>
+    <string name="calendar_moonPhase_summary">Synodisk måned</string>
     <string name="calendar_moonApsis_displayName">Måne-apsis</string>
     <string name="calendar_moonApsis_summary">Anomalistisk måned</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
@@ -143,7 +143,7 @@
         <h1>Sted</h1>
         Sted er stillt inn fra Suntimes. Denne innstillingen brukes når kalendere er lagt til.
         <br/><br/>
-        Å endre en kalenders sted, endre først stedet i Suntimes, så fjern og legg til kalenderen på nytt.
+        For å endre en kalenders sted, endre først stedet i Suntimes, så fjern og legg til kalenderen på nytt.
     ]]></string>
 
     <string name="app_version"><![CDATA[<b>Versjon:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
