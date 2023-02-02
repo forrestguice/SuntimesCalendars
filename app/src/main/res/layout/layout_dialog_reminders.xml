@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2022 Forrest Guice
+    Copyright (C) 2022-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical" android:background="#00ffffff">
 
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -38,32 +38,28 @@
 
     </LinearLayout>
 
-    <ScrollView android:id="@+id/scroll_reminders"
+    <TextView android:id="@+id/text_add_reminder"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:padding="8dp"
+        android:textColor="?attr/text_accentColor" android:background="?attr/selectableItemBackground"
+        android:clickable="true" android:focusable="true"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/action_add_reminder" />
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:background="?attr/hrColor" />
+
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent" android:layout_height="wrap_content">
 
-        <LinearLayout android:orientation="vertical"
-            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView android:id="@+id/remindersView"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+            tools:listitem="@layout/layout_item_reminder" tools:itemCount="2" />
 
-            <LinearLayout android:id="@+id/layout_reminders" android:orientation="vertical"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:paddingLeft="8dp" android:paddingRight="8dp">
-
-                <include layout="@layout/layout_item_reminder" />
-                <include layout="@layout/layout_item_reminder" />
-                <include layout="@layout/layout_item_reminder" />
-
-            </LinearLayout>
-
-            <TextView android:id="@+id/text_add_reminder"
-                android:layout_width="match_parent" android:layout_height="48dp"
-                android:padding="8dp" android:background="?attr/selectableItemBackground"
-                android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
-                android:gravity="center_vertical"
-                android:text="@string/action_add_reminder" />
-
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>
 

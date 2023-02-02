@@ -78,6 +78,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
@@ -86,15 +87,14 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
-import com.forrestguice.suntimeswidget.views.Toast;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -833,8 +833,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onResume();
 
             android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
-            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore color dialog listeners
+            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore dialog listeners
             {
+                ReminderDialog reminderDialog = (ReminderDialog) fragments.findFragmentByTag(DIALOGTAG_REMINDER + "_" + calendar);
+                if (reminderDialog != null) {
+                    reminderDialog.setDialogListener(reminderDialog_listener);
+                }
+
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
@@ -961,11 +966,50 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         /**
          * showReminderDialog
          */
+
+        private static final String DIALOGTAG_REMINDER = "configreminders";
         protected void showReminderDialog(Context context, String calendar)
         {
-            Toast.makeText(context, "TODO: " + calendar, Toast.LENGTH_SHORT).show();
-            // TODO
+            ReminderDialog dialog = new ReminderDialog();
+            dialog.setCalendar(calendar);
+            dialog.setDialogListener(reminderDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_REMINDER + "_" + calendar);
         }
+
+        private final ReminderDialog.DialogListener reminderDialog_listener = new ReminderDialog.DialogListener()
+        {
+            @Override
+            public void onAddedReminder(String calendar, int reminderNum, int minutes, int method) {
+                Toast.makeText(getActivity(), "added " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onModifiedReminder(String calendar, int reminderNum, int minutes, int method) {
+                Toast.makeText(getActivity(), "saved " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRemovedReminder(String calendar, int reminderNum) {
+                Toast.makeText(getActivity(), "removed " + reminderNum, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDialogDismissed(String calendar, boolean modified)
+            {
+                if (modified)
+                {
+                    Context context = getActivity();
+                    if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
+                        SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
+                    {
+                        //SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
+                        //adapter.removeCalendarReminders(calendar);    // TODO: progress / task
+                        //adapter.createCalendarReminders(context, calendar);
+                        Toast.makeText(getActivity(), "TODO: apply changes: " + calendar, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        };
 
         /**
          * showColorPicker

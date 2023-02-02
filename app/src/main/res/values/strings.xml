@@ -93,6 +93,9 @@
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
     <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
 
+    <string name="action_deleteReminder">Remove</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">after start of event</string>    <!-- checkbox text -->
+
     <string-array name="reminder_method_display">   <!-- display values -->
         <item>Default</item>
         <item>Notification</item>
