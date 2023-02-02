@@ -783,7 +783,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         private HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
-        public CheckBoxPreference getCalendarPref(String calendar)
+        public SuntimesCalendarPreference getCalendarPref(String calendar)
         {
             return calendarPrefs.get(calendar);
         }
@@ -1352,12 +1352,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             builder.show();
         }
 
-        protected void showConfirmDialog(Context context, final String calendar, boolean add)
+        protected void showConfirmDialog(final Context context, final String calendar, boolean add)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(add ? R.string.confirm_add_message1 : R.string.confirm_clear_message1));
 
-            TextView textView = new TextView(context);
+            final TextView textView = new TextView(context);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView.setText(createConfirmDialogMessage(context, calendar, add));
 
@@ -1383,8 +1383,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     runCalendarTask1(getActivity(), calendar, false);
                 }
             });
+
+            DialogInterface.OnClickListener onOptionsClick = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getView().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getCalendarPref(calendar).performClickIcon();
+                        }
+                    }, 250);
+                }
+            };
+
             builder.setPositiveButton(android.R.string.yes, onOkClick);
             builder.setNegativeButton(android.R.string.cancel, null);
+            builder.setNeutralButton(R.string.configLabel_options, onOptionsClick);
             builder.show();
         }
 

@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
@@ -131,6 +132,10 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         if (icon != null) {
             icon.setOnClickListener(onIconClick);
         }
+    }
+
+    public void performClickIcon() {
+        icon.performClick();
     }
 
 }
