@@ -29,6 +29,8 @@
         <item name="icActionDelete">@drawable/ic_action_delete_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
         <item name="icActionUpdate">@drawable/ic_action_update_light</item>
+        <item name="icActionAccept">@drawable/ic_action_accept_light</item>
+        <item name="icActionBack">@drawable/ic_action_back_light</item>
         <item name="icActionAbout">@drawable/ic_action_about_light</item>
         <item name="icActionSettings">@drawable/ic_action_settings_light</item>
         <item name="icActionHelp">@drawable/ic_action_help_light</item>
@@ -45,6 +47,8 @@
         <item name="icActionDelete">@drawable/ic_action_delete_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
         <item name="icActionUpdate">@drawable/ic_action_update</item>
+        <item name="icActionAccept">@drawable/ic_action_accept</item>
+        <item name="icActionBack">@drawable/ic_action_back</item>
         <item name="icActionAbout">@drawable/ic_action_about</item>
         <item name="icActionSettings">@drawable/ic_action_settings</item>
         <item name="icActionHelp">@drawable/ic_action_help</item>
