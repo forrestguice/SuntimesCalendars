@@ -225,9 +225,9 @@ public class SuntimesCalendarAdapter
             if (i_rowID != -1)
             {
                 long eventID = cursor.getLong(i_rowID);
-                String[] args = new String[] { Long.toString(eventID) };
+                final String[] args = new String[] { Long.toString(eventID) };
                 batch.add(ContentProviderOperation.newDelete(uri)
-                        .withSelection(CalendarContract.Events._ID + " = ?", args).build());
+                        .withSelection(CalendarContract.Reminders.EVENT_ID + " = ?", args).build());
             }
             cursor.moveToNext();
         }
