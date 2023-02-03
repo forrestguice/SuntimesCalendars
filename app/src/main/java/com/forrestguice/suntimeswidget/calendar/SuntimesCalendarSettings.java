@@ -42,6 +42,9 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
 
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_TITLE = "app_calendars_template_title_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_BODY = "app_calendars_template_body_";
+
     public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
     public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
     public static final String PREF_KEY_CALENDARS_REMINDER_COUNT = "app_calendars_reminder_count_";
@@ -145,6 +148,37 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
+    }
+
+    /**
+     * loadPrefCalendarTemplate
+     */
+    @Nullable
+    public static String loadPrefCalendarTemplateTitle(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, null);
+    }
+    @Nullable
+    public static String loadPrefCalendarTemplateBody(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, null);
+    }
+
+    /**
+     * savePrefCalendarTemplate
+     */
+    public static void savePrefCalendarTemplateTitle(Context context, String calendar, @Nullable String title)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, title);
+        prefs.apply();
+    }
+    public static void savePrefCalendarTemplateBody(Context context, String calendar, @Nullable String body) {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, body);
+        prefs.apply();
     }
 
     /**
