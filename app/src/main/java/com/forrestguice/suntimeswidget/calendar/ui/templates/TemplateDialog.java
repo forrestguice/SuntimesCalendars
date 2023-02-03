@@ -69,12 +69,12 @@ public class TemplateDialog extends BottomSheetDialogFragment
      * isModified
      */
     public boolean isModified() {
-        return getArguments().getBoolean(KEY_MODIFIED);
+        return getArguments().getBoolean(KEY_MODIFIED, false);
     }
     public void setModified(boolean value) {
         getArguments().putBoolean(KEY_MODIFIED, value);
     }
-    public static final String KEY_MODIFIED = "modified";
+    public static final String KEY_MODIFIED = "ismodified";
 
     /**
      * setTemplate
@@ -92,6 +92,13 @@ public class TemplateDialog extends BottomSheetDialogFragment
     }
     protected Template data = null;
     public static final String KEY_DATA = "data";
+
+    /**
+     * getResult
+     */
+    public Template getResult() {
+        return new Template(edit_title.getText().toString(), edit_body.getText().toString());
+    }
 
     /**
      * setTheme
@@ -157,8 +164,9 @@ public class TemplateDialog extends BottomSheetDialogFragment
             Template data = getTemplate();
             if (data != null) {
                 data.setTitle(s.toString());
-                setModified(true);
+                setTemplate(data);
             }
+            setModified(true);
         }
     };
 
@@ -173,8 +181,9 @@ public class TemplateDialog extends BottomSheetDialogFragment
             Template data = getTemplate();
             if (data != null) {
                 data.setBody(s.toString());
-                setModified(true);
+                setTemplate(data);
             }
+            setModified(true);
         }
     };
 

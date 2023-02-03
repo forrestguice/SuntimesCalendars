@@ -841,6 +841,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     reminderDialog.setDialogListener(reminderDialog_listener);
                 }
 
+                TemplateDialog templateDialog = (TemplateDialog) fragments.findFragmentByTag(DIALOGTAG_TEMPLATE + "_" + calendar);
+                if (templateDialog != null) {
+                    templateDialog.setDialogListener(templateDialog_listener);
+                }
+
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
@@ -990,7 +995,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             {
                 if (dialog.isModified())
                 {
-                    SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getTemplate());
+                    SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getResult());
                     Toast.makeText(getActivity(), getString(R.string.template_dialog_saved_toast), Toast.LENGTH_SHORT).show();
                 }
             }
