@@ -980,17 +980,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             @Override
             public void onAddedReminder(String calendar, int reminderNum, int minutes, int method) {
-                Toast.makeText(getActivity(), "added " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "added " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onModifiedReminder(String calendar, int reminderNum, int minutes, int method) {
-                Toast.makeText(getActivity(), "saved " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "saved " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRemovedReminder(String calendar, int reminderNum) {
-                Toast.makeText(getActivity(), "removed " + reminderNum, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "removed " + reminderNum, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -1002,10 +1002,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
                         SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
                     {
-                        //SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
-                        //adapter.removeCalendarReminders(calendar);    // TODO: progress / task
-                        //adapter.createCalendarReminders(context, calendar);
-                        Toast.makeText(getActivity(), "TODO: apply changes: " + calendar, Toast.LENGTH_SHORT).show();
+                        runCalendarTask2(getActivity(), calendar);
                     }
                 }
             }
@@ -1256,6 +1253,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
             taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_CALENDARS );
             savePendingItem(activity, taskIntent, calendar, enabled);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
+        }
+
+        protected boolean runCalendarTask2(Activity activity, String calendar)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_REMINDERS );
+            savePendingItem(activity, taskIntent, calendar, SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE);
             return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
         }
 
@@ -1627,8 +1632,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static void savePendingItem(Activity activity, Intent intent, String calendar, boolean enabled)
     {
-        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         int action = (enabled ? SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTaskItem.ACTION_DELETE);
+        savePendingItem(activity, intent, calendar, action);
+    }
+    public static void savePendingItem(Activity activity, Intent intent, String calendar, int action)
+    {
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         items.add(new SuntimesCalendarTaskItem(calendar, action));
         savePendingItems(activity, intent, items);
     }

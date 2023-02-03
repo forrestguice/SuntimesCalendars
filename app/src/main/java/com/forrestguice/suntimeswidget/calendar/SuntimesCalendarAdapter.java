@@ -128,10 +128,10 @@ public class SuntimesCalendarAdapter
         long calendarID = queryCalendarID(calendar);
         if (calendarID != -1)
         {
+            removeCalendarReminders(calendarID);
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
             contentResolver.delete(deleteUri, null, null);
             Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
-            removeCalendarReminders(calendarID);
             return true;
         } else return false;
     }
@@ -155,18 +155,23 @@ public class SuntimesCalendarAdapter
         contentResolver.bulkInsert(CalendarContract.Events.CONTENT_URI, values);
     }
 
-    public void createCalendarReminders(@NonNull ContentValues[] values) throws SecurityException {
+    public boolean createCalendarReminders(@NonNull ContentValues[] values) throws SecurityException {
         contentResolver.bulkInsert(CalendarContract.Reminders.CONTENT_URI, values);
+        return true;
     }
 
-    public void createCalendarReminders(String calendar, int minutes, int method)
+    public boolean createCalendarReminders(String calendar, int minutes, int method)
     {
         long calendarID = queryCalendarID(calendar);
         if (calendarID != -1) {
-            createCalendarReminders(calendarID, minutes, method);
-        } else Log.w(TAG, "createCalendarReminders: calendar not found! " + calendar);
+            return createCalendarReminders(calendarID, minutes, method);
+
+        } else {
+            Log.w(TAG, "createCalendarReminders: calendar not found! " + calendar);
+            return false;
+        }
     }
-    public void createCalendarReminders(long calendarID, int minutes, int method)
+    public boolean createCalendarReminders(long calendarID, int minutes, int method)
     {
         ArrayList<ContentValues> reminderValues = new ArrayList<>();
         Cursor cursor = queryCalendarEvents(calendarID);
@@ -183,20 +188,28 @@ public class SuntimesCalendarAdapter
         }
         cursor.close();
         Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
-        createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
+        return createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
     }
 
-    public void createCalendarReminders(Context context, String calendar)
+    public boolean updateCalendarReminders(Context context, String calendar)
     {
+        removeCalendarReminders(calendar);
+        return createCalendarReminders(context, calendar);
+    }
+
+    public boolean createCalendarReminders(Context context, String calendar)
+    {
+        boolean retValue = true;
         int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
         for (int i=0; i<count; i++)
         {
             int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
             int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar, i);
             if (method != -1) {
-                createCalendarReminders(calendar, minutes, method);
+                retValue = retValue && createCalendarReminders(calendar, minutes, method);
             }
         }
+        return retValue;
     }
 
     /**

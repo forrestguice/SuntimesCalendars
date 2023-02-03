@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -48,6 +48,8 @@ public class SuntimesCalendarTaskService extends Service
     public static final String ACTION_UPDATE_CALENDARS = "update_calendars";
     public static final String ACTION_CLEAR_CALENDARS = "clear_calendars";
 
+    public static final String ACTION_UPDATE_REMINDERS = "update_reminders";
+
     public static final String EXTRA_CALENDAR_ITEMS = "calendar_items";
     public static final String EXTRA_CALENDAR_LISTENER = "calendar_listener";
     public static final String EXTRA_SERVICE_LISTENER = "service_listener";
@@ -75,7 +77,7 @@ public class SuntimesCalendarTaskService extends Service
         {
             SuntimesCalendarServiceListener serviceListener = intent.getParcelableExtra(EXTRA_SERVICE_LISTENER);
             SuntimesCalendarTaskListener listener = intent.getParcelableExtra(EXTRA_CALENDAR_LISTENER);
-            if (action.equals(ACTION_UPDATE_CALENDARS))
+            if (action.equals(ACTION_UPDATE_CALENDARS) || action.equals(ACTION_UPDATE_REMINDERS))
             {
                 Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, false, false, listener);
@@ -145,7 +147,8 @@ public class SuntimesCalendarTaskService extends Service
             private boolean hasUpdateAction(SuntimesCalendarTaskItem[] items)
             {
                 for (SuntimesCalendarTaskItem item : items) {
-                    if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE) {
+                    if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE ||
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) {
                         return true;
                     }
                 }
