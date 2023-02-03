@@ -94,6 +94,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.TemplateDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -956,12 +957,48 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             showReminderDialog(context, calendar);
                             return true;
 
+                        case R.id.action_template:
+                            showTemplateDialog(context, calendar);
+                            return true;
+
                         default:
                             return false;
                     }
                 }
             };
         }
+
+
+        /**
+         * showTemplateDialog
+         */
+
+        private static final String DIALOGTAG_TEMPLATE = "configtemplate";
+        protected void showTemplateDialog(Context context, String calendar)
+        {
+            TemplateDialog dialog = new TemplateDialog();
+            dialog.setCalendar(calendar);
+            dialog.setDialogListener(templateDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
+        }
+
+        private final TemplateDialog.DialogListener templateDialog_listener = new TemplateDialog.DialogListener()
+        {
+            @Override
+            public void onDialogDismissed(String calendar, boolean modified)
+            {
+                if (modified)
+                {
+                    Context context = getActivity();
+                    if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
+                            SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
+                    {
+                        // TODO
+                        Toast.makeText(context, "onDismiss: TODO", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        };
 
         /**
          * showReminderDialog

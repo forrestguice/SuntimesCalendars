@@ -14,4 +14,10 @@
         android:icon="?attr/icActionReminder"
         android:title="@string/reminder_dialog_msg"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_template"
+        android:icon="?attr/icActionSettings"
+        android:title="@string/template_dialog_msg"
+        app:showAsAction="never" />
 </menu>

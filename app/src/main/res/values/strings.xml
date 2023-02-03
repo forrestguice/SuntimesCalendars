@@ -93,6 +93,7 @@
     <string name="confirm_cancel_yes">Confirm</string>
     <string name="confirm_cancel_no">Back</string>
 
+    <string name="action_help">Help</string>   <!-- TODO -->
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
     <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
 
@@ -194,6 +195,12 @@
 
     <string name="reminder_dialog_msg">Reminders</string>  <!-- TODO -->
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
+
+    <string name="template_dialog_msg">Template</string>  <!-- TODO -->
+    <string name="template_dialog_title_label">Title</string>  <!-- TODO -->
+    <string name="template_dialog_title_hint">Title</string>  <!-- TODO -->
+    <string name="template_dialog_body_label">Body</string>  <!-- TODO -->
+    <string name="template_dialog_body_hint">Body</string>  <!-- TODO -->
 
     <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
