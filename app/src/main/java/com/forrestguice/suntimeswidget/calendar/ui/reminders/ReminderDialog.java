@@ -41,7 +41,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 
 public class ReminderDialog extends BottomSheetDialogFragment
 {
-    protected TextView text_subtitle;
+    protected TextView text_title;
     protected RecyclerView card_view;
     protected CardLayoutManager card_layout;
     protected ReminderViewAdapter card_adapter;
@@ -105,7 +105,7 @@ public class ReminderDialog extends BottomSheetDialogFragment
 
     protected void initViews(Context context, View dialogContent)
     {
-        text_subtitle = (TextView) dialogContent.findViewById(R.id.text_subtitle);
+        text_title = (TextView) dialogContent.findViewById(R.id.text_title);
 
         card_layout = new CardLayoutManager(context);
         card_layout.setStackFromEnd(true);
@@ -135,13 +135,13 @@ public class ReminderDialog extends BottomSheetDialogFragment
         if (calendar != null)
         {
             SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
-            if (text_subtitle != null) {
-                text_subtitle.setText(descriptor.calendarTitle());
+            if (text_title != null) {
+                text_title.setText(descriptor.calendarTitle());
             }
 
         } else {
-            if (text_subtitle != null) {
-                text_subtitle.setText("");
+            if (text_title != null) {
+                text_title.setText("");
             }
         }
     }
