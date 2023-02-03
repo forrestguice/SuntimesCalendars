@@ -978,6 +978,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             TemplateDialog dialog = new TemplateDialog();
             dialog.setCalendar(calendar);
+            dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar));
             dialog.setDialogListener(templateDialog_listener);
             dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
         }
@@ -985,17 +986,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private final TemplateDialog.DialogListener templateDialog_listener = new TemplateDialog.DialogListener()
         {
             @Override
-            public void onDialogDismissed(String calendar, boolean modified)
+            public void onDialogAccepted(TemplateDialog dialog)
             {
-                if (modified)
+                if (dialog.isModified())
                 {
-                    Context context = getActivity();
-                    if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
-                            SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
-                    {
-                        // TODO
-                        Toast.makeText(context, "onDismiss: TODO", Toast.LENGTH_SHORT).show();
-                    }
+                    SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getTemplate());
+                    Toast.makeText(getActivity(), getString(R.string.template_dialog_saved_toast), Toast.LENGTH_SHORT).show();
                 }
             }
         };

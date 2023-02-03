@@ -27,6 +27,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.ui.reminders.Reminder;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 public class SuntimesCalendarSettings
 {
@@ -154,6 +155,14 @@ public class SuntimesCalendarSettings
      * loadPrefCalendarTemplate
      */
     @Nullable
+    public static Template loadPrefCalendarTemplate(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, null);
+        String body = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, null);
+        return new Template(title, body);
+    }
+    @Nullable
     public static String loadPrefCalendarTemplateTitle(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -169,6 +178,11 @@ public class SuntimesCalendarSettings
     /**
      * savePrefCalendarTemplate
      */
+    public static void savePrefCalendarTemplate(Context context, String calendar, Template template)
+    {
+        savePrefCalendarTemplateTitle(context, calendar, template.getTitle());
+        savePrefCalendarTemplateBody(context, calendar, template.getBody());
+    }
     public static void savePrefCalendarTemplateTitle(Context context, String calendar, @Nullable String title)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();

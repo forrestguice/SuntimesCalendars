@@ -202,6 +202,18 @@
     <string name="template_dialog_body_label">Body</string>  <!-- TODO -->
     <string name="template_dialog_body_hint">Body</string>  <!-- TODO -->
 
+    <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
+
+    <string name="help_template"><![CDATA[
+        <h1>Templates</h1>
+        Templates are applied when calendar events are added.
+        <br/><br/>
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        <br/><br/>
+        <h3>Substitutions</h3>
+        TODO
+    ]]></string>  <!-- TODO-->
+
     <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
     <string name="color_dialog_cancel">Cancel</string>
