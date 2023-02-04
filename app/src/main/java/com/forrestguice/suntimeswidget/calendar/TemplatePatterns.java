@@ -23,13 +23,13 @@ import android.support.annotation.Nullable;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 
 /**
  * TemplatePatterns
  */
 public enum TemplatePatterns
 {
-    pattern_percent("%%", R.string.help_pattern_percent),
     pattern_cal("%cal", R.string.help_pattern_cal),
     pattern_summary("%summary", R.string.help_pattern_summary),
     pattern_color("%color", R.string.help_pattern_color),
@@ -39,7 +39,8 @@ public enum TemplatePatterns
     pattern_lel("%lel", R.string.help_pattern_lel),
     pattern_event("%M", R.string.help_pattern_event),
     pattern_dist("%dist", R.string.help_pattern_dist),
-    pattern_illum("%i", R.string.help_pattern_illum);
+    pattern_illum("%i", R.string.help_pattern_illum),
+    pattern_percent("%%", R.string.help_pattern_percent);
 
     private final String pattern;
     private final int helpResource;
@@ -54,12 +55,40 @@ public enum TemplatePatterns
         return pattern;
     }
 
+    public String toString() {
+        return pattern;
+    }
+
     public int getHelpResource() {
         return helpResource;
     }
     public String getHelpText(Context context) {
         return context.getString(helpResource);
     }
+
+    public static String getAllHelpText(Context context)
+    {
+        int c = 8;
+        StringBuilder substitutionHelp = new StringBuilder();
+
+        TemplatePatterns[] patterns = TemplatePatterns.values();
+        //substitutionHelp.append("<font face='monospace'>");
+        for (int i=0; i<patterns.length; i++)
+        {
+            String pattern = patterns[i].getPattern();
+            String patternHelp = patterns[i].getHelpText(context);
+
+            substitutionHelp.append("<b>").append(pattern).append("</b>").append("&nbsp;");
+            for (int j=0; j<(c-pattern.length()); j++) {
+                substitutionHelp.append("&nbsp;");
+            }
+            substitutionHelp.append(patternHelp)
+                    .append("<br/>");
+        }
+        //substitutionHelp.append("</font");
+        return substitutionHelp.toString();
+    }
+
 
     public static ContentValues createContentValues(@Nullable ContentValues values, SuntimesCalendar calendar)
     {
@@ -103,20 +132,6 @@ public enum TemplatePatterns
         return values;
     }
 
-    /**
-     * Substitutions:
-     *   %cal                ..    calendar name (e.g. "Civil Twilight", "Moon", "Moon Phases", "Moon Apsis", etc)
-     *   %summary            ..    calendar summary (e.g. "Sunrise / Sunset")
-     *   %loc                ..    location name (e.g. Phoenix)
-     *   %lat                ..    location latitude
-     *   %lon                ..    location longitude
-     *   %M                  ..    event title (e.g. "Sunrise", "Sunset", "Dawn", "Dusk", "Summer Solstice", "Full Moon", "Moonrise", "Apogee", etc).
-     *
-     *   %dist               ..    moon distance (e.g. 405,829.51 km)
-     *   %i                  ..    moon illumination
-     *
-     *   %%                  ..    % character
-     */
     public static String replaceSubstitutions(String pattern, ContentValues values)
     {
         String displayString = pattern;

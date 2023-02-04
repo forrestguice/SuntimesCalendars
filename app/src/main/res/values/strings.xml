@@ -208,15 +208,15 @@
 
     <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
 
-    <string name="help_pattern_cal">calendar name (e.g. "Civil Twilight", "Moon", "Moon Phases", "Moon Apsis", etc)</string>   <!-- TODO -->
+    <string name="help_pattern_cal">calendar name (e.g. "Civil Twilight")</string>   <!-- TODO -->
     <string name="help_pattern_summary">calendar summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
     <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
     <string name="help_pattern_loc">location name (e.g. Phoenix)</string>   <!-- TODO -->
     <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->
     <string name="help_pattern_lon">location longitude</string>   <!-- TODO -->
     <string name="help_pattern_lel">location elevation</string>   <!-- TODO -->
-    <string name="help_pattern_event">event title (e.g. "Sunrise", "Sunset", "Dawn", "Dusk", "Summer Solstice", "Full Moon", "Moonrise", "Apogee", etc).</string>   <!-- TODO -->
-    <string name="help_pattern_dist">moon distance (e.g. 405,829.51 km)</string>   <!-- TODO -->
+    <string name="help_pattern_event">event title (e.g. "Full Moon").</string>   <!-- TODO -->
+    <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
     <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
     <string name="help_pattern_percent">% character</string>   <!-- TODO -->
 

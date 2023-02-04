@@ -296,22 +296,9 @@ public class TemplateDialog extends BottomSheetDialogFragment
 
     protected void showHelp()
     {
-        Context context = getActivity();
-        StringBuilder substitutionHelp = new StringBuilder();
-        TemplatePatterns[] patterns = TemplatePatterns.values();
-        for (int i=0; i<patterns.length; i++)
-        {
-            String pattern = patterns[i].getPattern();
-            String patternHelp = patterns[i].getHelpText(context);
-            substitutionHelp.append(pattern);
-            substitutionHelp.append("&nbsp;&nbsp;&nbsp;&nbsp;");
-            substitutionHelp.append(patternHelp);
-            substitutionHelp.append("<br/>");
-        }
-
         HelpDialog helpDialog = new HelpDialog();
         helpDialog.setShowDefaultsButton(true);
-        helpDialog.setContent(getString(R.string.help_template, substitutionHelp) + "<br/>");
+        helpDialog.setContent(getString(R.string.help_template, TemplatePatterns.getAllHelpText(getActivity())) + "<br/>");
         helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }
