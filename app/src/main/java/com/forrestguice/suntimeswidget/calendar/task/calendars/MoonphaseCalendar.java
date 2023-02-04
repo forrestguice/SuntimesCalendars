@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +56,11 @@ public class MoonphaseCalendar extends MoonCalendarBase
     @Override
     public String calendarName() {
         return SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+    }
+
+    @Override
+    public Template defaultTemplate() {
+        return new Template("%M", "%M\n%dist");
     }
 
     @Override

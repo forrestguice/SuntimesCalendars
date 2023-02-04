@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
@@ -155,11 +156,11 @@ public class SuntimesCalendarSettings
      * loadPrefCalendarTemplate
      */
     @Nullable
-    public static Template loadPrefCalendarTemplate(Context context, String calendar)
+    public static Template loadPrefCalendarTemplate(Context context, String calendar, @NonNull Template defaultTemplate)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, null);
-        String body = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, null);
+        String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, defaultTemplate.getTitle());
+        String body = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, defaultTemplate.getBody());
         return new Template(title, body);
     }
     @Nullable

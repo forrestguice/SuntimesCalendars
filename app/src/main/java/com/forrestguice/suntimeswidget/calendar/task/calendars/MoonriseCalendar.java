@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -33,6 +33,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +50,11 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     @Override
     public String calendarName() {
         return CALENDAR_NAME;
+    }
+
+    @Override
+    public Template defaultTemplate() {
+        return new Template("%M", "%M @ %loc");
     }
 
     @Override

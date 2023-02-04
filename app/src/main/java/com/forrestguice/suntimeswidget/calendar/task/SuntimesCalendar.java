@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 /**
  * @version 0.1.0
@@ -74,4 +75,9 @@ public interface SuntimesCalendar
      * @return display color
      */
     int calendarColor();
+
+    /**
+     * @return default template
+     */
+    Template defaultTemplate();
 }

@@ -82,6 +82,7 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
@@ -94,6 +95,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 import com.forrestguice.suntimeswidget.calendar.ui.templates.TemplateDialog;
 
 import java.util.ArrayList;
@@ -981,9 +983,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         private static final String DIALOGTAG_TEMPLATE = "configtemplate";
         protected void showTemplateDialog(Context context, String calendar)
         {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
             TemplateDialog dialog = new TemplateDialog();
             dialog.setCalendar(calendar);
-            dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar));
+            dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar, calendarObj.defaultTemplate()));
             dialog.setDialogListener(templateDialog_listener);
             dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
         }
