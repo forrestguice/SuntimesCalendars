@@ -39,7 +39,7 @@ import android.widget.TextView;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
-import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.views.Toast;
@@ -81,25 +81,25 @@ public class TemplateDialog extends BottomSheetDialogFragment
     /**
      * setTemplate
      */
-    public void setTemplate(@Nullable Template template) {
+    public void setTemplate(@Nullable CalendarEventTemplate template) {
         data = template;
         getArguments().putParcelable(KEY_DATA, template);
     }
     @Nullable
-    public Template getTemplate() {
+    public CalendarEventTemplate getTemplate() {
         if (data == null) {
             data = getArguments().getParcelable(KEY_DATA);
         }
         return data;
     }
-    protected Template data = null;
+    protected CalendarEventTemplate data = null;
     public static final String KEY_DATA = "data";
 
     /**
      * getResult
      */
-    public Template getResult() {
-        return new Template(edit_title.getText().toString(), edit_body.getText().toString());
+    public CalendarEventTemplate getResult() {
+        return new CalendarEventTemplate(edit_title.getText().toString(), edit_body.getText().toString());
     }
 
     /**
@@ -163,7 +163,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         @Override
         public void afterTextChanged(Editable s)
         {
-            Template data = getTemplate();
+            CalendarEventTemplate data = getTemplate();
             if (data != null) {
                 data.setTitle(s.toString());
                 setTemplate(data);
@@ -180,7 +180,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         @Override
         public void afterTextChanged(Editable s)
         {
-            Template data = getTemplate();
+            CalendarEventTemplate data = getTemplate();
             if (data != null) {
                 data.setBody(s.toString());
                 setTemplate(data);
@@ -211,7 +211,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
             }
 
             clearTextWatchers();
-            Template data = getTemplate();
+            CalendarEventTemplate data = getTemplate();
             if (data != null)
             {
                 edit_title.setText(data.getTitle());

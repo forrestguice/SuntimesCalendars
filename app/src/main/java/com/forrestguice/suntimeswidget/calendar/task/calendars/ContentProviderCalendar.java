@@ -33,7 +33,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,8 +73,8 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     }
 
     @Override
-    public Template defaultTemplate() {
-        return new Template(null, null);    // TODO
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate(null, null);    // TODO
     }
 
     private String calenderName = null;

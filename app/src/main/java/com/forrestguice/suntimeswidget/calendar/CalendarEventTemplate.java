@@ -24,18 +24,18 @@ import android.os.Parcelable;
 /**
  * Template
  */
-public class Template implements Parcelable
+public class CalendarEventTemplate implements Parcelable
 {
     protected String title;
     protected String body;
 
-    public Template(String title, String body)
+    public CalendarEventTemplate(String title, String body)
     {
         this.title = title;
         this.body = body;
     }
 
-    public Template(Parcel in)
+    public CalendarEventTemplate(Parcel in)
     {
         this.title = in.readString();
         this.body = in.readString();
@@ -53,13 +53,13 @@ public class Template implements Parcelable
         return 0;
     }
 
-    public static final Creator<Template> CREATOR = new Creator<Template>()
+    public static final Creator<CalendarEventTemplate> CREATOR = new Creator<CalendarEventTemplate>()
     {
-        public Template createFromParcel(Parcel in) {
-            return new Template(in);
+        public CalendarEventTemplate createFromParcel(Parcel in) {
+            return new CalendarEventTemplate(in);
         }
-        public Template[] newArray(int size) {
-            return new Template[size];
+        public CalendarEventTemplate[] newArray(int size) {
+            return new CalendarEventTemplate[size];
         }
     };
 

@@ -154,12 +154,12 @@ public class SuntimesCalendarSettings
      * loadPrefCalendarTemplate
      */
     @Nullable
-    public static Template loadPrefCalendarTemplate(Context context, String calendar, @NonNull Template defaultTemplate)
+    public static CalendarEventTemplate loadPrefCalendarTemplate(Context context, String calendar, @NonNull CalendarEventTemplate defaultTemplate)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, defaultTemplate.getTitle());
         String body = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, defaultTemplate.getBody());
-        return new Template(title, body);
+        return new CalendarEventTemplate(title, body);
     }
     @Nullable
     public static String loadPrefCalendarTemplateTitle(Context context, String calendar)
@@ -177,7 +177,7 @@ public class SuntimesCalendarSettings
     /**
      * savePrefCalendarTemplate
      */
-    public static void savePrefCalendarTemplate(Context context, String calendar, Template template)
+    public static void savePrefCalendarTemplate(Context context, String calendar, CalendarEventTemplate template)
     {
         savePrefCalendarTemplateTitle(context, calendar, template.getTitle());
         savePrefCalendarTemplateBody(context, calendar, template.getBody());

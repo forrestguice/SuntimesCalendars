@@ -95,8 +95,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.TemplateDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.TemplateDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
