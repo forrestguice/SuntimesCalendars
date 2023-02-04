@@ -24,7 +24,7 @@ import android.support.annotation.NonNull;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
+import com.forrestguice.suntimeswidget.calendar.Template;
 
 import java.lang.ref.WeakReference;
 

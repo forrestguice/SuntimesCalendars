@@ -33,9 +33,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
+import com.forrestguice.suntimeswidget.calendar.Template;
 
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.Calendar;
 

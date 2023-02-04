@@ -33,7 +33,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
+import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 
@@ -99,8 +100,8 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     task.publishProgress(progress0, progress);
 
                     Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                    ContentValues data = Template.createContentValues(null, this);
-                    data = Template.createContentValues(data, task.getLocation());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     cursor.moveToFirst();

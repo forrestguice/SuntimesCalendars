@@ -21,14 +21,12 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.ui.reminders.Reminder;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 public class SuntimesCalendarSettings
 {

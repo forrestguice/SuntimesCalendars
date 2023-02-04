@@ -34,7 +34,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
+import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -134,8 +135,8 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         task.publishProgress(progress0, progress);
 
                         Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                        ContentValues data = Template.createContentValues(null, this);
-                        data = Template.createContentValues(data, task.getLocation());
+                        ContentValues data = TemplatePatterns.createContentValues(null, this);
+                        data = TemplatePatterns.createContentValues(data, task.getLocation());
 
                         ArrayList<ContentValues> eventValues = new ArrayList<>();
                         cursor.moveToFirst();
@@ -156,8 +157,8 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
-                                data.put(Template.pattern_event, apsisStrings[i]);
-                                data.put(Template.pattern_dist, ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                                data.put(TemplatePatterns.pattern_event.getPattern(), apsisStrings[i]);
+                                data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), null, eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle

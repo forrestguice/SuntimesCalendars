@@ -33,7 +33,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
+import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,8 +106,8 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     task.publishProgress(progress0, progress);
 
                     Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                    ContentValues data = Template.createContentValues(null, this);
-                    data = Template.createContentValues(data, task.getLocation());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
 
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     moonCursor.moveToFirst();
@@ -118,7 +119,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(moonCursor.getLong(i));
-                                data.put(Template.pattern_event, moonStrings[i]);
+                                data.put(TemplatePatterns.pattern_event.getPattern(), moonStrings[i]);
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventTime));

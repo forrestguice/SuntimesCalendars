@@ -34,7 +34,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.ui.templates.TemplateDialog;
 
 public class HelpDialog extends BottomSheetDialogFragment
 {

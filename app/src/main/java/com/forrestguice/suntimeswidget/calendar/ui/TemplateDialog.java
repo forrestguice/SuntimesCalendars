@@ -15,12 +15,11 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.forrestguice.suntimeswidget.calendar.ui.templates;
+package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,10 +39,9 @@ import android.widget.TextView;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
+import com.forrestguice.suntimeswidget.calendar.Template;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
-import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
-import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 
 public class TemplateDialog extends BottomSheetDialogFragment
@@ -298,9 +296,22 @@ public class TemplateDialog extends BottomSheetDialogFragment
 
     protected void showHelp()
     {
+        Context context = getActivity();
+        StringBuilder substitutionHelp = new StringBuilder();
+        TemplatePatterns[] patterns = TemplatePatterns.values();
+        for (int i=0; i<patterns.length; i++)
+        {
+            String pattern = patterns[i].getPattern();
+            String patternHelp = patterns[i].getHelpText(context);
+            substitutionHelp.append(pattern);
+            substitutionHelp.append("&nbsp;&nbsp;&nbsp;&nbsp;");
+            substitutionHelp.append(patternHelp);
+            substitutionHelp.append("<br/>");
+        }
+
         HelpDialog helpDialog = new HelpDialog();
         helpDialog.setShowDefaultsButton(true);
-        helpDialog.setContent(getString(R.string.help_template) + "<br/>");
+        helpDialog.setContent(getString(R.string.help_template, substitutionHelp) + "<br/>");
         helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }
