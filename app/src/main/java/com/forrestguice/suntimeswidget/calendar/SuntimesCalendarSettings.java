@@ -43,7 +43,7 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
 
     public static final String PREF_KEY_CALENDARS_TEMPLATE_TITLE = "app_calendars_template_title_";
-    public static final String PREF_KEY_CALENDARS_TEMPLATE_BODY = "app_calendars_template_body_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_DESC = "app_calendars_template_desc_";
 
     public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
     public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
@@ -158,8 +158,8 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, defaultTemplate.getTitle());
-        String body = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, defaultTemplate.getBody());
-        return new CalendarEventTemplate(title, body);
+        String desc = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, defaultTemplate.getDesc());
+        return new CalendarEventTemplate(title, desc);
     }
     @Nullable
     public static String loadPrefCalendarTemplateTitle(Context context, String calendar)
@@ -168,10 +168,10 @@ public class SuntimesCalendarSettings
         return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, null);
     }
     @Nullable
-    public static String loadPrefCalendarTemplateBody(Context context, String calendar)
+    public static String loadPrefCalendarTemplateDesc(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, null);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, null);
     }
 
     /**
@@ -180,7 +180,7 @@ public class SuntimesCalendarSettings
     public static void savePrefCalendarTemplate(Context context, String calendar, CalendarEventTemplate template)
     {
         savePrefCalendarTemplateTitle(context, calendar, template.getTitle());
-        savePrefCalendarTemplateBody(context, calendar, template.getBody());
+        savePrefCalendarTemplateDesc(context, calendar, template.getDesc());
     }
     public static void savePrefCalendarTemplateTitle(Context context, String calendar, @Nullable String title)
     {
@@ -188,9 +188,9 @@ public class SuntimesCalendarSettings
         prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, title);
         prefs.apply();
     }
-    public static void savePrefCalendarTemplateBody(Context context, String calendar, @Nullable String body) {
+    public static void savePrefCalendarTemplateDesc(Context context, String calendar, @Nullable String desc) {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_BODY + calendar, body);
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, desc);
         prefs.apply();
     }
 

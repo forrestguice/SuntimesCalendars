@@ -49,7 +49,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
 
     protected TextView text_dialog_title;
-    protected EditText edit_title, edit_body;
+    protected EditText edit_title, edit_desc;
 
     public TemplateDialog() {
         setArguments(new Bundle());
@@ -99,7 +99,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
      * getResult
      */
     public CalendarEventTemplate getResult() {
-        return new CalendarEventTemplate(edit_title.getText().toString(), edit_body.getText().toString());
+        return new CalendarEventTemplate(edit_title.getText().toString(), edit_desc.getText().toString());
     }
 
     /**
@@ -136,7 +136,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         text_dialog_title = (TextView) dialogContent.findViewById(R.id.text_title);
         edit_title = (EditText) dialogContent.findViewById(R.id.edit_title);
-        edit_body = (EditText) dialogContent.findViewById(R.id.edit_body);
+        edit_desc = (EditText) dialogContent.findViewById(R.id.edit_desc);
         setTextWatchers();
 
         ImageButton accept_button = (ImageButton) dialogContent.findViewById(R.id.accept_button);
@@ -172,7 +172,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     };
 
-    private final TextWatcher edit_bodyListener = new TextWatcher() {
+    private final TextWatcher edit_descListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         @Override
@@ -182,7 +182,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         {
             CalendarEventTemplate data = getTemplate();
             if (data != null) {
-                data.setBody(s.toString());
+                data.setDesc(s.toString());
                 setTemplate(data);
             }
             setModified(true);
@@ -192,12 +192,12 @@ public class TemplateDialog extends BottomSheetDialogFragment
     protected void setTextWatchers()
     {
         edit_title.addTextChangedListener(edit_titleListener);
-        edit_body.addTextChangedListener(edit_bodyListener);
+        edit_desc.addTextChangedListener(edit_descListener);
     }
     protected void clearTextWatchers()
     {
         edit_title.removeTextChangedListener(edit_titleListener);
-        edit_body.removeTextChangedListener(edit_bodyListener);
+        edit_desc.removeTextChangedListener(edit_descListener);
     }
 
     protected void updateViews(Context context)
@@ -215,11 +215,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
             if (data != null)
             {
                 edit_title.setText(data.getTitle());
-                edit_body.setText(data.getBody());
+                edit_desc.setText(data.getDesc());
 
             } else {
                 edit_title.setText("");
-                edit_body.setText("");
+                edit_desc.setText("");
             }
             setTextWatchers();
 

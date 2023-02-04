@@ -92,15 +92,15 @@
 
     </LinearLayout>
 
-    <TextView android:id="@+id/label_body" android:labelFor="@+id/edit_body"
+    <TextView android:id="@+id/label_desc" android:labelFor="@+id/edit_desc"
         android:layout_width="match_parent" android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:clickable="true" android:focusable="true"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:gravity="center_vertical"
-        android:text="@string/template_dialog_body_label" />
+        android:text="@string/template_dialog_desc_label" />
 
-    <EditText android:id="@+id/edit_body"
+    <EditText android:id="@+id/edit_desc"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:inputType="textMultiLine" android:maxLines="5" android:minLines="5" android:gravity="top"

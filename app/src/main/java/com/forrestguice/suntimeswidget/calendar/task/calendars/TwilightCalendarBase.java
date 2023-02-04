@@ -84,7 +84,7 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
             eventStart.setTimeInMillis(cursor.getLong(i));
             eventEnd.setTimeInMillis(cursor.getLong(j));
             data.put(TemplatePatterns.pattern_event.getPattern(), desc0);
-            values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
+            values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), location[0], eventStart, eventEnd));
 
         } else if (!cursor.isNull(i)) {
             eventStart.setTimeInMillis(cursor.getLong(i));
@@ -93,7 +93,7 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
                 if (!cursor.isNull(l)) {                          // edge [i, l] of [i, j, k, l]
                     eventEnd.setTimeInMillis(cursor.getLong(l));
                     data.put(TemplatePatterns.pattern_event.getPattern(), desc1);
-                    values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
+                    values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), location[0], eventStart, eventEnd));
                 }
 
             } else {
@@ -103,11 +103,11 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
                     {
                         eventEnd.setTimeInMillis(cursor.getLong(l));      // edge [i, +l] of [+k, +l, i, j]
                         data.put(TemplatePatterns.pattern_event.getPattern(), desc1);
-                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
+                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), location[0], eventStart, eventEnd));
 
                     } else {                                              // fallback (start-only; end-only events are ignored)
                         data.put(TemplatePatterns.pattern_event.getPattern(), desc_fallback);
-                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart));
+                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), location[0], eventStart));
                     }
                     cursor.moveToPrevious();
                 }

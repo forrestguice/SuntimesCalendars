@@ -22,30 +22,30 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Template
+ * CalendarEventTemplate
  */
 public class CalendarEventTemplate implements Parcelable
 {
     protected String title;
-    protected String body;
+    protected String desc;
 
-    public CalendarEventTemplate(String title, String body)
+    public CalendarEventTemplate(String title, String desc)
     {
         this.title = title;
-        this.body = body;
+        this.desc = desc;
     }
 
     public CalendarEventTemplate(Parcel in)
     {
         this.title = in.readString();
-        this.body = in.readString();
+        this.desc = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeString(title);
-        dest.writeString(body);
+        dest.writeString(desc);
     }
 
     @Override
@@ -70,18 +70,18 @@ public class CalendarEventTemplate implements Parcelable
         title = value;
     }
 
-    public String getBody() {
-        return body;
+    public String getDesc() {
+        return desc;
     }
-    public void setBody(String value) {
-        body = value;
+    public void setDesc(String value) {
+        desc = value;
     }
 
     public String getTitle(ContentValues data) {
         return TemplatePatterns.replaceSubstitutions(title, data);
     }
-    public String getBody(ContentValues data) {
-        return TemplatePatterns.replaceSubstitutions(body, data);
+    public String getDesc(ContentValues data) {
+        return TemplatePatterns.replaceSubstitutions(desc, data);
     }
 
 }

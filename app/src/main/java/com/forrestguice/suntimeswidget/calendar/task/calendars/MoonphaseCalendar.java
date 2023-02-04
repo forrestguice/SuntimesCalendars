@@ -156,7 +156,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), null, eventTime));
+                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), null, eventTime));
                         }
                         cursor.moveToNext();
                         c++;

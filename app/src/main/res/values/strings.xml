@@ -200,8 +200,8 @@
     <string name="template_dialog_msg">Template</string>  <!-- TODO -->
     <string name="template_dialog_title_label">Title</string>  <!-- TODO -->
     <string name="template_dialog_title_hint">Title</string>  <!-- TODO -->
-    <string name="template_dialog_body_label">Body</string>  <!-- TODO -->
-    <string name="template_dialog_body_hint">Body</string>  <!-- TODO -->
+    <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
+    <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
 
     <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
     <string name="template_dialog_defaults_toast">Restored Default Template</string>  <!-- TODO -->
