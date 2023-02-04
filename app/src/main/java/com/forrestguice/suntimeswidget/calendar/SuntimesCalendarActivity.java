@@ -946,6 +946,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
         {
+            MenuItem template_item = menu.getMenu().findItem(R.id.action_template);
+            if (template_item != null)
+            {
+                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
+                template_item.setEnabled(!descriptor.isAddon());
+            }
         }
 
         protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
