@@ -17,8 +17,13 @@
 */
 package com.forrestguice.suntimeswidget.calendar.ui.templates;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
+
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 
 /**
  * Template
@@ -76,6 +81,93 @@ public class Template implements Parcelable
         body = value;
     }
 
+    public static final String pattern_percent = "%%";
+    public static final String pattern_cal = "%cal";
+    public static final String pattern_summary = "%summary";
+    public static final String pattern_color = "%color";
+    public static final String pattern_loc = "%loc";
+    public static final String pattern_lat = "%lat";
+    public static final String pattern_lon = "%lon";
+    public static final String pattern_lel = "%lel";
+    public static final String pattern_event = "%M";
+    public static final String pattern_dist = "%dist";
+    public static final String pattern_illum = "%i";
+
+    public static ContentValues createContentValues(@Nullable ContentValues values, SuntimesCalendar calendar)
+    {
+        if (values == null) {
+            values = new ContentValues();
+        }
+        values.put(pattern_cal, calendar.calendarTitle());
+        values.put(pattern_summary, calendar.calendarSummary());
+        values.put(pattern_color, calendar.calendarColor());
+        return values;
+    }
+
+    public static ContentValues createContentValues(@Nullable ContentValues values, SuntimesCalendarDescriptor calendar)
+    {
+        if (values == null) {
+            values = new ContentValues();
+        }
+        values.put(pattern_cal, calendar.calendarTitle());
+        values.put(pattern_summary, calendar.calendarSummary());
+        values.put(pattern_color, calendar.calendarColor());
+        return values;
+    }
+
+    public static ContentValues createContentValues(@Nullable ContentValues values, String[] location)
+    {
+        if (values == null) {
+            values = new ContentValues();
+        }
+        if (location != null && location.length > 0) {
+            values.put(pattern_loc, location[0]);
+            if (location.length > 1) {
+                values.put(pattern_lat, location[1]);
+                if (location.length > 2) {
+                    values.put(pattern_lon, location[2]);
+                    if (location.length > 3) {
+                        values.put(pattern_lel, location[3]);
+                    }
+                }
+            }
+        }
+        return values;
+    }
+
+    /**
+     * Substitutions:
+     *   %cal                ..    calendar name (e.g. "Civil Twilight", "Moon", "Moon Phases", "Moon Apsis", etc)
+     *   %summary            ..    calendar summary (e.g. "Sunrise / Sunset")
+     *   %loc                ..    location name (e.g. Phoenix)
+     *   %lat                ..    location latitude
+     *   %lon                ..    location longitude
+     *   %M                  ..    event title (e.g. "Sunrise", "Sunset", "Dawn", "Dusk", "Summer Solstice", "Full Moon", "Moonrise", "Apogee", etc).
+     *
+     *   %dist               ..    moon distance (e.g. 405,829.51 km)
+     *   %i                  ..    moon illumination
+     *
+     *   %%                  ..    % character
+     */
+    public static String replaceSubstitutions(String pattern, ContentValues values)
+    {
+        String displayString = pattern;
+
+
+        String[] patterns = new String[] {    // in order of replacement
+                pattern_cal, pattern_summary, pattern_color,
+                pattern_loc, pattern_lat, pattern_lon,
+                pattern_event, pattern_dist, pattern_illum, pattern_percent
+        };
+
+        //noinspection ForLoopReplaceableByForEach
+        for (int i=0; i<patterns.length; i++)
+        {
+            String p = patterns[i];
+            String v = values.getAsString(p);
+            displayString = displayString.replaceAll(p, ((v != null) ? v : ""));
+        }
+        return displayString;
+    }
+
 }
-
-
