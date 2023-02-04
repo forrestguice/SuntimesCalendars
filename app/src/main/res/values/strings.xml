@@ -203,6 +203,9 @@
     <string name="template_dialog_body_hint">Body</string>  <!-- TODO -->
 
     <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
+    <string name="template_dialog_defaults_toast">Restored Default Template</string>  <!-- TODO -->
+
+    <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
 
     <string name="help_template"><![CDATA[
         <h1>Templates</h1>

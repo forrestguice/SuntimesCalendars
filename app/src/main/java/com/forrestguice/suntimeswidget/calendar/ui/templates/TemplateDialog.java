@@ -39,7 +39,11 @@ import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 
 public class TemplateDialog extends BottomSheetDialogFragment
@@ -232,6 +236,13 @@ public class TemplateDialog extends BottomSheetDialogFragment
     public void onResume()
     {
         super.onResume();
+
+        android.support.v4.app.FragmentManager fragments = getChildFragmentManager();
+        HelpDialog helpDialog = (HelpDialog) fragments.findFragmentByTag(DIALOGTAG_HELP);
+        if (helpDialog != null) {
+            helpDialog.setDialogListener(helpDialogListener);
+        }
+
         updateViews(getActivity());
         expandSheet(getDialog());
     }
@@ -288,9 +299,27 @@ public class TemplateDialog extends BottomSheetDialogFragment
     protected void showHelp()
     {
         HelpDialog helpDialog = new HelpDialog();
+        helpDialog.setShowDefaultsButton(true);
         helpDialog.setContent(getString(R.string.help_template) + "<br/>");
+        helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }
+
+    private final HelpDialog.DialogListener helpDialogListener = new HelpDialog.DialogListener()
+    {
+        @Override
+        public void onRestoreDefaultsClicked(HelpDialog dialog)
+        {
+            Context context = getActivity();
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            setTemplate(calendarObj.defaultTemplate());
+            setModified(true);
+
+            dialog.dismiss();
+            updateViews(context);
+            Toast.makeText(getActivity(), getString(R.string.template_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {
