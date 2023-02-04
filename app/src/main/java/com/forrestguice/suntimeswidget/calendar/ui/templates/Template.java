@@ -81,6 +81,13 @@ public class Template implements Parcelable
         body = value;
     }
 
+    public String getTitle(ContentValues data) {
+        return replaceSubstitutions(title, data);
+    }
+    public String getBody(ContentValues data) {
+        return replaceSubstitutions(body, data);
+    }
+
     public static final String pattern_percent = "%%";
     public static final String pattern_cal = "%cal";
     public static final String pattern_summary = "%summary";

@@ -187,6 +187,7 @@
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%s\n%s</string>
+    <string name="distance_format">%s km</string>  <!-- e.g. full moon (400.71 km) -->   <!-- TODO -->
 
     <string name="toolbar_title">Calendars</string>
 

@@ -133,6 +133,10 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         progress = task.createProgressObj(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
 
+                        Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                        ContentValues data = Template.createContentValues(null, this);
+                        data = Template.createContentValues(data, task.getLocation());
+
                         ArrayList<ContentValues> eventValues = new ArrayList<>();
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast() && !task.isCancelled())
@@ -152,8 +156,9 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
-                                String desc = ((distance != -1) ? context.getString(R.string.event_distance_format, apsisStrings[i], formatDistanceString(distance)) : apsisStrings[i]);
-                                eventValues.add(adapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
+                                data.put(Template.pattern_event, apsisStrings[i]);
+                                data.put(Template.pattern_dist, ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), null, eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
                             cursor.moveToNext();

@@ -98,13 +98,16 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, numRows, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = Template.createContentValues(null, this);
+                    data = Template.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
-                    String title = calendarTitle;
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, title, s_DAWN_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_TWILIGHT);
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, title, s_DUSK_TWILIGHT, s_NAUTICAL_TWILIGHT, s_NAUTICAL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, s_DAWN_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, s_DUSK_TWILIGHT, s_NAUTICAL_TWILIGHT, s_NAUTICAL_TWILIGHT);
                         cursor.moveToNext();
                         c++;
 

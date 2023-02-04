@@ -98,13 +98,16 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = Template.createContentValues(null, this);
+                    data = Template.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
-                    String title = calendarTitle;
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, title, s_SUNRISE, s_POLAR_TWILIGHT, s_CIVIL_TWILIGHT);
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, title, s_SUNSET, s_WHITE_NIGHT, s_CIVIL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, s_SUNRISE, s_POLAR_TWILIGHT, s_CIVIL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, s_SUNSET, s_WHITE_NIGHT, s_CIVIL_TWILIGHT);
                         cursor.moveToNext();
                         c++;
 

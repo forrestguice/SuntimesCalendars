@@ -126,6 +126,10 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = Template.createContentValues(null, this);
+                    data = Template.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
@@ -133,25 +137,25 @@ public class MoonphaseCalendar extends MoonCalendarBase
                         for (int i=0; i<4; i++)
                         {
                             double distance = -1;
-                            String[] titleStrings;
+                            String[] eventStrings;
                             if (i == 0 || i == 2)  // new moon || full moon
                             {
                                 distance = cursor.getDouble(i == 0 ? 4 : 5);
 
                                 if (distance < THRESHHOLD_SUPERMOON) {
-                                    titleStrings = phaseStrings1;
+                                    eventStrings = phaseStrings1;
                                 } else if (distance > THRESHHOLD_MICROMOON) {
-                                    titleStrings = phaseStrings2;
-                                } else titleStrings = phaseStrings;
+                                    eventStrings = phaseStrings2;
+                                } else eventStrings = phaseStrings;
 
-                            } else titleStrings = phaseStrings;
+                            } else eventStrings = phaseStrings;
 
-                            String desc = (distance > 0)
-                                    ? context.getString(R.string.event_distance_format, titleStrings[i], formatDistanceString(distance))
-                                    : titleStrings[i];
+                            data.put(Template.pattern_event, eventStrings[i]);
+                            data.put(Template.pattern_dist, ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            eventValues.add(adapter.createEventContentValues(calendarID, titleStrings[i], desc, null, eventTime));
+                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), null, eventTime));
                         }
                         cursor.moveToNext();
                         c++;

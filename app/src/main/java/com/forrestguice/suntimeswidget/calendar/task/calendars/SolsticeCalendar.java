@@ -112,6 +112,11 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    Template template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = Template.createContentValues(null, this);
+                    data = Template.createContentValues(data, task.getLocation());
+
+                    Calendar eventTime;
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
@@ -119,9 +124,10 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         {
                             if (!cursor.isNull(i))
                             {
-                                Calendar eventTime = Calendar.getInstance();
+                                data.put(Template.pattern_event, solsticeStrings[i]);
+                                eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(adapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), null, eventTime));
                             }
                         }
                         cursor.moveToNext();

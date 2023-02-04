@@ -28,6 +28,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.ui.templates.Template;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -62,17 +63,17 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
      * @param calendarID calender identifier
      * @param cursor a cursor containing columns [rise-start, rise-end, set-start, set-end]
      * @param i index into cursor columns (expects i = 0 (rising), or i = 2 (setting))
-     * @param title event title (e.g. Civil Twilight)
+     * @param template template
+     * @param data template data
      * @param desc0 avg case description (e.g. ending in sunrise, starting at sunset)
      * @param desc1 edge case description (e.g. polar twilight)
      */
     protected void createSunCalendarEvent(Context context, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task,
-                                          ArrayList<ContentValues> values, long calendarID, Cursor cursor, int i, String title, String desc0, String desc1, String desc_fallback)
+                                          ArrayList<ContentValues> values, long calendarID, Cursor cursor, int i, Template template, ContentValues data, String desc0, String desc1, String desc_fallback)
     {
         int j = i + 1;             // [rise-start, rise-end, set-start, set-end]
         int k = (i == 0) ? 2 : 0;  // rising [i, j, k, l] .. setting [k, l, i, j]
         int l = k + 1;
-        String eventDesc;
         Calendar eventStart = Calendar.getInstance();
         Calendar eventEnd = Calendar.getInstance();
         String[] location = task.getLocation();
@@ -81,9 +82,8 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
         {
             eventStart.setTimeInMillis(cursor.getLong(i));
             eventEnd.setTimeInMillis(cursor.getLong(j));
-            //eventDesc = context.getString(R.string.event_at_format, desc0, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-            eventDesc = context.getString(R.string.event_at_format, desc0, location[0]);
-            values.add(adapter.createEventContentValues(calendarID, title, eventDesc, location[0], eventStart, eventEnd));
+            data.put(Template.pattern_event, desc0);
+            values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
 
         } else if (!cursor.isNull(i)) {
             eventStart.setTimeInMillis(cursor.getLong(i));
@@ -91,9 +91,8 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
             {
                 if (!cursor.isNull(l)) {                          // edge [i, l] of [i, j, k, l]
                     eventEnd.setTimeInMillis(cursor.getLong(l));
-                    //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                    eventDesc = context.getString(R.string.event_at_format, desc1, location[0]);
-                    values.add(adapter.createEventContentValues(calendarID, title, eventDesc, location[0], eventStart, eventEnd));
+                    data.put(Template.pattern_event, desc1);
+                    values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
                 }
 
             } else {
@@ -102,14 +101,12 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
                     if (!cursor.isNull(l))
                     {
                         eventEnd.setTimeInMillis(cursor.getLong(l));      // edge [i, +l] of [+k, +l, i, j]
-                        //eventDesc = context.getString(R.string.event_at_format, desc1, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        eventDesc = context.getString(R.string.event_at_format, desc1, location[0]);
-                        values.add(adapter.createEventContentValues(calendarID, title, eventDesc, location[0], eventStart, eventEnd));
+                        data.put(Template.pattern_event, desc1);
+                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart, eventEnd));
 
                     } else {                                              // fallback (start-only; end-only events are ignored)
-                        //eventDesc = context.getString(R.string.event_at_format, desc_fallback, context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                        eventDesc = context.getString(R.string.event_at_format, desc_fallback, location[0]);
-                        values.add(adapter.createEventContentValues(calendarID, title, eventDesc, location[0], eventStart));
+                        data.put(Template.pattern_event, desc_fallback);
+                        values.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getBody(data), location[0], eventStart));
                     }
                     cursor.moveToPrevious();
                 }
