@@ -24,7 +24,7 @@
         android:id="@+id/txt_message0"
         android:layout_height="wrap_content" android:layout_width="wrap_content"
         android:layout_marginBottom="16dp"
-        tools:text="Progress message" />
+        android:textSize="?attr/text_size_small" tools:text="Progress message" />
 
     <ProgressBar android:id="@+id/progress1"
         android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -39,11 +39,11 @@
         android:layout_height="wrap_content" android:layout_width="wrap_content"
         android:layout_gravity="end" android:layout_margin="8dp"
         android:gravity="end|right"
-        tools:text="Progress message\nsecond line" />
+        android:textSize="?attr/text_size_small" tools:text="Progress message\nsecond line" />
 
     <Button
         android:id="@+id/btn_cancel"
-        android:text="@android:string/cancel"
+        android:textSize="?attr/text_size_small" android:text="@android:string/cancel"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" />
 

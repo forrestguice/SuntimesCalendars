@@ -27,7 +27,7 @@
         android:layout_margin="8dp">
 
         <TextView android:id="@+id/label_past"
-            tools:text="1 year ago"
+            android:textSize="?attr/text_size_small" tools:text="1 year ago"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
     </LinearLayout>
@@ -49,7 +49,7 @@
         android:layout_marginTop="16dp" android:layout_marginBottom="8dp">
 
         <TextView android:id="@+id/label_future"
-            tools:text="2 years from now"
+            android:textSize="?attr/text_size_small" tools:text="2 years from now"
             android:layout_width="wrap_content" android:layout_height="wrap_content" />
 
     </LinearLayout>
