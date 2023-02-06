@@ -198,8 +198,8 @@
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
 
     <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
-    <string name="template_dialog_title_label">Title</string>  <!-- TODO -->
-    <string name="template_dialog_title_hint">Title</string>  <!-- TODO -->
+    <string name="template_dialog_title_label">Name</string>  <!-- TODO -->
+    <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
 
     <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
     <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
