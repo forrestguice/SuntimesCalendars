@@ -10,4 +10,14 @@
     <attr name="icActionAbout" format="reference" />
     <attr name="icActionSettings" format="reference" />
     <attr name="icActionHelp" format="reference" />
+
+    <attr name="text_size_tiny" format="dimension" />
+    <attr name="text_size_xsmall" format="dimension" />
+    <attr name="text_size_small" format="dimension" />
+    <attr name="text_size_medium" format="dimension" />
+    <attr name="text_size_large" format="dimension" />
+    <attr name="text_size_xlarge" format="dimension" />
+    <attr name="text_size_huge" format="dimension" />
+    <attr name="text_size_enormous" format="dimension" />
+
 </resources>
