@@ -109,14 +109,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static final String DIALOGTAG_HELP = "helpdialog";
     public static final String DIALOGTAG_PROGRESS = "progressdialog";
 
-    public static final String THEME_LIGHT = "light";
-    public static final String THEME_DARK = "dark";
-    public static final String THEME_SYSTEM = "system";
-
-    public static final String THEME_CONTRAST_LIGHT = "contrast_light";
-    public static final String THEME_CONTRAST_DARK = "contrast_dark";
-    public static final String THEME_CONTRAST_SYSTEM = "contrast_system";
-
     public static final int MIN_PROVIDER_VERSION = 1;
     public static final String MIN_SUNTIMES_VERSION = "0.10.3";
     public static final String MIN_SUNTIMES_VERSION_STRING = "Suntimes v" + MIN_SUNTIMES_VERSION;
@@ -132,6 +124,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     private Context context;
     private String config_apptheme = null;
     private String config_appThemeOverride = null;
+    private String config_textSize = null;
     private static String systemLocale = null;  // null until locale is overridden w/ loadLocale
 
     private static String appVersionName = null, providerVersionName = null;
@@ -159,7 +152,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             String[] projection = new String[] { CalculatorProviderContract.COLUMN_CONFIG_LOCALE, CalculatorProviderContract.COLUMN_CONFIG_APP_THEME,
                                                  CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION, CalculatorProviderContract.COLUMN_CONFIG_APP_VERSION_CODE,
                                                  CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION, CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE,
-                                                 CalculatorProviderContract.COLUMN_CONFIG_APP_THEME_OVERRIDE };
+                                                 CalculatorProviderContract.COLUMN_CONFIG_APP_THEME_OVERRIDE, CalculatorProviderContract.COLUMN_CONFIG_APP_TEXT_SIZE };
             try {
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 needsSuntimesPermissions = false;
@@ -177,6 +170,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     providerVersionName = (!cursor.isNull(4)) ? cursor.getString(4) : null;
                     providerVersionCode = (!cursor.isNull(5)) ? cursor.getInt(5) : null;
                     config_appThemeOverride = (!cursor.isNull(6)) ? cursor.getString(6) : null;
+                    config_textSize = (!cursor.isNull(7)) ? cursor.getString(7) : null;
                     cursor.close();
                     super.attachBaseContext((locale != null) ? loadLocale(newBase, locale) : resetLocale(newBase));
 
@@ -329,7 +323,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         String themeName = (config_appThemeOverride != null ? config_appThemeOverride : config_apptheme);
         if (themeName != null) {
-            setTheme(this, getThemeResID(themeName));
+            if (config_textSize != null) {
+                themeName += "_" + config_textSize;
+            }
+            AppThemes.setTheme(this, themeName);
         }
 
         super.onCreate(icicle);
@@ -352,34 +349,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         } else {
             initMainFragment();
         }
-    }
-
-    public static int getThemeResID(@Nullable String themeName)
-    {
-        if (themeName != null)
-        {
-            //Log.d("DEBUG", "getThemeResID: " + themeName);
-            return themeName.startsWith(THEME_SYSTEM) ? R.style.AppTheme_System
-                    : themeName.startsWith(THEME_LIGHT) ? R.style.AppTheme_Light
-                    : themeName.startsWith(THEME_DARK) ? R.style.AppTheme_Dark
-                    : themeName.startsWith(THEME_CONTRAST_SYSTEM) ? R.style.AppTheme_ContrastSystem
-                    : themeName.startsWith(THEME_CONTRAST_LIGHT) ? R.style.AppTheme_ContrastLight
-                    : themeName.startsWith(THEME_CONTRAST_DARK) ? R.style.AppTheme_ContrastDark
-                    : R.style.AppTheme_Dark;
-        } else return R.style.AppTheme_Dark;
-    }
-
-    private static int setTheme(Activity activity, int themeResID)
-    {
-        activity.setTheme(themeResID);
-        if (themeResID == R.style.AppTheme_System || themeResID == R.style.AppTheme_ContrastSystem) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (themeResID == R.style.AppTheme_Light || themeResID == R.style.AppTheme_ContrastLight) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (themeResID == R.style.AppTheme_Dark || themeResID == R.style.AppTheme_ContrastDark) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        return themeResID;
     }
 
     private void initFirstLaunchFragment()

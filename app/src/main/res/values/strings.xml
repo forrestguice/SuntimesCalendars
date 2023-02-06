@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="textSize_small">Small</string>
+    <string name="textSize_normal">Normal</string>
+    <string name="textSize_large">Large</string>
+    <string name="textSize_xlarge">Extra Large</string>
+    <string-array name="textSize_display">                      <!-- one-to-one with textSize_values -->
+        <item>@string/textSize_small</item>
+        <item>@string/textSize_normal</item>
+        <item>@string/textSize_large</item>
+        <item>@string/textSize_xlarge</item>
+    </string-array>
+    <string-array name="textSize_values" translatable="false">  <!-- one-to-one with textSize_display -->
+        <item>SMALL</item>
+        <item>NORMAL</item>
+        <item>LARGE</item>
+        <item>XLARGE</item>
+    </string-array>
+
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="timeMode_civil">Civil Twilight</string>
