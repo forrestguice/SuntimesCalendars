@@ -49,7 +49,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
 
     protected TextView text_dialog_title;
-    protected EditText edit_title, edit_desc;
+    protected EditText edit_title, edit_desc, edit_location;
 
     public TemplateDialog() {
         setArguments(new Bundle());
@@ -99,7 +99,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
      * getResult
      */
     public CalendarEventTemplate getResult() {
-        return new CalendarEventTemplate(edit_title.getText().toString(), edit_desc.getText().toString());
+        return new CalendarEventTemplate(edit_title.getText().toString(), edit_desc.getText().toString(), edit_location.getText().toString());
     }
 
     /**
@@ -137,6 +137,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         text_dialog_title = (TextView) dialogContent.findViewById(R.id.text_title);
         edit_title = (EditText) dialogContent.findViewById(R.id.edit_title);
         edit_desc = (EditText) dialogContent.findViewById(R.id.edit_desc);
+        edit_location = (EditText) dialogContent.findViewById(R.id.edit_location);
         setTextWatchers();
 
         ImageButton accept_button = (ImageButton) dialogContent.findViewById(R.id.accept_button);
@@ -155,7 +156,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     }
 
-    private final TextWatcher edit_titleListener = new TextWatcher() {
+    private final TextWatcher edit_title_listener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         @Override
@@ -171,8 +172,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
             setModified(true);
         }
     };
-
-    private final TextWatcher edit_descListener = new TextWatcher() {
+    private final TextWatcher edit_desc_listener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         @Override
@@ -188,16 +188,36 @@ public class TemplateDialog extends BottomSheetDialogFragment
             setModified(true);
         }
     };
+    private final TextWatcher edit_location_listener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        @Override
+        public void afterTextChanged(Editable s)
+        {
+            CalendarEventTemplate data = getTemplate();
+            if (data != null)
+            {
+                String value = s.toString();
+                data.setLocation(value.isEmpty() ? null : value);
+                setTemplate(data);
+            }
+            setModified(true);
+        }
+    };
 
     protected void setTextWatchers()
     {
-        edit_title.addTextChangedListener(edit_titleListener);
-        edit_desc.addTextChangedListener(edit_descListener);
+        edit_title.addTextChangedListener(edit_title_listener);
+        edit_desc.addTextChangedListener(edit_desc_listener);
+        edit_location.addTextChangedListener(edit_location_listener);
     }
     protected void clearTextWatchers()
     {
-        edit_title.removeTextChangedListener(edit_titleListener);
-        edit_desc.removeTextChangedListener(edit_descListener);
+        edit_title.removeTextChangedListener(edit_title_listener);
+        edit_desc.removeTextChangedListener(edit_desc_listener);
+        edit_desc.removeTextChangedListener(edit_location_listener);
     }
 
     protected void updateViews(Context context)
@@ -216,10 +236,12 @@ public class TemplateDialog extends BottomSheetDialogFragment
             {
                 edit_title.setText(data.getTitle());
                 edit_desc.setText(data.getDesc());
+                edit_location.setText(data.getLocation());
 
             } else {
                 edit_title.setText("");
                 edit_desc.setText("");
+                edit_location.setText("");
             }
             setTextWatchers();
 

@@ -52,7 +52,7 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%cal", "%M @ %loc");
+        return new CalendarEventTemplate("%cal", "%M @ %loc", "%loc");
     }
 
     @Override

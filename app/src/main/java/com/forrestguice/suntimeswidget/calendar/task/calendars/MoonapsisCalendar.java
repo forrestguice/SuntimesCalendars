@@ -56,7 +56,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M\n%dist");
+        return new CalendarEventTemplate("%M", "%M\n%dist", null);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
                                 data.put(TemplatePatterns.pattern_event.getPattern(), apsisStrings[i]);
                                 data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
-                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
                             cursor.moveToNext();

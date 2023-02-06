@@ -197,19 +197,23 @@
     <string name="reminder_dialog_msg">Reminders</string>  <!-- TODO -->
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
 
-    <string name="template_dialog_msg">Template</string>  <!-- TODO -->
+    <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
     <string name="template_dialog_title_label">Title</string>  <!-- TODO -->
     <string name="template_dialog_title_hint">Title</string>  <!-- TODO -->
+
     <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
     <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
+
+    <string name="template_dialog_location_label">Location</string>  <!-- TODO -->
+    <string name="template_dialog_location_hint">Location</string>  <!-- TODO -->
 
     <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
     <string name="template_dialog_defaults_toast">Restored Default Template</string>  <!-- TODO -->
 
     <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
 
-    <string name="help_pattern_cal">calendar name (e.g. "Civil Twilight")</string>   <!-- TODO -->
-    <string name="help_pattern_summary">calendar summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
+    <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
+    <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
     <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
     <string name="help_pattern_loc">location name (e.g. Phoenix)</string>   <!-- TODO -->
     <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->

@@ -74,7 +74,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate(null, null);    // TODO
+        return new CalendarEventTemplate(null, null, null);    // TODO
     }
 
     private String calenderName = null;

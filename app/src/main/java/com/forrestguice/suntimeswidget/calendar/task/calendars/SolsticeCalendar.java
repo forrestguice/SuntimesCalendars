@@ -56,7 +56,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M");
+        return new CalendarEventTemplate("%M", "%M", null);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                                 data.put(TemplatePatterns.pattern_event.getPattern(), solsticeStrings[i]);
                                 eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                         }
                         cursor.moveToNext();

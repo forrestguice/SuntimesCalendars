@@ -55,7 +55,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M @ %loc");
+        return new CalendarEventTemplate("%M", "%M @ %loc", "%loc");
     }
 
     @Override
@@ -122,7 +122,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                 data.put(TemplatePatterns.pattern_event.getPattern(), moonStrings[i]);
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
-                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), location[0], eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
                         }

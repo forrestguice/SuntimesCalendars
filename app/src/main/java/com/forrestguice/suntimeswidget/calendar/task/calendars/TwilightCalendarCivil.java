@@ -52,7 +52,7 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%cal", "%M @ %loc");
+        return new CalendarEventTemplate("%cal", "%M @ %loc", "%loc");
     }
 
     @Override

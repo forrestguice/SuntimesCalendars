@@ -132,17 +132,19 @@ public enum TemplatePatterns
         return values;
     }
 
-    public static String replaceSubstitutions(String pattern, ContentValues values)
+    public static String replaceSubstitutions(@Nullable String pattern, ContentValues values)
     {
         String displayString = pattern;
-
-        //noinspection ForLoopReplaceableByForEach
-        TemplatePatterns[] patterns = TemplatePatterns.values();
-        for (int i=0; i<patterns.length; i++)
+        if (pattern != null)
         {
-            String p = patterns[i].getPattern();
-            String v = values.getAsString(p);
-            displayString = displayString.replaceAll(p, ((v != null) ? v : ""));
+            //noinspection ForLoopReplaceableByForEach
+            TemplatePatterns[] patterns = TemplatePatterns.values();
+            for (int i=0; i<patterns.length; i++)
+            {
+                String p = patterns[i].getPattern();
+                String v = values.getAsString(p);
+                displayString = displayString.replaceAll(p, ((v != null) ? v : ""));
+            }
         }
         return displayString;
     }

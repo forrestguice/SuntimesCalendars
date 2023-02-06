@@ -28,17 +28,20 @@ public class CalendarEventTemplate implements Parcelable
 {
     protected String title;
     protected String desc;
+    protected String location;
 
-    public CalendarEventTemplate(String title, String desc)
+    public CalendarEventTemplate(String title, String desc, String location)
     {
         this.title = title;
         this.desc = desc;
+        this.location = location;
     }
 
     public CalendarEventTemplate(Parcel in)
     {
         this.title = in.readString();
         this.desc = in.readString();
+        this.location = in.readString();
     }
 
     @Override
@@ -46,6 +49,7 @@ public class CalendarEventTemplate implements Parcelable
     {
         dest.writeString(title);
         dest.writeString(desc);
+        dest.writeString(location);
     }
 
     @Override
@@ -77,11 +81,21 @@ public class CalendarEventTemplate implements Parcelable
         desc = value;
     }
 
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String value) {
+        location = value;
+    }
+
     public String getTitle(ContentValues data) {
         return TemplatePatterns.replaceSubstitutions(title, data);
     }
     public String getDesc(ContentValues data) {
         return TemplatePatterns.replaceSubstitutions(desc, data);
+    }
+    public String getLocation(ContentValues data) {
+        return TemplatePatterns.replaceSubstitutions(location, data);
     }
 
 }

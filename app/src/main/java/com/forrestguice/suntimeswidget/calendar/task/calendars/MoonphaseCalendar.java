@@ -61,7 +61,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M\n%dist");
+        return new CalendarEventTemplate("%M", "%M\n%dist", null);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), null, eventTime));
+                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                         }
                         cursor.moveToNext();
                         c++;
