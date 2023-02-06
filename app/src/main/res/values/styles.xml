@@ -16,6 +16,10 @@
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
     </style>
+    <style name="AppTheme.ContrastSystem" parent="AppTheme.System">
+        <item name="colorPrimary">@color/primaryColor_contrast</item>
+        <item name="android:windowBackground">@color/window_bg_contrast</item>
+    </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="hrColor">@color/hr_light</item>
@@ -29,6 +33,10 @@
         <item name="bottomSheetDialogTheme">@style/Theme.Design.Light.BottomSheetDialog</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
     </style>
+    <style name="AppTheme.ContrastLight" parent="AppTheme.Light">
+        <item name="colorPrimary">@color/primaryColor_contrast_light</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_light</item>
+    </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="hrColor">@color/hr_dark</item>
@@ -41,6 +49,10 @@
         <item name="icActionHelp">@drawable/ic_action_help</item>
         <item name="bottomSheetDialogTheme">@style/Theme.Design.BottomSheetDialog</item>
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+    <style name="AppTheme.ContrastDark" parent="AppTheme.Dark">
+        <item name="colorPrimary">@color/primaryColor_contrast_dark</item>
+        <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">

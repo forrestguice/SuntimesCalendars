@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryColor_contrast">@color/primaryColor_contrast_dark</color>
+    <color name="window_bg_contrast">@color/window_bg_contrast_dark</color>
     <color name="hr">@color/hr_dark</color>
     <color name="text_accent">@color/text_accent_dark</color>
     <color name="text_disabled">@color/text_disabled_dark</color>
