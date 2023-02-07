@@ -111,6 +111,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
@@ -125,7 +126,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(moonCursor.getLong(i));
-                                data.put(TemplatePatterns.pattern_event.getPattern(), moonStrings[i]);
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
