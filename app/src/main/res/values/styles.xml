@@ -6,6 +6,9 @@
         <item name="hrColor">@color/hr</item>
         <item name="text_accentColor">@color/text_accent</item>
         <item name="text_disabledColor">@color/text_disabled</item>
+        <item name="icActionReminder">@drawable/ic_action_reminder_ref</item>
+        <item name="icActionAppearance">@drawable/ic_action_appearance_ref</item>
+        <item name="icActionDelete">@drawable/ic_action_delete_ref</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_ref</item>
         <item name="icActionUpdate">@drawable/ic_action_update_ref</item>
         <item name="icActionAbout">@drawable/ic_action_about_ref</item>
@@ -94,6 +97,9 @@
         <item name="hrColor">@color/hr_light</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
+        <item name="icActionReminder">@drawable/ic_action_reminder_light</item>
+        <item name="icActionAppearance">@drawable/ic_action_appearance_light</item>
+        <item name="icActionDelete">@drawable/ic_action_delete_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
         <item name="icActionUpdate">@drawable/ic_action_update_light</item>
         <item name="icActionAbout">@drawable/ic_action_about_light</item>
@@ -179,6 +185,9 @@
         <item name="hrColor">@color/hr_dark</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
+        <item name="icActionReminder">@drawable/ic_action_reminder_dark</item>
+        <item name="icActionAppearance">@drawable/ic_action_appearance_dark</item>
+        <item name="icActionDelete">@drawable/ic_action_delete_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
         <item name="icActionUpdate">@drawable/ic_action_update</item>
         <item name="icActionAbout">@drawable/ic_action_about</item>

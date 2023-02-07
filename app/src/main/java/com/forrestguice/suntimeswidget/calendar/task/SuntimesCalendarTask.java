@@ -58,6 +58,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         startDate.set(Calendar.HOUR_OF_DAY, 0);
         startDate.set(Calendar.MINUTE, 0);
         startDate.set(Calendar.SECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);
 
         endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
         endDate.add(Calendar.YEAR, 1);       // round up to end of year
@@ -66,6 +67,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         endDate.set(Calendar.HOUR_OF_DAY, 0);
         endDate.set(Calendar.MINUTE, 0);
         endDate.set(Calendar.SECOND, 0);
+        endDate.set(Calendar.MILLISECOND, 0);
 
         return new long[] { startDate.getTimeInMillis(), endDate.getTimeInMillis() };
     }
@@ -104,7 +106,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                 SuntimesCalendarTaskItem item = taskItems.get(calendarName);
                 SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(contextRef.get(), calendarName);
                 SuntimesCalendar calendar = factory.createCalendar(contextRef.get(), descriptor);
-                switch (item.getAction())
+                int action = item.getAction();
+                switch (action)
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
                         publishProgress(null, new SuntimesCalendarTaskProgress(0, 1, notificationMsgClearing));
@@ -112,10 +115,28 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                         SuntimesCalendarSettings.clearNotes(contextRef.get(), calendarName);
                         break;
 
+                    case SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE:
+                        // TODO
+                        break;
+
+                    case SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE:
+                        publishProgress(null, new SuntimesCalendarTaskProgress(1, 1000, notificationMsgReminderUpdating));
+                        // no-break; fall through to next case
+
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
                     default:
-                        if (calendar != null) {
-                            retValue = retValue && initCalendar(calendar, window, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
+                        if (calendar != null)
+                        {
+                            switch (action)
+                            {
+                                case SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE:
+                                    Log.d("DEBUG", "ACTION_REMINDERS_UPDATE");
+                                    retValue = retValue && updateCalendarReminders(calendar, new SuntimesCalendarTaskProgress(0, 1, calendar.calendarTitle()));
+                                    break;
+                                default:
+                                    retValue = retValue && initCalendar(calendar, window, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
+                                    break;
+                            }
                             if (!retValue) {
                                 lastError = calendar.lastError();
                             }
@@ -162,6 +183,15 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         Log.i(TAG, "initCalendar (" + calendar + ") in " + ((bench_end - bench_start) / 1000000.0) + " ms");
 
         return retValue;
+    }
+
+    /**
+     * updateCalendarReminders
+     */
+    private boolean updateCalendarReminders(@NonNull SuntimesCalendar calendar, @NonNull SuntimesCalendarTaskProgress progress)
+    {
+        publishProgress(progress);
+        return adapter.updateCalendarReminders(contextRef.get(), calendar.calendarName());
     }
 
 }

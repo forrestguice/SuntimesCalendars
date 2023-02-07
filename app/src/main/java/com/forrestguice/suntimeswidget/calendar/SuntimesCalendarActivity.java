@@ -65,6 +65,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -77,6 +78,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
@@ -85,13 +87,14 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -482,7 +485,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu)
     {
-        forceActionBarIcons(menu);
+        PopupMenuCompat.forceActionBarIcons(menu);
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -768,7 +771,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
 
         private HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
-        public CheckBoxPreference getCalendarPref(String calendar)
+        public SuntimesCalendarPreference getCalendarPref(String calendar)
         {
             return calendarPrefs.get(calendar);
         }
@@ -818,8 +821,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onResume();
 
             android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
-            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore color dialog listeners
+            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore dialog listeners
             {
+                ReminderDialog reminderDialog = (ReminderDialog) fragments.findFragmentByTag(DIALOGTAG_REMINDER + "_" + calendar);
+                if (reminderDialog != null) {
+                    reminderDialog.setDialogListener(reminderDialog_listener);
+                }
+
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
@@ -885,7 +893,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 {
                     @Override
                     public void onClick(View v) {
-                        showColorPicker(context, calendar);
+                        showContextMenu(context, v, calendar);
                     }
                 });
                 calendarPrefs.put(calendar, calendarPref);
@@ -902,6 +910,95 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
             setIsBusy(isBusy);
         }
+
+        /**
+         * showContextMenu
+         * @param context
+         * @param calendar
+         */
+        protected boolean showContextMenu(Context context, View v, String calendar)
+        {
+            PopupMenu menu = PopupMenuCompat.createMenu(context, v, R.menu.menu_context, onContextMenuClick(context, calendar));
+            updateContextMenu(context, menu, calendar);
+            menu.show();
+            return true;
+        }
+
+        protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
+        {
+        }
+
+        protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
+        {
+            return new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item)
+                {
+                    switch (item.getItemId())
+                    {
+                        case R.id.action_color:
+                            showColorPicker(context, calendar);
+                            return true;
+
+                        case R.id.action_reminders:
+                            showReminderDialog(context, calendar);
+                            return true;
+
+                        default:
+                            return false;
+                    }
+                }
+            };
+        }
+
+        /**
+         * showReminderDialog
+         */
+
+        private static final String DIALOGTAG_REMINDER = "configreminders";
+        protected void showReminderDialog(Context context, String calendar)
+        {
+            ReminderDialog dialog = new ReminderDialog();
+            dialog.setCalendar(calendar);
+            dialog.setDialogListener(reminderDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_REMINDER + "_" + calendar);
+        }
+
+        private final ReminderDialog.DialogListener reminderDialog_listener = new ReminderDialog.DialogListener()
+        {
+            @Override
+            public void onAddedReminder(String calendar, int reminderNum, int minutes, int method) {
+                //Toast.makeText(getActivity(), "added " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onModifiedReminder(String calendar, int reminderNum, int minutes, int method) {
+                //Toast.makeText(getActivity(), "saved " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRemovedReminder(String calendar, int reminderNum) {
+                //Toast.makeText(getActivity(), "removed " + reminderNum, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDialogDismissed(String calendar, boolean modified)
+            {
+                if (modified)
+                {
+                    Context context = getActivity();
+                    if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
+                        SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
+                    {
+                        runCalendarTask2(getActivity(), calendar);
+                    }
+                }
+            }
+        };
+
+        /**
+         * showColorPicker
+         */
 
         private ColorStateList createColorStateList(int calendarColor)
         {
@@ -1147,6 +1244,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
         }
 
+        protected boolean runCalendarTask2(Activity activity, String calendar)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_REMINDERS );
+            savePendingItem(activity, taskIntent, calendar, SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
+        }
+
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
         {
             return new Preference.OnPreferenceChangeListener()
@@ -1240,12 +1345,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             builder.show();
         }
 
-        protected void showConfirmDialog(Context context, final String calendar, boolean add)
+        protected void showConfirmDialog(final Context context, final String calendar, boolean add)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(add ? R.string.confirm_add_message1 : R.string.confirm_clear_message1));
 
-            TextView textView = new TextView(context);
+            final TextView textView = new TextView(context);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView.setText(createConfirmDialogMessage(context, calendar, add));
 
@@ -1271,8 +1376,22 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     runCalendarTask1(getActivity(), calendar, false);
                 }
             });
+
+            DialogInterface.OnClickListener onOptionsClick = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    getView().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getCalendarPref(calendar).performClickIcon();
+                        }
+                    }, 250);
+                }
+            };
+
             builder.setPositiveButton(android.R.string.yes, onOkClick);
             builder.setNegativeButton(android.R.string.cancel, null);
+            builder.setNeutralButton(R.string.configLabel_options, onOptionsClick);
             builder.show();
         }
 
@@ -1501,8 +1620,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static void savePendingItem(Activity activity, Intent intent, String calendar, boolean enabled)
     {
-        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         int action = (enabled ? SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTaskItem.ACTION_DELETE);
+        savePendingItem(activity, intent, calendar, action);
+    }
+    public static void savePendingItem(Activity activity, Intent intent, String calendar, int action)
+    {
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         items.add(new SuntimesCalendarTaskItem(calendar, action));
         savePendingItems(activity, intent, items);
     }
@@ -1527,24 +1650,5 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     };
 
-    /**
-     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
-     */
-    public static void forceActionBarIcons(Menu menu)
-    {
-        if (menu != null)
-        {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-            {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
 
-                } catch (Exception e) {
-                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
-                }
-            }
-        }
-    }
 }
