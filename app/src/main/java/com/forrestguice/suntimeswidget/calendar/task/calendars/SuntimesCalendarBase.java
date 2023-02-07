@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.task.calendars;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -51,6 +52,9 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
 
     @Override
     public abstract CalendarEventTemplate defaultTemplate();
+
+    @Override
+    public abstract CalendarEventStrings defaultStrings();
 
     @Override
     public String calendarTitle() {

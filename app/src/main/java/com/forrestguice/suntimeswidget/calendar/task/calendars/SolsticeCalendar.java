@@ -29,6 +29,7 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -67,6 +68,11 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     @Override
     public CalendarEventTemplate defaultTemplate() {
         return new CalendarEventTemplate("%M", "%M", null);
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(displayStrings);
     }
 
     @Override
@@ -125,6 +131,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
@@ -137,7 +144,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         {
                             if (!cursor.isNull(i))
                             {
-                                data.put(TemplatePatterns.pattern_event.getPattern(), displayStrings[i]);
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
                                 eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));

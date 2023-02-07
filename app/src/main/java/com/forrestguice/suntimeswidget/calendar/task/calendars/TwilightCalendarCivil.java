@@ -99,6 +99,9 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                    //0:s_SUNRISE, 1:s_SUNSET, 2:s_CIVIL_TWILIGHT, 3:s_NAUTICAL_TWILIGHT, 4:s_ASTRO_TWILIGHT, 5:s_POLAR_TWILIGHT, 6:s_CIVIL_NIGHT, 7:s_NAUTICAL_NIGHT, 8:s_DAWN_TWILIGHT, 9:s_DUSK_TWILIGHT, 10:s_WHITE_NIGHT
+
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
@@ -107,8 +110,8 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, s_SUNRISE, s_POLAR_TWILIGHT, s_CIVIL_TWILIGHT);
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, s_SUNSET, s_WHITE_NIGHT, s_CIVIL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[0], strings[5], strings[2]);    // sunrise, polar twilight, civil twilight
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[1], strings[10], strings[2]);   // sunset, white night, civil twilight
                         cursor.moveToNext();
                         c++;
 

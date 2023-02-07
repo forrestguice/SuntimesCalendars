@@ -28,6 +28,7 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -99,6 +100,9 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, numRows, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                    //0:s_SUNRISE, 1:s_SUNSET, 2:s_CIVIL_TWILIGHT, 3:s_NAUTICAL_TWILIGHT, 4:s_ASTRO_TWILIGHT, 5:s_POLAR_TWILIGHT, 6:s_CIVIL_NIGHT, 7:s_NAUTICAL_NIGHT, 8:s_DAWN_TWILIGHT, 9:s_DUSK_TWILIGHT, 10:s_WHITE_NIGHT
+
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
@@ -107,8 +111,8 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, s_DAWN_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_TWILIGHT);
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, s_DUSK_TWILIGHT, s_NAUTICAL_TWILIGHT, s_NAUTICAL_TWILIGHT);
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[8], strings[6], strings[3]);   // dawn, civil night, nautical twilight
+                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[9], strings[3], strings[3]);   // dusk, nautical twilight, nautical twilight
                         cursor.moveToNext();
                         c++;
 

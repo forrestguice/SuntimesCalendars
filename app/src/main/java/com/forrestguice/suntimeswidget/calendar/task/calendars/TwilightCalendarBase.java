@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -56,6 +57,11 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
         s_DAWN_TWILIGHT = context.getString(R.string.dawn);
         s_DUSK_TWILIGHT = context.getString(R.string.dusk);
         s_WHITE_NIGHT = context.getString(R.string.white_night);
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(s_SUNRISE, s_SUNSET, s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT, s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_DAWN_TWILIGHT, s_DUSK_TWILIGHT, s_WHITE_NIGHT);
     }
 
     /**

@@ -30,6 +30,7 @@ import com.forrestguice.suntimescalendars.R;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
@@ -38,6 +39,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
@@ -50,9 +52,9 @@ public class MoonphaseCalendar extends MoonCalendarBase
     public static final double THRESHHOLD_SUPERMOON = 360000;    // km
     public static final double THRESHHOLD_MICROMOON = 405000;    // km
 
-    private String[] phaseStrings = new String[4];     // {major phases}
-    private String[] phaseStrings1 = new String[4];    // {major phases; supermoon}
-    private String[] phaseStrings2 = new String[4];    // {major phases; micromoon}
+    private final String[] phaseStrings = new String[4];     // {major phases}
+    private final String[] phaseStrings1 = new String[4];    // {major phases; supermoon}
+    private final String[] phaseStrings2 = new String[4];    // {major phases; micromoon}
 
     @Override
     public String calendarName() {
@@ -62,6 +64,14 @@ public class MoonphaseCalendar extends MoonCalendarBase
     @Override
     public CalendarEventTemplate defaultTemplate() {
         return new CalendarEventTemplate("%M", "%M\n%dist", null);
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(phaseStrings[0], phaseStrings[1], phaseStrings[2], phaseStrings[3],   // 0-3 normal phases
+                phaseStrings1[0], phaseStrings1[2],                                                           // 4,5 super moon
+                phaseStrings2[0], phaseStrings2[2]                                                            // 6,7 micro moon
+        );
     }
 
     @Override
@@ -88,6 +98,20 @@ public class MoonphaseCalendar extends MoonCalendarBase
         phaseStrings2[1] = context.getString(R.string.timeMode_moon_firstquarter);
         phaseStrings2[2] = context.getString(R.string.timeMode_moon_microfull);
         phaseStrings2[3] = context.getString(R.string.timeMode_moon_thirdquarter);
+    }
+
+    protected String[] getPhaseStrings(int i, double distance, String[] strings)
+    {
+        String[] result = Arrays.copyOfRange(strings, 0, 4);
+        if (i == 0 || i == 2)  // new moon || full moon
+        {
+            if (distance < THRESHHOLD_SUPERMOON) {
+                result[i] = strings[4 + Math.max(0, i-1)];
+            } else if (distance > THRESHHOLD_MICROMOON) {
+                result[i] = strings[6 + Math.max(0, i-1)];
+            }
+        }
+        return result;
     }
 
     @Override
@@ -127,6 +151,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
@@ -138,19 +163,12 @@ public class MoonphaseCalendar extends MoonCalendarBase
                         for (int i=0; i<4; i++)
                         {
                             double distance = -1;
-                            String[] eventStrings;
                             if (i == 0 || i == 2)  // new moon || full moon
                             {
                                 distance = cursor.getDouble(i == 0 ? 4 : 5);
+                            }
 
-                                if (distance < THRESHHOLD_SUPERMOON) {
-                                    eventStrings = phaseStrings1;
-                                } else if (distance > THRESHHOLD_MICROMOON) {
-                                    eventStrings = phaseStrings2;
-                                } else eventStrings = phaseStrings;
-
-                            } else eventStrings = phaseStrings;
-
+                            String[] eventStrings = getPhaseStrings(i, distance, strings);
                             data.put(TemplatePatterns.pattern_event.getPattern(), eventStrings[i]);
                             data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
 
