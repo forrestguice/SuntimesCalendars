@@ -31,12 +31,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
@@ -46,6 +48,7 @@ import com.forrestguice.suntimeswidget.views.Toast;
 
 public class TemplateDialog extends BottomSheetDialogFragment
 {
+    public static final String DIALOGTAG_STRINGS = "TemplateDialog_Strings";
     public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
 
     protected TextView text_dialog_title;
@@ -140,6 +143,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
         edit_location = (EditText) dialogContent.findViewById(R.id.edit_location);
         setTextWatchers();
 
+        Button strings_button = (Button) dialogContent.findViewById(R.id.strings_button);
+        if (strings_button != null) {
+            strings_button.setOnClickListener(onStringsButtonClicked);
+        }
+
         ImageButton accept_button = (ImageButton) dialogContent.findViewById(R.id.accept_button);
         if (accept_button != null) {
             accept_button.setOnClickListener(onAcceptButtonClicked);
@@ -217,7 +225,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         edit_title.removeTextChangedListener(edit_title_listener);
         edit_desc.removeTextChangedListener(edit_desc_listener);
-        edit_desc.removeTextChangedListener(edit_location_listener);
+        edit_location.removeTextChangedListener(edit_location_listener);
     }
 
     protected void updateViews(Context context)
@@ -338,6 +346,30 @@ public class TemplateDialog extends BottomSheetDialogFragment
             dialog.dismiss();
             updateViews(context);
             Toast.makeText(getActivity(), getString(R.string.template_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    protected View.OnClickListener onStringsButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showStringsDialog();
+        }
+    };
+
+    protected void showStringsDialog()
+    {
+        EventStringsDialog dialog = new EventStringsDialog();
+        dialog.setDialogListener(stringsDialogListener);
+        dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
+    }
+
+    private final EventStringsDialog.DialogListener stringsDialogListener = new EventStringsDialog.DialogListener()
+    {
+        @Override
+        public void onDialogAccepted(EventStringsDialog dialog)
+        {
+            CalendarEventStrings result = dialog.getResult();
+            Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();    // TODO
         }
     };
 
