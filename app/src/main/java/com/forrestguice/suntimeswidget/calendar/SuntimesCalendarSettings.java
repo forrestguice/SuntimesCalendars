@@ -154,7 +154,7 @@ public class SuntimesCalendarSettings
     /**
      * loadPrefCalendarTemplate
      */
-    @Nullable
+    @NonNull
     public static CalendarEventTemplate loadPrefCalendarTemplate(Context context, String calendar, @NonNull CalendarEventTemplate defaultTemplate)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
