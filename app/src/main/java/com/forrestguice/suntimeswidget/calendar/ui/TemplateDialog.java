@@ -42,6 +42,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.ui.template.EventStringsDialog;
@@ -360,11 +361,12 @@ public class TemplateDialog extends BottomSheetDialogFragment
     protected void showStringsDialog()
     {
         Context context = getActivity();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+        String calendar = getCalendar();
+        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
 
         EventStringsDialog dialog = new EventStringsDialog();
         dialog.setCalendar(getCalendar());
-        dialog.setData(calendarObj.defaultStrings());
+        dialog.setData(SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendar, calendarObj.defaultStrings()));
         dialog.setDialogListener(stringsDialogListener);
         dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
     }
@@ -374,8 +376,8 @@ public class TemplateDialog extends BottomSheetDialogFragment
         @Override
         public void onDialogAccepted(EventStringsDialog dialog)
         {
-            CalendarEventStrings result = dialog.getResult();
-            Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();    // TODO
+            SuntimesCalendarSettings.savePrefCalendarStrings(getActivity(), getCalendar(), dialog.getResult());
+            Toast.makeText(getActivity(), "saved strings", Toast.LENGTH_SHORT).show();    // TODO
         }
     };
 

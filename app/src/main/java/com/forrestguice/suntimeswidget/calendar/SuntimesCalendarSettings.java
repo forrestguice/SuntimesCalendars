@@ -24,6 +24,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.ui.reminders.Reminder;
@@ -45,6 +46,8 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_TEMPLATE_TITLE = "app_calendars_template_title_";
     public static final String PREF_KEY_CALENDARS_TEMPLATE_DESC = "app_calendars_template_desc_";
     public static final String PREF_KEY_CALENDARS_TEMPLATE_LOCATION = "app_calendars_template_location_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_STRINGS = "app_calendars_template_strings_";
+    public static final String STRINGS_DELIMITER = "|";
 
     public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
     public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
@@ -205,6 +208,38 @@ public class SuntimesCalendarSettings
     public static void savePrefCalendarTemplateLocation(Context context, String calendar, @Nullable String location) {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar, location);
+        prefs.apply();
+    }
+    public static void clearPrefCalendarTemplate(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_TITLE);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_DESC);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_LOCATION);
+        prefs.apply();
+    }
+
+    /**
+     * savePrefCalendarStrings
+     */
+    public static void savePrefCalendarStrings(Context context, String calendar, CalendarEventStrings strings)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar, TextUtils.join(STRINGS_DELIMITER, strings.getValues()));
+        prefs.apply();
+    }
+    public static CalendarEventStrings loadPrefCalendarStrings(Context context, String calendar, CalendarEventStrings defaultStrings)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String s = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar, null);
+        if (s != null) {
+            return new CalendarEventStrings(s.split("\\" + STRINGS_DELIMITER));
+        } else return defaultStrings;
+    }
+    public static void clearPrefCalendarStrings(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar);
         prefs.apply();
     }
 
