@@ -82,6 +82,7 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
@@ -94,6 +95,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
+import com.forrestguice.suntimeswidget.calendar.ui.TemplateDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -828,6 +830,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     reminderDialog.setDialogListener(reminderDialog_listener);
                 }
 
+                TemplateDialog templateDialog = (TemplateDialog) fragments.findFragmentByTag(DIALOGTAG_TEMPLATE + "_" + calendar);
+                if (templateDialog != null) {
+                    templateDialog.setDialogListener(templateDialog_listener);
+                }
+
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
@@ -926,6 +933,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
         {
+            MenuItem template_item = menu.getMenu().findItem(R.id.action_template);
+            if (template_item != null)
+            {
+                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
+                template_item.setEnabled(!descriptor.isAddon());
+            }
         }
 
         protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
@@ -944,12 +957,45 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             showReminderDialog(context, calendar);
                             return true;
 
+                        case R.id.action_template:
+                            showTemplateDialog(context, calendar);
+                            return true;
+
                         default:
                             return false;
                     }
                 }
             };
         }
+
+
+        /**
+         * showTemplateDialog
+         */
+
+        private static final String DIALOGTAG_TEMPLATE = "configtemplate";
+        protected void showTemplateDialog(Context context, String calendar)
+        {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+            TemplateDialog dialog = new TemplateDialog();
+            dialog.setCalendar(calendar);
+            dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar, calendarObj.defaultTemplate()));
+            dialog.setDialogListener(templateDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
+        }
+
+        private final TemplateDialog.DialogListener templateDialog_listener = new TemplateDialog.DialogListener()
+        {
+            @Override
+            public void onDialogAccepted(TemplateDialog dialog)
+            {
+                if (dialog.isModified())
+                {
+                    SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getResult());
+                    Toast.makeText(getActivity(), getString(R.string.template_dialog_saved_toast), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 
         /**
          * showReminderDialog

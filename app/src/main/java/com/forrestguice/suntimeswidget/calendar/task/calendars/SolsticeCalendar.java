@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -34,6 +34,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +52,11 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     @Override
     public String calendarName() {
         return CALENDAR_NAME;
+    }
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%M", "%M", null);
     }
 
     @Override
@@ -105,6 +112,11 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
+
+                    Calendar eventTime;
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
@@ -112,9 +124,10 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         {
                             if (!cursor.isNull(i))
                             {
-                                Calendar eventTime = Calendar.getInstance();
+                                data.put(TemplatePatterns.pattern_event.getPattern(), solsticeStrings[i]);
+                                eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(adapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                         }
                         cursor.moveToNext();

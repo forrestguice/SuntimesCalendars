@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -34,6 +34,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,6 +57,11 @@ public class MoonphaseCalendar extends MoonCalendarBase
     @Override
     public String calendarName() {
         return SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+    }
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%M", "%M\n%dist", null);
     }
 
     @Override
@@ -120,6 +127,10 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
@@ -127,25 +138,25 @@ public class MoonphaseCalendar extends MoonCalendarBase
                         for (int i=0; i<4; i++)
                         {
                             double distance = -1;
-                            String[] titleStrings;
+                            String[] eventStrings;
                             if (i == 0 || i == 2)  // new moon || full moon
                             {
                                 distance = cursor.getDouble(i == 0 ? 4 : 5);
 
                                 if (distance < THRESHHOLD_SUPERMOON) {
-                                    titleStrings = phaseStrings1;
+                                    eventStrings = phaseStrings1;
                                 } else if (distance > THRESHHOLD_MICROMOON) {
-                                    titleStrings = phaseStrings2;
-                                } else titleStrings = phaseStrings;
+                                    eventStrings = phaseStrings2;
+                                } else eventStrings = phaseStrings;
 
-                            } else titleStrings = phaseStrings;
+                            } else eventStrings = phaseStrings;
 
-                            String desc = (distance > 0)
-                                    ? context.getString(R.string.event_distance_format, titleStrings[i], formatDistanceString(distance))
-                                    : titleStrings[i];
+                            data.put(TemplatePatterns.pattern_event.getPattern(), eventStrings[i]);
+                            data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
-                            eventValues.add(adapter.createEventContentValues(calendarID, titleStrings[i], desc, null, eventTime));
+                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                         }
                         cursor.moveToNext();
                         c++;

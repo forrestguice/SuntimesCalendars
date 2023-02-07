@@ -96,6 +96,10 @@ public class SuntimesCalendarDescriptor implements Comparable
         return Integer.valueOf(this.getPriority()).compareTo(otherDescriptor.getPriority());
     }
 
+    public boolean isAddon() {
+        return calendarRef != null && calendarRef.startsWith("content:");
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 

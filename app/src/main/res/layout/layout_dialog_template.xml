@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2023 Forrest Guice
+    This file is part of SuntimesCalendars.
+
+    SuntimesCalendars is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SuntimesCalendars is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#00ffffff">
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical" android:background="?attr/colorPrimary">
+
+        <ImageButton android:id="@+id/back_button"
+            android:src="?attr/icActionBack"
+            android:background="?selectableItemBackground"
+            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="12dp" android:paddingStart="12dp"
+            android:paddingRight="12dp" android:paddingEnd="12dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="8dp" android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/template_dialog_msg"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="?android:textColorPrimary" />
+
+            <TextView
+                android:id="@+id/text_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/template_dialog_msg"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="?android:textColorSecondary" />
+
+        </LinearLayout>
+
+        <ImageButton android:id="@+id/accept_button"
+            android:src="?attr/icActionAccept" android:background="?selectableItemBackground"
+            android:layout_width="64dp" android:layout_height="match_parent"
+            android:padding="8dp"
+            android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
+
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:layout_marginTop="4dp">
+
+        <TextView android:id="@+id/label_title" android:labelFor="@+id/edit_title"
+            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:clickable="true" android:focusable="true"
+            android:gravity="center_vertical"
+            android:text="@string/template_dialog_title_label" />
+
+        <EditText android:id="@+id/edit_title"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+            android:inputType="textNoSuggestions" android:hint="@string/template_dialog_title_hint" />
+
+        <ImageButton android:id="@+id/help_button"
+            android:layout_width="48dp" android:layout_height="48dp"
+            android:src="?attr/icActionHelp" app:tint="?attr/text_accentColor"
+            android:contentDescription="@string/action_help"
+            android:background="?selectableItemBackground" />
+
+    </LinearLayout>
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical" android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp">
+
+        <TextView android:id="@+id/label_location" android:labelFor="@+id/edit_location"
+            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:gravity="center_vertical" android:layout_gravity="center_vertical"
+            android:clickable="true" android:focusable="true"
+            android:text="@string/template_dialog_location_label" />
+
+        <EditText android:id="@+id/edit_location"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+            android:inputType="textNoSuggestions" android:layout_gravity="center_vertical"
+            android:hint="@string/template_dialog_location_hint" />
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/label_desc" android:labelFor="@+id/edit_desc"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true" android:focusable="true"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/template_dialog_desc_label" />
+
+    <EditText android:id="@+id/edit_desc"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:inputType="textMultiLine|textNoSuggestions" android:maxLines="5" android:minLines="5" android:gravity="top"
+        android:hint="@string/template_dialog_desc_hint" />
+
+</LinearLayout>
+

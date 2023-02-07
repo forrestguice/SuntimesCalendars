@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -34,6 +34,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,6 +52,11 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     @Override
     public String calendarName() {
         return SuntimesCalendarAdapter.CALENDAR_MOONAPSIS;
+    }
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%M", "%M\n%dist", null);
     }
 
     @Override
@@ -127,6 +134,10 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         progress = task.createProgressObj(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
 
+                        CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                        ContentValues data = TemplatePatterns.createContentValues(null, this);
+                        data = TemplatePatterns.createContentValues(data, task.getLocation());
+
                         ArrayList<ContentValues> eventValues = new ArrayList<>();
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast() && !task.isCancelled())
@@ -146,8 +157,9 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
-                                String desc = ((distance != -1) ? context.getString(R.string.event_distance_format, apsisStrings[i], formatDistanceString(distance)) : apsisStrings[i]);
-                                eventValues.add(adapter.createEventContentValues(calendarID, apsisStrings[i], desc, null, eventTime));
+                                data.put(TemplatePatterns.pattern_event.getPattern(), apsisStrings[i]);
+                                data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle
                             cursor.moveToNext();

@@ -110,6 +110,7 @@
     <string name="confirm_cancel_yes">Confirm</string>
     <string name="confirm_cancel_no">Back</string>
 
+    <string name="action_help">Help</string>   <!-- TODO -->
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
     <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
 
@@ -203,6 +204,7 @@
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%s\n%s</string>
+    <string name="distance_format">%s km</string>  <!-- e.g. full moon (400.71 km) -->   <!-- TODO -->
 
     <string name="toolbar_title">Calendars</string>
 
@@ -211,6 +213,43 @@
 
     <string name="reminder_dialog_msg">Reminders</string>  <!-- TODO -->
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
+
+    <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
+    <string name="template_dialog_title_label">Name</string>  <!-- TODO -->
+    <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
+
+    <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
+    <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
+
+    <string name="template_dialog_location_label">Location</string>  <!-- TODO -->
+    <string name="template_dialog_location_hint">Location</string>  <!-- TODO -->
+
+    <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
+    <string name="template_dialog_defaults_toast">Restored Default Template</string>  <!-- TODO -->
+
+    <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
+
+    <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
+    <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
+    <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
+    <string name="help_pattern_loc">location name (e.g. Phoenix)</string>   <!-- TODO -->
+    <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->
+    <string name="help_pattern_lon">location longitude</string>   <!-- TODO -->
+    <string name="help_pattern_lel">location elevation</string>   <!-- TODO -->
+    <string name="help_pattern_event">event title (e.g. "Full Moon").</string>   <!-- TODO -->
+    <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
+    <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
+    <string name="help_pattern_percent">% character</string>   <!-- TODO -->
+
+    <string name="help_template"><![CDATA[
+        <h3>Templates</h3>
+        Templates are applied when calendar events are added.
+        <br/><br/>
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        <br/><br/>
+        <h3>Substitutions</h3>
+        %s
+    ]]></string>  <!-- TODO-->
 
     <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
