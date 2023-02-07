@@ -47,7 +47,17 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     private static final int resID_calendarTitle = R.string.calendar_solstice_displayName;
     private static final int resID_calendarSummary = R.string.calendar_solstice_summary;
 
-    private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
+    private String[] displayStrings = new String[8];  // {cross-spring, spring, cross-summer, summer, cross-fall, fall, cross-winter, winter}
+    private String[] projection = new String[] {
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SPRING,    // 0
+            CalculatorProviderContract.COLUMN_SEASON_VERNAL,          // 1
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SUMMER,    // 2
+            CalculatorProviderContract.COLUMN_SEASON_SUMMER,          // 3
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_AUTUMN,    // 4
+            CalculatorProviderContract.COLUMN_SEASON_AUTUMN,          // 5
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_WINTER,    // 6
+            CalculatorProviderContract.COLUMN_SEASON_WINTER           // 7
+    };
 
     @Override
     public String calendarName() {
@@ -69,10 +79,14 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 
-        solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
-        solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
-        solsticeStrings[2] = context.getString(R.string.timeMode_equinox_autumnal);
-        solsticeStrings[3] = context.getString(R.string.timeMode_solstice_winter);
+        displayStrings[0] = context.getString(R.string.timeMode_cross_spring);
+        displayStrings[1] = context.getString(R.string.timeMode_equinox_vernal);
+        displayStrings[2] = context.getString(R.string.timeMode_cross_summer);
+        displayStrings[3] = context.getString(R.string.timeMode_solstice_summer);
+        displayStrings[4] = context.getString(R.string.timeMode_cross_autumnal);
+        displayStrings[5] = context.getString(R.string.timeMode_equinox_autumnal);
+        displayStrings[6] = context.getString(R.string.timeMode_cross_winter);
+        displayStrings[7] = context.getString(R.string.timeMode_solstice_winter);
     }
 
     @Override
@@ -101,7 +115,6 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                 endDate.setTimeInMillis(window[1]);
 
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SEASONS + "/" + startDate.get(Calendar.YEAR) + "-" + endDate.get(Calendar.YEAR));
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SEASON_VERNAL, CalculatorProviderContract.COLUMN_SEASON_SUMMER, CalculatorProviderContract.COLUMN_SEASON_AUTUMN, CalculatorProviderContract.COLUMN_SEASON_WINTER };
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -124,7 +137,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         {
                             if (!cursor.isNull(i))
                             {
-                                data.put(TemplatePatterns.pattern_event.getPattern(), solsticeStrings[i]);
+                                data.put(TemplatePatterns.pattern_event.getPattern(), displayStrings[i]);
                                 eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));

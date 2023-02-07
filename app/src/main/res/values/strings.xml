@@ -38,6 +38,11 @@
     <string name="timeMode_solstice_summer">Summer Solstice</string>
     <string name="timeMode_solstice_winter">Winter Solstice</string>
 
+    <string name="timeMode_cross_spring">Spring Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_autumnal">Autumn Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_summer">Summer Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_winter">Winter Cross-Quarter</string>   <!-- TODO -->
+
     <string name="timeMode_moon">Moon</string>
     <string name="timeMode_moon_new">New Moon</string>
     <string name="timeMode_moon_firstquarter">First Quarter</string>
@@ -65,7 +70,7 @@
     <string name="configLabel_calendars_location">Location</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
-    <string name="calendar_solstice_summary" />
+    <string name="calendar_solstice_summary">Solstices, Equinoxes, and Cross-Quarter days</string>  <!-- TODO -->
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
     <string name="calendar_moonPhase_summary">Synodic month</string>
     <string name="calendar_moonApsis_displayName">Moon Apsis</string>
