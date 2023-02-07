@@ -377,7 +377,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         public void onDialogAccepted(EventStringsDialog dialog)
         {
             SuntimesCalendarSettings.savePrefCalendarStrings(getActivity(), getCalendar(), dialog.getResult());
-            Toast.makeText(getActivity(), "saved strings", Toast.LENGTH_SHORT).show();    // TODO
+            Toast.makeText(getActivity(), getActivity().getString(R.string.templatestrings_dialog_saved_toast), Toast.LENGTH_SHORT).show();
         }
     };
 
