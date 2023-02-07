@@ -30,6 +30,7 @@ import com.forrestguice.suntimescalendars.R;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
@@ -62,6 +63,11 @@ public class MoonphaseCalendar extends MoonCalendarBase
     @Override
     public CalendarEventTemplate defaultTemplate() {
         return new CalendarEventTemplate("%M", "%M\n%dist", null);
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(phaseStrings, phaseStrings1, phaseStrings2);
     }
 
     @Override

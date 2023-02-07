@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.task;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
@@ -80,4 +81,10 @@ public interface SuntimesCalendar
      * @return default template
      */
     CalendarEventTemplate defaultTemplate();
+
+
+    /**
+     * @return default strings
+     */
+    CalendarEventStrings defaultStrings();
 }
