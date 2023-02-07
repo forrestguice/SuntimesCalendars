@@ -207,8 +207,12 @@
     <string name="template_dialog_location_label">Location</string>  <!-- TODO -->
     <string name="template_dialog_location_hint">Location</string>  <!-- TODO -->
 
-    <string name="template_dialog_saved_toast">Template Saved</string>  <!-- TODO -->
-    <string name="template_dialog_defaults_toast">Restored Default Template</string>  <!-- TODO -->
+    <string name="template_dialog_saved_toast">Template saved</string>  <!-- TODO -->
+    <string name="template_dialog_defaults_toast">Restored default template</string>  <!-- TODO -->
+
+    <string name="templatestrings_dialog_msg">Event Strings</string>  <!-- TODO -->
+    <string name="templatestrings_dialog_saved_toast">Strings saved</string>  <!-- TODO -->
+    <string name="templatestrings_dialog_defaults_toast">Restored default strings</string>  <!-- TODO -->
 
     <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
 
@@ -232,6 +236,10 @@
         <br/><br/>
         <h3>Substitutions</h3>
         %s
+    ]]></string>  <!-- TODO-->
+    <string name="help_template_strings"><![CDATA[
+        <h3>Event Strings</h3>
+        The following values are used with the %M substitution.
     ]]></string>  <!-- TODO-->
 
     <string name="color_dialog_msg">Colour</string>

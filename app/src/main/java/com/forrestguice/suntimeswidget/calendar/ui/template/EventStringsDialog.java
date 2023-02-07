@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.forrestguice.suntimeswidget.calendar.ui;
+package com.forrestguice.suntimeswidget.calendar.ui.template;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -26,13 +26,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -41,21 +40,22 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
-import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
-import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.ui.template.EventStringsDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 
-public class TemplateDialog extends BottomSheetDialogFragment
+public class EventStringsDialog extends BottomSheetDialogFragment
 {
-    public static final String DIALOGTAG_STRINGS = "TemplateDialog_Strings";
-    public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
+    public static final String DIALOGTAG_HELP = "EventStringsDialog_Help";
 
     protected TextView text_dialog_title;
-    protected EditText edit_title, edit_desc, edit_location;
+    protected TextView text_debug;
 
-    public TemplateDialog() {
+    protected RecyclerView card_view;
+    protected EventStringsDialog.CardLayoutManager card_layout;
+    protected EventStringsAdapter card_adapter;
+
+    public EventStringsDialog() {
         setArguments(new Bundle());
         setModified(false);
     }
@@ -83,27 +83,27 @@ public class TemplateDialog extends BottomSheetDialogFragment
     public static final String KEY_MODIFIED = "ismodified";
 
     /**
-     * setTemplate
+     * setData
      */
-    public void setTemplate(@Nullable CalendarEventTemplate template) {
-        data = template;
-        getArguments().putParcelable(KEY_DATA, template);
+    public void setData(@Nullable CalendarEventStrings values) {
+        data = values;
+        getArguments().putParcelable(KEY_DATA, values);
     }
     @Nullable
-    public CalendarEventTemplate getTemplate() {
+    public CalendarEventStrings getData() {
         if (data == null) {
             data = getArguments().getParcelable(KEY_DATA);
         }
         return data;
     }
-    protected CalendarEventTemplate data = null;
+    protected CalendarEventStrings data = null;
     public static final String KEY_DATA = "data";
 
     /**
      * getResult
      */
-    public CalendarEventTemplate getResult() {
-        return new CalendarEventTemplate(edit_title.getText().toString(), edit_desc.getText().toString(), edit_location.getText().toString());
+    public CalendarEventStrings getResult() {
+        return new CalendarEventStrings(data);
     }
 
     /**
@@ -128,7 +128,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         //int themeResID = getTheme();
         //@SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.layout_dialog_template, parent, true);  // TODO
+        View dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.layout_dialog_strings, parent, true);   // TODO: properly themed
         initViews(getActivity(), dialogContent);
 
         //if (savedState != null) {
@@ -139,15 +139,14 @@ public class TemplateDialog extends BottomSheetDialogFragment
     protected void initViews(Context context, View dialogContent)
     {
         text_dialog_title = (TextView) dialogContent.findViewById(R.id.text_title);
-        edit_title = (EditText) dialogContent.findViewById(R.id.edit_title);
-        edit_desc = (EditText) dialogContent.findViewById(R.id.edit_desc);
-        edit_location = (EditText) dialogContent.findViewById(R.id.edit_location);
-        setTextWatchers();
+        text_debug = (TextView) dialogContent.findViewById(R.id.text_debug);
 
-        Button strings_button = (Button) dialogContent.findViewById(R.id.strings_button);
-        if (strings_button != null) {
-            strings_button.setOnClickListener(onStringsButtonClicked);
-        }
+        card_layout = new CardLayoutManager(context);
+
+        card_view = (RecyclerView) dialogContent.findViewById(R.id.stringsView);
+        card_view.setHasFixedSize(true);
+        card_view.setLayoutManager(card_layout);
+        initAdapter(context);
 
         ImageButton accept_button = (ImageButton) dialogContent.findViewById(R.id.accept_button);
         if (accept_button != null) {
@@ -165,69 +164,27 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     }
 
-    private final TextWatcher edit_title_listener = new TextWatcher() {
+    protected void initAdapter(Context context)
+    {
+        card_adapter = new EventStringsAdapter(context, getCalendar(), getData());
+        card_adapter.setAdapterListener(card_adapterListener);
+        card_view.setAdapter(card_adapter);
+    }
+
+    protected EventStringsAdapter.AdapterListener card_adapterListener = new EventStringsAdapter.AdapterListener()
+    {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        @Override
-        public void afterTextChanged(Editable s)
+        public void onItemChanged(int position, String value)
         {
-            CalendarEventTemplate data = getTemplate();
-            if (data != null) {
-                data.setTitle(s.toString());
-                setTemplate(data);
-            }
-            setModified(true);
-        }
-    };
-    private final TextWatcher edit_desc_listener = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        @Override
-        public void afterTextChanged(Editable s)
-        {
-            CalendarEventTemplate data = getTemplate();
-            if (data != null) {
-                data.setDesc(s.toString());
-                setTemplate(data);
-            }
-            setModified(true);
-        }
-    };
-    private final TextWatcher edit_location_listener = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-        @Override
-        public void afterTextChanged(Editable s)
-        {
-            CalendarEventTemplate data = getTemplate();
+            CalendarEventStrings data = getData();
             if (data != null)
             {
-                String value = s.toString();
-                data.setLocation(value.isEmpty() ? null : value);
-                setTemplate(data);
+                data.setValue(position, value);
+                setModified(true);
+                //Toast.makeText(getActivity(), "saved " + value, Toast.LENGTH_SHORT).show();
             }
-            setModified(true);
         }
     };
-
-    protected void setTextWatchers()
-    {
-        edit_title.addTextChangedListener(edit_title_listener);
-        edit_desc.addTextChangedListener(edit_desc_listener);
-        edit_location.addTextChangedListener(edit_location_listener);
-    }
-    protected void clearTextWatchers()
-    {
-        edit_title.removeTextChangedListener(edit_title_listener);
-        edit_desc.removeTextChangedListener(edit_desc_listener);
-        edit_location.removeTextChangedListener(edit_location_listener);
-    }
 
     protected void updateViews(Context context)
     {
@@ -239,20 +196,18 @@ public class TemplateDialog extends BottomSheetDialogFragment
                 text_dialog_title.setText(descriptor.calendarTitle());
             }
 
-            clearTextWatchers();
-            CalendarEventTemplate data = getTemplate();
+            CalendarEventStrings data = getData();
             if (data != null)
             {
-                edit_title.setText(data.getTitle());
-                edit_desc.setText(data.getDesc());
-                edit_location.setText(data.getLocation());
+                if (text_debug != null) {
+                    text_debug.setText(data.toString());
+                }
 
             } else {
-                edit_title.setText("");
-                edit_desc.setText("");
-                edit_location.setText("");
+                if (text_debug != null) {
+                    text_debug.setText("");
+                }
             }
-            setTextWatchers();
 
         } else {
             if (text_dialog_title != null) {
@@ -295,7 +250,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         public void onClick(View v)
         {
             if (dialogListener != null) {
-                dialogListener.onDialogAccepted(TemplateDialog.this);
+                dialogListener.onDialogAccepted(EventStringsDialog.this);
             }
             Dialog dialog = getDialog();
             if (dialog != null) {
@@ -309,7 +264,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         public void onClick(View v)
         {
             if (dialogListener != null) {
-                dialogListener.onDialogCanceled(TemplateDialog.this);
+                dialogListener.onDialogCanceled(EventStringsDialog.this);
             }
             Dialog dialog = getDialog();
             if (dialog != null) {
@@ -329,7 +284,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         HelpDialog helpDialog = new HelpDialog();
         helpDialog.setShowDefaultsButton(true);
-        helpDialog.setContent(getString(R.string.help_template, TemplatePatterns.getAllHelpText(getActivity())) + "<br/>");
+        helpDialog.setContent(getString(R.string.help_template_strings));
         helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }
@@ -341,41 +296,13 @@ public class TemplateDialog extends BottomSheetDialogFragment
         {
             Context context = getActivity();
             SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
-            setTemplate(calendarObj.defaultTemplate());
+            setData(calendarObj.defaultStrings());
             setModified(true);
+            initAdapter(context);
 
             dialog.dismiss();
             updateViews(context);
-            Toast.makeText(getActivity(), getString(R.string.template_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    protected View.OnClickListener onStringsButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            showStringsDialog();
-        }
-    };
-
-    protected void showStringsDialog()
-    {
-        Context context = getActivity();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
-
-        EventStringsDialog dialog = new EventStringsDialog();
-        dialog.setCalendar(getCalendar());
-        dialog.setData(calendarObj.defaultStrings());
-        dialog.setDialogListener(stringsDialogListener);
-        dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
-    }
-
-    private final EventStringsDialog.DialogListener stringsDialogListener = new EventStringsDialog.DialogListener()
-    {
-        @Override
-        public void onDialogAccepted(EventStringsDialog dialog)
-        {
-            CalendarEventStrings result = dialog.getResult();
-            Toast.makeText(getActivity(), "TODO", Toast.LENGTH_SHORT).show();    // TODO
+            Toast.makeText(getActivity(), getString(R.string.templatestrings_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -390,12 +317,40 @@ public class TemplateDialog extends BottomSheetDialogFragment
     }
 
     /**
+     * CardLayoutManager
+     */
+    public static class CardLayoutManager extends LinearLayoutManager
+    {
+        public CardLayoutManager(Context context) {
+            super(context);
+            init(context);
+        }
+
+        public CardLayoutManager(Context context, int orientation, boolean reverseLayout) {
+            super(context, orientation, reverseLayout);
+            init(context);
+        }
+
+        public CardLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)
+        {
+            super(context, attrs, defStyleAttr, defStyleRes);
+            init(context);
+        }
+
+        private void init(Context context)
+        {
+            setOrientation(LinearLayoutManager.VERTICAL);
+            setItemPrefetchEnabled(true);
+        }
+    }
+
+    /**
      * DialogListener
      */
     public static abstract class DialogListener
     {
-        public void onDialogAccepted(TemplateDialog dialog) {}
-        public void onDialogCanceled(TemplateDialog dialog) {}
+        public void onDialogAccepted(EventStringsDialog dialog) {}
+        public void onDialogCanceled(EventStringsDialog dialog) {}
     }
     public DialogListener dialogListener = null;
     public void setDialogListener( DialogListener listener )
