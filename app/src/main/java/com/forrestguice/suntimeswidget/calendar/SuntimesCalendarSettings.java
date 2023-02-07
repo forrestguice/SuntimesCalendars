@@ -232,8 +232,12 @@ public class SuntimesCalendarSettings
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String s = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar, null);
-        if (s != null) {
-            return new CalendarEventStrings(s.split("\\" + STRINGS_DELIMITER));
+        if (s != null)
+        {
+            String[] v = s.split("\\" + STRINGS_DELIMITER);
+            if (v.length == defaultStrings.getValues().length) {
+                return new CalendarEventStrings(v);
+            } else return defaultStrings;
         } else return defaultStrings;
     }
     public static void clearPrefCalendarStrings(Context context, String calendar)
