@@ -40,6 +40,7 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
@@ -179,7 +180,7 @@ public class EventStringsDialog extends BottomSheetDialogFragment
             CalendarEventStrings data = getData();
             if (data != null)
             {
-                data.setValue(position, value);
+                data.setValue(position, value.replaceAll("\\" + SuntimesCalendarSettings.STRINGS_DELIMITER, ""));
                 setModified(true);
                 //Toast.makeText(getActivity(), "saved " + value, Toast.LENGTH_SHORT).show();
             }
