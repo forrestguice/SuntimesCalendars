@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 */
-package com.forrestguice.suntimeswidget.calendar.ui;
+package com.forrestguice.suntimeswidget.calendar.ui.template;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -38,14 +38,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
-import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarFactory;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.ui.template.EventStringsDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 
 public class TemplateDialog extends BottomSheetDialogFragment
