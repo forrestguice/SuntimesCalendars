@@ -1,5 +1,10 @@
 ### ~
 
+### v0.5.7 (2023-02-10)
+* adds support for high contrast themes and text size (Suntimes v0.15.0+).
+* updates Suntimes CalculatorProviderContract; from v2 to v5.
+* updates translation to Norwegian (nb) (#52 by FTno).
+
 ### v0.5.6 (2022-12-05)
 * adds support for system dark mode (night mode).
 * fixes bug where Toasts are unreadable (white-on-white); Android 13 (api33+).
