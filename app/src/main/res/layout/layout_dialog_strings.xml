@@ -70,7 +70,7 @@
     </LinearLayout>
 
 
-    <LinearLayout android:orientation="horizontal"
+    <android.support.v7.widget.LinearLayoutCompat android:orientation="horizontal"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:layout_marginTop="4dp">
@@ -81,7 +81,7 @@
             android:contentDescription="@string/action_help"
             android:background="?selectableItemBackground" />
 
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
     <TextView android:visibility="gone"
         android:id="@+id/text_debug"
