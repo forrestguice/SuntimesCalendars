@@ -217,7 +217,7 @@ public class AppThemes
         }
         @Override
         public int getDefaultNightMode() {
-            return AppCompatDelegate.MODE_NIGHT_NO;
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
         @Override
         public int getStyleId(Context context, TextSize size) {
