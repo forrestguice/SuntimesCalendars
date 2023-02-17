@@ -123,10 +123,9 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                 switch (action)
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        publishProgress(null, new SuntimesCalendarTaskProgress(0, 1, notificationMsgClearing));
-                        if (Build.VERSION.SDK_INT >= 14) {
-                            removeCalendarReminders(calendarName, null);
-                        }
+                        SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(0, 1000, notificationMsgClearing + "\n" + calendar.calendarTitle());
+                        publishProgress(null, progress);
+                        removeCalendarReminders(calendarName, progress);
                         retValue = retValue && adapter.removeCalendar(calendarName);
                         SuntimesCalendarSettings.clearNotes(contextRef.get(), calendarName);
                         break;
@@ -144,12 +143,12 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                             {
                                 case SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE:
                                     Log.d("DEBUG", "ACTION_REMINDERS_DELETE");
-                                    retValue = retValue && removeCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
+                                    retValue = retValue && removeCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle() + "\n" + notificationMsgReminders));
                                     break;
 
                                 case SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE:
                                     Log.d("DEBUG", "ACTION_REMINDERS_UPDATE");
-                                    retValue = retValue && updateCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
+                                    retValue = retValue && updateCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle() + "\n" + notificationMsgReminders));
                                     break;
 
                                 default:

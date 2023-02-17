@@ -103,6 +103,9 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="calendars_notification_updating">Updating calendars…</string> <!-- TODO -->
+    <string name="calendars_notification_updated">Calendars have been updated.</string> <!-- TODO -->
+
     <string name="calendars_notification_reminders_updating">Updating reminders…</string>  <!-- TODO -->
     <string name="calendars_notification_reminders_updated">Reminders have been updated.</string>  <!-- TODO -->
 

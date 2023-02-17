@@ -75,12 +75,13 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
         notificationMsgReminderUpdating = context.getString(R.string.calendars_notification_reminders_updating);
         notificationMsgReminderUpdated = context.getString(R.string.calendars_notification_reminders_updated);
+        notificationMsgReminders = context.getString(R.string.reminder_dialog_msg);
     }
     protected String notificationMsgAdding, notificationMsgAdded;
     protected String notificationMsgUpdating, notificationMsgUpdated;
     protected String notificationMsgClearing, notificationMsgCleared;
     protected String notificationMsgAddFailed;
-    protected String notificationMsgReminderUpdating, notificationMsgReminderUpdated;
+    protected String notificationMsgReminderUpdating, notificationMsgReminderUpdated, notificationMsgReminders;
 
     public long lastSync() {
         return lastSync;
