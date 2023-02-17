@@ -108,7 +108,7 @@ public class SuntimesCalendarTaskService extends Service
     private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTaskListener calendarTaskListener;
     private static NotificationCompat.Builder progressNotification;
-    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
+    public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (!clearCalendars) {
@@ -130,7 +130,7 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onStarted(context, task, message);
                 }
 
-                if (hasUpdateAction(task.getItems()))
+                if (hasLongRunningAction(task.getItems()) || clearCalendars)
                 {
                     signalOnBusyStatusChanged(true);
                     signalOnProgressMessage(0, 1, getString(
@@ -147,7 +147,7 @@ public class SuntimesCalendarTaskService extends Service
                 }
             }
 
-            private boolean hasUpdateAction(SuntimesCalendarTaskItem[] items)
+            private boolean hasLongRunningAction(SuntimesCalendarTaskItem[] items)
             {
                 for (SuntimesCalendarTaskItem item : items) {
                     if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE ||

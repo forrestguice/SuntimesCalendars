@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.task.calendars;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
@@ -73,8 +74,9 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         return calendarColor;
     }
 
-    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress) {
-        task.createCalendarReminders(context, calendarName(), progress);
+    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0) {
+        progress0.setProgress(progress0.itemNum(), progress0.getCount(), progress0.getMessage() + "\n" + context.getString(R.string.reminder_dialog_msg));
+        task.createCalendarReminders(context, calendarName(), progress0);
     }
 
 }

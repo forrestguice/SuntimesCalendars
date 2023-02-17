@@ -188,7 +188,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress);
+                    createCalendarReminders(context, task, progress0);
                     return !task.isCancelled();
 
                 } else {

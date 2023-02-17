@@ -125,7 +125,7 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                         }
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress);
+                    createCalendarReminders(context, task, progress0);
                     return !task.isCancelled();
 
                 } else {

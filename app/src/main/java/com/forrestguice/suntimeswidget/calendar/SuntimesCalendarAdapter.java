@@ -123,9 +123,11 @@ public class SuntimesCalendarAdapter
      * @param calendar calendar name
      * @return true calendar was removed, false otherwise
      */
-    public boolean removeCalendar(String calendar)
+    public boolean removeCalendar(String calendar) {
+        return removeCalendar(queryCalendarID(calendar));
+    }
+    public boolean removeCalendar(long calendarID)
     {
-        long calendarID = queryCalendarID(calendar);
         if (calendarID != -1)
         {
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);

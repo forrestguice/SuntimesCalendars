@@ -88,18 +88,38 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
     @Override
     protected Boolean doInBackground(SuntimesCalendarTaskItem... items)
     {
-        if (Build.VERSION.SDK_INT < 14)
+        if (Build.VERSION.SDK_INT < 14) {
             return false;
+        }
 
         if (items.length > 0) {
             setItems(items);
         }
 
-        if (flag_clear && !isCancelled()) {
-            adapter.removeCalendars();
-            for (String calendar : SuntimesCalendarDescriptor.getCalendars(contextRef.get())) {
-                SuntimesCalendarSettings.clearNotes(contextRef.get(), calendar);
+        if (flag_clear && !isCancelled())
+        {
+            Context context = contextRef.get();
+            String[] calendars = SuntimesCalendarDescriptor.getCalendars(context);
+
+            SuntimesCalendarTaskProgress progress0 = new SuntimesCalendarTaskProgress(0, calendars.length, notificationMsgClearing);
+            publishProgress(progress0);
+
+            int c = 0;
+            for (String calendar : calendars)
+            {
+                SuntimesCalendarSettings.clearNotes(context, calendar);
+                long calendarID = adapter.queryCalendarID(calendar);
+                if (calendarID != -1)
+                {
+                    SuntimesCalendarDescriptor calendarDesc = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
+                    progress0.setProgress(c, progress0.getCount(), calendarDesc.calendarTitle());
+
+                    removeCalendarReminders(calendarID, progress0);
+                    adapter.removeCalendar(calendarID);
+                }
+                c++;
             }
+            adapter.removeCalendars();
         }
 
         long[] window = getWindow();
@@ -182,7 +202,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
     /**
      * initCalendar
      */
-    private boolean initCalendar(@NonNull SuntimesCalendar calendar, @NonNull long[] window, @NonNull SuntimesCalendarTaskProgress progress) throws SecurityException
+    private boolean initCalendar(@NonNull SuntimesCalendar calendar, @NonNull long[] window, @NonNull SuntimesCalendarTaskProgress progress0) throws SecurityException
     {
         if (window.length != 2) {
             Log.e(TAG, "initCalendar: invalid window with length " + window.length);
@@ -196,7 +216,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         }
 
         long bench_start = System.nanoTime();
-        retValue = retValue && calendar.initCalendar(new SuntimesCalendarSettings(), adapter, this, progress, window);
+        retValue = retValue && calendar.initCalendar(new SuntimesCalendarSettings(), adapter, this, progress0, window);
         long bench_end = System.nanoTime();
         Log.i(TAG, "initCalendar (" + calendar + ") in " + ((bench_end - bench_start) / 1000000.0) + " ms");
 
@@ -207,55 +227,54 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
      * updateCalendarReminders
      */
     @TargetApi(14)
-    private boolean updateCalendarReminders(@NonNull SuntimesCalendar calendar, @NonNull SuntimesCalendarTaskProgress progress)
+    private boolean updateCalendarReminders(@NonNull SuntimesCalendar calendar, @NonNull SuntimesCalendarTaskProgress progress0)
     {
-        publishProgress(progress);
-        removeCalendarReminders(calendar.calendarName(), progress);
-        return createCalendarReminders(contextRef.get(), calendar.calendarName(), progress);
+        removeCalendarReminders(calendar.calendarName(), progress0);
+        return createCalendarReminders(contextRef.get(), calendar.calendarName(), progress0);
     }
 
     /**
      * createCalendarReminders
      */
     @TargetApi(14)
-    public boolean createCalendarReminders(Context context, String calendar, @NonNull SuntimesCalendarTaskProgress progress)
+    public boolean createCalendarReminders(Context context, String calendar, @NonNull SuntimesCalendarTaskProgress progress0)
     {
         boolean retValue = true;
         int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
-        progress.setProgress(-1, count, progress.getMessage());
+        SuntimesCalendarTaskProgress progress1 = new SuntimesCalendarTaskProgress(-1, count, progress0.getMessage());
         for (int i=0; i<count; i++)
         {
             int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
             int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar, i);
             if (method != -1) {
-                retValue = retValue && createCalendarReminders(calendar, minutes, method, progress);
+                retValue = retValue && createCalendarReminders(calendar, minutes, method, progress0, progress1);
             }
         }
         return retValue;
     }
 
     @TargetApi(14)
-    public boolean createCalendarReminders(String calendar, int minutes, int method, @NonNull SuntimesCalendarTaskProgress progress)
+    public boolean createCalendarReminders(String calendar, int minutes, int method, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull SuntimesCalendarTaskProgress progress1)
     {
         long calendarID = adapter.queryCalendarID(calendar);
         if (calendarID != -1) {
-            return createCalendarReminders(calendarID, minutes, method, progress);
+            return createCalendarReminders(calendarID, minutes, method, progress0, progress1);
         } else {
             Log.w(TAG, "createCalendarReminders: calendar not found! " + calendar);
             return false;
         }
     }
     @TargetApi(14)
-    public boolean createCalendarReminders(long calendarID, int minutes, int method, @NonNull SuntimesCalendarTaskProgress progress)
+    public boolean createCalendarReminders(long calendarID, int minutes, int method, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull SuntimesCalendarTaskProgress progress1)
     {
         ArrayList<ContentValues> reminderValues = new ArrayList<>();
         Cursor cursor = adapter.queryCalendarEvents(calendarID);
 
-        int i = progress.itemNum();
+        int i = progress1.itemNum();
         int c = Math.max(i, 0);
-        int n = ((i == -1) ? progress.getCount() * cursor.getCount() : progress.getCount());
-        progress.setProgress(c, n, progress.getMessage());
-        publishProgress(progress);
+        int n = ((i == -1) ? progress1.getCount() * cursor.getCount() : progress1.getCount());
+        progress1.setProgress(c, n, progress1.getMessage());
+        publishProgress(progress0, progress1);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
@@ -276,8 +295,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                 reminderValues.clear();
             }
             if (c % 8 == 0 || cursor.isLast()) {
-                progress.setProgress(c, progress.getCount(), progress.getMessage());
-                publishProgress(progress);
+                progress1.setProgress(c, progress1.getCount(), progress1.getMessage());
+                publishProgress(progress0, progress1);
             }
         }
         cursor.close();
@@ -288,10 +307,9 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
      * removeCalendarReminders
      */
     @TargetApi(14)
-    private boolean removeCalendarReminders(@NonNull SuntimesCalendar calendar, @NonNull SuntimesCalendarTaskProgress progress)
+    private boolean removeCalendarReminders(@NonNull SuntimesCalendar calendar, @NonNull SuntimesCalendarTaskProgress progress0)
     {
-        publishProgress(progress);
-        removeCalendarReminders(calendar.calendarName(), progress);
+        removeCalendarReminders(calendar.calendarName(), progress0);
         return true;
     }
 
@@ -301,17 +319,17 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
      * @return number of entries deleted from reminders table
      */
     @TargetApi(14)
-    public int removeCalendarReminders(String calendar, @Nullable SuntimesCalendarTaskProgress progress)
+    public int removeCalendarReminders(String calendar, @Nullable SuntimesCalendarTaskProgress progress0)
     {
         long calendarID = adapter.queryCalendarID(calendar);
         if (calendarID != -1) {
-            return removeCalendarReminders(calendarID, progress);
+            return removeCalendarReminders(calendarID, progress0);
         } else Log.w(TAG, "removeCalendarReminders: calendar not found! " + calendar);
         return 0;
     }
 
     @TargetApi(14)
-    public int removeCalendarReminders(long calendarID, @Nullable SuntimesCalendarTaskProgress progress)
+    public int removeCalendarReminders(long calendarID, @Nullable SuntimesCalendarTaskProgress progress0)
     {
         Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Reminders.CONTENT_URI);
         ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
@@ -320,9 +338,10 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         ContentResolver contentResolver = contextRef.get().getContentResolver();
         Cursor cursor = adapter.queryCalendarEvents(calendarID);
 
-        if (progress != null) {
-            progress.setProgress(0, cursor.getCount(), progress.getMessage());
-            publishProgress(progress);
+        SuntimesCalendarTaskProgress progress1 = new SuntimesCalendarTaskProgress(0, cursor.getCount(), "");
+        if (progress0 != null) {
+            progress1.setProgress(0, cursor.getCount(), progress0.getMessage());
+            publishProgress(progress0, progress1);
         }
 
         int c = 0;
@@ -352,9 +371,9 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                 }
                 batch.clear();
             }
-            if (progress != null && (c % 8 == 0 || cursor.isLast())) {
-                progress.setProgress(c, progress.getCount(), progress.getMessage());
-                publishProgress(progress);
+            if (c % 8 == 0 || cursor.isLast()) {
+                progress1.setProgress(c, progress1.getCount(), progress1.getMessage());
+                publishProgress(progress0, progress1);
             }
         }
         cursor.close();
