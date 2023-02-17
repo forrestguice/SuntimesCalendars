@@ -146,7 +146,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                         }
                     }
                     moonCursor.close();
-                    createCalendarReminders(context, adapter);
+                    createCalendarReminders(context, task, progress);
                     return !task.isCancelled();
 
                 } else {

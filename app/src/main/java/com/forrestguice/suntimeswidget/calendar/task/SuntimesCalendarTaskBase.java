@@ -68,6 +68,8 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     {
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
+        notificationMsgUpdating = context.getString(R.string.calendars_notification_updating);
+        notificationMsgUpdated = context.getString(R.string.calendars_notification_updated);
         notificationMsgClearing = context.getString(R.string.calendars_notification_clearing);
         notificationMsgCleared = context.getString(R.string.calendars_notification_cleared);
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
@@ -75,6 +77,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         notificationMsgReminderUpdated = context.getString(R.string.calendars_notification_reminders_updated);
     }
     protected String notificationMsgAdding, notificationMsgAdded;
+    protected String notificationMsgUpdating, notificationMsgUpdated;
     protected String notificationMsgClearing, notificationMsgCleared;
     protected String notificationMsgAddFailed;
     protected String notificationMsgReminderUpdating, notificationMsgReminderUpdated;
@@ -182,9 +185,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
                         : (action == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) ? notificationMsgReminderUpdating
                         : notificationMsgAdding;
 
-                if (action != SuntimesCalendarTaskItem.ACTION_DELETE) {
-                    triggerOnStarted(message);
-                } else triggerOnStarted("");
+                triggerOnStarted(message);
             } else triggerOnStarted("");
         }
     }

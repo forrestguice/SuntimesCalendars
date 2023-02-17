@@ -128,7 +128,6 @@ public class SuntimesCalendarAdapter
         long calendarID = queryCalendarID(calendar);
         if (calendarID != -1)
         {
-            removeCalendarReminders(calendarID);
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
             contentResolver.delete(deleteUri, null, null);
             Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
@@ -158,103 +157,6 @@ public class SuntimesCalendarAdapter
     public boolean createCalendarReminders(@NonNull ContentValues[] values) throws SecurityException {
         contentResolver.bulkInsert(CalendarContract.Reminders.CONTENT_URI, values);
         return true;
-    }
-
-    public boolean createCalendarReminders(String calendar, int minutes, int method)
-    {
-        long calendarID = queryCalendarID(calendar);
-        if (calendarID != -1) {
-            return createCalendarReminders(calendarID, minutes, method);
-
-        } else {
-            Log.w(TAG, "createCalendarReminders: calendar not found! " + calendar);
-            return false;
-        }
-    }
-    public boolean createCalendarReminders(long calendarID, int minutes, int method)
-    {
-        ArrayList<ContentValues> reminderValues = new ArrayList<>();
-        Cursor cursor = queryCalendarEvents(calendarID);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
-            int i_rowID = cursor.getColumnIndex(CalendarContract.Events._ID);
-            if (i_rowID != -1)
-            {
-                long eventID = cursor.getLong(i_rowID);
-                reminderValues.add(createReminderContentValues(calendarID, eventID, minutes, method));
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
-        Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
-        return createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
-    }
-
-    public boolean updateCalendarReminders(Context context, String calendar)
-    {
-        removeCalendarReminders(calendar);
-        return createCalendarReminders(context, calendar);
-    }
-
-    public boolean createCalendarReminders(Context context, String calendar)
-    {
-        boolean retValue = true;
-        int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
-        for (int i=0; i<count; i++)
-        {
-            int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
-            int method = SuntimesCalendarSettings.loadPrefCalendarReminderMethod(context, calendar, i);
-            if (method != -1) {
-                retValue = retValue && createCalendarReminders(calendar, minutes, method);
-            }
-        }
-        return retValue;
-    }
-
-    /**
-     * removeCalendarReminders
-     * @param calendar
-     * @return number of entries deleted from reminders table
-     */
-    public void removeCalendarReminders(String calendar)
-    {
-        long calendarID = queryCalendarID(calendar);
-        if (calendarID != -1) {
-            removeCalendarReminders(calendarID);
-        } else Log.w(TAG, "removeCalendarReminders: calendar not found! " + calendar);
-    }
-    public int removeCalendarReminders(long calendarID)
-    {
-        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Reminders.CONTENT_URI);
-        ArrayList<ContentProviderOperation> batch = new ArrayList<ContentProviderOperation>();
-        int retValue = 0;
-
-        Cursor cursor = queryCalendarEvents(calendarID);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
-            int i_rowID = cursor.getColumnIndex(CalendarContract.Events._ID);
-            if (i_rowID != -1)
-            {
-                long eventID = cursor.getLong(i_rowID);
-                final String[] args = new String[] { Long.toString(eventID) };
-                batch.add(ContentProviderOperation.newDelete(uri)
-                        .withSelection(CalendarContract.Reminders.EVENT_ID + " = ?", args).build());
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
-
-        try {
-            ContentProviderResult[] result = contentResolver.applyBatch(CalendarContract.AUTHORITY, batch);
-            retValue = (result != null ? result.length : 0);
-            Log.d(TAG, "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
-
-        } catch (RemoteException | OperationApplicationException e) {
-            Log.e(TAG, "removeCalendarReminders: failed to remove reminders: " + e);
-        }
-        return retValue;
     }
 
     /**

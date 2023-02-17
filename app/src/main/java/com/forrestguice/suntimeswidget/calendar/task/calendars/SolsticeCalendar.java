@@ -162,7 +162,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
-                    createCalendarReminders(context, adapter);
+                    createCalendarReminders(context, task, progress);
                     return !task.isCancelled();
 
                 } else {

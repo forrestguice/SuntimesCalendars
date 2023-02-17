@@ -126,7 +126,7 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                         }
                     }
                     cursor.close();
-                    createCalendarReminders(context, adapter);
+                    createCalendarReminders(context, task, progress);
                     return !task.isCancelled();
 
                 } else {

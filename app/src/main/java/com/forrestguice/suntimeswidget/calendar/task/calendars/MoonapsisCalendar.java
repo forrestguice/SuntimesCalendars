@@ -175,7 +175,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                             progress.setProgress(c, totalProgress, calendarTitle);
                             task.publishProgress(progress0, progress);
                         }
-                        createCalendarReminders(context, adapter);
+                        createCalendarReminders(context, task, progress);
                         cursor.close();
 
                         int chunk = 128;

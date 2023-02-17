@@ -26,6 +26,8 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.lang.ref.WeakReference;
 
@@ -71,8 +73,8 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         return calendarColor;
     }
 
-    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarAdapter adapter) {
-        adapter.createCalendarReminders(context, calendarName());
+    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress) {
+        task.createCalendarReminders(context, calendarName(), progress);
     }
 
 }
