@@ -44,7 +44,7 @@ import java.util.Calendar;
  * a ContentProvider supporting creation of calendar entries.
  *
  * The referenced ContentProvider needs to support:
- * * SuntimeCalendar.QUERY_CALENDAR_INFO to retrieve calendar meta-data; row of [calendar_name(string), calendar_title(string), calendar_summary(string), calendar_color(int)]
+ * * SuntimesCalendar.QUERY_CALENDAR_INFO to retrieve calendar meta-data; row of [calendar_name(string), calendar_title(string), calendar_summary(string), calendar_color(int)]
  * * SuntimesCalendar.QUERY_CALENDAR_CONTENT to retrieve calendar entries; rows of [title(string), description(string), eventTimezone(string), dtstart(long), dtend(long), eventLocation(string), ...]
  *   ready to be passed to the SuntimesCalendarAdapter.createCalendarEntries method.
  */
@@ -55,10 +55,10 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     public static final int CHUNK_DAYS = 7;
     public static final long CHUNK_MILLIS = CHUNK_DAYS * DAY_MILLIS;
 
-    private String contentUri = null;
-    public String getContentUriString() {
-        return contentUri;
-    }
+    protected String calenderName = null;
+    protected String contentUri = null;
+    protected CalendarEventTemplate defaultTemplate = new CalendarEventTemplate(null, null, null);
+    protected CalendarEventStrings defaultStrings = new CalendarEventStrings();
 
     public ContentProviderCalendar(String uriString)
     {
@@ -68,6 +68,10 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         }
     }
 
+    public String getContentUriString() {
+        return contentUri;
+    }
+
     @Override
     public String calendarName() {
         return calenderName;
@@ -75,15 +79,13 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate(null, null, null);    // TODO
+        return defaultTemplate;
     }
 
     @Override
     public CalendarEventStrings defaultStrings() {
-        return new CalendarEventStrings();    // TODO
+        return defaultStrings;
     }
-
-    private String calenderName = null;
 
     @Override
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings) throws SecurityException
@@ -109,6 +111,15 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 calendarTitle = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_TITLE));
                 calendarSummary = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_SUMMARY));
                 calendarColor = cursor.getInt(cursor.getColumnIndex(COLUMN_CALENDAR_COLOR));
+
+                int i_templateTitle = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_TITLE);
+                int i_templateDesc = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_DESCRIPTION);
+                int i_templateLocation = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_LOCATION);
+                if (i_templateTitle >= 0 && i_templateDesc >= 0 && i_templateLocation >= 0) {
+                    defaultTemplate = new CalendarEventTemplate(cursor.getString(i_templateTitle), cursor.getString(i_templateDesc), cursor.getString(i_templateLocation));
+                }
+                defaultStrings = new CalendarEventStrings();    // TODO
+
                 cursor.close();
             }
         }

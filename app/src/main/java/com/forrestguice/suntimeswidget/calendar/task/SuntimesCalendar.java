@@ -27,7 +27,11 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 
 /**
- * @version 0.1.0
+ * @version 0.2.0
+ *
+ * v0.1.0 initial version
+ * v0.2.0 adds columns for default template;
+ *        TEMPLATE_TITLE, TEMPLATE_DESCRIPTION, TEMPLATE_LOCATION, TEMPLATE_STRINGS
  */
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
@@ -37,11 +41,16 @@ public interface SuntimesCalendar
     String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
     String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
 
+    String COLUMN_CALENDAR_TEMPLATE_TITLE = "template_title";               // String (template title element)
+    String COLUMN_CALENDAR_TEMPLATE_DESCRIPTION = "template_description";   // String (template description element)
+    String COLUMN_CALENDAR_TEMPLATE_LOCATION = "template_location";         // String (template location element)
+    String COLUMN_CALENDAR_TEMPLATE_STRINGS = "template_strings";           // String (template strings)
+
     String QUERY_CALENDAR_INFO = "calendarInfo";
     String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
-            COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR
+            COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR,
+            COLUMN_CALENDAR_TEMPLATE_TITLE, COLUMN_CALENDAR_TEMPLATE_DESCRIPTION, COLUMN_CALENDAR_TEMPLATE_LOCATION
     };
-
 
     String QUERY_CALENDAR_CONTENT = "calendarContent";
 
