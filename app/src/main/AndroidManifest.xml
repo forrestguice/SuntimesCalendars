@@ -67,6 +67,14 @@
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
 
+        <!-- Template/Strings Provider -->
+        <provider
+            android:name="com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateProvider"
+            android:authorities="com.forrestguice.suntimescalendars.template.provider"
+            android:permission="suntimes.permission.READ_CALCULATOR"
+            android:exported="true" tools:ignore="ExportedContentProvider"
+            android:syncable="false" />
+
     </application>
 
 </manifest>
