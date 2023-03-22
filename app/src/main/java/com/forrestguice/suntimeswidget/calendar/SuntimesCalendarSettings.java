@@ -213,9 +213,9 @@ public class SuntimesCalendarSettings
     public static void clearPrefCalendarTemplate(Context context, String calendar)
     {
         SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
-        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_TITLE);
-        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_DESC);
-        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_LOCATION);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar);
         prefs.apply();
     }
 
