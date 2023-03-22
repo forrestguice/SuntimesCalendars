@@ -306,7 +306,7 @@ public class EventStringsDialog extends BottomSheetDialogFragment
             updateViews(context);
             Toast.makeText(getActivity(), getString(R.string.templatestrings_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
 
-            int animDelay = getResources().getInteger(android.R.integer.config_mediumAnimTime);
+            int animDelay = getResources().getInteger(android.R.integer.config_longAnimTime);
             card_view.postDelayed(new Runnable() {
                 @Override
                 public void run() {

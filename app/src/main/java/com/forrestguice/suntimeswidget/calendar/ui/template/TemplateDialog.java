@@ -341,12 +341,21 @@ public class TemplateDialog extends BottomSheetDialogFragment
         {
             Context context = getActivity();
             SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendarSettings.clearPrefCalendarTemplate(context, getCalendar());
             setTemplate(calendarObj.defaultTemplate());
             setModified(true);
 
             dialog.dismiss();
             updateViews(context);
             Toast.makeText(getActivity(), getString(R.string.template_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
+
+            int animDelay = getResources().getInteger(android.R.integer.config_longAnimTime);
+            text_dialog_title.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, animDelay);
         }
     };
 
