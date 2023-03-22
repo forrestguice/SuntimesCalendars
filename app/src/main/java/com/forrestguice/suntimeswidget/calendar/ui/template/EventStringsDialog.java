@@ -297,6 +297,7 @@ public class EventStringsDialog extends BottomSheetDialogFragment
         {
             Context context = getActivity();
             SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendarSettings.clearPrefCalendarStrings(context, getCalendar());
             setData(calendarObj.defaultStrings());
             setModified(true);
             initAdapter(context);
@@ -304,6 +305,14 @@ public class EventStringsDialog extends BottomSheetDialogFragment
             dialog.dismiss();
             updateViews(context);
             Toast.makeText(getActivity(), getString(R.string.templatestrings_dialog_defaults_toast), Toast.LENGTH_SHORT).show();
+
+            int animDelay = getResources().getInteger(android.R.integer.config_mediumAnimTime);
+            card_view.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, animDelay);
         }
     };
 
