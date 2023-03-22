@@ -92,6 +92,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     {
         super.init(context, settings);
         queryCalendarInfo();
+        queryCalendarTemplateStrings();
         calendarDesc = null;
         calendarColor = (calenderName != null ? settings.loadPrefCalendarColor(context, calendarName()) : calendarColor);
     }
@@ -118,9 +119,31 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 if (i_templateTitle >= 0 && i_templateDesc >= 0 && i_templateLocation >= 0) {
                     defaultTemplate = new CalendarEventTemplate(cursor.getString(i_templateTitle), cursor.getString(i_templateDesc), cursor.getString(i_templateLocation));
                 }
-                defaultStrings = new CalendarEventStrings();    // TODO
-
                 cursor.close();
+            }
+        }
+    }
+
+    protected void queryCalendarTemplateStrings() throws SecurityException
+    {
+        Context context = contextRef.get();
+        ContentResolver resolver = (context == null ? null : context.getContentResolver());
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse(contentUri + SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_STRINGS);
+            Cursor cursor = resolver.query(uri, SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION, null, null, null);
+            if (cursor != null)
+            {
+                ArrayList<String> values = new ArrayList<>();
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast())
+                {
+                    int i_value = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_STRINGS);
+                    values.add(((i_value >= 0) ? cursor.getString(i_value) : null));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                defaultStrings = new CalendarEventStrings(values.toArray(new String[0]));
             }
         }
     }

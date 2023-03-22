@@ -30,8 +30,8 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
  * @version 0.2.0
  *
  * v0.1.0 initial version
- * v0.2.0 adds columns for default template;
- *        TEMPLATE_TITLE, TEMPLATE_DESCRIPTION, TEMPLATE_LOCATION, TEMPLATE_STRINGS
+ * v0.2.0 adds columns for default template; TEMPLATE_TITLE, TEMPLATE_DESCRIPTION, TEMPLATE_LOCATION, TEMPLATE_STRINGS
+ *        adds QUERY_CALENDAR_TEMPLATE_STRINGS
  */
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
@@ -51,6 +51,9 @@ public interface SuntimesCalendar
             COLUMN_CALENDAR_NAME, COLUMN_CALENDAR_TITLE, COLUMN_CALENDAR_SUMMARY, COLUMN_CALENDAR_COLOR,
             COLUMN_CALENDAR_TEMPLATE_TITLE, COLUMN_CALENDAR_TEMPLATE_DESCRIPTION, COLUMN_CALENDAR_TEMPLATE_LOCATION
     };
+
+    String QUERY_CALENDAR_TEMPLATE_STRINGS = "calendarTemplateStrings";
+    String[] QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION = new String[] { COLUMN_CALENDAR_TEMPLATE_STRINGS };
 
     String QUERY_CALENDAR_CONTENT = "calendarContent";
 
