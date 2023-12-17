@@ -48,16 +48,20 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     private static final int resID_calendarTitle = R.string.calendar_solstice_displayName;
     private static final int resID_calendarSummary = R.string.calendar_solstice_summary;
 
-    private String[] displayStrings = new String[8];  // {cross-spring, spring, cross-summer, summer, cross-fall, fall, cross-winter, winter}
-    private String[] projection = new String[] {
-            CalculatorProviderContract.COLUMN_SEASON_CROSS_SPRING,    // 0
-            CalculatorProviderContract.COLUMN_SEASON_VERNAL,          // 1
-            CalculatorProviderContract.COLUMN_SEASON_CROSS_SUMMER,    // 2
-            CalculatorProviderContract.COLUMN_SEASON_SUMMER,          // 3
-            CalculatorProviderContract.COLUMN_SEASON_CROSS_AUTUMN,    // 4
-            CalculatorProviderContract.COLUMN_SEASON_AUTUMN,          // 5
-            CalculatorProviderContract.COLUMN_SEASON_CROSS_WINTER,    // 6
-            CalculatorProviderContract.COLUMN_SEASON_WINTER           // 7
+    private final String[] displayStrings = new String[8];  // {spring, cross-spring, summer, cross-summer, fall, cross-fall, winter, cross-winter}
+    private final String[] projection = new String[]
+    {
+            CalculatorProviderContract.COLUMN_SEASON_VERNAL,          // 0
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SPRING,    // 1
+
+            CalculatorProviderContract.COLUMN_SEASON_SUMMER,          // 2
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SUMMER,    // 3
+
+            CalculatorProviderContract.COLUMN_SEASON_AUTUMN,          // 4
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_AUTUMN,    // 5
+
+            CalculatorProviderContract.COLUMN_SEASON_WINTER,          // 6
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_WINTER,    // 7
     };
 
     @Override
@@ -85,14 +89,17 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 
-        displayStrings[0] = context.getString(R.string.timeMode_cross_spring);
-        displayStrings[1] = context.getString(R.string.timeMode_equinox_vernal);
-        displayStrings[2] = context.getString(R.string.timeMode_cross_summer);
-        displayStrings[3] = context.getString(R.string.timeMode_solstice_summer);
-        displayStrings[4] = context.getString(R.string.timeMode_cross_autumnal);
-        displayStrings[5] = context.getString(R.string.timeMode_equinox_autumnal);
-        displayStrings[6] = context.getString(R.string.timeMode_cross_winter);
-        displayStrings[7] = context.getString(R.string.timeMode_solstice_winter);
+        displayStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
+        displayStrings[1] = context.getString(R.string.timeMode_cross_spring);
+
+        displayStrings[2] = context.getString(R.string.timeMode_solstice_summer);
+        displayStrings[3] = context.getString(R.string.timeMode_cross_summer);
+
+        displayStrings[4] = context.getString(R.string.timeMode_equinox_autumnal);
+        displayStrings[5] = context.getString(R.string.timeMode_cross_autumnal);
+
+        displayStrings[6] = context.getString(R.string.timeMode_solstice_winter);
+        displayStrings[7] = context.getString(R.string.timeMode_cross_winter);
     }
 
     @Override
@@ -114,6 +121,8 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                int versionCode = queryProviderVersionCode(resolver);
+
                 Calendar startDate = Calendar.getInstance();
                 startDate.setTimeInMillis(window[0]);
 
@@ -146,7 +155,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                             {
                                 data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
                                 eventTime = Calendar.getInstance();
-                                eventTime.setTimeInMillis(cursor.getLong(i));
+                                eventTime.setTimeInMillis(cursor.getLong( toLegacyProjection(i, versionCode) ));
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                         }
@@ -176,6 +185,44 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                 return false;
             }
         } else return false;
+    }
+
+    protected int queryProviderVersionCode(@NonNull ContentResolver resolver)
+    {
+        int versionCode = 0;
+        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+        Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE }, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            if (!cursor.isAfterLast() && !cursor.isNull(0)) {
+                versionCode = cursor.getInt(0);
+            }
+            cursor.close();
+        }
+        return versionCode;
+    }
+
+    /**
+     * necessary because v0.5.0 (5) and earlier mistakenly swaps the cross-quarter values.
+     * @param providerVersionCode provider version int
+     * @param i legacy index
+     * @return remapped index
+     */
+    protected int toLegacyProjection(int i, int providerVersionCode)
+    {
+        if (providerVersionCode <= 5)
+        {
+            switch (i)
+            {
+                case 1: return 3;    // cross-spring <- cross-summer
+                case 3: return 5;    // cross-summer <- cross-fall
+                case 5: return 7;    // cross-autumn <- cross-winter
+                case 7: return 1;    // cross-winter <- cross-spring
+                case 0: case 2: case 4: case 6: default: return i;   // unchanged: spring, summer, autumn, winter, others
+            }
+        } else
+            return i;
     }
 
 }
