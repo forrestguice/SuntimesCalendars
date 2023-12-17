@@ -283,18 +283,19 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
             if (i_rowID != -1)
             {
                 long eventID = cursor.getLong(i_rowID);
+                //Log.w("DEBUG", "addCalendarReminders: eventID: " + eventID);
                 reminderValues.add(adapter.createReminderContentValues(calendarID, eventID, minutes, method));
             }
             cursor.moveToNext();
             c++;
 
-            if (c % 128 == 0 || cursor.isLast())
+            if (c % 128 == 0 || cursor.isAfterLast())
             {
-                Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
-                adapter.createCalendarReminders( reminderValues.toArray(new ContentValues[0]) );
+                //Log.d("DEBUG", "addCalendarReminders: " + calendarID + ", numEntries: " + reminderValues.size());
+                adapter.createCalendarReminders( reminderValues.toArray(new ContentValues[0]));
                 reminderValues.clear();
             }
-            if (c % 8 == 0 || cursor.isLast()) {
+            if (c % 8 == 0 || cursor.isAfterLast()) {
                 progress1.setProgress(c, progress1.getCount(), progress1.getMessage());
                 publishProgress(progress0, progress1);
             }
