@@ -130,14 +130,14 @@
         <item>Notification</item>
         <item>Email</item>
         <item>SMS</item>
-        <item>Alarm</item>
+        <!--<item>Alarm</item>-->
     </string-array>
     <string-array name="reminder_method_values" translatable="false">   <!-- Reminder.METHOD_ values -->
         <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
-        <item>4</item>
+        <!--<item>4</item>-->
     </string-array>
 
     <string-array name="reminder_minutes_display">   <!-- display values -->
