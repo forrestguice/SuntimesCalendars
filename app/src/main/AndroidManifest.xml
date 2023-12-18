@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />      <!-- needed to add new Calendars (via SyncAdapter) -->
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />       <!-- calendar updates use a foreground service -->
+
     <uses-sdk tools:overrideLibrary="com.flask.colorpicker" />  <!-- requires api 14+ -->
 
     <application
