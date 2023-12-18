@@ -33,6 +33,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
@@ -45,6 +46,7 @@ public class ReminderDialog extends BottomSheetDialogFragment
     protected RecyclerView card_view;
     protected CardLayoutManager card_layout;
     protected ReminderViewAdapter card_adapter;
+    protected ImageButton button_accept;
 
     public ReminderDialog() {
         setArguments(new Bundle());
@@ -70,6 +72,12 @@ public class ReminderDialog extends BottomSheetDialogFragment
     }
     public void setModified(boolean value) {
         getArguments().putBoolean(KEY_MODIFIED, value);
+        if (isAdded())
+        {
+            if (button_accept != null) {
+                button_accept.setVisibility(value ? View.VISIBLE : View.INVISIBLE);
+            }
+        }
     }
     public static final String KEY_MODIFIED = "modified";
 
@@ -119,6 +127,11 @@ public class ReminderDialog extends BottomSheetDialogFragment
         TextView button_add = (TextView) dialogContent.findViewById(R.id.text_add_reminder);
         if (button_add != null) {
             button_add.setOnClickListener(onAddButtonClicked);
+        }
+
+        button_accept = (ImageButton) dialogContent.findViewById(R.id.accept_button);
+        if (button_accept != null) {
+            button_accept.setOnClickListener(onAcceptButtonClicked);
         }
     }
 
@@ -194,6 +207,13 @@ public class ReminderDialog extends BottomSheetDialogFragment
                     dialogListener.onRemovedReminder(getCalendar(), position);
                 }
             }
+        }
+    };
+
+    private final View.OnClickListener onAcceptButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            dismiss();    // triggers save
         }
     };
 
