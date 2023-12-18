@@ -5,4 +5,12 @@
     <color name="hr">@color/hr_dark</color>
     <color name="text_accent">@color/text_accent_dark</color>
     <color name="text_disabled">@color/text_disabled_dark</color>
+
+    <color name="dialog_frame">@color/dialog_frame_dark</color>
+    <color name="dialog_bg">@color/dialog_bg_dark</color>
+    <color name="dialog_bg_alt">@color/dialog_bg_dark</color>
+
+    <color name="dialog_frame_contrast">@color/dialog_frame_contrast_dark</color>
+    <color name="dialog_bg_contrast">@color/dialog_bg_contrast_dark</color>
+    <color name="dialog_bg_alt_contrast">@color/dialog_bg_alt_contrast_dark</color>
 </resources>

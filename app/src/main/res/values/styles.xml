@@ -6,6 +6,9 @@
         <item name="hrColor">@color/hr</item>
         <item name="text_accentColor">@color/text_accent</item>
         <item name="text_disabledColor">@color/text_disabled</item>
+        <item name="dialogFrame">@color/dialog_frame</item>
+        <item name="dialogBackground">@color/dialog_bg</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_ref</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_ref</item>
         <item name="icActionDelete">@drawable/ic_action_delete_ref</item>
@@ -63,6 +66,9 @@
     <style name="AppTheme.ContrastSystem" parent="AppTheme.System">
         <item name="colorPrimary">@color/primaryColor_contrast</item>
         <item name="android:windowBackground">@color/window_bg_contrast</item>
+        <item name="dialogFrame">@color/dialog_frame_contrast</item>
+        <item name="dialogBackground">@color/dialog_bg_contrast</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast</item>
     </style>
     <style name="AppTheme.ContrastSystem.Small" parent="AppTheme.ContrastSystem">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -99,6 +105,9 @@
         <item name="hrColor">@color/hr_light</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
+        <item name="dialogFrame">@color/dialog_frame_light</item>
+        <item name="dialogBackground">@color/dialog_bg_light</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt_light</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_light</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_light</item>
         <item name="icActionDelete">@drawable/ic_action_delete_light</item>
@@ -153,6 +162,9 @@
     <style name="AppTheme.ContrastLight" parent="AppTheme.Light">
         <item name="colorPrimary">@color/primaryColor_contrast_light</item>
         <item name="android:windowBackground">@color/window_bg_contrast_light</item>
+        <item name="dialogFrame">@color/dialog_frame_contrast_light</item>
+        <item name="dialogBackground">@color/dialog_bg_contrast_light</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_light</item>
     </style>
     <style name="AppTheme.ContrastLight.Small" parent="AppTheme.ContrastLight">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -189,6 +201,9 @@
         <item name="hrColor">@color/hr_dark</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
+        <item name="dialogFrame">@color/dialog_frame_dark</item>
+        <item name="dialogBackground">@color/dialog_bg_dark</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt_dark</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_dark</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_dark</item>
         <item name="icActionDelete">@drawable/ic_action_delete_dark</item>
@@ -243,6 +258,9 @@
     <style name="AppTheme.ContrastDark" parent="AppTheme.Dark">
         <item name="colorPrimary">@color/primaryColor_contrast_dark</item>
         <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
+        <item name="dialogFrame">@color/dialog_frame_contrast_dark</item>
+        <item name="dialogBackground">@color/dialog_bg_contrast_dark</item>
+        <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_dark</item>
     </style>
     <style name="AppTheme.ContrastDark.Small" parent="AppTheme.ContrastDark">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
