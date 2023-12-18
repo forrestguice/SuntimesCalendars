@@ -175,7 +175,6 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                             progress.setProgress(c, totalProgress, calendarTitle);
                             task.publishProgress(progress0, progress);
                         }
-                        createCalendarReminders(context, task, progress0);
                         cursor.close();
 
                         int chunk = 128;
@@ -186,6 +185,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         }
                     }
                 }
+                createCalendarReminders(context, task, progress0);
                 return !task.isCancelled();
 
             } else {
