@@ -267,7 +267,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         boundToTaskService = false;
     }
 
-    private ServiceConnection calendarSyncServiceConnection = new ServiceConnection()
+    private final ServiceConnection calendarSyncServiceConnection = new ServiceConnection()
     {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service)
@@ -288,7 +288,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     };
 
-    private SuntimesCalendarTaskService.SuntimesCalendarServiceListener serviceListener = new SuntimesCalendarTaskService.SuntimesCalendarServiceListener() {
+    private final SuntimesCalendarTaskService.SuntimesCalendarServiceListener serviceListener = new SuntimesCalendarTaskService.SuntimesCalendarServiceListener() {
         @Override
         public void onBusyStatusChanged(boolean isBusy)
         {
@@ -671,7 +671,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             progressDialog.setOnCancelClickListener(onCancelClick);
         }
 
-        private View.OnClickListener onCancelClick = new View.OnClickListener()
+        private final View.OnClickListener onCancelClick = new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -767,7 +767,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarsEnabledPref;
         }
 
-        private HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
+        private final HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
         public SuntimesCalendarPreference getCalendarPref(String calendar)
         {
             return calendarPrefs.get(calendar);
@@ -836,13 +836,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 }
             }
         }
-
-        /**@Override
-        public void onStop()
-        {
-            super.onStop();
-        }*/
-
 
         @SuppressLint("ResourceType")
         private void initColors(Context context)
@@ -915,8 +908,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         /**
          * showContextMenu
-         * @param context
-         * @param calendar
+         * @param context context
+         * @param calendar calendar
          */
         protected boolean showContextMenu(Context context, View v, String calendar)
         {
@@ -1185,7 +1178,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        private Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
+        private final Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -1418,13 +1411,18 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             DialogInterface.OnClickListener onOptionsClick = new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    getView().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getCalendarPref(calendar).performClickIcon();
-                        }
-                    }, 250);
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    View v = getView();
+                    if (v != null) {
+                        v.postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run() {
+                                getCalendarPref(calendar).performClickIcon();
+                            }
+                        }, 250);
+                    }
                 }
             };
 
@@ -1464,6 +1462,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
         }
 
+        @Nullable
         private String getLocationString(Context context)
         {
             String location = null;
@@ -1484,10 +1483,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     Log.e(TAG, "getLocationString: Unable to access SuntimesCalculatorProvider! " + e);
                 }
             }
-
-            if (location != null) {
-                return location;
-            } else return null;
+            return location;
         }
 
         private Snackbar snackbar;
@@ -1497,7 +1493,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             View v = getView();
             if (v != null)
             {
-                snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);          // TODO: swipeable (needs a coordinatorLayout)
+                snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
                 {
                     @Override
@@ -1679,7 +1675,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         aboutDialog.setPermissionStatus(needsSuntimesPermissions);
         aboutDialog.show(getSupportFragmentManager(), DIALOGTAG_ABOUT);
     }
-    private Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
+    private final Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
     {
         @Override
         public boolean onPreferenceClick(Preference preference)
