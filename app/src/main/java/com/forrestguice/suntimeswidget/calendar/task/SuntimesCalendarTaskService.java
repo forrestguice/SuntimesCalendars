@@ -18,6 +18,9 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
@@ -30,6 +33,8 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.CalendarContract;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -247,7 +252,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static NotificationCompat.Builder createProgressNotification(Context context, String message)
     {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder notification = createNotificationBuilder(context);
         notification.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_update)
@@ -259,7 +264,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static NotificationCompat.Builder createSuccessNotification(Context context, String message)
     {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder notification = createNotificationBuilder(context);
         notification.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_calendar)
@@ -406,6 +411,51 @@ public class SuntimesCalendarTaskService extends Service
                 listener.onProgressMessage(i, n, j, m, message);
             }
         }
+    }
+
+    /**
+     * Notification Channels
+     */
+    public static final String CHANNEL_ID_MAIN = "suntimes.calendars.channel";
+
+    @TargetApi(26)
+    protected static String createNotificationChannel(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+        {
+            String channelID = CHANNEL_ID_MAIN;
+            String title = context.getString(R.string.notificationChannel_main_title);
+            String desc = context.getString(R.string.notificationChannel_main_desc);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelID, title, importance);
+            channel.setDescription(desc);
+            channel.enableLights(true);
+            notificationManager.createNotificationChannel(channel);
+            return channelID;
+        }
+        return "";
+    }
+
+    public static NotificationCompat.Builder createNotificationBuilder(Context context)
+    {
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= 26) {
+            builder = new NotificationCompat.Builder(context, createNotificationChannel(context));
+        } else {
+            builder = new NotificationCompat.Builder(context);
+        }
+        return builder;
+    }
+
+    @TargetApi(26)
+    public static void openChannelSettings(@NonNull Context context)
+    {
+        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, createNotificationChannel(context));
+        context.startActivity(intent);
     }
 
 }

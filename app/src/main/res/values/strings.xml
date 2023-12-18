@@ -219,6 +219,9 @@
 
     <string name="toolbar_title">Calendars</string>
 
+    <string name="notificationChannel_main_title">Notifications</string>  <!-- notification channel title -->   <!-- TODO -->
+    <string name="notificationChannel_main_desc">Notifications</string>  <!-- notification channel desc -->     <!-- TODO -->
+
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
