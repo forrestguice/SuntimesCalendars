@@ -28,6 +28,7 @@
             android:layout_weight="1"
             android:hint="@string/help_pattern_event"
             android:textSize="?attr/text_size_small"
+            android:inputType="text"
             tools:text="String" />
 
         <ImageButton android:id="@+id/btn_clear" android:visibility="gone"

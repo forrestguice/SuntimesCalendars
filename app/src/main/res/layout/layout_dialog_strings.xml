@@ -34,7 +34,8 @@
             android:layout_width="48dp" android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:paddingLeft="12dp" android:paddingStart="12dp"
-            android:paddingRight="12dp" android:paddingEnd="12dp"/>
+            android:paddingRight="12dp" android:paddingEnd="12dp"
+            android:contentDescription="@string/dialog_cancel" />
 
         <LinearLayout
             android:layout_width="0dp" android:layout_height="wrap_content"
@@ -68,7 +69,8 @@
             android:src="?attr/icActionAccept" android:background="?selectableItemBackground"
             android:layout_width="64dp" android:layout_height="match_parent"
             android:padding="8dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/dialog_ok" />
 
     </LinearLayout>
 

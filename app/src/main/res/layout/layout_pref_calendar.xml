@@ -6,7 +6,8 @@
     android:background="?android:attr/selectableItemBackground"
     android:paddingStart="8dp" android:paddingLeft="8dp"
     android:paddingEnd="16dp" android:paddingRight="16dp"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:baselineAligned="false">
 
     <FrameLayout
         android:id="@+id/icon_frame"

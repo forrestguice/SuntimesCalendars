@@ -29,7 +29,8 @@
         <ImageView android:src="?attr/icActionReminder"
             android:layout_width="32dp" android:layout_height="32dp"
             android:layout_margin="8dp"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout android:orientation="vertical"
             android:layout_width="0dp" android:layout_height="wrap_content"
@@ -58,6 +59,7 @@
             android:layout_gravity="center_vertical"
             android:background="?selectableItemBackground" android:padding="8dp"
             android:src="?attr/icActionAccept"
+            android:contentDescription="@string/dialog_ok"
             android:visibility="invisible" />
 
     </LinearLayout>
