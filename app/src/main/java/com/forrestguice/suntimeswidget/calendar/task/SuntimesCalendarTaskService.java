@@ -31,8 +31,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
