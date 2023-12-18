@@ -41,6 +41,7 @@
 
     <CheckBox android:id="@+id/check_afterEvent"
         android:layout_width="wrap_content" android:layout_height="match_parent"
+        android:textSize="?attr/text_size_small"
         android:text="@string/reminder_afterEvent" />
 
     <View android:layout_width="match_parent" android:layout_height="1dp"

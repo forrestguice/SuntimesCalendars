@@ -31,7 +31,7 @@
         <ImageButton android:id="@+id/back_button"
             android:src="?attr/icActionBack"
             android:background="?selectableItemBackground"
-            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:layout_width="48dp" android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:paddingLeft="12dp" android:paddingStart="12dp"
             android:paddingRight="12dp" android:paddingEnd="12dp"/>
@@ -40,6 +40,7 @@
             android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
             android:paddingBottom="8dp" android:paddingTop="8dp">
 
             <TextView
@@ -49,6 +50,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/templatestrings_dialog_msg"
                 android:textAppearance="?android:textAppearanceLarge"
+                android:textSize="?attr/text_size_large"
                 android:textColor="?android:textColorPrimary" />
 
             <TextView
@@ -57,6 +59,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/templatestrings_dialog_msg"
                 android:textAppearance="?android:textAppearanceSmall"
+                android:textSize="?attr/text_size_small"
                 android:textColor="?android:textColorSecondary" />
 
         </LinearLayout>

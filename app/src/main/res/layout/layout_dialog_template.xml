@@ -31,7 +31,7 @@
         <ImageButton android:id="@+id/back_button"
             android:src="?attr/icActionBack"
             android:background="?selectableItemBackground"
-            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:layout_width="48dp" android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:paddingLeft="12dp" android:paddingStart="12dp"
             android:paddingRight="12dp" android:paddingEnd="12dp"/>
@@ -40,6 +40,7 @@
             android:layout_width="0dp" android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
             android:paddingBottom="8dp" android:paddingTop="8dp">
 
             <TextView
@@ -49,6 +50,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/template_dialog_msg"
                 android:textAppearance="?android:textAppearanceLarge"
+                android:textSize="?attr/text_size_large"
                 android:textColor="?android:textColorPrimary" />
 
             <TextView
@@ -57,6 +59,7 @@
                 android:layout_height="match_parent"
                 android:text="@string/template_dialog_msg"
                 android:textAppearance="?android:textAppearanceSmall"
+                android:textSize="?attr/text_size_small"
                 android:textColor="?android:textColorSecondary" />
 
         </LinearLayout>
@@ -79,11 +82,13 @@
             android:layout_width="wrap_content" android:layout_height="match_parent"
             android:clickable="true" android:focusable="true"
             android:gravity="center_vertical"
+            android:textSize="?attr/text_size_small"
             android:text="@string/template_dialog_title_label" />
 
         <EditText android:id="@+id/edit_title"
             android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
             android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+            android:textSize="?attr/text_size_small"
             android:inputType="textNoSuggestions" android:hint="@string/template_dialog_title_hint" />
 
         <ImageButton android:id="@+id/help_button"
@@ -103,12 +108,14 @@
             android:layout_width="wrap_content" android:layout_height="match_parent"
             android:gravity="center_vertical" android:layout_gravity="center_vertical"
             android:clickable="true" android:focusable="true"
+            android:textSize="?attr/text_size_small"
             android:text="@string/template_dialog_location_label" />
 
         <EditText android:id="@+id/edit_location"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
             android:inputType="textNoSuggestions" android:layout_gravity="center_vertical"
+            android:textSize="?attr/text_size_small"
             android:hint="@string/template_dialog_location_hint" />
 
     </LinearLayout>
@@ -119,12 +126,14 @@
         android:clickable="true" android:focusable="true"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:gravity="center_vertical"
+        android:textSize="?attr/text_size_small"
         android:text="@string/template_dialog_desc_label" />
 
     <EditText android:id="@+id/edit_desc"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:inputType="textMultiLine|textNoSuggestions" android:maxLines="5" android:minLines="5" android:gravity="top"
+        android:textSize="?attr/text_size_small"
         android:hint="@string/template_dialog_desc_hint" />
 
     <Button android:id="@+id/strings_button"

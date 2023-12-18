@@ -26,7 +26,8 @@
         <EditText android:id="@+id/edit_string"
             android:layout_width="0dp" android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="String"
+            android:hint="@string/help_pattern_event"
+            android:textSize="?attr/text_size_small"
             tools:text="String" />
 
         <ImageButton android:id="@+id/btn_clear" android:visibility="gone"
