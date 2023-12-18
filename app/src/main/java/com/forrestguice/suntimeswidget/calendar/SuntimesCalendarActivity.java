@@ -500,24 +500,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        switch (id)
+        if (id == R.id.action_openCalendar)
         {
-            case R.id.action_openCalendar:
-                openCalendarApp(this);
-                return true;
+            openCalendarApp(this);
+            return true;
 
-            case R.id.action_about:
-                showAbout();
-                return true;
+        } else if (id == R.id.action_about) {
+            showAbout();
+            return true;
 
-            case android.R.id.home:
-                //onBackPressed();
-                onHomePressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        } else if (id == android.R.id.home) {//onBackPressed();
+            onHomePressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void onHomePressed()
@@ -946,23 +942,21 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 @Override
                 public boolean onMenuItemClick(MenuItem item)
                 {
-                    switch (item.getItemId())
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.action_color)
                     {
-                        case R.id.action_color:
-                            showColorPicker(context, calendar);
-                            return true;
+                        showColorPicker(context, calendar);
+                        return true;
 
-                        case R.id.action_reminders:
-                            showReminderDialog(context, calendar);
-                            return true;
+                    } else if (itemId == R.id.action_reminders) {
+                        showReminderDialog(context, calendar);
+                        return true;
 
-                        case R.id.action_template:
-                            showTemplateDialog(context, calendar);
-                            return true;
-
-                        default:
-                            return false;
+                    } else if (itemId == R.id.action_template) {
+                        showTemplateDialog(context, calendar);
+                        return true;
                     }
+                    return false;
                 }
             };
         }
