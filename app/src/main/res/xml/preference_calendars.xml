@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
+    <com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory
         android:title="@string/configLabel_calendars"
         android:key="app_calendars">
 
-        <CheckBoxPreference
+        <com.forrestguice.suntimeswidget.calendar.ui.CheckBoxPreference
             android:key="app_calendars_enabled"
             android:title="@string/configLabel_calendars_enabled"
             android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
@@ -60,9 +60,9 @@
             android:defaultValue="@string/def_calendars_calendar_solstice" />
             -->
 
-    </PreferenceCategory>
+    </com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory>
 
-    <PreferenceCategory
+    <com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory
         android:title="@string/configLabel_options">
 
         <!--<ListPreference
@@ -81,7 +81,7 @@
             android:entries="@array/calendars_window_display" android:entryValues="@array/calendars_window_values"
             android:defaultValue="@string/def_calendars_window1" />-->
 
-        <Preference
+        <com.forrestguice.suntimeswidget.calendar.ui.Preference
             android:key="app_calendars_location"
             android:persistent="false"
             android:title="@string/configLabel_calendars_location"
@@ -94,12 +94,12 @@
             android:summary="@string/configLabel_calendars_window_summary"
             android:defaultValue="@string/def_calendars_window" />
 
-        <!--<Preference
+        <!--<com.forrestguice.suntimeswidget.calendar.ui.Preference
             android:key="app_about"
             android:persistent="false"
             android:icon="?attr/icActionAbout"
             android:title="@string/about_dialog_title" />-->
 
-    </PreferenceCategory>
+    </com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -46,10 +46,12 @@ public class CalendarWindowPreference extends DialogPreference
     protected SeekBar seek0, seek1;
     protected int years0, years1;
 
-    public CalendarWindowPreference(Context context, AttributeSet attrs) {
+    public CalendarWindowPreference(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         setPersistent(false);
         setDialogLayoutResource(R.layout.layout_pref_calendarwindow);
+        setLayoutResource(R.layout.layout_pref);
     }
 
     @Override
