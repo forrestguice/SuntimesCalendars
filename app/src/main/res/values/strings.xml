@@ -32,6 +32,10 @@
     <string name="timeMode_golden">Golden Hour</string>    <!-- TODO -->
     <string name="timeMode_golden_morning">Golden Hour (morning)</string>    <!-- TODO -->
     <string name="timeMode_golden_evening">Golden Hour (evening)</string>    <!-- TODO -->
+    <string name="timeMode_blue8">Blue Hour (8\u00B0)</string>               <!-- TODO -->
+    <string name="timeMode_blue4">Blue Hour (4\u00B0)</string>               <!-- TODO -->
+    <string name="timeMode_blue_morning">Blue Hour (morning)</string>               <!-- TODO -->
+    <string name="timeMode_blue_evening">Blue Hour (evening)</string>               <!-- TODO -->
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
@@ -88,6 +92,8 @@
     <string name="calendar_astronomical_twilight_summary" />
     <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
     <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_blue_twilight_displayName">Blue Hour</string>    <!-- TODO -->
+    <string name="calendar_blue_twilight_summary" />
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>

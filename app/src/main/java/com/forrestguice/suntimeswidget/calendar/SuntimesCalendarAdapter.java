@@ -46,6 +46,7 @@ public class SuntimesCalendarAdapter
 
     public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
     public static final String CALENDAR_TWILIGHT_GOLD = "goldHourCalendar";
+    public static final String CALENDAR_TWILIGHT_BLUE = "blueHourCalendar";
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
     public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";

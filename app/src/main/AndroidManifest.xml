@@ -41,6 +41,7 @@
                                com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarCivil |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarGold |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarBlue |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar |

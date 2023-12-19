@@ -404,6 +404,9 @@ public class SuntimesCalendarSettings
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_GOLD:
                 return ContextCompat.getColor(context, R.color.colorGoldTwilightCalendar);
 
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_BLUE:
+                return ContextCompat.getColor(context, R.color.colorBlueTwilightCalendar);
+
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
                 return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
 
