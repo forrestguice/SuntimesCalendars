@@ -57,6 +57,8 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import android.preference.SwitchPreference;
+import android.preference.TwoStatePreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -448,7 +450,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                         if (mainFragment != null)
                         {
-                            CheckBoxPreference calendarsPref = mainFragment.getCalendarsEnabledPref();
+                            TwoStatePreference calendarsPref = mainFragment.getCalendarsEnabledPref();
                             if (calendarsPref != null) {
                                 calendarsPref.setChecked(enabled);
                             }
@@ -761,9 +763,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class CalendarPrefsFragment extends CalendarPrefsFragmentBase
     {
-        private CheckBoxPreference calendarsEnabledPref = null;
-        public CheckBoxPreference getCalendarsEnabledPref()
-        {
+        private TwoStatePreference calendarsEnabledPref = null;
+        public TwoStatePreference getCalendarsEnabledPref() {
             return calendarsEnabledPref;
         }
 
@@ -866,7 +867,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             PreferenceCategory category = (PreferenceCategory) findPreference("app_calendars");
 
             final Context context = getActivity();
-            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
+            calendarsEnabledPref = (TwoStatePreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             for (final SuntimesCalendarDescriptor descriptor : SuntimesCalendarDescriptor.getDescriptors(context))
             {
                 if (descriptor == null) {

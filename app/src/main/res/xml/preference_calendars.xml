@@ -5,7 +5,12 @@
         android:title="@string/configLabel_calendars"
         android:key="app_calendars">
 
-        <com.forrestguice.suntimeswidget.calendar.ui.CheckBoxPreference
+        <!--<com.forrestguice.suntimeswidget.calendar.ui.CheckBoxPreference
+            android:key="app_calendars_enabled"
+            android:title="@string/configLabel_calendars_enabled"
+            android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />-->
+
+        <com.forrestguice.suntimeswidget.calendar.ui.SwitchPreference
             android:key="app_calendars_enabled"
             android:title="@string/configLabel_calendars_enabled"
             android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
