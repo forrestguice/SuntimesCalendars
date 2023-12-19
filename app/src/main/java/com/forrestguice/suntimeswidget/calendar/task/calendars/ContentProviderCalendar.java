@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -184,7 +185,12 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 {
                     if ((i - start) > CHUNK_MILLIS)
                     {
-                        ArrayList<ContentValues> values = readCursor(calendarID, queryCursor(resolver, new long[] {start, i}), task);
+                        Cursor cursor = queryCursor(resolver, new long[] {start, i});
+                        if (cursor == null) {
+                            return false;
+                        }
+
+                        ArrayList<ContentValues> values = readCursor(calendarID, cursor, task);
                         adapter.createCalendarEvents(values.toArray(new ContentValues[0]));
                         c++;
                         start = i;
@@ -204,18 +210,28 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         } else return false;
     }
 
+    @Nullable
     private Cursor queryCursor(ContentResolver resolver, long[] window)
     {
         Uri uri = Uri.parse(contentUri + SuntimesCalendar.QUERY_CALENDAR_CONTENT + "/" + window[0] + "-" + window[1]);
-        Cursor cursor = resolver.query(uri, null, null, null, null);
-        if (cursor == null) {
-            lastError = "Failed to resolve URI! " + uri;
+        Cursor cursor;
+        try {
+            cursor = resolver.query(uri, null, null, null, null);
+            if (cursor == null) {
+                lastError = "Failed to resolve URI! " + uri;
+                Log.e(getClass().getSimpleName(), lastError);
+            }
+
+        } catch (Exception e) {
+            cursor = null;
+            lastError = "Failed to query URI! " + uri + ": " + e;
             Log.e(getClass().getSimpleName(), lastError);
         }
         return cursor;
     }
 
-    private ArrayList<ContentValues> readCursor(long calendarID, Cursor cursor, @NonNull SuntimesCalendarTask task)
+    @NonNull
+    private ArrayList<ContentValues> readCursor(long calendarID, @NonNull Cursor cursor, @NonNull SuntimesCalendarTask task)
     {
         cursor.moveToFirst();
 
