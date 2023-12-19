@@ -29,6 +29,9 @@
     <string name="civil_night">Civil polar night</string>
     <string name="nautical_night">Nautical polar night</string>
     <string name="white_night">White night</string>
+    <string name="timeMode_golden">Golden Hour</string>    <!-- TODO -->
+    <string name="timeMode_golden_morning">Golden Hour (morning)</string>    <!-- TODO -->
+    <string name="timeMode_golden_evening">Golden Hour (evening)</string>    <!-- TODO -->
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
@@ -83,6 +86,8 @@
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
+    <string name="calendar_gold_twilight_summary" />
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>

@@ -8,6 +8,7 @@
     <color name="colorCivilTwilightCalendar">#ffff9900</color>
     <color name="colorNauticalTwilightCalendar">#ff7ba3ff</color>
     <color name="colorAstroTwilightCalendar">#000066</color>
+    <color name="colorGoldTwilightCalendar">#ffe217</color>
 
     <color name="snackbarError_text">#ffffff</color>
     <color name="snackbarError_background">@color/orange_900</color>
