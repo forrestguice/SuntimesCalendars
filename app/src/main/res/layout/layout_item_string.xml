@@ -16,26 +16,22 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:orientation="vertical"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical">
 
-    <LinearLayout android:orientation="horizontal" android:gravity="center_vertical"
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+    <EditText android:id="@+id/edit_string"
+        android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:hint="@string/help_pattern_event"
+        android:textSize="?attr/text_size_small"
+        android:inputType="text" android:importantForAutofill="no"
+        tools:text="String" />
 
-        <EditText android:id="@+id/edit_string"
-            android:layout_width="0dp" android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:hint="@string/help_pattern_event"
-            android:textSize="?attr/text_size_small"
-            android:inputType="text"
-            tools:text="String" />
-
-        <ImageButton android:id="@+id/btn_clear" android:visibility="gone"
-            android:layout_width="48dp" android:layout_height="48dp"
-            android:background="?attr/selectableItemBackground" android:padding="8dp"
-            android:contentDescription="@string/action_deleteReminder" android:src="?attr/icActionDelete" />   <!-- TODO -->
-
-    </LinearLayout>
+    <ImageButton android:id="@+id/btn_clear" android:visibility="gone"
+        android:layout_width="48dp" android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground" android:padding="8dp"
+        android:contentDescription="@string/action_deleteReminder" android:src="?attr/icActionDelete" />
 
 </LinearLayout>

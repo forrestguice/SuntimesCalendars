@@ -24,6 +24,7 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:gravity="center_vertical" android:background="?attr/colorPrimary"
         android:paddingStart="8dp" android:paddingLeft="8dp"
+        android:paddingEnd="0dp" android:paddingRight="0dp"
         android:animateLayoutChanges="true">
 
         <ImageView android:src="?attr/icActionReminder"
