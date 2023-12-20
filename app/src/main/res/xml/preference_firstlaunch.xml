@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.forrestguice.suntimeswidget.calendar.ui.CheckBoxPreference
+    <com.forrestguice.suntimeswidget.calendar.ui.SwitchPreference
         android:key="app_calendars_permissions"
         android:persistent="false"
         android:title="@string/privacy_permissiondialog_title" />

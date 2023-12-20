@@ -715,7 +715,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 aboutPref.setOnPreferenceClickListener(onAboutClick);
             }
 
-            CheckBoxPreference permissionsPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS);
+            TwoStatePreference permissionsPref = (TwoStatePreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS);
             permissionsPref.setChecked(false);
             permissionsPref.setOnPreferenceChangeListener(onPermissionsPrefChanged);
 
