@@ -62,6 +62,7 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
     public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
+    public static final String PREF_KEY_CALENDARS_PERMISSIONS_ABOUT = "app_calendars_permissions_about";
 
     /**
      * @param context

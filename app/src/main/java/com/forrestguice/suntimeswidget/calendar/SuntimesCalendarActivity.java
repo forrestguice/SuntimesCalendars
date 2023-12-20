@@ -726,6 +726,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
                 else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
             }
+
+            Preference aboutPermissionPref = findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS_ABOUT);
+            if (aboutPermissionPref != null) {
+                aboutPermissionPref.setSummary(Utils.fromHtml(getString(R.string.privacy_permission_calendar)));
+            }
         }
 
         Preference.OnPreferenceChangeListener onPermissionsPrefChanged = new Preference.OnPreferenceChangeListener()

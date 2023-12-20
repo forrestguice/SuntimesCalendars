@@ -6,10 +6,9 @@
         android:persistent="false"
         android:title="@string/privacy_permissiondialog_title" />
 
-    <!--<Preference
-        android:key="app_about"
-        android:persistent="false"
-        android:icon="?attr/icActionAbout"
-        android:title="@string/about_dialog_title" />-->
+    <com.forrestguice.suntimeswidget.calendar.ui.Preference
+        android:key="app_calendars_permissions_about"
+        android:persistent="false" android:selectable="false"
+        android:summary="@string/privacy_permission_calendar" />
 
 </PreferenceScreen>
