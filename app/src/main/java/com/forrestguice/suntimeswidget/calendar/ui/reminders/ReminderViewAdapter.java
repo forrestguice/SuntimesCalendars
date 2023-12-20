@@ -18,6 +18,7 @@
 package com.forrestguice.suntimeswidget.calendar.ui.reminders;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class ReminderViewAdapter extends RecyclerView.Adapter<ReminderViewAdapte
         this.calendar = calendar;
     }
 
+    @NonNull
     @Override
     public ReminderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layout = LayoutInflater.from(parent.getContext());
@@ -56,7 +58,7 @@ public class ReminderViewAdapter extends RecyclerView.Adapter<ReminderViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(ReminderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
 
         Context context = (contextRef != null ? contextRef.get() : null);
         if (context == null) {
@@ -74,7 +76,7 @@ public class ReminderViewAdapter extends RecyclerView.Adapter<ReminderViewAdapte
     }
 
     @Override
-    public void onViewRecycled(ReminderViewHolder holder)
+    public void onViewRecycled(@NonNull ReminderViewHolder holder)
     {
         detachListeners(holder);
     }

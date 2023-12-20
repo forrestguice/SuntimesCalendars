@@ -66,7 +66,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     }
 
     @Override
-    public void init(@NonNull Context context, SuntimesCalendarSettings settings)
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
 

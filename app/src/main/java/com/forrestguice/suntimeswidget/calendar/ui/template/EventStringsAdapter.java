@@ -18,6 +18,7 @@
 package com.forrestguice.suntimeswidget.calendar.ui.template;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -48,6 +49,7 @@ public class EventStringsAdapter extends RecyclerView.Adapter<EventStringsAdapte
         this.data = data;
     }
 
+    @NonNull
     @Override
     public EventStringViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layout = LayoutInflater.from(parent.getContext());
@@ -56,7 +58,7 @@ public class EventStringsAdapter extends RecyclerView.Adapter<EventStringsAdapte
     }
 
     @Override
-    public void onBindViewHolder(EventStringViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventStringViewHolder holder, int position) {
 
         Context context = (contextRef != null ? contextRef.get() : null);
         if (context == null) {
@@ -74,7 +76,7 @@ public class EventStringsAdapter extends RecyclerView.Adapter<EventStringsAdapte
     }
 
     @Override
-    public void onViewRecycled(EventStringViewHolder holder) {
+    public void onViewRecycled(@NonNull EventStringViewHolder holder) {
         detachListeners(holder);
     }
 

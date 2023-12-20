@@ -178,7 +178,7 @@ public class ProgressDialog extends DialogFragment
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
         {
         super.onSaveInstanceState(outState);
         outState.putString("title", title);
