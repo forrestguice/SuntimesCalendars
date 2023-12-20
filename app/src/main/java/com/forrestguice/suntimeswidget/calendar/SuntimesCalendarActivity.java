@@ -905,9 +905,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
-                if (needsSuntimesPermissions)
-                    showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
-                else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+                getActivity().getWindow().getDecorView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (needsSuntimesPermissions)
+                            showPermissionDeniedMessage(getActivity(), getView());
+                        else showMissingDepsMessage(getActivity(), getView());
+                    }
+                });
             }
             setIsBusy(isBusy);
         }
