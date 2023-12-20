@@ -380,8 +380,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     private static boolean hasCalendarPermissions(Activity activity)
     {
-        int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-        return (calendarPermission == PackageManager.PERMISSION_GRANTED);
+        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR);
+        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
+        return (readPermission == PackageManager.PERMISSION_GRANTED) && (writePermission == PackageManager.PERMISSION_GRANTED);
     }
 
     @Override
@@ -597,7 +598,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     {
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                         }
                     });
             builder.show();
@@ -741,7 +742,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR)) {
                             showPermissionRational(activity, REQUEST_CALENDAR_FIRSTLAUNCH);
                         } else {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, REQUEST_CALENDAR_FIRSTLAUNCH);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, REQUEST_CALENDAR_FIRSTLAUNCH);
                         }
 
                     } else {
@@ -1308,7 +1309,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             if (enabled) {
                                 savePendingItems(activity, activity.getIntent());
                             }
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                             return false;
                         }
 
@@ -1347,7 +1348,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                             } else {
                                 savePendingItem(activity, activity.getIntent(), calendar, enabled);
-                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                                 return false;
                             }
 
