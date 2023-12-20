@@ -110,9 +110,7 @@ public class CalendarEventStrings implements Parcelable
     public void setValues(String[] v)
     {
         values = new String[v.length];
-        for (int i=0; i<values.length; i++) {
-            values[i] = v[i];
-        }
+        System.arraycopy(v, 0, values, 0, values.length);
     }
 
     public int getCount() {
