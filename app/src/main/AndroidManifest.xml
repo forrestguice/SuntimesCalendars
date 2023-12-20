@@ -13,8 +13,6 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />       <!-- calendar updates use a foreground service -->
 
-    <uses-sdk tools:overrideLibrary="com.flask.colorpicker" />  <!-- requires api 14+ -->
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
