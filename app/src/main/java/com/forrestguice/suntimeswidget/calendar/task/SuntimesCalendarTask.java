@@ -123,10 +123,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         }
 
         long[] window = getWindow();
-        boolean retValue = initLocation();
-        if (!retValue) {
-            return false;
-        }
+        boolean hasLocation = initLocation();
+        boolean retValue = true;
 
         publishProgress(new SuntimesCalendarTaskProgress(1, 1000, notificationMsgUpdating));
         try {
@@ -172,11 +170,14 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                                     break;
 
                                 default:
-                                    retValue = retValue && initCalendar(calendar, window, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
+                                    retValue = retValue && hasLocation && initCalendar(calendar, window, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle()));
                                     break;
                             }
                             if (!retValue) {
-                                lastError = calendar.lastError();
+                                String calendarError = calendar.lastError();
+                                if (calendarError != null && !calendarError.isEmpty()) {
+                                    lastError = calendar.lastError();
+                                }
                             }
                         } else {
                             lastError = "Unrecognized calendar " + calendarName;
