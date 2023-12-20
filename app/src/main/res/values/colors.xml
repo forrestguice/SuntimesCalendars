@@ -36,19 +36,19 @@
     <color name="window_bg_contrast_light">@color/grey_50</color>
     <color name="window_bg_contrast_dark">@color/grey_999</color>
 
-    <color name="dialog_frame_dark">@color/grey_800</color>
+    <color name="dialog_frame_dark">@color/grey_850</color>
     <color name="dialog_bg_dark">@color/grey_850</color>
     <color name="dialog_bg_alt_dark">@color/grey_900</color>
 
-    <color name="dialog_frame_contrast_dark">@color/grey_900</color>
+    <color name="dialog_frame_contrast_dark">@color/grey_999</color>
     <color name="dialog_bg_contrast_dark">@color/grey_999</color>
     <color name="dialog_bg_alt_contrast_dark">@color/grey_900</color>
 
-    <color name="dialog_frame_light">@android:color/white</color>
+    <color name="dialog_frame_light">@color/grey_50</color>
     <color name="dialog_bg_light">@color/grey_50</color>
     <color name="dialog_bg_alt_light">@color/grey_300</color>
 
-    <color name="dialog_frame_contrast_light">@android:color/white</color>
+    <color name="dialog_frame_contrast_light">@color/grey_50</color>
     <color name="dialog_bg_contrast_light">@color/grey_50</color>
     <color name="dialog_bg_alt_contrast_light">@color/grey_300</color>
 
