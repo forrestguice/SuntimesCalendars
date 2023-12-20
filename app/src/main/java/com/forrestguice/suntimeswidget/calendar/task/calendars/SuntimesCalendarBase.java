@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
-import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;

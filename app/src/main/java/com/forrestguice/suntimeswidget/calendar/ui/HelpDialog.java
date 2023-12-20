@@ -18,7 +18,6 @@
 package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

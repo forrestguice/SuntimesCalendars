@@ -57,7 +57,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import android.preference.SwitchPreference;
 import android.preference.TwoStatePreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

@@ -32,7 +32,6 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarDescriptor implements Comparable

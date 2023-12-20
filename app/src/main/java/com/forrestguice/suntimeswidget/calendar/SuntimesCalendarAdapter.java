@@ -19,24 +19,19 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.annotation.TargetApi;
-import android.content.ContentProviderOperation;
-import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Build;
-import android.os.RemoteException;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 @TargetApi(14)
