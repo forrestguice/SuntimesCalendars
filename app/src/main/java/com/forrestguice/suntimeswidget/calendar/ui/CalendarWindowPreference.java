@@ -171,7 +171,7 @@ public class CalendarWindowPreference extends DialogPreference
     {
         if (summary0 == null) {
             summary0 = ((value != null) ? value.toString() : getSummary().toString());
-            Log.d("DEBUG", "summary to: " + value);
+            //Log.d("DEBUG", "summary to: " + value);
         }
         super.setSummary(makeSummary(getContext()));
     }

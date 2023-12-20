@@ -202,7 +202,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         Locale customLocale = localeForLanguageTag(languageTag);
         Locale.setDefault(customLocale);
-        Log.i(TAG, "loadLocale: " + languageTag);
+        //Log.i(TAG, "loadLocale: " + languageTag);
 
         Resources resources = context.getApplicationContext().getResources();
         Configuration config = resources.getConfiguration();
@@ -243,7 +243,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             String country = (parts.length >= 2) ? parts[1] : null;
             locale = (country != null) ? new Locale(language, country) : new Locale(language);
         }
-        Log.d(TAG, "localeForLanguageTag: tag: " + languageTag + " :: locale: " + locale.toString());
+        //Log.d(TAG, "localeForLanguageTag: tag: " + languageTag + " :: locale: " + locale.toString());
         return locale;
     }
 
@@ -706,7 +706,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i(TAG, "FirstLaunchFragment: Arguments: " + getArguments());
+            //Log.i(TAG, "FirstLaunchFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_firstlaunch, false);
             addPreferencesFromResource(R.xml.preference_firstlaunch);
 
@@ -859,7 +859,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
+            //Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_calendars, false);
             addPreferencesFromResource(R.xml.preference_calendars);
 

@@ -108,7 +108,7 @@ public class SuntimesCalendarAdapter
                 long calendarID = cursor.getLong(PROJECTION_ID_INDEX);
                 Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
                 contentResolver.delete(deleteUri, null, null);
-                Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
+                //Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
             cursor.close();
             return true;
@@ -129,7 +129,7 @@ public class SuntimesCalendarAdapter
         {
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
             contentResolver.delete(deleteUri, null, null);
-            Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
+            //Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
             return true;
         } else return false;
     }

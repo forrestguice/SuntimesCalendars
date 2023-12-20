@@ -88,7 +88,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
 
         String calendarName = calendarName();
 
-        Log.d("DEBUG", "providerVersion: " + task.getProviderVersion());
+        //Log.d("DEBUG", "providerVersion: " + task.getProviderVersion());
 
         if (task.getProviderVersion() < 2)    // sanity check.. moonApsis needs provider v2:0.3.0 (Suntimes v0.12.0+))
         {

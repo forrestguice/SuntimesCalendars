@@ -160,12 +160,12 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                             switch (action)
                             {
                                 case SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE:
-                                    Log.d("DEBUG", "ACTION_REMINDERS_DELETE");
+                                    //Log.d("DEBUG", "ACTION_REMINDERS_DELETE");
                                     retValue = retValue && removeCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle() + "\n" + notificationMsgReminders));
                                     break;
 
                                 case SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE:
-                                    Log.d("DEBUG", "ACTION_REMINDERS_UPDATE");
+                                    //Log.d("DEBUG", "ACTION_REMINDERS_UPDATE");
                                     retValue = retValue && updateCalendarReminders(calendar, new SuntimesCalendarTaskProgress(c, n, calendar.calendarTitle() + "\n" + notificationMsgReminders));
                                     break;
 
@@ -366,7 +366,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
                 try {
                     ContentProviderResult[] result = contentResolver.applyBatch(CalendarContract.AUTHORITY, batch);
                     retValue += (result != null ? result.length : 0);
-                    Log.d(TAG, "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
+                    //Log.d(TAG, "removeCalendarReminders: " + calendarID + ", removed: " + retValue);
 
                 } catch (RemoteException | OperationApplicationException e) {
                     Log.e(TAG, "removeCalendarReminders: failed to remove reminders: " + e);

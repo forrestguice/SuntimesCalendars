@@ -84,7 +84,7 @@ public class SuntimesCalendarTaskService extends Service
             SuntimesCalendarTaskListener listener = intent.getParcelableExtra(EXTRA_CALENDAR_LISTENER);
             if (action.equals(ACTION_UPDATE_CALENDARS) || action.equals(ACTION_UPDATE_REMINDERS))
             {
-                Log.d(TAG, "onStartCommand: " + action);
+                //Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, false, false, listener);
                 signalOnStartCommand(started);
                 if (serviceListener != null) {
@@ -92,15 +92,15 @@ public class SuntimesCalendarTaskService extends Service
                 }
 
             } else if (action.equals(ACTION_CLEAR_CALENDARS)) {
-                Log.d(TAG, "onStartCommand: " + action);
+                //Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, true, false, listener);
                 signalOnStartCommand(started);
                 if (serviceListener != null) {
                     serviceListener.onStartCommand(started);
                 }
 
-            } else Log.d(TAG, "onStartCommand: unrecognized action: " + action);
-        } else Log.d(TAG, "onStartCommand: null action");
+            } else Log.w(TAG, "onStartCommand: unrecognized action: " + action);
+        } else Log.w(TAG, "onStartCommand: null action");
         return START_NOT_STICKY;
     }
 
