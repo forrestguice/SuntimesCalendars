@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme" parent="AppTheme.Dark">
+    <style name="AppTheme" parent="AppTheme.System">
     </style>
 
     <style name="AppTheme.System.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
