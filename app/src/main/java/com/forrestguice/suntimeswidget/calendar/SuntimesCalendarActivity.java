@@ -692,6 +692,41 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 confirmCancel.show();
             }
         };
+
+        protected static void insertDependencyWarning(final Context context, @Nullable PreferenceCategory category, int order)
+        {
+            if (category != null)
+            {
+                Preference pref = new com.forrestguice.suntimeswidget.calendar.ui.Preference(context);
+                pref.setTitle(Utils.fromHtml(context.getString(R.string.app_provider_version_missing)));
+                pref.setSummary(Utils.fromHtml(context.getString(R.string.snackbar_missing_dependency, MIN_SUNTIMES_VERSION_STRING)));
+                pref.setPersistent(false);
+                pref.setOrder(order);
+                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+                {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        showMissingDepsWebsite(context);
+                        return false;
+                    }
+                });
+                category.addPreference(pref);
+            }
+        }
+
+        protected static void insertPermissionDeniedWarning(final Context context, @Nullable PreferenceCategory category, int order)
+        {
+            if (category != null)
+            {
+                Preference pref = new com.forrestguice.suntimeswidget.calendar.ui.Preference(context);
+                pref.setTitle(Utils.fromHtml(context.getString(R.string.app_provider_version_missing)));
+                pref.setSummary(Utils.fromHtml(context.getString(R.string.snackbar_missing_permission, context.getString(R.string.app_name))));
+                pref.setPersistent(false);
+                pref.setOrder(order);
+                pref.setSelectable(false);
+                category.addPreference(pref);
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -721,9 +756,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
-                if (needsSuntimesPermissions)
+                if (needsSuntimesPermissions) {
+                    insertPermissionDeniedWarning(getActivity(), (PreferenceCategory) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_FIRSTLAUNCH), 1);
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
-                else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+
+                } else {
+                    insertDependencyWarning(getActivity(), (PreferenceCategory) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_FIRSTLAUNCH), 1);
+                    showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+                }
             }
 
             Preference aboutPermissionPref = findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS_ABOUT);
@@ -757,6 +797,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 return false;
             }
         };
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1570,6 +1611,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         };
     }*/
 
+    protected static void showMissingDepsWebsite(Context context)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AboutDialog.WEBSITE_URL));
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
+    }
+
     protected static void showMissingDepsMessage(final Activity context, View view)
     {
         if (view != null)
@@ -1581,13 +1630,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             snackbarView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
-                public void onClick(View v)
-                {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AboutDialog.WEBSITE_URL));
-                    if (intent.resolveActivity(context.getPackageManager()) != null)
-                    {
-                        context.startActivity(intent);
-                    }
+                public void onClick(View v) {
+                    showMissingDepsWebsite(context);
                 }
             });
 

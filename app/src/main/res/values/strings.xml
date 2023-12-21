@@ -293,7 +293,7 @@
 
     <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
-        <font color="#e65100"><b>Missing!</b></font>
+        <font color="#e65100"><b>Missing Dependency!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>

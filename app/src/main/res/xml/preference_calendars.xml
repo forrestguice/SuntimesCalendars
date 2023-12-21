@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory
-        android:title="@string/configLabel_calendars"
         android:key="app_calendars">
 
         <!--<com.forrestguice.suntimeswidget.calendar.ui.CheckBoxPreference
