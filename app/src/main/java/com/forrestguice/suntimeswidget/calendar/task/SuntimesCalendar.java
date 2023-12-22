@@ -25,6 +25,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 
 /**
  * @version 0.2.0
@@ -99,4 +100,16 @@ public interface SuntimesCalendar
      * @return default strings
      */
     CalendarEventStrings defaultStrings();
+
+    /**
+     * @return default flags
+     */
+    CalendarEventFlags defaultFlags();
+
+    /**
+     * @param i flag at position i
+     * @return label for flag at position i
+     */
+    String flagLabel(int i);
+
 }

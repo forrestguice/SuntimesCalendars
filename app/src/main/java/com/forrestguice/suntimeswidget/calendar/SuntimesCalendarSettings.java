@@ -47,6 +47,7 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_TEMPLATE_DESC = "app_calendars_template_desc_";
     public static final String PREF_KEY_CALENDARS_TEMPLATE_LOCATION = "app_calendars_template_location_";
     public static final String PREF_KEY_CALENDARS_TEMPLATE_STRINGS = "app_calendars_template_strings_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_FLAGS = "app_calendars_template_flags_";
     public static final String STRINGS_DELIMITER = "|";
 
     public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
@@ -218,6 +219,40 @@ public class SuntimesCalendarSettings
         prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar);
         prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar);
         prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar);
+        prefs.apply();
+    }
+
+    /**
+     * savePrefCalendarFlags
+     */
+    public static void savePrefCalendarFlags(Context context, String calendar, CalendarEventFlags flags)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        StringBuilder s = new StringBuilder();
+        boolean[] values = flags.getValues();
+        for (int i=0; i<values.length-1; i++) {
+            s.append(values[i]).append(STRINGS_DELIMITER);
+        }
+        s.append(values[values.length-1]);
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar, s.toString());
+        prefs.apply();
+    }
+    public static CalendarEventFlags loadPrefCalendarFlags(Context context, String calendar, CalendarEventFlags defaultFlags)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String s = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar, null);
+        if (s != null)
+        {
+            String[] v = s.split("\\" + STRINGS_DELIMITER);
+            if (v.length == defaultFlags.getValues().length) {
+                return new CalendarEventFlags(v);
+            } else return defaultFlags;
+        } else return defaultFlags;
+    }
+    public static void clearPrefCalendarFlags(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar);
         prefs.apply();
     }
 
