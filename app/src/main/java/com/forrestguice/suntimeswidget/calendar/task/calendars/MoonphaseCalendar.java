@@ -30,6 +30,7 @@ import com.forrestguice.suntimescalendars.R;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
@@ -72,6 +73,21 @@ public class MoonphaseCalendar extends MoonCalendarBase
                 phaseStrings1[0], phaseStrings1[2],                                                           // 4,5 super moon
                 phaseStrings2[0], phaseStrings2[2]                                                            // 6,7 micro moon
         );
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags()
+    {
+        boolean[] values = new boolean[4];
+        Arrays.fill(values, true);
+        return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i) {
+        if (i >=0 && i < 4) {
+            return phaseStrings[i];
+        } else return "";
     }
 
     @Override
@@ -151,6 +167,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
                     String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
@@ -162,6 +179,10 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     {
                         for (int i=0; i<4; i++)
                         {
+                            if (!flags[i]) {
+                                continue;
+                            }
+
                             double distance = -1;
                             if (i == 0 || i == 2)  // new moon || full moon
                             {

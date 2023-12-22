@@ -29,6 +29,7 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
@@ -39,6 +40,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
@@ -63,6 +65,21 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     @Override
     public CalendarEventStrings defaultStrings() {
         return new CalendarEventStrings(apsisStrings);
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags()
+    {
+        boolean[] values = new boolean[apsisStrings.length];
+        Arrays.fill(values, true);
+        return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i) {
+        if (i >= 0 && i < apsisStrings.length) {
+            return apsisStrings[i];
+        } else return "";
     }
 
     @Override
@@ -140,6 +157,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         progress = task.createProgressObj(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
 
+                        boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
                         String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
                         CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                         ContentValues data = TemplatePatterns.createContentValues(null, this);
@@ -161,6 +179,10 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
 
                             for (int i=0; i<2; i++)
                             {
+                                if (!flags[i]) {
+                                    continue;
+                                }
+
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
