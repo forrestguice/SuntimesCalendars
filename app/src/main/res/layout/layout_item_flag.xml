@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingLeft="8dp" android:paddingRight="8dp"
+    android:paddingTop="4dp" android:paddingBottom="4dp">
+
+    <CheckBox android:id="@+id/check_flag"
+        android:layout_width="0dp" android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:textSize="?attr/text_size_small"
+        android:drawablePadding="8dp"
+        tools:text="Event Name" />
+
+</LinearLayout>

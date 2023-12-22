@@ -16,8 +16,15 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_flags"
+        android:icon="?attr/icActionSettings"
+        android:title="@string/flag_dialog_msg"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_template"
         android:icon="?attr/icActionSettings"
         android:title="@string/template_dialog_msg"
         app:showAsAction="never" />
+
 </menu>

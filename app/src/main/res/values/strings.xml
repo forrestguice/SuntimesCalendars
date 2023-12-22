@@ -239,6 +239,9 @@
     <string name="reminder_dialog_msg">Reminders</string>  <!-- TODO -->
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
 
+    <string name="flag_dialog_msg">Event Flags</string>  <!-- TODO -->
+    <string name="flag_dialog_defaults_toast">Restored default event flags</string>  <!-- TODO -->
+
     <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
     <string name="template_dialog_title_label">Name</string>  <!-- TODO -->
     <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
@@ -270,6 +273,13 @@
     <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
     <string name="help_pattern_percent">\% character</string>   <!-- TODO -->
 
+    <string name="help_flags"><![CDATA[
+        <h3>Flags</h3>
+        These settings are applied when calendar events are added.
+        <br/><br/>
+        To change a calendar\'s events, modify these settings, then remove and re-add the calendar.
+    ]]></string>  <!-- TODO-->
+
     <string name="help_template"><![CDATA[
         <h3>Templates</h3>
         Templates are applied when calendar events are added.
@@ -281,7 +291,7 @@
     ]]></string>  <!-- TODO-->
     <string name="help_template_strings"><![CDATA[
         <h3>Event Strings</h3>
-        The following values are used with the %M substitution.
+        The following values are available to the template using the %M substitution.
     ]]></string>  <!-- TODO-->
 
     <string name="color_dialog_msg">Colour</string>

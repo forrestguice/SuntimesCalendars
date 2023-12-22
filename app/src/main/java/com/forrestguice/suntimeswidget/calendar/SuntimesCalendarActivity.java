@@ -88,6 +88,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.template.EventFlagsDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
@@ -973,12 +974,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
         {
-            /*MenuItem template_item = menu.getMenu().findItem(R.id.action_template);
-            if (template_item != null)
-            {
-                SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
-                template_item.setEnabled(!descriptor.isAddon());
-            }*/
+            MenuItem events_item = menu.getMenu().findItem(R.id.action_flags);
+            if (events_item != null) {
+                //SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+                //events_item.setEnabled(!calendarObj.defaultFlags().isEmpty());
+            }
         }
 
         protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
@@ -1000,12 +1000,40 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     } else if (itemId == R.id.action_template) {
                         showTemplateDialog(context, calendar);
                         return true;
+
+                    } else if (itemId == R.id.action_flags) {
+                        showFlagDialog(context, calendar);
+                        return true;
                     }
                     return false;
                 }
             };
         }
 
+        /**
+         * showFlagDialog
+         */
+
+        private static final String DIALOGTAG_FLAGS = "flags";
+        protected void showFlagDialog(Context context, String calendar)
+        {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+            EventFlagsDialog dialog = new EventFlagsDialog();
+            dialog.setCalendar(calendar);
+            dialog.setData(SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()));
+            dialog.setDialogListener(flagDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_FLAGS + "_" + calendar);
+        }
+
+        private final EventFlagsDialog.DialogListener flagDialog_listener = new EventFlagsDialog.DialogListener()
+        {
+            @Override
+            public void onDialogAccepted(EventFlagsDialog dialog) {
+                if (dialog.isModified()) {
+                    SuntimesCalendarSettings.savePrefCalendarFlags(getActivity(), dialog.getCalendar(), dialog.getResult());
+                }
+            }
+        };
 
         /**
          * showTemplateDialog
