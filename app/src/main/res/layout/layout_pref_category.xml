@@ -9,7 +9,7 @@
         android:paddingLeft="16dp" android:paddingRight="16dp"
         android:paddingTop="16dp" android:paddingBottom="8dp"
         android:textSize="?attr/text_size_small" android:textStyle="bold"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/text_accentColor"
         tools:text="Category" />
 
 </LinearLayout>
