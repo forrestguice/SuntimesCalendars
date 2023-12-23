@@ -29,6 +29,7 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -58,11 +59,26 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
     }
 
     @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(s_CIVIL_TWILIGHT, s_CIVIL_TWILIGHT_MORNING, s_CIVIL_TWILIGHT_EVENING, s_SUNRISE, s_SUNSET, s_POLAR_TWILIGHT, s_WHITE_NIGHT);
+    }
+
+    @Override
     public CalendarEventFlags defaultFlags()
     {
         boolean[] values = new boolean[2];
         Arrays.fill(values, true);
         return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i)
+    {
+        switch (i) {
+            case 0: return s_CIVIL_TWILIGHT_MORNING;
+            case 1: return s_CIVIL_TWILIGHT_EVENING;
+            default: return "";
+        }
     }
 
     @Override
@@ -109,9 +125,9 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();    // TODO
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
                     String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                    //0:s_SUNRISE, 1:s_SUNSET, 2:s_CIVIL_TWILIGHT, 3:s_NAUTICAL_TWILIGHT, 4:s_ASTRO_TWILIGHT, 5:s_POLAR_TWILIGHT, 6:s_CIVIL_NIGHT, 7:s_NAUTICAL_NIGHT, 8:s_DAWN_TWILIGHT, 9:s_DUSK_TWILIGHT, 10:s_WHITE_NIGHT
+                    // 0:s_CIVIL_TWILIGHT, 1:s_CIVIL_TWILIGHT_MORNING, 2:s_CIVIL_TWILIGHT_EVENING, 3:s_SUNRISE, 4:s_SUNSET, 5:s_POLAR_TWILIGHT, 6:s_WHITE_NIGHT
 
                     CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
@@ -122,10 +138,10 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
                         if (flags[0]) {
-                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[0], strings[5], strings[2]);    // sunrise, polar twilight, civil twilight
+                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[1], strings[5], strings[0]);    // civil twilight (morning), polar twilight, civil twilight
                         }
                         if (flags[1]) {
-                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[1], strings[10], strings[2]);   // sunset, white night, civil twilight
+                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[2], strings[6], strings[0]);   // civil twilight (evening), white night, civil twilight
                         }
                         cursor.moveToNext();
                         c++;

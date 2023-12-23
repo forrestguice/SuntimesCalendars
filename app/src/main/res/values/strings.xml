@@ -18,20 +18,38 @@
         <item>XLARGE</item>
     </string-array>
 
+    <string name="timeMode_noon">Solar Noon</string>                    <!-- TODO -->
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_civil_morning">Civil Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_civil_evening">Civil Twilight (evening)</string>  <!-- TODO -->
     <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_nautical_morning">Nautical Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_nautical_evening">Nautical Twilight (evening)</string>  <!-- TODO -->
     <string name="timeMode_astronomical">Astronomical Twilight</string>
+    <string name="timeMode_astronomical_morning">Astronomical Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_astronomical_evening">Astronomical Twilight (evening)</string>  <!-- TODO -->
+
     <string name="dawn">Dawn</string>
+    <string name="dawn_civil">Civil Dawn</string>    <!-- TODO -->
+    <string name="dawn_nautical">Nautical Dawn</string>    <!-- TODO -->
+    <string name="dawn_astronomical">Astronomical Dawn</string>    <!-- TODO -->
+
     <string name="dusk">Dusk</string>
+    <string name="dusk_civil">Civil Dusk</string>    <!-- TODO -->
+    <string name="dusk_nautical">Nautical Dusk</string>    <!-- TODO -->
+    <string name="dusk_astronomical">Astronomical Dusk</string>    <!-- TODO -->
+
     <string name="polar_twilight">Polar twilight</string>
     <string name="civil_night">Civil polar night</string>
     <string name="nautical_night">Nautical polar night</string>
     <string name="white_night">White night</string>
+
     <string name="timeMode_golden">Golden Hour</string>    <!-- TODO -->
     <string name="timeMode_golden_morning">Golden Hour (morning)</string>    <!-- TODO -->
     <string name="timeMode_golden_evening">Golden Hour (evening)</string>    <!-- TODO -->
+
     <string name="timeMode_blue8">Blue Hour (8\u00B0)</string>               <!-- TODO -->
     <string name="timeMode_blue4">Blue Hour (4\u00B0)</string>               <!-- TODO -->
     <string name="timeMode_blue_morning">Blue Hour (morning)</string>               <!-- TODO -->
@@ -85,7 +103,7 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Moonrise, moonset</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary">Sunrise, sunset</string>
+    <string name="calendar_civil_twilight_summary" />
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>

@@ -39,30 +39,49 @@ import java.util.Calendar;
 @SuppressWarnings("Convert2Diamond")
 public abstract class TwilightCalendarBase extends SuntimesCalendarBase implements SuntimesCalendar
 {
-    protected String s_SUNRISE, s_SUNSET, s_DAWN_TWILIGHT, s_DUSK_TWILIGHT;
-    protected String s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT;
+    protected String s_SUNRISE, s_SUNSET, s_DAWN, s_DUSK;
+    protected String s_CIVIL_TWILIGHT, s_CIVIL_TWILIGHT_MORNING, s_CIVIL_TWILIGHT_EVENING,
+                     s_NAUTICAL_TWILIGHT, s_NAUTICAL_TWILIGHT_MORNING, s_NAUTICAL_TWILIGHT_EVENING,
+                     s_ASTRO_TWILIGHT, s_ASTRO_TWILIGHT_MORNING, s_ASTRO_TWILIGHT_EVENING;
     protected String s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_WHITE_NIGHT;
+    protected String s_CIVIL_DAWN, s_CIVIL_DUSK, s_NAUTICAL_DAWN, s_NAUTICAL_DUSK, s_ASTRO_DAWN, s_ASTRO_DUSK;
 
     @Override
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
         s_SUNRISE = context.getString(R.string.sunrise);
+        s_DAWN = context.getString(R.string.dawn);
         s_SUNSET = context.getString(R.string.sunset);
+        s_DUSK = context.getString(R.string.dusk);
         s_CIVIL_TWILIGHT = context.getString(R.string.timeMode_civil);
-        s_NAUTICAL_TWILIGHT = context.getString(R.string.timeMode_nautical);
-        s_ASTRO_TWILIGHT = context.getString(R.string.timeMode_astronomical);
-        s_POLAR_TWILIGHT = context.getString(R.string.polar_twilight);
+        s_CIVIL_TWILIGHT_MORNING = context.getString(R.string.timeMode_civil_morning);
+        s_CIVIL_TWILIGHT_EVENING = context.getString(R.string.timeMode_civil_evening);
+        s_CIVIL_DAWN = context.getString(R.string.dawn_civil);
+        s_CIVIL_DUSK = context.getString(R.string.dusk_civil);
         s_CIVIL_NIGHT = context.getString(R.string.civil_night);
+        s_NAUTICAL_TWILIGHT = context.getString(R.string.timeMode_nautical);
+        s_NAUTICAL_TWILIGHT_MORNING = context.getString(R.string.timeMode_nautical_morning);
+        s_NAUTICAL_TWILIGHT_EVENING = context.getString(R.string.timeMode_nautical_evening);
+        s_NAUTICAL_DAWN = context.getString(R.string.dawn_nautical);
+        s_NAUTICAL_DUSK = context.getString(R.string.dusk_nautical);
         s_NAUTICAL_NIGHT = context.getString(R.string.nautical_night);
-        s_DAWN_TWILIGHT = context.getString(R.string.dawn);
-        s_DUSK_TWILIGHT = context.getString(R.string.dusk);
+        s_ASTRO_TWILIGHT = context.getString(R.string.timeMode_astronomical);
+        s_ASTRO_TWILIGHT_MORNING = context.getString(R.string.timeMode_astronomical_morning);
+        s_ASTRO_TWILIGHT_EVENING = context.getString(R.string.timeMode_astronomical_evening);
+        s_ASTRO_DAWN = context.getString(R.string.dawn_astronomical);
+        s_ASTRO_DUSK = context.getString(R.string.dusk_astronomical);
+        s_POLAR_TWILIGHT = context.getString(R.string.polar_twilight);
         s_WHITE_NIGHT = context.getString(R.string.white_night);
     }
 
     @Override
     public CalendarEventStrings defaultStrings() {
-        return new CalendarEventStrings(s_SUNRISE, s_SUNSET, s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT, s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_DAWN_TWILIGHT, s_DUSK_TWILIGHT, s_WHITE_NIGHT);
+        return new CalendarEventStrings(s_SUNRISE, s_SUNSET, s_CIVIL_TWILIGHT, s_NAUTICAL_TWILIGHT, s_ASTRO_TWILIGHT, s_POLAR_TWILIGHT, s_CIVIL_NIGHT, s_NAUTICAL_NIGHT, s_DAWN, s_DUSK, s_WHITE_NIGHT,
+                s_ASTRO_DAWN, s_NAUTICAL_DAWN, s_CIVIL_DAWN,
+                s_CIVIL_DUSK, s_NAUTICAL_DUSK, s_ASTRO_DUSK,
+                s_CIVIL_TWILIGHT_MORNING, s_NAUTICAL_TWILIGHT_MORNING, s_ASTRO_TWILIGHT_MORNING,
+                s_CIVIL_TWILIGHT_EVENING, s_NAUTICAL_TWILIGHT_EVENING, s_ASTRO_TWILIGHT_EVENING);
     }
 
     @Override
@@ -74,8 +93,8 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
     public String flagLabel(int i)
     {
         switch (i) {
-            case 0: return s_DAWN_TWILIGHT;
-            case 1: return s_DUSK_TWILIGHT;
+            case 0: return s_DAWN;
+            case 1: return s_DUSK;
             default: return "";
         }
     }
