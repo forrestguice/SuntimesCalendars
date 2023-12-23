@@ -94,6 +94,8 @@
     <string name="calendar_gold_twilight_summary" />
     <string name="calendar_blue_twilight_displayName">Blue Hour</string>    <!-- TODO -->
     <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_daylight_displayName">Daylight</string>    <!-- TODO -->
+    <string name="calendar_daylight_summary">Sunrise, sunset, and solar noon</string>    <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>

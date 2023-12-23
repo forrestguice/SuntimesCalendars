@@ -450,6 +450,9 @@ public class SuntimesCalendarSettings
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
                 return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
 
+            case SuntimesCalendarAdapter.CALENDAR_DAYLIGHT:
+                return ContextCompat.getColor(context, R.color.colorDaylightCalendar);
+
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
             default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
