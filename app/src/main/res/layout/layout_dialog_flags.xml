@@ -87,7 +87,7 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:gravity="end">
 
-        <ImageButton android:id="@+id/help_button"
+        <android.support.v7.widget.AppCompatImageButton android:id="@+id/help_button"
             android:layout_width="48dp" android:layout_height="48dp"
             android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
             android:layout_gravity="start|left|center_vertical"
