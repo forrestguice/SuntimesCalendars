@@ -120,9 +120,7 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     public void setIconColor(ColorStateList color) {
         iconColor = color;
         if (button != null && iconColor != null) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                button.setImageTintList(iconColor);
-            }
+            ImageViewCompat.setImageTintList(button, iconColor);
         }
     }
 
