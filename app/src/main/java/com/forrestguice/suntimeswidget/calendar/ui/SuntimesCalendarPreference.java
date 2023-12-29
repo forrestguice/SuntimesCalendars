@@ -55,8 +55,13 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         init(context);
     }
 
-    protected void init(Context context) {
-        setLayoutResource(R.layout.layout_pref_calendar);
+    protected void init(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= 21) {
+            setLayoutResource(R.layout.layout_pref_calendar_material);
+        } else {
+            setLayoutResource(R.layout.layout_pref_calendar);
+        }
     }
 
     @Override

@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -51,7 +52,11 @@ public class CalendarWindowPreference extends DialogPreference
         super(context, attrs);
         setPersistent(false);
         setDialogLayoutResource(R.layout.layout_pref_calendarwindow);
-        setLayoutResource(R.layout.layout_pref);
+        if (Build.VERSION.SDK_INT >= 21) {
+            setLayoutResource(R.layout.layout_pref_material);
+        } else {
+            setLayoutResource(R.layout.layout_pref);
+        }
     }
 
     @Override

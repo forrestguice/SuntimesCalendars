@@ -20,6 +20,7 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 
 import com.forrestguice.suntimescalendars.R;
@@ -47,8 +48,13 @@ public class SwitchPreference extends android.preference.SwitchPreference
         init(context);
     }
 
-    protected void init(Context context) {
-        setLayoutResource(R.layout.layout_pref);
+    protected void init(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= 21) {
+            setLayoutResource(R.layout.layout_pref_material);
+        } else {
+            setLayoutResource(R.layout.layout_pref);
+        }
     }
 
 }

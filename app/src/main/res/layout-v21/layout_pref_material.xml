@@ -4,29 +4,23 @@
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:background="?android:attr/selectableItemBackground"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+    android:paddingBottom="6dp" android:gravity="center_vertical"
     android:descendantFocusability="blocksDescendants"
     android:baselineAligned="false">
 
-    <FrameLayout
-        android:id="@+id/icon_frame"
-        android:layout_width="wrap_content" android:layout_height="match_parent">
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/button_options"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:src="?attr/icActionCalendar" app:fabSize="mini"
-            app:backgroundTint="?attr/colorBackgroundFloating"
-            android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/configLabel_options" />
-
-    </FrameLayout>
+    <ImageView android:id="@android:id/icon"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:maxWidth="48dp" android:maxHeight="48dp"
+        android:src="?attr/icActionCalendar"
+        android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:layout_width="0dp" android:layout_height="wrap_content"
-        android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
-        android:layout_marginEnd="0dp" android:layout_marginRight="0dp"
-        android:layout_marginTop="6dp" android:layout_marginBottom="6dp"
+        android:layout_marginTop="8dp" android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:layout_gravity="center_vertical">
 
@@ -46,7 +40,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="?attr/text_size_small"
-            android:maxLines="4"
+            android:maxLines="6"
             tools:text="Summary"/>
     </RelativeLayout>
 

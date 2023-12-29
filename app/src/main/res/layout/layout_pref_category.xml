@@ -4,12 +4,9 @@
     android:orientation="vertical">
 
     <TextView android:id="@android:id/title"
-        android:layout_width="match_parent" android:layout_height="wrap_content"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp" android:paddingRight="16dp"
-        android:paddingTop="16dp" android:paddingBottom="8dp"
-        android:textSize="?attr/text_size_small" android:textStyle="bold"
-        android:textColor="?attr/text_accentColor"
+        android:textSize="?attr/text_size_small"
         tools:text="Category" />
 
 </LinearLayout>
