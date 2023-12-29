@@ -24,6 +24,7 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -66,11 +67,8 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
         button = (FloatingActionButton) view.findViewById(R.id.button_options);
         if (button != null)
         {
-            if (iconColor != null)
-            {
-                if (Build.VERSION.SDK_INT >= 21) {
-                    button.setImageTintList(iconColor);
-                }
+            if (iconColor != null) {
+                ImageViewCompat.setImageTintList(button, iconColor);
             }
             button.setOnClickListener(onIconClick);
         }
