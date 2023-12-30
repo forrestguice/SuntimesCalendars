@@ -1,0 +1,5 @@
+- adds support for reminder notifications (#51).
+- adds support for event selection; include all or omit some calendar events.
+- adds support for templates; customize event text and formatting.
+- adds "Golden Hour", "Blue Hour", and "Daylight" calendars (#55).
+- adds "cross-quarter days" to the Solstice calendar (#56).
