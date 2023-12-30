@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:key="app_calendars_permissions"
-        android:persistent="false"
-        android:title="@string/privacy_permissiondialog_title" />
+    <com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory
+        android:key="app_calendars_firstlaunch">
 
-    <!--<Preference
-        android:key="app_about"
-        android:persistent="false"
-        android:icon="?attr/icActionAbout"
-        android:title="@string/about_dialog_title" />-->
+        <com.forrestguice.suntimeswidget.calendar.ui.SwitchPreference
+            android:key="app_calendars_enabled"
+            android:order="0"
+            android:enabled="false"
+            android:title="@string/configLabel_calendars_enabled"
+            android:summary="@string/configLabel_calendars_enabled_summary" android:defaultValue="@string/def_app_calendars_enabled" />
+
+        <com.forrestguice.suntimeswidget.calendar.ui.SwitchPreference
+            android:key="app_calendars_permissions"
+            android:order="10"
+            android:persistent="false"
+            android:title="@string/privacy_permissiondialog_title" />
+
+        <com.forrestguice.suntimeswidget.calendar.ui.Preference
+            android:key="app_calendars_permissions_about"
+            android:order="11"
+            android:persistent="false" android:selectable="false"
+            android:summary="@string/privacy_permission_calendar" />
+
+    </com.forrestguice.suntimeswidget.calendar.ui.PreferenceCategory>
 
 </PreferenceScreen>

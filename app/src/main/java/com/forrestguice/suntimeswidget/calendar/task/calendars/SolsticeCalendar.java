@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -29,13 +29,18 @@ import android.util.Log;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
 
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
@@ -45,11 +50,50 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     private static final int resID_calendarTitle = R.string.calendar_solstice_displayName;
     private static final int resID_calendarSummary = R.string.calendar_solstice_summary;
 
-    private String[] solsticeStrings = new String[4];  // {spring, summer, fall, winter}
+    private final String[] displayStrings = new String[8];  // {spring, cross-spring, summer, cross-summer, fall, cross-fall, winter, cross-winter}
+    private final String[] projection = new String[]
+    {
+            CalculatorProviderContract.COLUMN_SEASON_VERNAL,          // 0
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SPRING,    // 1
+
+            CalculatorProviderContract.COLUMN_SEASON_SUMMER,          // 2
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_SUMMER,    // 3
+
+            CalculatorProviderContract.COLUMN_SEASON_AUTUMN,          // 4
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_AUTUMN,    // 5
+
+            CalculatorProviderContract.COLUMN_SEASON_WINTER,          // 6
+            CalculatorProviderContract.COLUMN_SEASON_CROSS_WINTER,    // 7
+    };
 
     @Override
     public String calendarName() {
         return CALENDAR_NAME;
+    }
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%M", "%M", null);
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(displayStrings);
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags()
+    {
+        boolean[] values = new boolean[displayStrings.length];
+        Arrays.fill(values, true);
+        return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i) {
+        if (i >=0 && i < displayStrings.length) {
+            return displayStrings[i];
+        } else return "";
     }
 
     @Override
@@ -62,10 +106,17 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 
-        solsticeStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
-        solsticeStrings[1] = context.getString(R.string.timeMode_solstice_summer);
-        solsticeStrings[2] = context.getString(R.string.timeMode_equinox_autumnal);
-        solsticeStrings[3] = context.getString(R.string.timeMode_solstice_winter);
+        displayStrings[0] = context.getString(R.string.timeMode_equinox_vernal);
+        displayStrings[1] = context.getString(R.string.timeMode_cross_spring);
+
+        displayStrings[2] = context.getString(R.string.timeMode_solstice_summer);
+        displayStrings[3] = context.getString(R.string.timeMode_cross_summer);
+
+        displayStrings[4] = context.getString(R.string.timeMode_equinox_autumnal);
+        displayStrings[5] = context.getString(R.string.timeMode_cross_autumnal);
+
+        displayStrings[6] = context.getString(R.string.timeMode_solstice_winter);
+        displayStrings[7] = context.getString(R.string.timeMode_cross_winter);
     }
 
     @Override
@@ -87,6 +138,8 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                int versionCode = queryProviderVersionCode(resolver);
+
                 Calendar startDate = Calendar.getInstance();
                 startDate.setTimeInMillis(window[0]);
 
@@ -94,7 +147,6 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                 endDate.setTimeInMillis(window[1]);
 
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SEASONS + "/" + startDate.get(Calendar.YEAR) + "-" + endDate.get(Calendar.YEAR));
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SEASON_VERNAL, CalculatorProviderContract.COLUMN_SEASON_SUMMER, CalculatorProviderContract.COLUMN_SEASON_AUTUMN, CalculatorProviderContract.COLUMN_SEASON_WINTER };
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -105,16 +157,24 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
+
+                    Calendar eventTime;
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
                         for (int i=0; i<projection.length; i++)
                         {
-                            if (!cursor.isNull(i))
+                            if (flags[i] && !cursor.isNull(i))
                             {
-                                Calendar eventTime = Calendar.getInstance();
-                                eventTime.setTimeInMillis(cursor.getLong(i));
-                                eventValues.add(adapter.createEventContentValues(calendarID, solsticeStrings[i], solsticeStrings[i], null, eventTime));
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
+                                eventTime = Calendar.getInstance();
+                                eventTime.setTimeInMillis(cursor.getLong( toLegacyProjection(i, versionCode) ));
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                         }
                         cursor.moveToNext();
@@ -129,6 +189,7 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
+                    createCalendarReminders(context, task, progress0);
                     return !task.isCancelled();
 
                 } else {
@@ -142,6 +203,44 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                 return false;
             }
         } else return false;
+    }
+
+    protected int queryProviderVersionCode(@NonNull ContentResolver resolver)
+    {
+        int versionCode = 0;
+        Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
+        Cursor cursor = resolver.query(uri, new String[] { CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE }, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            if (!cursor.isAfterLast() && !cursor.isNull(0)) {
+                versionCode = cursor.getInt(0);
+            }
+            cursor.close();
+        }
+        return versionCode;
+    }
+
+    /**
+     * necessary because v0.5.0 (5) and earlier mistakenly swaps the cross-quarter values.
+     * @param providerVersionCode provider version int
+     * @param i legacy index
+     * @return remapped index
+     */
+    protected int toLegacyProjection(int i, int providerVersionCode)
+    {
+        if (providerVersionCode <= 5)
+        {
+            switch (i)
+            {
+                case 1: return 3;    // cross-spring <- cross-summer
+                case 3: return 5;    // cross-summer <- cross-fall
+                case 5: return 7;    // cross-autumn <- cross-winter
+                case 7: return 1;    // cross-winter <- cross-spring
+                case 0: case 2: case 4: case 6: default: return i;   // unchanged: spring, summer, autumn, winter, others
+            }
+        } else
+            return i;
     }
 
 }

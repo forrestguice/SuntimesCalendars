@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -39,9 +40,14 @@ public class HelpDialog extends BottomSheetDialogFragment
     public static final String KEY_HELPTEXT = "helpText";
     public static final String KEY_DIALOGTHEME = "themeResID";
 
-    private int themeResID = R.style.AppTheme_Dark;
+    private int themeResID = 0;
     public void setTheme(int themeResID) {
         this.themeResID = themeResID;
+    }
+
+    public HelpDialog() {
+        super();
+        setArguments(new Bundle());
     }
 
     private TextView txtView;
@@ -61,13 +67,45 @@ public class HelpDialog extends BottomSheetDialogFragment
         }
     }
 
+    public boolean showDefaultsButton() {
+        return getArguments().getBoolean(KEY_SHOW_RESTORE_DEFAULTS, false);
+    }
+    public void setShowDefaultsButton(boolean value) {
+        getArguments().putBoolean(KEY_SHOW_RESTORE_DEFAULTS, value);
+    }
+    public static final String KEY_SHOW_RESTORE_DEFAULTS = "showRestoreDefaults";
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedState)
     {
+        View dialogContent;
         themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
-        @SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-        View dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
+        if (themeResID != 0)
+        {
+            @SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
+            dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
+
+        } else {
+            dialogContent = inflater.inflate(R.layout.dialog_help, parent, false);
+        }
+
         txtView = (TextView) dialogContent.findViewById(R.id.help_content);
+
+        Button restoreDefaultsButton = (Button) dialogContent.findViewById(R.id.button_defaults);
+        if (restoreDefaultsButton != null)
+        {
+            restoreDefaultsButton.setVisibility(showDefaultsButton() ? View.VISIBLE : View.GONE);
+            restoreDefaultsButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    if (dialogListener != null) {
+                        dialogListener.onRestoreDefaultsClicked(HelpDialog.this);
+                    }
+                }
+            });
+        }
+
         if (savedState != null) {
             rawContent = savedState.getCharSequence(KEY_HELPTEXT);
         }
@@ -102,6 +140,19 @@ public class HelpDialog extends BottomSheetDialogFragment
         out.putCharSequence(KEY_HELPTEXT, rawContent);
         out.putInt(KEY_DIALOGTHEME, themeResID);
         super.onSaveInstanceState(out);
+    }
+
+    /**
+     * DialogListener
+     */
+    public static abstract class DialogListener
+    {
+        public void onRestoreDefaultsClicked(HelpDialog dialog) {}
+    }
+    public DialogListener dialogListener = null;
+    public void setDialogListener( DialogListener listener )
+    {
+        this.dialogListener = listener;
     }
 
 }

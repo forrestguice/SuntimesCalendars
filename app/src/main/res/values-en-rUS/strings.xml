@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="color_dialog_msg">Choose Color</string>
+    <string name="color_dialog_msg">Color</string>
 </resources>

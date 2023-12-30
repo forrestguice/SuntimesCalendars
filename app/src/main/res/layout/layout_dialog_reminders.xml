@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2022-2023 Forrest Guice
+    This file is part of SuntimesCalendars.
+
+    SuntimesCalendars is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SuntimesCalendars is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:background="?attr/dialogBackground">
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical" android:background="?attr/colorPrimary"
+        android:paddingStart="8dp" android:paddingLeft="8dp"
+        android:paddingEnd="0dp" android:paddingRight="0dp"
+        android:animateLayoutChanges="true">
+
+        <ImageView android:src="?attr/icActionReminder"
+            android:layout_width="32dp" android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_vertical"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp">
+
+            <TextView android:id="@+id/text_title"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textSize="?attr/text_size_large"
+                android:textColor="?android:textColorPrimary"
+                android:text="@string/reminder_dialog_msg" />
+
+            <TextView android:id="@+id/text_subtitle"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textSize="?attr/text_size_small"
+                android:textColor="?android:textColorSecondary"
+                android:text="@string/reminder_dialog_msg" />
+
+        </LinearLayout>
+
+        <ImageButton android:id="@+id/accept_button"
+            android:layout_width="64dp" android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="?selectableItemBackground" android:padding="8dp"
+            android:src="?attr/icActionAccept"
+            android:contentDescription="@string/dialog_ok"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/text_add_reminder"
+        android:layout_width="match_parent" android:layout_height="48dp"
+        android:padding="8dp"
+        android:textColor="?attr/text_accentColor" android:background="?attr/selectableItemBackground"
+        android:clickable="true" android:focusable="true"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/action_add_reminder" />
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+        android:background="?attr/hrColor" />
+
+    <LinearLayout android:orientation="vertical"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView android:id="@+id/remindersView"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+            tools:listitem="@layout/layout_item_reminder" tools:itemCount="2" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

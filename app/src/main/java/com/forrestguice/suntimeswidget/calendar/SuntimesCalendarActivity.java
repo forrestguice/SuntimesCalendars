@@ -57,6 +57,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import android.preference.TwoStatePreference;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -64,7 +65,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -77,21 +78,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.template.EventFlagsDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
+import com.forrestguice.suntimeswidget.calendar.ui.template.TemplateDialog;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -197,7 +203,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         Locale customLocale = localeForLanguageTag(languageTag);
         Locale.setDefault(customLocale);
-        Log.i(TAG, "loadLocale: " + languageTag);
+        //Log.i(TAG, "loadLocale: " + languageTag);
 
         Resources resources = context.getApplicationContext().getResources();
         Configuration config = resources.getConfiguration();
@@ -238,7 +244,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             String country = (parts.length >= 2) ? parts[1] : null;
             locale = (country != null) ? new Locale(language, country) : new Locale(language);
         }
-        Log.d(TAG, "localeForLanguageTag: tag: " + languageTag + " :: locale: " + locale.toString());
+        //Log.d(TAG, "localeForLanguageTag: tag: " + languageTag + " :: locale: " + locale.toString());
         return locale;
     }
 
@@ -263,7 +269,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         boundToTaskService = false;
     }
 
-    private ServiceConnection calendarSyncServiceConnection = new ServiceConnection()
+    private final ServiceConnection calendarSyncServiceConnection = new ServiceConnection()
     {
         @Override
         public void onServiceConnected(ComponentName className, IBinder service)
@@ -284,7 +290,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     };
 
-    private SuntimesCalendarTaskService.SuntimesCalendarServiceListener serviceListener = new SuntimesCalendarTaskService.SuntimesCalendarServiceListener() {
+    private final SuntimesCalendarTaskService.SuntimesCalendarServiceListener serviceListener = new SuntimesCalendarTaskService.SuntimesCalendarServiceListener() {
         @Override
         public void onBusyStatusChanged(boolean isBusy)
         {
@@ -374,8 +380,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     private static boolean hasCalendarPermissions(Activity activity)
     {
-        int calendarPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-        return (calendarPermission == PackageManager.PERMISSION_GRANTED);
+        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR);
+        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
+        return (readPermission == PackageManager.PERMISSION_GRANTED) && (writePermission == PackageManager.PERMISSION_GRANTED);
     }
 
     @Override
@@ -444,7 +451,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                         if (mainFragment != null)
                         {
-                            CheckBoxPreference calendarsPref = mainFragment.getCalendarsEnabledPref();
+                            TwoStatePreference calendarsPref = mainFragment.getCalendarsEnabledPref();
                             if (calendarsPref != null) {
                                 calendarsPref.setChecked(enabled);
                             }
@@ -482,7 +489,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu)
     {
-        forceActionBarIcons(menu);
+        PopupMenuCompat.forceActionBarIcons(menu);
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -496,24 +503,20 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        switch (id)
+        if (id == R.id.action_openCalendar)
         {
-            case R.id.action_openCalendar:
-                openCalendarApp(this);
-                return true;
+            openCalendarApp(this);
+            return true;
 
-            case R.id.action_about:
-                showAbout();
-                return true;
+        } else if (id == R.id.action_about) {
+            showAbout();
+            return true;
 
-            case android.R.id.home:
-                //onBackPressed();
-                onHomePressed();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        } else if (id == android.R.id.home) {//onBackPressed();
+            onHomePressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void onHomePressed()
@@ -595,7 +598,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     {
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                         }
                     });
             builder.show();
@@ -671,7 +674,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             progressDialog.setOnCancelClickListener(onCancelClick);
         }
 
-        private View.OnClickListener onCancelClick = new View.OnClickListener()
+        private final View.OnClickListener onCancelClick = new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -690,6 +693,41 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 confirmCancel.show();
             }
         };
+
+        protected static void insertDependencyWarning(final Context context, @Nullable PreferenceCategory category, int order)
+        {
+            if (category != null)
+            {
+                Preference pref = new com.forrestguice.suntimeswidget.calendar.ui.Preference(context);
+                pref.setTitle(Utils.fromHtml(context.getString(R.string.app_provider_version_missing)));
+                pref.setSummary(Utils.fromHtml(context.getString(R.string.snackbar_missing_dependency, MIN_SUNTIMES_VERSION_STRING)));
+                pref.setPersistent(false);
+                pref.setOrder(order);
+                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+                {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        showMissingDepsWebsite(context);
+                        return false;
+                    }
+                });
+                category.addPreference(pref);
+            }
+        }
+
+        protected static void insertPermissionDeniedWarning(final Context context, @Nullable PreferenceCategory category, int order)
+        {
+            if (category != null)
+            {
+                Preference pref = new com.forrestguice.suntimeswidget.calendar.ui.Preference(context);
+                pref.setTitle(Utils.fromHtml(context.getString(R.string.app_provider_version_missing)));
+                pref.setSummary(Utils.fromHtml(context.getString(R.string.snackbar_missing_permission, context.getString(R.string.app_name))));
+                pref.setPersistent(false);
+                pref.setOrder(order);
+                pref.setSelectable(false);
+                category.addPreference(pref);
+            }
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -704,7 +742,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i(TAG, "FirstLaunchFragment: Arguments: " + getArguments());
+            //Log.i(TAG, "FirstLaunchFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_firstlaunch, false);
             addPreferencesFromResource(R.xml.preference_firstlaunch);
 
@@ -713,15 +751,25 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 aboutPref.setOnPreferenceClickListener(onAboutClick);
             }
 
-            CheckBoxPreference permissionsPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS);
+            TwoStatePreference permissionsPref = (TwoStatePreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS);
             permissionsPref.setChecked(false);
             permissionsPref.setOnPreferenceChangeListener(onPermissionsPrefChanged);
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
-                if (needsSuntimesPermissions)
+                if (needsSuntimesPermissions) {
+                    insertPermissionDeniedWarning(getActivity(), (PreferenceCategory) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_FIRSTLAUNCH), 1);
                     showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
-                else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+
+                } else {
+                    insertDependencyWarning(getActivity(), (PreferenceCategory) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_FIRSTLAUNCH), 1);
+                    showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+                }
+            }
+
+            Preference aboutPermissionPref = findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_PERMISSIONS_ABOUT);
+            if (aboutPermissionPref != null) {
+                aboutPermissionPref.setSummary(Utils.fromHtml(getString(R.string.privacy_permission_calendar)));
             }
         }
 
@@ -739,7 +787,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR)) {
                             showPermissionRational(activity, REQUEST_CALENDAR_FIRSTLAUNCH);
                         } else {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, REQUEST_CALENDAR_FIRSTLAUNCH);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, REQUEST_CALENDAR_FIRSTLAUNCH);
                         }
 
                     } else {
@@ -750,6 +798,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 return false;
             }
         };
+
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -761,14 +810,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class CalendarPrefsFragment extends CalendarPrefsFragmentBase
     {
-        private CheckBoxPreference calendarsEnabledPref = null;
-        public CheckBoxPreference getCalendarsEnabledPref()
-        {
+        private TwoStatePreference calendarsEnabledPref = null;
+        public TwoStatePreference getCalendarsEnabledPref() {
             return calendarsEnabledPref;
         }
 
-        private HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
-        public CheckBoxPreference getCalendarPref(String calendar)
+        private final HashMap<String, SuntimesCalendarPreference> calendarPrefs = new HashMap<>();
+        public SuntimesCalendarPreference getCalendarPref(String calendar)
         {
             return calendarPrefs.get(calendar);
         }
@@ -818,21 +866,24 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onResume();
 
             android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
-            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore color dialog listeners
+            for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore dialog listeners
             {
+                ReminderDialog reminderDialog = (ReminderDialog) fragments.findFragmentByTag(DIALOGTAG_REMINDER + "_" + calendar);
+                if (reminderDialog != null) {
+                    reminderDialog.setDialogListener(reminderDialog_listener);
+                }
+
+                TemplateDialog templateDialog = (TemplateDialog) fragments.findFragmentByTag(DIALOGTAG_TEMPLATE + "_" + calendar);
+                if (templateDialog != null) {
+                    templateDialog.setDialogListener(templateDialog_listener);
+                }
+
                 ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
                 if (colorDialog != null) {
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
                 }
             }
         }
-
-        /**@Override
-        public void onStop()
-        {
-            super.onStop();
-        }*/
-
 
         @SuppressLint("ResourceType")
         private void initColors(Context context)
@@ -850,7 +901,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
+            //Log.i(TAG, "CalendarPrefsFragment: Arguments: " + getArguments());
             PreferenceManager.setDefaultValues(getActivity(), R.xml.preference_calendars, false);
             addPreferencesFromResource(R.xml.preference_calendars);
 
@@ -863,7 +914,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             PreferenceCategory category = (PreferenceCategory) findPreference("app_calendars");
 
             final Context context = getActivity();
-            calendarsEnabledPref = (CheckBoxPreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
+            calendarsEnabledPref = (TwoStatePreference) findPreference(SuntimesCalendarSettings.PREF_KEY_CALENDARS_ENABLED);
             for (final SuntimesCalendarDescriptor descriptor : SuntimesCalendarDescriptor.getDescriptors(context))
             {
                 if (descriptor == null) {
@@ -885,7 +936,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 {
                     @Override
                     public void onClick(View v) {
-                        showColorPicker(context, calendar);
+                        showContextMenu(context, v, calendar);
                     }
                 });
                 calendarPrefs.put(calendar, calendarPref);
@@ -896,12 +947,170 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
             if (needsSuntimesPermissions || !checkDependencies())
             {
-                if (needsSuntimesPermissions)
-                    showPermissionDeniedMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
-                else showMissingDepsMessage(getActivity(), getActivity().getWindow().getDecorView().findViewById(android.R.id.content));
+                getActivity().getWindow().getDecorView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (needsSuntimesPermissions)
+                            showPermissionDeniedMessage(getActivity(), getView());
+                        else showMissingDepsMessage(getActivity(), getView());
+                    }
+                });
             }
             setIsBusy(isBusy);
         }
+
+        /**
+         * showContextMenu
+         * @param context context
+         * @param calendar calendar
+         */
+        protected boolean showContextMenu(Context context, View v, String calendar)
+        {
+            PopupMenu menu = PopupMenuCompat.createMenu(context, v, R.menu.menu_context, onContextMenuClick(context, calendar));
+            updateContextMenu(context, menu, calendar);
+            menu.show();
+            return true;
+        }
+
+        protected void updateContextMenu(Context context, PopupMenu menu, String calendar)
+        {
+            MenuItem events_item = menu.getMenu().findItem(R.id.action_flags);
+            if (events_item != null) {
+                //SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+                //events_item.setEnabled(!calendarObj.defaultFlags().isEmpty());
+            }
+        }
+
+        protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
+        {
+            return new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item)
+                {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.action_color)
+                    {
+                        showColorPicker(context, calendar);
+                        return true;
+
+                    } else if (itemId == R.id.action_reminders) {
+                        showReminderDialog(context, calendar);
+                        return true;
+
+                    } else if (itemId == R.id.action_template) {
+                        showTemplateDialog(context, calendar);
+                        return true;
+
+                    } else if (itemId == R.id.action_flags) {
+                        showFlagDialog(context, calendar);
+                        return true;
+                    }
+                    return false;
+                }
+            };
+        }
+
+        /**
+         * showFlagDialog
+         */
+
+        private static final String DIALOGTAG_FLAGS = "flags";
+        protected void showFlagDialog(Context context, String calendar)
+        {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+            EventFlagsDialog dialog = new EventFlagsDialog();
+            dialog.setCalendar(calendar);
+            dialog.setData(SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()));
+            dialog.setDialogListener(flagDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_FLAGS + "_" + calendar);
+        }
+
+        private final EventFlagsDialog.DialogListener flagDialog_listener = new EventFlagsDialog.DialogListener()
+        {
+            @Override
+            public void onDialogAccepted(EventFlagsDialog dialog) {
+                if (dialog.isModified()) {
+                    SuntimesCalendarSettings.savePrefCalendarFlags(getActivity(), dialog.getCalendar(), dialog.getResult());
+                }
+            }
+        };
+
+        /**
+         * showTemplateDialog
+         */
+
+        private static final String DIALOGTAG_TEMPLATE = "configtemplate";
+        protected void showTemplateDialog(Context context, String calendar)
+        {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+            TemplateDialog dialog = new TemplateDialog();
+            dialog.setCalendar(calendar);
+            dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar, calendarObj.defaultTemplate()));
+            dialog.setDialogListener(templateDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
+        }
+
+        private final TemplateDialog.DialogListener templateDialog_listener = new TemplateDialog.DialogListener()
+        {
+            @Override
+            public void onDialogAccepted(TemplateDialog dialog)
+            {
+                if (dialog.isModified())
+                {
+                    SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getResult());
+                    Toast.makeText(getActivity(), getString(R.string.template_dialog_saved_toast), Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        /**
+         * showReminderDialog
+         */
+
+        private static final String DIALOGTAG_REMINDER = "configreminders";
+        protected void showReminderDialog(Context context, String calendar)
+        {
+            ReminderDialog dialog = new ReminderDialog();
+            dialog.setCalendar(calendar);
+            dialog.setDialogListener(reminderDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_REMINDER + "_" + calendar);
+        }
+
+        private final ReminderDialog.DialogListener reminderDialog_listener = new ReminderDialog.DialogListener()
+        {
+            @Override
+            public void onAddedReminder(String calendar, int reminderNum, int minutes, int method) {
+                //Toast.makeText(getActivity(), "added " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onModifiedReminder(String calendar, int reminderNum, int minutes, int method) {
+                //Toast.makeText(getActivity(), "saved " + reminderNum + " : " + minutes + " : " + method, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRemovedReminder(String calendar, int reminderNum) {
+                //Toast.makeText(getActivity(), "removed " + reminderNum, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDialogDismissed(String calendar, boolean modified)
+            {
+                if (modified)
+                {
+                    Context context = getActivity();
+                    if (SuntimesCalendarSettings.loadCalendarsEnabledPref(context) &&
+                        SuntimesCalendarSettings.loadPrefCalendarEnabled(context, calendar))  // modify existing calendars
+                    {
+                        runCalendarTask2(getActivity(), calendar);
+                    }
+                }
+            }
+        };
+
+        /**
+         * showColorPicker
+         */
 
         private ColorStateList createColorStateList(int calendarColor)
         {
@@ -1049,7 +1258,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        private Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
+        private final Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -1147,6 +1356,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
         }
 
+        protected boolean runCalendarTask2(Activity activity, String calendar)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_UPDATE_REMINDERS );
+            savePendingItem(activity, taskIntent, calendar, SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
+        }
+
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
         {
             return new Preference.OnPreferenceChangeListener()
@@ -1170,7 +1387,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             if (enabled) {
                                 savePendingItems(activity, activity.getIntent());
                             }
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                             return false;
                         }
 
@@ -1209,7 +1426,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                             } else {
                                 savePendingItem(activity, activity.getIntent(), calendar, enabled);
-                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR }, requestCode);
+                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
                                 return false;
                             }
 
@@ -1240,12 +1457,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             builder.show();
         }
 
-        protected void showConfirmDialog(Context context, final String calendar, boolean add)
+        protected void showConfirmDialog(final Context context, final String calendar, boolean add)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(add ? R.string.confirm_add_message1 : R.string.confirm_clear_message1));
 
-            TextView textView = new TextView(context);
+            final TextView textView = new TextView(context);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView.setText(createConfirmDialogMessage(context, calendar, add));
 
@@ -1253,10 +1470,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             textView.setPadding(padding, padding, padding, padding);
             textView.setGravity(Gravity.CENTER_VERTICAL);
 
-            Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar).mutate();
-            icon.setColorFilter(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
-            textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-            textView.setCompoundDrawablePadding(padding);
+            Drawable icon0 = ContextCompat.getDrawable(context, R.drawable.ic_action_calendar);
+            if (icon0 != null)
+            {
+                Drawable icon = icon0.mutate();
+                icon.setColorFilter(new SuntimesCalendarSettings().loadPrefCalendarColor(context, calendar), PorterDuff.Mode.MULTIPLY);
+                textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+                textView.setCompoundDrawablePadding(padding);
+            }
             
             builder.setView(textView);
 
@@ -1271,8 +1492,27 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     runCalendarTask1(getActivity(), calendar, false);
                 }
             });
+
+            DialogInterface.OnClickListener onOptionsClick = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    View v = getView();
+                    if (v != null) {
+                        v.postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run() {
+                                getCalendarPref(calendar).performClickIcon();
+                            }
+                        }, 250);
+                    }
+                }
+            };
+
             builder.setPositiveButton(android.R.string.yes, onOkClick);
             builder.setNegativeButton(android.R.string.cancel, null);
+            builder.setNeutralButton(R.string.configLabel_options, onOptionsClick);
             builder.show();
         }
 
@@ -1306,6 +1546,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return (locationDisplay != null) ? context.getString(R.string.confirm_display_format, calendarDisplay, locationDisplay) : calendarDisplay;
         }
 
+        @Nullable
         private String getLocationString(Context context)
         {
             String location = null;
@@ -1326,10 +1567,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     Log.e(TAG, "getLocationString: Unable to access SuntimesCalculatorProvider! " + e);
                 }
             }
-
-            if (location != null) {
-                return location;
-            } else return null;
+            return location;
         }
 
         private Snackbar snackbar;
@@ -1339,7 +1577,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             View v = getView();
             if (v != null)
             {
-                snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);          // TODO: swipeable (needs a coordinatorLayout)
+                snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);
                 snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
                 {
                     @Override
@@ -1401,6 +1639,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         };
     }*/
 
+    protected static void showMissingDepsWebsite(Context context)
+    {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AboutDialog.WEBSITE_URL));
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(intent);
+        }
+    }
+
     protected static void showMissingDepsMessage(final Activity context, View view)
     {
         if (view != null)
@@ -1412,13 +1658,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             snackbarView.setOnClickListener(new View.OnClickListener()
             {
                 @Override
-                public void onClick(View v)
-                {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AboutDialog.WEBSITE_URL));
-                    if (intent.resolveActivity(context.getPackageManager()) != null)
-                    {
-                        context.startActivity(intent);
-                    }
+                public void onClick(View v) {
+                    showMissingDepsWebsite(context);
                 }
             });
 
@@ -1501,8 +1742,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
     public static void savePendingItem(Activity activity, Intent intent, String calendar, boolean enabled)
     {
-        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         int action = (enabled ? SuntimesCalendarTaskItem.ACTION_UPDATE : SuntimesCalendarTaskItem.ACTION_DELETE);
+        savePendingItem(activity, intent, calendar, action);
+    }
+    public static void savePendingItem(Activity activity, Intent intent, String calendar, int action)
+    {
+        ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         items.add(new SuntimesCalendarTaskItem(calendar, action));
         savePendingItems(activity, intent, items);
     }
@@ -1517,7 +1762,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         aboutDialog.setPermissionStatus(needsSuntimesPermissions);
         aboutDialog.show(getSupportFragmentManager(), DIALOGTAG_ABOUT);
     }
-    private Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
+    private final Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
     {
         @Override
         public boolean onPreferenceClick(Preference preference)
@@ -1527,24 +1772,5 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         }
     };
 
-    /**
-     * from http://stackoverflow.com/questions/18374183/how-to-show-icons-in-overflow-menu-in-actionbar
-     */
-    public static void forceActionBarIcons(Menu menu)
-    {
-        if (menu != null)
-        {
-            if (menu.getClass().getSimpleName().equals("MenuBuilder"))
-            {
-                try {
-                    Method m = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
-                    m.setAccessible(true);
-                    m.invoke(menu, true);
 
-                } catch (Exception e) {
-                    Log.e("forceActionBarIcons", "failed to set show overflow icons", e);
-                }
-            }
-        }
-    }
 }

@@ -68,13 +68,20 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     {
         notificationMsgAdding = context.getString(R.string.calendars_notification_adding);
         notificationMsgAdded = context.getString(R.string.calendars_notification_added);
+        notificationMsgUpdating = context.getString(R.string.calendars_notification_updating);
+        notificationMsgUpdated = context.getString(R.string.calendars_notification_updated);
         notificationMsgClearing = context.getString(R.string.calendars_notification_clearing);
         notificationMsgCleared = context.getString(R.string.calendars_notification_cleared);
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
+        notificationMsgReminderUpdating = context.getString(R.string.calendars_notification_reminders_updating);
+        notificationMsgReminderUpdated = context.getString(R.string.calendars_notification_reminders_updated);
+        notificationMsgReminders = context.getString(R.string.reminder_dialog_msg);
     }
     protected String notificationMsgAdding, notificationMsgAdded;
+    protected String notificationMsgUpdating, notificationMsgUpdated;
     protected String notificationMsgClearing, notificationMsgCleared;
     protected String notificationMsgAddFailed;
+    protected String notificationMsgReminderUpdating, notificationMsgReminderUpdated, notificationMsgReminders;
 
     public long lastSync() {
         return lastSync;
@@ -175,11 +182,11 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
             SuntimesCalendarTaskItem[] items = taskItems.values().toArray(new SuntimesCalendarTaskItem[0]);
             if (items.length > 0) {
                 int action = items[0].getAction();
-                message = (action == SuntimesCalendarTaskItem.ACTION_DELETE) ? notificationMsgClearing : notificationMsgAdding;
+                message = (action == SuntimesCalendarTaskItem.ACTION_DELETE) ? notificationMsgClearing
+                        : (action == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) ? notificationMsgReminderUpdating
+                        : notificationMsgAdding;
 
-                if (action != SuntimesCalendarTaskItem.ACTION_DELETE) {
-                    triggerOnStarted(message);
-                } else triggerOnStarted("");
+                triggerOnStarted(message);
             } else triggerOnStarted("");
         }
     }
@@ -199,6 +206,9 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
             if (items.length > 0) {
                 if (items[0].getAction() == SuntimesCalendarTaskItem.ACTION_DELETE) {
                     message = notificationMsgCleared;
+
+                } else if (items[0].getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) {
+                    message = notificationMsgReminderUpdated;
                 }
             }
 

@@ -5,8 +5,17 @@
     <attr name="text_disabledColor" format="reference" />
     <attr name="toolbarTheme" format="reference" />
 
+    <attr name="dialogFrame" format="reference" />
+    <attr name="dialogBackground" format="reference" />
+    <attr name="dialogBackgroundAlt" format="reference" />
+
+    <attr name="icActionDelete" format="reference" />
+    <attr name="icActionAppearance" format="reference" />
+    <attr name="icActionReminder" format="reference" />
     <attr name="icActionCalendar" format="reference" />
     <attr name="icActionUpdate" format="reference" />
+    <attr name="icActionAccept" format="reference" />
+    <attr name="icActionBack" format="reference" />
     <attr name="icActionAbout" format="reference" />
     <attr name="icActionSettings" format="reference" />
     <attr name="icActionHelp" format="reference" />

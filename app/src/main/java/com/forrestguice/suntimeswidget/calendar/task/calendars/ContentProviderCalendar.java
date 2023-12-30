@@ -25,16 +25,19 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -43,7 +46,7 @@ import java.util.Calendar;
  * a ContentProvider supporting creation of calendar entries.
  *
  * The referenced ContentProvider needs to support:
- * * SuntimeCalendar.QUERY_CALENDAR_INFO to retrieve calendar meta-data; row of [calendar_name(string), calendar_title(string), calendar_summary(string), calendar_color(int)]
+ * * SuntimesCalendar.QUERY_CALENDAR_INFO to retrieve calendar meta-data; row of [calendar_name(string), calendar_title(string), calendar_summary(string), calendar_color(int)]
  * * SuntimesCalendar.QUERY_CALENDAR_CONTENT to retrieve calendar entries; rows of [title(string), description(string), eventTimezone(string), dtstart(long), dtend(long), eventLocation(string), ...]
  *   ready to be passed to the SuntimesCalendarAdapter.createCalendarEntries method.
  */
@@ -54,10 +57,10 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     public static final int CHUNK_DAYS = 7;
     public static final long CHUNK_MILLIS = CHUNK_DAYS * DAY_MILLIS;
 
-    private String contentUri = null;
-    public String getContentUriString() {
-        return contentUri;
-    }
+    protected String calenderName = null;
+    protected String contentUri = null;
+    protected CalendarEventTemplate defaultTemplate = new CalendarEventTemplate(null, null, null);
+    protected CalendarEventStrings defaultStrings = new CalendarEventStrings();
 
     public ContentProviderCalendar(String uriString)
     {
@@ -67,17 +70,36 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         }
     }
 
+    public String getContentUriString() {
+        return contentUri;
+    }
+
     @Override
     public String calendarName() {
         return calenderName;
     }
-    private String calenderName = null;
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return defaultTemplate;
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return defaultStrings;
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags() {
+        return new CalendarEventFlags();
+    }
 
     @Override
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings) throws SecurityException
     {
         super.init(context, settings);
         queryCalendarInfo();
+        queryCalendarTemplateStrings();
         calendarDesc = null;
         calendarColor = (calenderName != null ? settings.loadPrefCalendarColor(context, calendarName()) : calendarColor);
     }
@@ -97,7 +119,38 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 calendarTitle = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_TITLE));
                 calendarSummary = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_SUMMARY));
                 calendarColor = cursor.getInt(cursor.getColumnIndex(COLUMN_CALENDAR_COLOR));
+
+                int i_templateTitle = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_TITLE);
+                int i_templateDesc = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_DESCRIPTION);
+                int i_templateLocation = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_LOCATION);
+                if (i_templateTitle >= 0 && i_templateDesc >= 0 && i_templateLocation >= 0) {
+                    defaultTemplate = new CalendarEventTemplate(cursor.getString(i_templateTitle), cursor.getString(i_templateDesc), cursor.getString(i_templateLocation));
+                }
                 cursor.close();
+            }
+        }
+    }
+
+    protected void queryCalendarTemplateStrings() throws SecurityException
+    {
+        Context context = contextRef.get();
+        ContentResolver resolver = (context == null ? null : context.getContentResolver());
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse(contentUri + SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_STRINGS);
+            Cursor cursor = resolver.query(uri, SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION, null, null, null);
+            if (cursor != null)
+            {
+                ArrayList<String> values = new ArrayList<>();
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast())
+                {
+                    int i_value = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_STRINGS);
+                    values.add(((i_value >= 0) ? cursor.getString(i_value) : null));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                defaultStrings = new CalendarEventStrings(values.toArray(new String[0]));
             }
         }
     }
@@ -138,7 +191,12 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 {
                     if ((i - start) > CHUNK_MILLIS)
                     {
-                        ArrayList<ContentValues> values = readCursor(calendarID, queryCursor(resolver, new long[] {start, i}), task);
+                        Cursor cursor = queryCursor(resolver, new long[] {start, i});
+                        if (cursor == null) {
+                            return false;
+                        }
+
+                        ArrayList<ContentValues> values = readCursor(calendarID, cursor, task);
                         adapter.createCalendarEvents(values.toArray(new ContentValues[0]));
                         c++;
                         start = i;
@@ -158,18 +216,28 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         } else return false;
     }
 
+    @Nullable
     private Cursor queryCursor(ContentResolver resolver, long[] window)
     {
         Uri uri = Uri.parse(contentUri + SuntimesCalendar.QUERY_CALENDAR_CONTENT + "/" + window[0] + "-" + window[1]);
-        Cursor cursor = resolver.query(uri, null, null, null, null);
-        if (cursor == null) {
-            lastError = "Failed to resolve URI! " + uri;
+        Cursor cursor;
+        try {
+            cursor = resolver.query(uri, null, null, null, null);
+            if (cursor == null) {
+                lastError = "Failed to resolve URI! " + uri;
+                Log.e(getClass().getSimpleName(), lastError);
+            }
+
+        } catch (Exception e) {
+            cursor = null;
+            lastError = "Failed to query URI! " + uri + ": " + e;
             Log.e(getClass().getSimpleName(), lastError);
         }
         return cursor;
     }
 
-    private ArrayList<ContentValues> readCursor(long calendarID, Cursor cursor, @NonNull SuntimesCalendarTask task)
+    @NonNull
+    private ArrayList<ContentValues> readCursor(long calendarID, @NonNull Cursor cursor, @NonNull SuntimesCalendarTask task)
     {
         cursor.moveToFirst();
 

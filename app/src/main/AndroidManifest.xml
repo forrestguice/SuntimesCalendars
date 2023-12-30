@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />      <!-- needed to add new Calendars (via SyncAdapter) -->
 
-    <uses-sdk tools:overrideLibrary="com.flask.colorpicker" />  <!-- requires api 14+ -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />       <!-- calendar updates use a foreground service -->
 
     <application
         android:allowBackup="true"
@@ -38,6 +38,9 @@
                 android:value="com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarAstro |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarNautical |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarCivil |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.DaylightCalendar |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarGold |
+                               com.forrestguice.suntimeswidget.calendar.task.calendars.TwilightCalendarBlue |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonriseCalendar |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonphaseCalendar |
                                com.forrestguice.suntimeswidget.calendar.task.calendars.MoonapsisCalendar |
@@ -66,6 +69,14 @@
             </intent-filter>
             <meta-data android:name="android.content.SyncAdapter" android:resource="@xml/syncadapter" />
         </service>
+
+        <!-- Template/Strings Provider -->
+        <provider
+            android:name="com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateProvider"
+            android:authorities="com.forrestguice.suntimescalendars.template.provider"
+            android:permission="suntimes.permission.READ_CALCULATOR"
+            android:exported="true" tools:ignore="ExportedContentProvider"
+            android:syncable="false" />
 
     </application>
 

@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -18,6 +18,9 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
@@ -30,9 +33,11 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.CalendarContract;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -47,6 +52,8 @@ public class SuntimesCalendarTaskService extends Service
     public static final String TAG = "SuntimesCalendarsTask";
     public static final String ACTION_UPDATE_CALENDARS = "update_calendars";
     public static final String ACTION_CLEAR_CALENDARS = "clear_calendars";
+
+    public static final String ACTION_UPDATE_REMINDERS = "update_reminders";
 
     public static final String EXTRA_CALENDAR_ITEMS = "calendar_items";
     public static final String EXTRA_CALENDAR_LISTENER = "calendar_listener";
@@ -75,9 +82,9 @@ public class SuntimesCalendarTaskService extends Service
         {
             SuntimesCalendarServiceListener serviceListener = intent.getParcelableExtra(EXTRA_SERVICE_LISTENER);
             SuntimesCalendarTaskListener listener = intent.getParcelableExtra(EXTRA_CALENDAR_LISTENER);
-            if (action.equals(ACTION_UPDATE_CALENDARS))
+            if (action.equals(ACTION_UPDATE_CALENDARS) || action.equals(ACTION_UPDATE_REMINDERS))
             {
-                Log.d(TAG, "onStartCommand: " + action);
+                //Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, false, false, listener);
                 signalOnStartCommand(started);
                 if (serviceListener != null) {
@@ -85,15 +92,15 @@ public class SuntimesCalendarTaskService extends Service
                 }
 
             } else if (action.equals(ACTION_CLEAR_CALENDARS)) {
-                Log.d(TAG, "onStartCommand: " + action);
+                //Log.d(TAG, "onStartCommand: " + action);
                 boolean started = runCalendarTask(this, intent, true, false, listener);
                 signalOnStartCommand(started);
                 if (serviceListener != null) {
                     serviceListener.onStartCommand(started);
                 }
 
-            } else Log.d(TAG, "onStartCommand: unrecognized action: " + action);
-        } else Log.d(TAG, "onStartCommand: null action");
+            } else Log.w(TAG, "onStartCommand: unrecognized action: " + action);
+        } else Log.w(TAG, "onStartCommand: null action");
         return START_NOT_STICKY;
     }
 
@@ -106,7 +113,7 @@ public class SuntimesCalendarTaskService extends Service
     private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTaskListener calendarTaskListener;
     private static NotificationCompat.Builder progressNotification;
-    public boolean runCalendarTask(final Context context, Intent intent, boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
+    public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (!clearCalendars) {
@@ -128,10 +135,13 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onStarted(context, task, message);
                 }
 
-                if (!task.getFlagClearCalendars() && hasUpdateAction(task.getItems()))
+                if (hasLongRunningAction(task.getItems()) || clearCalendars)
                 {
                     signalOnBusyStatusChanged(true);
-                    signalOnProgressMessage(0, 1, getString(R.string.calendars_notification_adding));
+                    signalOnProgressMessage(0, 1, getString(
+                            task.getFlagClearCalendars() ? R.string.calendars_notification_clearing
+                                                         : R.string.calendars_notification_updating)
+                    );
 
                     progressNotification = createProgressNotification(context, message);
                     startService(new Intent( context, SuntimesCalendarTaskService.class ));  // bind the service to itself (to keep things running if the activity unbinds)
@@ -142,10 +152,13 @@ public class SuntimesCalendarTaskService extends Service
                 }
             }
 
-            private boolean hasUpdateAction(SuntimesCalendarTaskItem[] items)
+            private boolean hasLongRunningAction(SuntimesCalendarTaskItem[] items)
             {
                 for (SuntimesCalendarTaskItem item : items) {
-                    if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE) {
+                    if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE ||
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_DELETE ||
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE ||
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) {
                         return true;
                     }
                 }
@@ -239,7 +252,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static NotificationCompat.Builder createProgressNotification(Context context, String message)
     {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder notification = createNotificationBuilder(context);
         notification.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_update)
@@ -251,7 +264,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static NotificationCompat.Builder createSuccessNotification(Context context, String message)
     {
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder notification = createNotificationBuilder(context);
         notification.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_calendar)
@@ -398,6 +411,51 @@ public class SuntimesCalendarTaskService extends Service
                 listener.onProgressMessage(i, n, j, m, message);
             }
         }
+    }
+
+    /**
+     * Notification Channels
+     */
+    public static final String CHANNEL_ID_MAIN = "suntimes.calendars.channel";
+
+    @TargetApi(26)
+    protected static String createNotificationChannel(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+        {
+            String channelID = CHANNEL_ID_MAIN;
+            String title = context.getString(R.string.notificationChannel_main_title);
+            String desc = context.getString(R.string.notificationChannel_main_desc);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel(channelID, title, importance);
+            channel.setDescription(desc);
+            channel.enableLights(true);
+            notificationManager.createNotificationChannel(channel);
+            return channelID;
+        }
+        return "";
+    }
+
+    public static NotificationCompat.Builder createNotificationBuilder(Context context)
+    {
+        NotificationCompat.Builder builder;
+        if (Build.VERSION.SDK_INT >= 26) {
+            builder = new NotificationCompat.Builder(context, createNotificationChannel(context));
+        } else {
+            builder = new NotificationCompat.Builder(context);
+        }
+        return builder;
+    }
+
+    @TargetApi(26)
+    public static void openChannelSettings(@NonNull Context context)
+    {
+        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, createNotificationChannel(context));
+        context.startActivity(intent);
     }
 
 }

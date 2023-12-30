@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -21,8 +21,14 @@ package com.forrestguice.suntimeswidget.calendar.task.calendars;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 
 import java.lang.ref.WeakReference;
 
@@ -48,6 +54,20 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     public abstract String calendarName();
 
     @Override
+    public abstract CalendarEventTemplate defaultTemplate();
+
+    @Override
+    public abstract CalendarEventStrings defaultStrings();
+
+    @Override
+    public abstract CalendarEventFlags defaultFlags();
+
+    @Override
+    public String flagLabel(int i) {
+        return "";
+    }
+
+    @Override
     public String calendarTitle() {
         return calendarTitle;
     }
@@ -60,6 +80,11 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     @Override
     public int calendarColor() {
         return calendarColor;
+    }
+
+    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0) {
+        progress0.setProgress(progress0.itemNum(), progress0.getCount(), progress0.getMessage() + "\n" + context.getString(R.string.reminder_dialog_msg));
+        task.createCalendarReminders(context, calendarName(), progress0);
     }
 
 }

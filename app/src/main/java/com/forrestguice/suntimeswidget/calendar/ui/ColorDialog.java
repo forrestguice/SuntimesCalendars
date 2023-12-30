@@ -116,7 +116,7 @@ public class ColorDialog extends DialogFragment
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
     {
         super.onSaveInstanceState(outState);
         outState.putInt("color", getColor());

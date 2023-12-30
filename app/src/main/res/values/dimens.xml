@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="about_peekheight">140dp</dimen>
+    <dimen name="calendarpref_icon_padding">8dp</dimen>
 
     <dimen name="xlargetext_size_tiny">14sp</dimen>    <!-- "xlarge" sizes -->
     <dimen name="xlargetext_size_xsmall">16sp</dimen>
@@ -38,5 +39,6 @@
     <dimen name="largetext_size_xlarge">24sp</dimen>
     <dimen name="largetext_size_huge">38sp</dimen>
     <dimen name="largetext_size_enormous">58sp</dimen>
+
 
 </resources>

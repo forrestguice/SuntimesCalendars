@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2019 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -21,10 +21,13 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.calendar.ui.reminders.Reminder;
 
 public class SuntimesCalendarSettings
 {
@@ -40,6 +43,18 @@ public class SuntimesCalendarSettings
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
 
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_TITLE = "app_calendars_template_title_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_DESC = "app_calendars_template_desc_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_LOCATION = "app_calendars_template_location_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_STRINGS = "app_calendars_template_strings_";
+    public static final String PREF_KEY_CALENDARS_TEMPLATE_FLAGS = "app_calendars_template_flags_";
+    public static final String STRINGS_DELIMITER = "|";
+
+    public static final String PREF_KEY_CALENDARS_REMINDER_METHOD = "app_calendars_reminder_method_";
+    public static final String PREF_KEY_CALENDARS_REMINDER_MINUTES = "app_calendars_reminder_minutes_";
+    public static final String PREF_KEY_CALENDARS_REMINDER_COUNT = "app_calendars_reminder_count_";
+    public static final int MAX_REMINDERS = 10;
+
     public static final String PREF_KEY_CALENDARS_NOTES = "app_calendars_notes_";
     public static final String NOTE_LOCATION_NAME = "location_name";
     public static final String[] ALL_NOTES = new String[] { NOTE_LOCATION_NAME };
@@ -48,6 +63,8 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_FIRSTLAUNCH = "app_calendars_firstlaunch";
     public static final String PREF_KEY_CALENDARS_PERMISSIONS = "app_calendars_permissions";
+    public static final String PREF_KEY_CALENDARS_PERMISSIONS_ABOUT = "app_calendars_permissions_about";
+    public static final String PREF_KEY_CALENDARS_DEPS = "app_calendars_deps";
 
     /**
      * @param context
@@ -140,6 +157,259 @@ public class SuntimesCalendarSettings
         return prefs.getBoolean(PREF_KEY_CALENDARS_CALENDAR + calendar, false);
     }
 
+    /**
+     * loadPrefCalendarTemplate
+     */
+    @NonNull
+    public static CalendarEventTemplate loadPrefCalendarTemplate(Context context, String calendar, @NonNull CalendarEventTemplate defaultTemplate)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, defaultTemplate.getTitle());
+        String desc = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, defaultTemplate.getDesc());
+        String location = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar, defaultTemplate.getLocation());
+        return new CalendarEventTemplate(title, desc, location);
+    }
+    @Nullable
+    public static String loadPrefCalendarTemplateTitle(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, null);
+    }
+    @Nullable
+    public static String loadPrefCalendarTemplateDesc(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, null);
+    }
+    @Nullable
+    public static String loadPrefCalendarTemplateLocation(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar, null);
+    }
+
+    /**
+     * savePrefCalendarTemplate
+     */
+    public static void savePrefCalendarTemplate(Context context, String calendar, CalendarEventTemplate template)
+    {
+        savePrefCalendarTemplateTitle(context, calendar, template.getTitle());
+        savePrefCalendarTemplateDesc(context, calendar, template.getDesc());
+        savePrefCalendarTemplateLocation(context, calendar, template.getLocation());
+    }
+    public static void savePrefCalendarTemplateTitle(Context context, String calendar, @Nullable String title)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, title);
+        prefs.apply();
+    }
+    public static void savePrefCalendarTemplateDesc(Context context, String calendar, @Nullable String desc) {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar, desc);
+        prefs.apply();
+    }
+    public static void savePrefCalendarTemplateLocation(Context context, String calendar, @Nullable String location) {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar, location);
+        prefs.apply();
+    }
+    public static void clearPrefCalendarTemplate(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_DESC + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_LOCATION + calendar);
+        prefs.apply();
+    }
+
+    /**
+     * savePrefCalendarFlags
+     */
+    public static void savePrefCalendarFlags(Context context, String calendar, CalendarEventFlags flags)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        StringBuilder s = new StringBuilder();
+        boolean[] values = flags.getValues();
+        for (int i=0; i<values.length-1; i++) {
+            s.append(values[i]).append(STRINGS_DELIMITER);
+        }
+        s.append(values[values.length-1]);
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar, s.toString());
+        prefs.apply();
+    }
+    public static CalendarEventFlags loadPrefCalendarFlags(Context context, String calendar, CalendarEventFlags defaultFlags)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String s = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar, null);
+        if (s != null)
+        {
+            String[] v = s.split("\\" + STRINGS_DELIMITER);
+            if (v.length == defaultFlags.getValues().length) {
+                return new CalendarEventFlags(v);
+            } else return defaultFlags;
+        } else return defaultFlags;
+    }
+    public static void clearPrefCalendarFlags(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_FLAGS + calendar);
+        prefs.apply();
+    }
+
+    /**
+     * savePrefCalendarStrings
+     */
+    public static void savePrefCalendarStrings(Context context, String calendar, CalendarEventStrings strings)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar, TextUtils.join(STRINGS_DELIMITER, strings.getValues()));
+        prefs.apply();
+    }
+    public static CalendarEventStrings loadPrefCalendarStrings(Context context, String calendar, CalendarEventStrings defaultStrings)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String s = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar, null);
+        if (s != null)
+        {
+            String[] v = s.split("\\" + STRINGS_DELIMITER);
+            if (v.length == defaultStrings.getValues().length) {
+                return new CalendarEventStrings(v);
+            } else return defaultStrings;
+        } else return defaultStrings;
+    }
+    public static void clearPrefCalendarStrings(Context context, String calendar)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_TEMPLATE_STRINGS + calendar);
+        prefs.apply();
+    }
+
+    /**
+     * loadPrefCalendarReminder
+     */
+    public static int loadPrefCalendarReminderCount(Context context, String calendar)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, defaultCalendarReminderCount(context, calendar));
+    }
+    public static int loadPrefCalendarReminderMethod(Context context, String calendar, int reminderNum)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar, defaultCalendarReminderMethod(context, calendar, reminderNum));
+    }
+    public static int loadPrefCalendarReminderMinutes(Context context, String calendar, int reminderNum)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, defaultCalendarReminderMinutes(context, calendar, reminderNum));
+    }
+    public static Reminder loadPrefCalendarReminder(Context context, String calendar, int reminderNum) {
+        return new Reminder(loadPrefCalendarReminderMinutes(context, calendar, reminderNum), loadPrefCalendarReminderMethod(context, calendar, reminderNum));
+    }
+
+    /**
+     * savePrefCalendarReminder
+     */
+    public static void savePrefCalendarReminderCount(Context context, String calendar, int count)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, count);
+        prefs.apply();
+    }
+    public static void savePrefCalendarReminder(Context context, String calendar, int reminderNum, int minutes, int method)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar, minutes);
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar, method);
+        prefs.apply();
+    }
+
+    public static boolean addCalendarReminder(Context context, String calendar, int minute, int method)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        if (n < MAX_REMINDERS)
+        {
+            savePrefCalendarReminder(context, calendar, n, minute, method);
+            savePrefCalendarReminderCount(context, calendar, n+1);
+            return true;
+        } else return false;
+    }
+
+    /**
+     * removeCalendarReminders
+     */
+    public static void removeCalendarReminders(Context context, String calendar)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        while (n > 0)
+        {
+            removeLastCalendarReminder(context, calendar);
+            n = loadPrefCalendarReminderCount(context, calendar);
+        }
+    }
+
+    public static boolean removeLastCalendarReminder(Context context, String calendar)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        int reminderNum = n - 1;
+
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.remove(PREF_KEY_CALENDARS_REMINDER_MINUTES + reminderNum + "_" + calendar);
+        prefs.remove(PREF_KEY_CALENDARS_REMINDER_METHOD + reminderNum + "_" + calendar);
+        prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, (Math.max(reminderNum, 0)));
+        prefs.apply();
+        return true;
+    }
+
+    public static boolean removeCalendarReminder(Context context, String calendar, int reminderNum)
+    {
+        int n = loadPrefCalendarReminderCount(context, calendar);
+        if (reminderNum >= 0 && reminderNum < n)
+        {
+            for (int i=reminderNum; i<n-1; i++)    // shift entries left (overwrite reminderNum)
+            {
+                int minutes = loadPrefCalendarReminderMinutes(context, calendar, i+1);
+                int method = loadPrefCalendarReminderMethod(context, calendar, i+1);
+                savePrefCalendarReminder(context, calendar, i, minutes, method);
+            }
+
+            SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            prefs.remove(PREF_KEY_CALENDARS_REMINDER_MINUTES + (n-1) + "_" + calendar);    // remove final entry (now a duplicate)
+            prefs.remove(PREF_KEY_CALENDARS_REMINDER_METHOD + (n-1) + "_" + calendar);
+            prefs.putInt(PREF_KEY_CALENDARS_REMINDER_COUNT + calendar, (Math.max(n-1, 0)));
+            prefs.apply();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * defaultCalendarReminder
+     */
+    public static int defaultCalendarReminderCount(Context context, String calendar)
+    {
+        return 0;
+    }
+    public static int defaultCalendarReminderMethod(Context context, String calendar, int reminderNum)
+    {
+        switch (reminderNum)
+        {
+            case 1: case 0: return 0;    // 0; CalendarContract.Reminders.METHOD_DEFAULT
+            default: return -1;  // -1; disabled
+        }
+    }
+    public static int defaultCalendarReminderMinutes(Context context, String calendar, int reminderNum)
+    {
+        switch (reminderNum)
+        {
+            case 2: return -5;     // 5m after
+            case 1: return 5;      // 5m before
+            case 0: default: return 0;
+        }
+    }
+
+    /**
+     * loadPrefCalendarColor
+     */
     public int loadPrefCalendarColor(Context context, String calendar)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -168,11 +438,20 @@ public class SuntimesCalendarSettings
             case SuntimesCalendarAdapter.CALENDAR_MOONRISE:
                 return ContextCompat.getColor(context, R.color.colorMoonriseCalendar);
 
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_GOLD:
+                return ContextCompat.getColor(context, R.color.colorGoldTwilightCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_BLUE:
+                return ContextCompat.getColor(context, R.color.colorBlueTwilightCalendar);
+
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_ASTRO:
                 return ContextCompat.getColor(context, R.color.colorAstroTwilightCalendar);
 
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_NAUTICAL:
                 return ContextCompat.getColor(context, R.color.colorNauticalTwilightCalendar);
+
+            case SuntimesCalendarAdapter.CALENDAR_DAYLIGHT:
+                return ContextCompat.getColor(context, R.color.colorDaylightCalendar);
 
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
             default:

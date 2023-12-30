@@ -28,6 +28,8 @@ public class SuntimesCalendarTaskItem implements Parcelable
 {
     public static final int ACTION_UPDATE = 0;
     public static final int ACTION_DELETE = 2;
+    public static final int ACTION_REMINDERS_UPDATE = 10;
+    public static final int ACTION_REMINDERS_DELETE = 12;
 
     private String calendar;
     private int action;

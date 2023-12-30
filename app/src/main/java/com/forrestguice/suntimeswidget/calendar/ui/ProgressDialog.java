@@ -60,10 +60,12 @@ public class ProgressDialog extends DialogFragment
         LayoutInflater inflater = myParent.getLayoutInflater();
 
         final ViewGroup viewGroup = null;
+        View dialogTitle = inflater.inflate(R.layout.layout_dialog_progress_title, viewGroup);
         View dialogContent = inflater.inflate(R.layout.layout_dialog_progress, viewGroup);
-        initViews(dialogContent);
+        initViews(dialogTitle, dialogContent);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(myParent);
+        builder.setCustomTitle(dialogTitle);
         builder.setView(dialogContent);
 
         if (title != null) {
@@ -75,9 +77,10 @@ public class ProgressDialog extends DialogFragment
         return dialog;
     }
 
-    private DialogInterface.OnShowListener onShowListener = new DialogInterface.OnShowListener() {
+    private final DialogInterface.OnShowListener onShowListener = new DialogInterface.OnShowListener() {
         @Override
-        public void onShow(DialogInterface dialogInterface) {
+        public void onShow(DialogInterface dialogInterface)
+        {
             Context context = getContext();
             if (context != null) {
                 updateViews();
@@ -85,7 +88,7 @@ public class ProgressDialog extends DialogFragment
         }
     };
 
-    private void initViews(View dialogContent)
+    private void initViews(View dialogTitle, View dialogContent)
     {
         txtMessage = (TextView)dialogContent.findViewById(R.id.txt_message0);
         txtMessageSecondary = (TextView)dialogContent.findViewById(R.id.txt_message1);
@@ -94,6 +97,11 @@ public class ProgressDialog extends DialogFragment
         progressSecondary.setInterpolator(new LinearOutSlowInInterpolator());
         cancelButton = (Button)dialogContent.findViewById(R.id.btn_cancel);
         cancelButton.setOnClickListener(onCancelClickListener);
+
+        TextView txtTitle = (TextView)dialogTitle.findViewById(R.id.text_title);
+        if (txtTitle != null) {
+            txtTitle.setText(title);
+        }
     }
 
     private void updateViews()
@@ -170,7 +178,7 @@ public class ProgressDialog extends DialogFragment
     }
 
     @Override
-    public void onSaveInstanceState( Bundle outState )
+    public void onSaveInstanceState( @NonNull Bundle outState )
         {
         super.onSaveInstanceState(outState);
         outState.putString("title", title);

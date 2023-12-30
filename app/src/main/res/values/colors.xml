@@ -5,9 +5,12 @@
     <color name="colorMoonCalendar">#ff9e9e9e</color>
     <color name="colorMoonriseCalendar">#ff9e9eff</color>
     <color name="colorMoonApsisCalendar">#ff9eeeff</color>
+    <color name="colorDaylightCalendar">#ffffff00</color>
     <color name="colorCivilTwilightCalendar">#ffff9900</color>
     <color name="colorNauticalTwilightCalendar">#ff7ba3ff</color>
     <color name="colorAstroTwilightCalendar">#000066</color>
+    <color name="colorGoldTwilightCalendar">#ffe217</color>
+    <color name="colorBlueTwilightCalendar">#9eeeff</color>
 
     <color name="snackbarError_text">#ffffff</color>
     <color name="snackbarError_background">@color/orange_900</color>
@@ -34,12 +37,36 @@
     <color name="window_bg_contrast_light">@color/grey_50</color>
     <color name="window_bg_contrast_dark">@color/grey_999</color>
 
+    <color name="dialog_frame_dark">@color/grey_850</color>
+    <color name="dialog_bg_dark">@color/grey_850</color>
+    <color name="dialog_bg_alt_dark">@color/grey_900</color>
+
+    <color name="dialog_frame_contrast_dark">@color/grey_999</color>
+    <color name="dialog_bg_contrast_dark">@color/grey_999</color>
+    <color name="dialog_bg_alt_contrast_dark">@color/grey_900</color>
+
+    <color name="dialog_frame_light">@color/grey_50</color>
+    <color name="dialog_bg_light">@color/grey_50</color>
+    <color name="dialog_bg_alt_light">@color/grey_300</color>
+
+    <color name="dialog_frame_contrast_light">@color/grey_50</color>
+    <color name="dialog_bg_contrast_light">@color/grey_50</color>
+    <color name="dialog_bg_alt_contrast_light">@color/grey_300</color>
+
     <!--- Night overridable -->
     <color name="primaryColor_contrast">@color/primaryColor_contrast_light</color>
     <color name="window_bg_contrast">@color/window_bg_contrast_light</color>
     <color name="hr">@color/hr_light</color>
     <color name="text_accent">@color/text_accent_light</color>
     <color name="text_disabled">@color/text_disabled_light</color>
+
+    <color name="dialog_frame">@color/dialog_frame_light</color>
+    <color name="dialog_bg">@color/dialog_bg_light</color>
+    <color name="dialog_bg_alt">@color/dialog_bg_light</color>
+
+    <color name="dialog_frame_contrast">@color/dialog_frame_contrast_light</color>
+    <color name="dialog_bg_contrast">@color/dialog_bg_contrast_light</color>
+    <color name="dialog_bg_alt_contrast">@color/dialog_bg_alt_contrast_light</color>
 
     <!-- greys -->
     <color name="grey_50">#fffafafa</color>

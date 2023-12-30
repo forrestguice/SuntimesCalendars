@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -28,13 +28,18 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @SuppressWarnings("Convert2Diamond")
 public class TwilightCalendarCivil extends TwilightCalendarBase implements SuntimesCalendar
@@ -46,6 +51,34 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
     @Override
     public String calendarName() {
         return CALENDAR_NAME;
+    }
+
+    @Override
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%cal", "%M @ %loc", "%loc");
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(s_CIVIL_TWILIGHT, s_CIVIL_TWILIGHT_MORNING, s_CIVIL_TWILIGHT_EVENING, s_SUNRISE, s_SUNSET, s_POLAR_TWILIGHT, s_WHITE_NIGHT);
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags()
+    {
+        boolean[] values = new boolean[2];
+        Arrays.fill(values, true);
+        return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i)
+    {
+        switch (i) {
+            case 0: return s_CIVIL_TWILIGHT_MORNING;
+            case 1: return s_CIVIL_TWILIGHT_EVENING;
+            default: return "";
+        }
     }
 
     @Override
@@ -92,13 +125,24 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                    // 0:s_CIVIL_TWILIGHT, 1:s_CIVIL_TWILIGHT_MORNING, 2:s_CIVIL_TWILIGHT_EVENING, 3:s_SUNRISE, 4:s_SUNSET, 5:s_POLAR_TWILIGHT, 6:s_WHITE_NIGHT
+
+                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
-                    String title = calendarTitle;
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, title, s_SUNRISE, s_POLAR_TWILIGHT, s_CIVIL_TWILIGHT);
-                        createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, title, s_SUNSET, s_WHITE_NIGHT, s_CIVIL_TWILIGHT);
+                        if (flags[0]) {
+                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[1], strings[5], strings[0]);    // civil twilight (morning), polar twilight, civil twilight
+                        }
+                        if (flags[1]) {
+                            createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[2], strings[6], strings[0]);   // civil twilight (evening), white night, civil twilight
+                        }
                         cursor.moveToNext();
                         c++;
 
@@ -112,6 +156,7 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
                         }
                     }
                     cursor.close();
+                    createCalendarReminders(context, task, progress0);
                     return !task.isCancelled();
 
                 } else {

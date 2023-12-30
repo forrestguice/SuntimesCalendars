@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -28,13 +28,18 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 @SuppressWarnings("Convert2Diamond")
@@ -52,7 +57,33 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     }
 
     @Override
-    public void init(@NonNull Context context, SuntimesCalendarSettings settings)
+    public CalendarEventTemplate defaultTemplate() {
+        return new CalendarEventTemplate("%M", "%M @ %loc", "%loc");
+    }
+
+    @Override
+    public CalendarEventStrings defaultStrings() {
+        return new CalendarEventStrings(moonStrings);
+    }
+
+    @Override
+    public CalendarEventFlags defaultFlags()
+    {
+        boolean[] values = new boolean[moonStrings.length];
+        Arrays.fill(values, true);
+        return new CalendarEventFlags(values);
+    }
+
+    @Override
+    public String flagLabel(int i) {
+        if (i >=0 && i < moonStrings.length) {
+            return moonStrings[i];
+        } else return "";
+    }
+
+
+    @Override
+    public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
 
@@ -98,21 +129,26 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    ContentValues data = TemplatePatterns.createContentValues(null, this);
+                    data = TemplatePatterns.createContentValues(data, task.getLocation());
+
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
-                    String title, desc;
                     moonCursor.moveToFirst();
                     while (!moonCursor.isAfterLast() && !task.isCancelled())
                     {
                         for (int i=0; i<moonProjection.length; i++)
                         {
-                            if (!moonCursor.isNull(i))
+                            if (flags[i] && !moonCursor.isNull(i))
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(moonCursor.getLong(i));
-                                title = moonStrings[i];
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
-                                desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
-                                eventValues.add(adapter.createEventContentValues(calendarID, title, desc, location[0], eventTime));
+                                //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
                         }
@@ -129,6 +165,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                         }
                     }
                     moonCursor.close();
+                    createCalendarReminders(context, task, progress0);
                     return !task.isCancelled();
 
                 } else {

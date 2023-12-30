@@ -24,16 +24,12 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.SyncResult;
 
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
-
-import java.util.Calendar;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SuntimesCalendarSyncAdapter extends AbstractThreadedSyncAdapter

@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2019-2020 Forrest Guice
+    Copyright (C) 2019-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -21,32 +21,47 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.preference.CheckBoxPreference;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
+
+import com.forrestguice.suntimescalendars.R;
 
 public class SuntimesCalendarPreference extends CheckBoxPreference
 {
-    private ImageView icon;
+    protected FloatingActionButton button;
 
     public SuntimesCalendarPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
     }
 
     @TargetApi(21)
     public SuntimesCalendarPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init(context);
     }
 
     public SuntimesCalendarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public SuntimesCalendarPreference(Context context) {
         super(context);
+        init(context);
+    }
+
+    protected void init(Context context)
+    {
+        if (Build.VERSION.SDK_INT >= 21) {
+            setLayoutResource(R.layout.layout_pref_calendar_material);
+        } else {
+            setLayoutResource(R.layout.layout_pref_calendar);
+        }
     }
 
     @Override
@@ -54,23 +69,13 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     {
         super.onBindView(view);
 
-        View iconView = view.findViewById(android.R.id.icon);
-        if (iconView instanceof ImageView)
+        button = (FloatingActionButton) view.findViewById(R.id.button_options);
+        if (button != null)
         {
-            icon = (ImageView)iconView;
-
             if (iconColor != null) {
-                icon.setImageDrawable(icon.getDrawable().mutate());
-                ImageViewCompat.setImageTintList(icon, iconColor);
+                ImageViewCompat.setImageTintList(button, iconColor);
             }
-
-            TypedValue selectableItemBackground = new TypedValue();
-            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, selectableItemBackground, true);
-            icon.setBackgroundResource(selectableItemBackground.resourceId);
-
-            if (onIconClick != null) {
-                icon.setOnClickListener(onIconClick);
-            }
+            button.setOnClickListener(onIconClick);
         }
     }
 
@@ -114,17 +119,22 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     private ColorStateList iconColor = null;
     public void setIconColor(ColorStateList color) {
         iconColor = color;
-        if (icon != null && iconColor != null) {
-            icon.setImageDrawable(icon.getDrawable().mutate());
-            ImageViewCompat.setImageTintList(icon, iconColor);
+        if (button != null && iconColor != null) {
+            ImageViewCompat.setImageTintList(button, iconColor);
         }
     }
 
     public View.OnClickListener onIconClick = null;
     public void setOnIconClickListener(View.OnClickListener listener) {
         onIconClick = listener;
-        if (icon != null) {
-            icon.setOnClickListener(onIconClick);
+        if (button != null) {
+            button.setOnClickListener(onIconClick);
+        }
+    }
+
+    public void performClickIcon() {
+        if (button != null) {
+            button.performClick();
         }
     }
 

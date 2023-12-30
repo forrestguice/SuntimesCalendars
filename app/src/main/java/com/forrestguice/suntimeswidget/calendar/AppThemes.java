@@ -44,7 +44,7 @@ public class AppThemes
 
     public static int setTheme(Activity activity, String appTheme)
     {
-        Log.d("DEBUG", "setTheme: " + appTheme);
+        //Log.d("DEBUG", "setTheme: " + appTheme);
         int themeResID = themePrefToStyleId(activity, appTheme);
         activity.setTheme(themeResID);
         AppCompatDelegate.setDefaultNightMode(loadThemeInfo(appTheme).getDefaultNightMode());
@@ -56,7 +56,7 @@ public class AppThemes
         if (themeName != null) {
             AppThemeInfo themeInfo = loadThemeInfo(themeName);
             TextSize textSize = AppThemeInfo.getTextSize(themeName);
-            Log.d("DEBUG", "themePrefToStyleId: textSize: " + textSize);
+            //Log.d("DEBUG", "themePrefToStyleId: textSize: " + textSize);
             return themeInfo.getStyleId(context, textSize);
         } else return R.style.AppTheme;
     }
@@ -217,7 +217,7 @@ public class AppThemes
         }
         @Override
         public int getDefaultNightMode() {
-            return AppCompatDelegate.MODE_NIGHT_NO;
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
         @Override
         public int getStyleId(Context context, TextSize size) {

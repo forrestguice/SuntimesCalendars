@@ -32,7 +32,6 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarDescriptor implements Comparable
@@ -94,6 +93,10 @@ public class SuntimesCalendarDescriptor implements Comparable
         SuntimesCalendarDescriptor otherDescriptor = (SuntimesCalendarDescriptor) other;
         //noinspection UseCompareMethod
         return Integer.valueOf(this.getPriority()).compareTo(otherDescriptor.getPriority());
+    }
+
+    public boolean isAddon() {
+        return calendarRef != null && calendarRef.startsWith("content:");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

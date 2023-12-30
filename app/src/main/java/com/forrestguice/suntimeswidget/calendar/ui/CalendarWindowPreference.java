@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.preference.DialogPreference;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -46,10 +47,16 @@ public class CalendarWindowPreference extends DialogPreference
     protected SeekBar seek0, seek1;
     protected int years0, years1;
 
-    public CalendarWindowPreference(Context context, AttributeSet attrs) {
+    public CalendarWindowPreference(Context context, AttributeSet attrs)
+    {
         super(context, attrs);
         setPersistent(false);
         setDialogLayoutResource(R.layout.layout_pref_calendarwindow);
+        if (Build.VERSION.SDK_INT >= 21) {
+            setLayoutResource(R.layout.layout_pref_material);
+        } else {
+            setLayoutResource(R.layout.layout_pref);
+        }
     }
 
     @Override
@@ -169,7 +176,7 @@ public class CalendarWindowPreference extends DialogPreference
     {
         if (summary0 == null) {
             summary0 = ((value != null) ? value.toString() : getSummary().toString());
-            Log.d("DEBUG", "summary to: " + value);
+            //Log.d("DEBUG", "summary to: " + value);
         }
         super.setSummary(makeSummary(getContext()));
     }

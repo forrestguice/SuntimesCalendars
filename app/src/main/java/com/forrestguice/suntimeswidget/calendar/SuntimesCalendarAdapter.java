@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018 Forrest Guice
+    Copyright (C) 2018-2022 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -39,7 +39,10 @@ public class SuntimesCalendarAdapter
 {
     public static final String TAG = "SuntimesCalendarAdapter";
 
+    public static final String CALENDAR_DAYLIGHT = "daylightCalendar";
     public static final String CALENDAR_TWILIGHT_CIVIL = "civilTwilightCalendar";
+    public static final String CALENDAR_TWILIGHT_GOLD = "goldHourCalendar";
+    public static final String CALENDAR_TWILIGHT_BLUE = "blueHourCalendar";
     public static final String CALENDAR_SOLSTICE = "solsticeCalendar";
     public static final String CALENDAR_TWILIGHT_NAUTICAL = "nauticalTwilightCalendar";
     public static final String CALENDAR_TWILIGHT_ASTRO = "astroTwilightCalendar";
@@ -106,7 +109,7 @@ public class SuntimesCalendarAdapter
                 long calendarID = cursor.getLong(PROJECTION_ID_INDEX);
                 Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
                 contentResolver.delete(deleteUri, null, null);
-                Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
+                //Log.d(TAG, "removeCalendars: removed calendar " + calendarID);
             }
             cursor.close();
             return true;
@@ -118,14 +121,16 @@ public class SuntimesCalendarAdapter
      * @param calendar calendar name
      * @return true calendar was removed, false otherwise
      */
-    public boolean removeCalendar(String calendar)
+    public boolean removeCalendar(String calendar) {
+        return removeCalendar(queryCalendarID(calendar));
+    }
+    public boolean removeCalendar(long calendarID)
     {
-        long calendarID = queryCalendarID(calendar);
         if (calendarID != -1)
         {
             Uri deleteUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calendarID);
             contentResolver.delete(deleteUri, null, null);
-            Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
+            //Log.d(TAG, "removeCalendar: removed calendar " + calendarID);
             return true;
         } else return false;
     }
@@ -147,6 +152,11 @@ public class SuntimesCalendarAdapter
     public void createCalendarEvents(@NonNull ContentValues[] values) throws SecurityException
     {
         contentResolver.bulkInsert(CalendarContract.Events.CONTENT_URI, values);
+    }
+
+    public boolean createCalendarReminders(@NonNull ContentValues[] values) throws SecurityException {
+        contentResolver.bulkInsert(CalendarContract.Reminders.CONTENT_URI, values);
+        return true;
     }
 
     /**
@@ -207,6 +217,14 @@ public class SuntimesCalendarAdapter
 
     public boolean hasCalendarEvents( long calendarID, long timestamp ) {
         return (queryCalendarEventsAt(calendarID, timestamp).getCount() > 0);
+    }
+
+    public Cursor queryCalendarEvents( long calendarID )
+    {
+        Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Events.CONTENT_URI);
+        String[] args = new String[] { Long.toString(calendarID) };
+        String select = "((" + CalendarContract.Events.CALENDAR_ID + " = ?))";
+        return contentResolver.query(uri, EVENT_PROJECTION, select, args, null);
     }
 
     /**
@@ -396,9 +414,25 @@ public class SuntimesCalendarAdapter
     }
 
     /**
+     * @param calendarID
+     * @param eventID
+     * @param minutesBeforeEvent
+     * @param method e.g. CalendarContract.Reminders.METHOD_DEFAULT
+     * @return
+     */
+    public ContentValues createReminderContentValues(long calendarID, long eventID, int minutesBeforeEvent, int method)
+    {
+        ContentValues v = new ContentValues();
+        v.put(CalendarContract.Reminders.EVENT_ID, eventID);
+        v.put(CalendarContract.Reminders.MINUTES, minutesBeforeEvent);
+        v.put(CalendarContract.Reminders.METHOD, method);
+        return v;
+    }
+
+    /**
      * EVENT_PROJECTION
      */
-    public static final String[] EVENT_PROJECTION = new String[]{
+    public static final String[] EVENT_PROJECTION = new String[] {
             CalendarContract.Calendars._ID,                           // 0
             CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
             CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,         // 2
@@ -410,5 +444,14 @@ public class SuntimesCalendarAdapter
     public static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
     public static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
     public static final int PROJECTION_CALENDAR_COLOR_INDEX = 4;
+
+
+    /**
+     * REMINDERS_PROJECTION
+     */
+    public static final String[] REMINDERS_PROJECTION = new String[] {
+            CalendarContract.Reminders.MINUTES,
+            CalendarContract.Reminders.METHOD,
+    };
 
 }

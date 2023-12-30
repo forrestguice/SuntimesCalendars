@@ -18,17 +18,42 @@
         <item>XLARGE</item>
     </string-array>
 
+    <string name="timeMode_noon">Solar Noon</string>                    <!-- TODO -->
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="timeMode_civil">Civil Twilight</string>
+    <string name="timeMode_civil_morning">Civil Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_civil_evening">Civil Twilight (evening)</string>  <!-- TODO -->
     <string name="timeMode_nautical">Nautical Twilight</string>
+    <string name="timeMode_nautical_morning">Nautical Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_nautical_evening">Nautical Twilight (evening)</string>  <!-- TODO -->
     <string name="timeMode_astronomical">Astronomical Twilight</string>
+    <string name="timeMode_astronomical_morning">Astronomical Twilight (morning)</string>  <!-- TODO -->
+    <string name="timeMode_astronomical_evening">Astronomical Twilight (evening)</string>  <!-- TODO -->
+
     <string name="dawn">Dawn</string>
+    <string name="dawn_civil">Civil Dawn</string>    <!-- TODO -->
+    <string name="dawn_nautical">Nautical Dawn</string>    <!-- TODO -->
+    <string name="dawn_astronomical">Astronomical Dawn</string>    <!-- TODO -->
+
     <string name="dusk">Dusk</string>
+    <string name="dusk_civil">Civil Dusk</string>    <!-- TODO -->
+    <string name="dusk_nautical">Nautical Dusk</string>    <!-- TODO -->
+    <string name="dusk_astronomical">Astronomical Dusk</string>    <!-- TODO -->
+
     <string name="polar_twilight">Polar twilight</string>
     <string name="civil_night">Civil polar night</string>
     <string name="nautical_night">Nautical polar night</string>
     <string name="white_night">White night</string>
+
+    <string name="timeMode_golden">Golden Hour</string>    <!-- TODO -->
+    <string name="timeMode_golden_morning">Golden Hour (morning)</string>    <!-- TODO -->
+    <string name="timeMode_golden_evening">Golden Hour (evening)</string>    <!-- TODO -->
+
+    <string name="timeMode_blue8">Blue Hour (8\u00B0)</string>               <!-- TODO -->
+    <string name="timeMode_blue4">Blue Hour (4\u00B0)</string>               <!-- TODO -->
+    <string name="timeMode_blue_morning">Blue Hour (morning)</string>               <!-- TODO -->
+    <string name="timeMode_blue_evening">Blue Hour (evening)</string>               <!-- TODO -->
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
@@ -37,6 +62,11 @@
     <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
     <string name="timeMode_solstice_summer">Summer Solstice</string>
     <string name="timeMode_solstice_winter">Winter Solstice</string>
+
+    <string name="timeMode_cross_spring">Spring Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_autumnal">Autumn Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_summer">Summer Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_winter">Winter Cross-Quarter</string>   <!-- TODO -->
 
     <string name="timeMode_moon">Moon</string>
     <string name="timeMode_moon_new">New Moon</string>
@@ -65,7 +95,7 @@
     <string name="configLabel_calendars_location">Location</string>
 
     <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>
-    <string name="calendar_solstice_summary" />
+    <string name="calendar_solstice_summary">Solstices, Equinoxes, and Cross-Quarter days</string>  <!-- TODO -->
     <string name="calendar_moonPhase_displayName">Moon Phases</string>
     <string name="calendar_moonPhase_summary">Synodic month</string>
     <string name="calendar_moonApsis_displayName">Moon Apsis</string>
@@ -73,11 +103,17 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Moonrise, moonset</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary">Sunrise, sunset</string>
+    <string name="calendar_civil_twilight_summary" />
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
+    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_blue_twilight_displayName">Blue Hour</string>    <!-- TODO -->
+    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_daylight_displayName">Daylight</string>    <!-- TODO -->
+    <string name="calendar_daylight_summary">Sunrise, sunset, and solar noon</string>    <!-- TODO -->
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>
@@ -98,6 +134,12 @@
     <string name="calendars_notification_clearing">Clearing calendars…</string>
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>
 
+    <string name="calendars_notification_updating">Updating calendars…</string> <!-- TODO -->
+    <string name="calendars_notification_updated">Calendars have been updated.</string> <!-- TODO -->
+
+    <string name="calendars_notification_reminders_updating">Updating reminders…</string>  <!-- TODO -->
+    <string name="calendars_notification_reminders_updated">Reminders have been updated.</string>  <!-- TODO -->
+
     <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Add calendar?</string>
     <string name="confirm_clear_message0">Remove calendars?</string>
@@ -107,8 +149,75 @@
     <string name="confirm_cancel_yes">Confirm</string>
     <string name="confirm_cancel_no">Back</string>
 
+    <string name="dialog_ok">OK</string>  <!-- TODO -->
+    <string name="dialog_cancel">Cancel</string>  <!-- TODO -->
+
+    <string name="action_help">Help</string>   <!-- TODO -->
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
     <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
+
+    <string name="action_deleteReminder">Remove</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">after start of event</string>    <!-- checkbox text -->
+
+    <string-array name="reminder_method_display">   <!-- display values -->
+        <item>Default</item>
+        <item>Notification</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <!--<item>Alarm</item>-->
+    </string-array>
+    <string-array name="reminder_method_values" translatable="false">   <!-- Reminder.METHOD_ values -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <!--<item>4</item>-->
+    </string-array>
+
+    <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 minutes</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>9 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>1 week</item>
+        <item>2 weeks</item>
+        <item>4 weeks</item>
+    </string-array>
+    <string-array name="reminder_minutes_values" translatable="false">     <!-- minute config values -->
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>45</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>360</item>
+        <item>540</item>
+        <item>720</item>
+        <item>1440</item>
+        <item>2880</item>
+        <item>10080</item>
+        <item>20160</item>
+        <item>40320</item>
+    </string-array>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>one year</item>
@@ -137,13 +246,75 @@
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%s\n%s</string>
+    <string name="distance_format">%s km</string>  <!-- e.g. full moon (400.71 km) -->   <!-- TODO -->
 
     <string name="toolbar_title">Calendars</string>
+
+    <string name="notificationChannel_main_title">Notifications</string>  <!-- notification channel title -->   <!-- TODO -->
+    <string name="notificationChannel_main_desc">Notifications</string>  <!-- notification channel desc -->     <!-- TODO -->
 
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
-    <string name="color_dialog_msg">Choose Colour</string>
+    <string name="reminder_dialog_msg">Reminders</string>  <!-- TODO -->
+    <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
+
+    <string name="flag_dialog_msg">Event Flags</string>  <!-- TODO -->
+    <string name="flag_dialog_defaults_toast">Restored default event flags</string>  <!-- TODO -->
+
+    <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
+    <string name="template_dialog_title_label">Name</string>  <!-- TODO -->
+    <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
+
+    <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
+    <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
+
+    <string name="template_dialog_location_label">Location</string>  <!-- TODO -->
+    <string name="template_dialog_location_hint">Location</string>  <!-- TODO -->
+
+    <string name="template_dialog_saved_toast">Template saved</string>  <!-- TODO -->
+    <string name="template_dialog_defaults_toast">Restored default template</string>  <!-- TODO -->
+
+    <string name="templatestrings_dialog_msg">Event Strings</string>  <!-- TODO -->
+    <string name="templatestrings_dialog_saved_toast">Strings saved</string>  <!-- TODO -->
+    <string name="templatestrings_dialog_defaults_toast">Restored default strings</string>  <!-- TODO -->
+
+    <string name="action_restore_defaults">Restore Defaults</string>  <!-- TODO -->
+
+    <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
+    <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
+    <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
+    <string name="help_pattern_loc">location name (e.g. Phoenix)</string>   <!-- TODO -->
+    <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->
+    <string name="help_pattern_lon">location longitude</string>   <!-- TODO -->
+    <string name="help_pattern_lel">location elevation</string>   <!-- TODO -->
+    <string name="help_pattern_event">event title (e.g. "Full Moon").</string>   <!-- TODO -->
+    <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
+    <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
+    <string name="help_pattern_percent">\% character</string>   <!-- TODO -->
+
+    <string name="help_flags"><![CDATA[
+        <h3>Flags</h3>
+        These settings are applied when calendar events are added.
+        <br/><br/>
+        To change a calendar\'s events, modify these settings, then remove and re-add the calendar.
+    ]]></string>  <!-- TODO-->
+
+    <string name="help_template"><![CDATA[
+        <h3>Templates</h3>
+        Templates are applied when calendar events are added.
+        <br/><br/>
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        <br/><br/>
+        <h3>Substitutions</h3>
+        %s
+    ]]></string>  <!-- TODO-->
+    <string name="help_template_strings"><![CDATA[
+        <h3>Event Strings</h3>
+        The following values are available to the template using the %M substitution.
+    ]]></string>  <!-- TODO-->
+
+    <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
     <string name="color_dialog_cancel">Cancel</string>
 
@@ -152,7 +323,7 @@
 
     <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
-        <font color="#e65100"><b>Missing!</b></font>
+        <font color="#e65100"><b>Missing Dependency!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <drawable name="ic_action_reminder_ref">@drawable/ic_action_reminder_dark</drawable>
+    <drawable name="ic_action_appearance_ref">@drawable/ic_action_appearance_dark</drawable>
+    <drawable name="ic_action_delete_ref">@drawable/ic_action_delete_dark</drawable>
     <drawable name="ic_action_calendar_ref">@drawable/ic_action_calendar</drawable>
     <drawable name="ic_action_update_ref">@drawable/ic_action_update</drawable>
+    <drawable name="ic_action_back_ref">@drawable/ic_action_back</drawable>
+    <drawable name="ic_action_accept_ref">@drawable/ic_action_accept</drawable>
     <drawable name="ic_action_about_ref">@drawable/ic_action_about</drawable>
-    <drawable name="ic_action_settings_ref">@drawable/ic_action_settings</drawable>
+    <drawable name="ic_action_settings_ref">@drawable/ic_action_settings_dark</drawable>
     <drawable name="ic_action_help_ref">@drawable/ic_action_help</drawable>
 </resources>

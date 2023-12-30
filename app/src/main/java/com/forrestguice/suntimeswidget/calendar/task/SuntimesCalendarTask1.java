@@ -45,6 +45,7 @@ import java.util.TreeSet;
  * legacy task
  */
 @SuppressWarnings("Convert2Diamond")
+@Deprecated
 public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
 {
     public static final String TAG = "SuntimesCalendarTask";
@@ -196,8 +197,8 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
         }
 
         Calendar[] window = getWindow();
-        Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
-                + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
+        //Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
+        //        + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 
         boolean retValue = initLocation();
         if (!retValue) {
