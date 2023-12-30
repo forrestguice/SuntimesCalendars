@@ -20,6 +20,7 @@ package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -28,9 +29,12 @@ import com.forrestguice.suntimeswidget.calendar.task.calendars.ContentProviderCa
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarFactory
 {
+    @Nullable
     public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor) {
         return createCalendar(context, descriptor.calendarRef());
     }
+
+    @Nullable
     public SuntimesCalendar createCalendar(Context context, String classRef)
     {
         SuntimesCalendar calendar = null;

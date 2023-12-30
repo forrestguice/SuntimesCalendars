@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2022 Forrest Guice
+    Copyright (C) 2022-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -29,17 +29,24 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
+
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.AUTHORITY;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_CONFIG_PROVIDER_VERSION;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_CALENDAR;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_DESCRIPTION;
+import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_FLAGS;
+import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_FLAG_LABELS;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_LOCATION;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_STRINGS;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.COLUMN_TEMPLATE_TITLE;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_CONFIG;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_CONFIG_PROJECTION;
+import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_FLAGS;
+import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_FLAGS_PROJECTION;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_STRINGS;
+import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_STRINGS_PROJECTION;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_TEMPLATE;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_TEMPLATES;
 import static com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateContract.QUERY_TEMPLATES_PROJECTION;
@@ -57,6 +64,7 @@ public class CalendarEventTemplateProvider extends ContentProvider
     private static final int URIMATCH_TEMPLATES = 10;
     private static final int URIMATCH_TEMPLATE_FOR_CALENDAR = 20;
     private static final int URIMATCH_STRINGS_FOR_CALENDAR = 30;
+    private static final int URIMATCH_FLAGS_FOR_CALENDAR = 40;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static
@@ -65,6 +73,7 @@ public class CalendarEventTemplateProvider extends ContentProvider
         uriMatcher.addURI(AUTHORITY, QUERY_TEMPLATES, URIMATCH_TEMPLATES);
         uriMatcher.addURI(AUTHORITY, QUERY_TEMPLATE + "/*", URIMATCH_TEMPLATE_FOR_CALENDAR);
         uriMatcher.addURI(AUTHORITY, QUERY_STRINGS + "/*", URIMATCH_STRINGS_FOR_CALENDAR);
+        uriMatcher.addURI(AUTHORITY, QUERY_FLAGS + "/*", URIMATCH_FLAGS_FOR_CALENDAR);
     }
 
     @Override
@@ -99,6 +108,11 @@ public class CalendarEventTemplateProvider extends ContentProvider
             case URIMATCH_STRINGS_FOR_CALENDAR:
                 Log.i(TAG, "URIMATCH_STRINGS");
                 cursor = queryStrings(uri, projection, selection, selectionArgs, sortOrder);
+                break;
+
+            case URIMATCH_FLAGS_FOR_CALENDAR:
+                Log.i(TAG, "URIMATCH_FLAGS");
+                cursor = queryFlags(uri, projection, selection, selectionArgs, sortOrder);
                 break;
 
             default:
@@ -277,7 +291,7 @@ public class CalendarEventTemplateProvider extends ContentProvider
      */
     public Cursor queryStrings(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
     {
-        String[] columns = (projection != null ? projection : QUERY_TEMPLATES_PROJECTION);
+        String[] columns = (projection != null ? projection : QUERY_STRINGS_PROJECTION);
         MatrixCursor cursor = new MatrixCursor(columns);
 
         Context context = getContext();
@@ -305,6 +319,59 @@ public class CalendarEventTemplateProvider extends ContentProvider
                 cursor.addRow(row);
             }
 
+        } else Log.w(TAG, "context is null!");
+        return cursor;
+    }
+
+    /**
+     * queryFlags
+     * @param uri ../flags/[calendarName]
+     * @param projection @see CalendarEventTemplateContract.QUERY_FLAGS_PROJECTION
+     * @param selection unused
+     * @param selectionArgs unused
+     * @param sortOrder unused
+     * @return multiple rows, ordered (one row per flag), or an empty cursor is undefined
+     */
+    public Cursor queryFlags(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
+    {
+        String[] columns = (projection != null ? projection : QUERY_FLAGS_PROJECTION);
+        MatrixCursor cursor = new MatrixCursor(columns);
+
+        Context context = getContext();
+        if (context != null)
+        {
+            String calendar = uri.getLastPathSegment();
+            SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
+            if (descriptor != null)
+            {
+                SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, descriptor);
+                if (calendarObj != null)
+                {
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()).getValues();
+                    for (int i=0; i<flags.length; i++)
+                    {
+                        Object[] row = new Object[columns.length];
+                        for (int j=0; j<columns.length; j++)
+                        {
+                            switch (columns[j])
+                            {
+                                case COLUMN_TEMPLATE_FLAGS:
+                                    row[j] = flags[i];
+                                    break;
+
+                                case COLUMN_TEMPLATE_FLAG_LABELS:
+                                    row[j] = calendarObj.flagLabel(i);
+                                    break;
+
+                                default:
+                                    row[j] = null;
+                                    break;
+                            }
+                        }
+                        cursor.addRow(row);
+                    }
+                } else Log.w(TAG, "failed to initialize calendar \"" + calendar + "\"!");
+            } else Log.w(TAG, "calendar \"" + calendar + "\" not found!");
         } else Log.w(TAG, "context is null!");
         return cursor;
     }

@@ -32,7 +32,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
  *
  * v0.1.0 initial version
  * v0.2.0 adds columns for default template; TEMPLATE_TITLE, TEMPLATE_DESCRIPTION, TEMPLATE_LOCATION, TEMPLATE_STRINGS
- *        adds QUERY_CALENDAR_TEMPLATE_STRINGS
+ *        adds QUERY_CALENDAR_TEMPLATE_STRINGS, QUERY_CALENDAR_TEMPLATE_FLAGS, QUERY_CALENDAR_TEMPLATE_FLAG_LABELS
  */
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
@@ -46,6 +46,8 @@ public interface SuntimesCalendar
     String COLUMN_CALENDAR_TEMPLATE_DESCRIPTION = "template_description";   // String (template description element)
     String COLUMN_CALENDAR_TEMPLATE_LOCATION = "template_location";         // String (template location element)
     String COLUMN_CALENDAR_TEMPLATE_STRINGS = "template_strings";           // String (template strings)
+    String COLUMN_CALENDAR_TEMPLATE_FLAGS = "template_flags";               // bool as String (template flags)
+    String COLUMN_CALENDAR_TEMPLATE_FLAG_LABELS = "template_flag_labels";   // String (flag labels)
 
     String QUERY_CALENDAR_INFO = "calendarInfo";
     String[] QUERY_CALENDAR_INFO_PROJECTION = new String[] {
@@ -55,6 +57,9 @@ public interface SuntimesCalendar
 
     String QUERY_CALENDAR_TEMPLATE_STRINGS = "calendarTemplateStrings";
     String[] QUERY_CALENDAR_TEMPLATE_STRINGS_PROJECTION = new String[] { COLUMN_CALENDAR_TEMPLATE_STRINGS };
+
+    String QUERY_CALENDAR_TEMPLATE_FLAGS = "calendarTemplateFlags";
+    String[] QUERY_CALENDAR_TEMPLATE_FLAGS_PROJECTION = new String[] { COLUMN_CALENDAR_TEMPLATE_FLAGS, COLUMN_CALENDAR_TEMPLATE_FLAG_LABELS };
 
     String QUERY_CALENDAR_CONTENT = "calendarContent";
 

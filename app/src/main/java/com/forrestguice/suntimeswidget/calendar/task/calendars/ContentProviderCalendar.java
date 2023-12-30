@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020 Forrest Guice
+    Copyright (C) 2020-2023 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -61,6 +61,8 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     protected String contentUri = null;
     protected CalendarEventTemplate defaultTemplate = new CalendarEventTemplate(null, null, null);
     protected CalendarEventStrings defaultStrings = new CalendarEventStrings();
+    protected CalendarEventFlags defaultFlags = new CalendarEventFlags();
+    protected CalendarEventStrings defaultFlagLabels = new CalendarEventStrings();
 
     public ContentProviderCalendar(String uriString)
     {
@@ -91,7 +93,15 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
 
     @Override
     public CalendarEventFlags defaultFlags() {
-        return new CalendarEventFlags();
+        return defaultFlags;
+    }
+
+    @Override
+    public String flagLabel(int i)
+    {
+        if (i >= 0 && i < defaultFlagLabels.getCount()) {
+            return defaultFlagLabels.getValue(i);
+        } else return "";
     }
 
     @Override
@@ -100,6 +110,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         super.init(context, settings);
         queryCalendarInfo();
         queryCalendarTemplateStrings();
+        queryCalendarTemplateFlags();
         calendarDesc = null;
         calendarColor = (calenderName != null ? settings.loadPrefCalendarColor(context, calendarName()) : calendarColor);
     }
@@ -151,6 +162,34 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                 }
                 cursor.close();
                 defaultStrings = new CalendarEventStrings(values.toArray(new String[0]));
+            }
+        }
+    }
+
+    protected void queryCalendarTemplateFlags() throws SecurityException
+    {
+        Context context = contextRef.get();
+        ContentResolver resolver = (context == null ? null : context.getContentResolver());
+        if (resolver != null)
+        {
+            Uri uri = Uri.parse(contentUri + SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_FLAGS);
+            Cursor cursor = resolver.query(uri, SuntimesCalendar.QUERY_CALENDAR_TEMPLATE_FLAGS_PROJECTION, null, null, null);
+            if (cursor != null)
+            {
+                ArrayList<String> flags = new ArrayList<>();
+                ArrayList<String> labels = new ArrayList<>();
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast())
+                {
+                    int i_flag = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_FLAGS);
+                    int i_label = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_FLAG_LABELS);
+                    flags.add(((i_flag >= 0) ? cursor.getString(i_flag) : null));
+                    labels.add(((i_label >= 0) ? cursor.getString(i_label) : null));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                defaultFlags = new CalendarEventFlags(flags.toArray(new String[0]));
+                defaultFlagLabels = new CalendarEventStrings(labels.toArray(new String[0]));
             }
         }
     }

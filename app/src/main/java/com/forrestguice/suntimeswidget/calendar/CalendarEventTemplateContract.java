@@ -56,6 +56,8 @@ public interface CalendarEventTemplateContract
     String COLUMN_TEMPLATE_DESCRIPTION = "template_description";  // String (description element)
     String COLUMN_TEMPLATE_LOCATION = "template_location";        // String (location element)
     String COLUMN_TEMPLATE_STRINGS = "template_strings";          // String (template strings)
+    String COLUMN_TEMPLATE_FLAGS = "template_flags";              // boolean (template flags)
+    String COLUMN_TEMPLATE_FLAG_LABELS = "template_flag_labels";  // String (template flag labels)
 
     /**
      * content://[AUTHORITY]/templates                 .. get list of all calendars with templates
@@ -78,4 +80,13 @@ public interface CalendarEventTemplateContract
     String[] QUERY_STRINGS_PROJECTION = new String[] { COLUMN_TEMPLATE_CALENDAR,
             COLUMN_TEMPLATE_STRINGS
     };
+
+    /**
+     * content://[AUTHORITY]/flags/[calendarName]   .. get flags for given calendar
+     */
+    String QUERY_FLAGS = "flags";
+    String[] QUERY_FLAGS_PROJECTION = new String[] { COLUMN_TEMPLATE_CALENDAR,
+            COLUMN_TEMPLATE_FLAGS, COLUMN_TEMPLATE_FLAG_LABELS
+    };
+
 }

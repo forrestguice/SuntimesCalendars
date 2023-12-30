@@ -25,6 +25,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -203,6 +204,7 @@ public class SuntimesCalendarDescriptor implements Comparable
         return new HashMap<>(calendars);
     }
 
+    @Nullable
     public static SuntimesCalendarDescriptor getDescriptor(Context context, String calendarName)
     {
         if (!initialized) {
