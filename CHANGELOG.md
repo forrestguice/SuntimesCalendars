@@ -1,5 +1,15 @@
 ### ~
 
+### v0.6.0 (2023-12-30)
+* adds support for reminder notifications (#51).
+* adds support for event selection; include all or omit some calendar events.
+* adds support for templates; customize event text and formatting.
+* adds "Golden Hour", "Blue Hour", and "Daylight" calendars (#55).
+* adds "cross-quarter days" to the Solstice calendar (#56).
+* adds themed icon (Android 13+), and other miscellaneous UI improvements.
+* adds permission `android.permission.FOREGROUND_SERVICE`; calendar updates rely on a foreground service. [permission]
+* updates build; targetSdkVersion from 25 to 28; minSdkVersion from 11 to 14; support libraries to v28.0.0.
+
 ### v0.5.7 (2023-02-10)
 * adds support for high contrast themes and text size (Suntimes v0.15.0+).
 * updates Suntimes CalculatorProviderContract; from v2 to v5.
