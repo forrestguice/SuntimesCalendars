@@ -443,6 +443,7 @@ public class SuntimesCalendarTaskService extends Service
         NotificationCompat.Builder builder;
         if (Build.VERSION.SDK_INT >= 26) {
             builder = new NotificationCompat.Builder(context, createNotificationChannel(context));
+            builder.setOnlyAlertOnce(true);
         } else {
             builder = new NotificationCompat.Builder(context);
         }
