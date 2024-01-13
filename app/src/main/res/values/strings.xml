@@ -291,6 +291,11 @@
     <string name="help_pattern_event">event title (e.g. "Full Moon").</string>   <!-- TODO -->
     <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
     <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
+    <string name="help_pattern_phase">moon phase</string>   <!-- TODO -->
+    <string name="help_pattern_altitude">event altitude</string>   <!-- TODO -->
+    <string name="help_pattern_azimuth">event azimuth</string>   <!-- TODO -->
+    <string name="help_pattern_declination">event declination</string>   <!-- TODO -->
+    <string name="help_pattern_rightascension">event right ascension</string>   <!-- TODO -->
     <string name="help_pattern_percent">\% character</string>   <!-- TODO -->
 
     <string name="help_flags"><![CDATA[
