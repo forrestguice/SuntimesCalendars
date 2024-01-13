@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2023 Forrest Guice
+    Copyright (C) 2023-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -32,13 +32,22 @@ public enum TemplatePatterns
     pattern_cal("%cal", R.string.help_pattern_cal),
     pattern_summary("%summary", R.string.help_pattern_summary),
     pattern_color("%color", R.string.help_pattern_color),
+
     pattern_loc("%loc", R.string.help_pattern_loc),
     pattern_lat("%lat", R.string.help_pattern_lat),
     pattern_lon("%lon", R.string.help_pattern_lon),
     pattern_lel("%lel", R.string.help_pattern_lel),
+
     pattern_event("%M", R.string.help_pattern_event),
+    pattern_eA("%eA", R.string.help_pattern_altitude),
+    pattern_eZ("%eZ", R.string.help_pattern_azimuth),
+    pattern_eD("%eD", R.string.help_pattern_declination),
+    pattern_eR("%eR", R.string.help_pattern_rightascension),
+
     pattern_dist("%dist", R.string.help_pattern_dist),
     pattern_illum("%i", R.string.help_pattern_illum),
+    pattern_phase("%p", R.string.help_pattern_phase),
+    
     pattern_percent("%%", R.string.help_pattern_percent);
 
     private final String pattern;
