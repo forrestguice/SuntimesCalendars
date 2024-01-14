@@ -49,7 +49,7 @@ Use the issue tracker to submit a bug report or a feature request.
 When reporting a bug **please be detailed as possible**. What did you expect the app to do, what did you actually observe? Include the app version number in your report. Other useful information includes the Android OS version (and sometimes your specific device model).
 
 ## Legal Stuff
-Copyright © 2018-2021 Forrest Guice <br />
+Copyright © 2018-2024 Forrest Guice <br />
 The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
 
 > This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
