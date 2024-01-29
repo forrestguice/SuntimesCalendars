@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="textSize_small">Mały</string>
+    <string name="textSize_normal">Średni</string>
+    <string name="textSize_large">Wielki</string>
+    <string name="textSize_xlarge">Bardzo wielki</string>
+
+    <string name="timeMode_noon">Górowanie Słońca</string>
     <string name="sunrise">Wschód Słońca</string>
     <string name="sunset">Zachód Słońca</string>
     <string name="timeMode_civil">Cywilny świt/zmierzch</string>
+    <string name="timeMode_civil_morning">Cywilny świt</string>
+    <string name="timeMode_civil_evening">Cywilny zmierzch</string>
     <string name="timeMode_nautical">Żeglarski świt/zmierzch</string>
+    <string name="timeMode_nautical_morning">Żeglarski świt</string>
+    <string name="timeMode_nautical_evening">Żeglarski zmierzch</string>
     <string name="timeMode_astronomical">Astronomiczny świt/zmierzch</string>
+    <string name="timeMode_astronomical_morning">Astronomiczny świt</string>
+    <string name="timeMode_astronomical_evening">Astronomiczny zmierzch</string>
+
     <string name="dawn">Świt</string>
+    <string name="dawn_civil">Świt cywilny</string>
+    <string name="dawn_nautical">Świt żeglarski</string>
+    <string name="dawn_astronomical">Świt astronomiczny</string>
+
     <string name="dusk">Zmierzch</string>
+    <string name="dusk_civil">Zmierzch cywilny</string>
+    <string name="dusk_nautical">Zmierzch żeglarski</string>
+    <string name="dusk_astronomical">Zmierzch astronomiczny</string>
+
     <string name="polar_twilight">Noc polarna</string>
     <string name="civil_night">Cywilna noc polarna</string>
     <string name="nautical_night">Żeglarska noc polarna</string>
     <string name="white_night">Dzień polarny</string>
-    
+
+    <string name="timeMode_golden">Złota godzina</string>
+    <string name="timeMode_golden_morning">Poranna złota godzina</string>
+    <string name="timeMode_golden_evening">Wieczorna złota godzina</string>
+
+    <string name="timeMode_blue8">Błękitna godzina (8\u00B0)</string>
+    <string name="timeMode_blue4">Błękitna godzina (4\u00B0)</string>
+    <string name="timeMode_blue_morning">Poranna błękitna godzina</string>
+    <string name="timeMode_blue_evening">Wieczorna błękitna godzina</string>
+
     <string name="moonrise">Wschód Księżyca</string>
     <string name="moonset">Zachód Księżyca</string>
 
@@ -20,6 +50,11 @@
     <string name="timeMode_equinox_autumnal">Równonoc jesienna</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Letnie przesilenie</string>    <!-- setting -->
     <string name="timeMode_solstice_winter">Zimowe przesilenie</string>    <!-- setting -->
+
+    <string name="timeMode_cross_spring">Środek astronomicznej wiosny</string>
+    <string name="timeMode_cross_autumnal">Środek astronomicznej jesieni</string>
+    <string name="timeMode_cross_summer">Środek astronomicznego lata</string>
+    <string name="timeMode_cross_winter">Środek astronomicznej zimy</string>
 
     <string name="timeMode_moon">Księżyc</string>                               <!-- label -->
     <string name="timeMode_moon_new">Nów</string>                               <!-- setting -->
@@ -63,6 +98,12 @@
     <string name="calendars_notification_clearing">Czyszczenie kalendarza…</string>
     <string name="calendars_notification_cleared">Usunięto wydarzenia z kalendarza.</string>
 
+    <string name="calendars_notification_updating">Aktualizacja kalendarza…</string>
+    <string name="calendars_notification_updated">Kalendarz został zaktualizowany.</string>
+
+    <string name="calendars_notification_reminders_updating">Aktualizacja przypomnień</string>
+    <string name="calendars_notification_reminders_updated">Przypomnienia zostały zaktualizowane.</string>
+
     <string name="confirm_add_message1">Czy dodać kalendarz?</string>
     <string name="confirm_clear_message0">Czy usunąć kalendarze?</string>
     <string name="confirm_clear_message1">Czy usunąć kalendarz?</string>
@@ -71,8 +112,45 @@
     <string name="confirm_cancel_yes">Przerwij</string>
     <string name="confirm_cancel_no">Nie przerywaj</string>
 
+    <string name="dialog_ok">Potwierdź</string>
+    <string name="dialog_cancel">Anuluj</string>
+
+    <string name="action_help">Pomoc</string>
     <string name="action_openCalendar">Otwórz</string>
     <string name="action_openCalendar1">Otwórz kalendarz</string>  <!-- actionbar version -->
+
+    <string name="action_deleteReminder">Usuń</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">po rozpoczęciu wydarzenia</string>    <!-- checkbox text -->
+
+    <string-array name="reminder_method_display">   <!-- display values -->
+        <item>domyślne</item>
+        <item>powiadomienie</item>
+        <item>e-mail</item>
+        <item>SMS</item>
+    </string-array>
+
+    <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 minut</item>
+        <item>1 minuta</item>
+        <item>5 minut</item>
+        <item>10 minut</item>
+        <item>15 minut</item>
+        <item>20 minut</item>
+        <item>25 minut</item>
+        <item>30 minut</item>
+        <item>45 minut</item>
+        <item>1 godzina</item>
+        <item>2 godziny</item>
+        <item>3 godziny</item>
+        <item>6 godzin</item>
+        <item>9 godzin</item>
+        <item>12 godzin</item>
+        <item>1 dzień</item>
+        <item>2 dni</item>
+        <item>1 tydzień</item>
+        <item>2 tygodnie</item>
+        <item>4 tygodnie</item>
+    </string-array>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>roku</item>
@@ -98,14 +176,76 @@
     
     <string name="toolbar_title">Kalendarze</string>
 
+    <string name="notificationChannel_main_title">Powiadomienia</string>  <!-- notification channel title -->
+    <string name="notificationChannel_main_desc">Powiadomienia</string>  <!-- notification channel desc -->
+
     <string name="progress_title">Aktualizacja kalendarzy</string>
     <string name="progress_message">To może potrwać kilka minut…\n\nMożesz zamknąć aplikację. Operacja będzie się wykonywać w tle.</string>
+
+    <string name="reminder_dialog_msg">Przypomnienia</string>
+    <string name="action_add_reminder">Dodaj przypomnienie</string>
+
+    <string name="flag_dialog_msg">Znaczniki wydarzenia</string>
+    <string name="flag_dialog_defaults_toast">Przywrócono domyślne znaczniki wydarzenia</string>
+
+    <string name="template_dialog_msg">Szablon wydarzenia</string>
+    <string name="template_dialog_title_label">Nazwa</string>
+    <string name="template_dialog_title_hint">Nazwa</string>
+
+    <string name="template_dialog_desc_label">Opis</string>
+    <string name="template_dialog_desc_hint">Opis</string>
+
+    <string name="template_dialog_location_label">Lokalizacja</string>
+    <string name="template_dialog_location_hint">Lokalizacja</string>
+
+    <string name="template_dialog_saved_toast">Zapisano szablon</string>
+    <string name="template_dialog_defaults_toast">Przywrócono domyślny szablon</string>
+
+    <string name="templatestrings_dialog_msg">Etykiety</string>
+    <string name="templatestrings_dialog_saved_toast">Zapisano etykiety</string>
+    <string name="templatestrings_dialog_defaults_toast">Przywrócono domyślne etykiety</string>
+
+    <string name="action_restore_defaults">Przywróć domyślne</string>
+
+    <string name="help_pattern_cal">kalendarz (np. „Cywilny świt/zmierzch”)</string>
+    <string name="help_pattern_summary">opis (np. „świt / zmierzch”)</string>
+    <string name="help_pattern_color">kolor kalendarza (np. „#FFFFFF”)</string>
+    <string name="help_pattern_loc">nazwa lokalizacji (np. „Warszawa”)</string>
+    <string name="help_pattern_lat">szerokość geograficzna</string>
+    <string name="help_pattern_lon">Długość geograficzna</string>
+    <string name="help_pattern_lel">wysokość n.p.m.</string>
+    <string name="help_pattern_event">tytuł wydarzenia (np. „Pełnia Księżyca”).</string>
+    <string name="help_pattern_dist">odległość do Księżyca</string>
+    <string name="help_pattern_illum">oświetlenie Księżyca</string>
+    <string name="help_pattern_percent">znak \%</string>
+
+    <string name="help_flags"><![CDATA[
+        <h3>Znaczniki</h3>
+        Te ustawienia stosują się podczas dodawania wydarzeń do kalendarza.
+        <br/><br/>
+        Aby zmienić wydarzenia w kalendarzu, zmodyfikuj te ustawienia a następnie usuń i ponownie dodaj kalendarz.
+    ]]></string>
+
+    <string name="help_template"><![CDATA[
+        <h3>Szablony</h3>
+        Szablony stosują się podczas dodawania wydarzeń do kalendarza.
+        <br/><br/>
+        Aby zmienić formatowanie wadarzeń w kalendarzu, zmodyfikuj jego szablon a następnie usuń i ponownie dodaj kalendarz.
+        <br/><br/>
+        <h3>Podstawienia</h3>
+        %s
+    ]]></string>
+    <string name="help_template_strings"><![CDATA[
+        <h3>Ciągi wydarzeń</h3>
+        Następujące wartości są dostępne wprowadzając do szablonu parametr %M.
+    ]]></string>
 
     <string name="color_dialog_msg">Wybierz kolor</string>
     <string name="color_dialog_ok">Ustaw</string>
     <string name="color_dialog_cancel">Anuluj</string>
 
     <string name="calendar_solstice_displayName">Przesilenia i równonoce</string>
+    <string name="calendar_solstice_summary">Przesilenia, równonoce i punkty środkowe</string>
     <string name="calendar_moonPhase_displayName">Fazy Księżyca</string>
     <string name="calendar_moonPhase_summary">Miesiąc synodyczny</string>
     <string name="calendar_moonApsis_displayName">Apsydy Księżyca</string>
@@ -118,6 +258,9 @@
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_blue_twilight_displayName">Błękitna godzina</string>
+    <string name="calendar_daylight_displayName">Światło dzienne</string>
+    <string name="calendar_daylight_summary">Wschód, górowanie i zachód Słońca</string>
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">O programie</string>
@@ -155,7 +298,7 @@
     <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
     <string name="app_shortdesc">Dodatek do apki Czasy Słońca: integracja z kalendarzem.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
-    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2021 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
+    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2024 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Tłumaczenia:</b><br/>
         <xliff:g id="locale_credits">%1$s</xliff:g>

@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="textSize_small">Malgranda</string>
+    <string name="textSize_normal">Meza</string>
+    <string name="textSize_large">Granda</string>
+    <string name="textSize_xlarge">Grandega</string>
+
+    <string name="timeMode_noon">Tegmezo vera</string>  
     <string name="sunrise">Sunleviĝo</string>                             <!-- contentDescription -->
     <string name="sunset">Sunsubiro</string>                              <!-- contentDescription -->
     <string name="timeMode_civil">Civila krepusko</string>               <!-- setting -->
+    <string name="timeMode_civil_morning">Civila sunleviĝo</string>
+    <string name="timeMode_civil_evening">Civila sunsubiro</string>
     <string name="timeMode_nautical">Naŭtika krepusko</string>         <!-- setting -->
+    <string name="timeMode_nautical_morning">Naŭtika sunleviĝo</string>
+    <string name="timeMode_nautical_evening">Naŭtika sunsubiro</string>
     <string name="timeMode_astronomical">Astronomia krepusko</string> <!-- setting -->
+    <string name="timeMode_astronomical_morning">Astronomia sunleviĝo</string>
+    <string name="timeMode_astronomical_evening">Astronomia sunsubiro</string>
+    
     <string name="dawn">Krepusko (sunleviĝo)</string>
+    <string name="dawn_civil">Civila sunleviĝo</string>
+    <string name="dawn_nautical">Naŭtika sunleviĝo</string>
+    <string name="dawn_astronomical">Astronomia sunleviĝo</string>
+
     <string name="dusk">Krepusko (sunsubiro)</string>
+    <string name="dusk_civil">Civila sunsubiro</string>
+    <string name="dusk_nautical">Naŭtika sunsubiro</string>
+    <string name="dusk_astronomical">Astronomia sunsubiro</string>
+
     <string name="polar_twilight">Polusa nokto</string>
     <string name="civil_night">Civila polusa nokto</string>
     <string name="nautical_night">Naŭtika polusa nokto</string>
     <string name="white_night">Polusa tago</string>
+
+    <string name="timeMode_golden">Ora horo</string>
+    <string name="timeMode_golden_morning">Ora horo (matene)</string>
+    <string name="timeMode_golden_evening">Ora horo (vespere)</string>
+            
+    <string name="timeMode_blue8">Blua horo (8\u00B0)</string>
+    <string name="timeMode_blue4">Blua horo (4\u00B0)</string>
+    <string name="timeMode_blue_morning">Blua horo (matene)</string>
+    <string name="timeMode_blue_evening">Blua horo (vespere)</string>
 
     <string name="moonrise">Lunleviĝo</string>                            <!-- contentDescription -->
     <string name="moonset">Lunsubiro</string>                             <!-- contentDescription -->
@@ -20,6 +50,11 @@
     <string name="timeMode_equinox_autumnal">Aŭtuna tagnoktegaleco</string>  <!-- setting -->
     <string name="timeMode_solstice_summer">Somera sunekstremo</string>    <!-- setting -->
     <string name="timeMode_solstice_winter">Vintra sunekstremo</string>    <!-- setting -->
+
+    <string name="timeMode_cross_spring">Mezo de astronomia printempo</string>
+    <string name="timeMode_cross_autumnal">Mezo de astronomia aŭtuno</string>
+    <string name="timeMode_cross_summer">Mezo de astronomia somero</string>
+    <string name="timeMode_cross_winter">Mezo de astronomia vintro</string>
 
     <string name="timeMode_moon">Luno</string>                                          <!-- label -->
     <string name="timeMode_moon_new">Nova Luno</string>                                  <!-- setting -->
@@ -68,6 +103,12 @@
     <string name="calendars_notification_clearing">Forviŝado el kalendaroj…</string>
     <string name="calendars_notification_cleared">Forigis okazaĵojn el la kalendaro.</string>
 
+    <string name="calendars_notification_updating">Aktualigado de kalendaroj…</string>
+    <string name="calendars_notification_updated">Kalendaroj estas aktualaj.</string>
+        
+    <string name="calendars_notification_reminders_updating">Aktualigado de rememorigoj…</string>
+    <string name="calendars_notification_reminders_updated">Rememorigoj estas aktualaj.</string>
+
     <string name="confirm_add_message1">Ĉu aldoni kalendaron?</string>
     <string name="confirm_clear_message0">Ĉu forigi kalendarojn?</string>
     <string name="confirm_clear_message1">Ĉu forigi kalendaron?</string>
@@ -76,8 +117,45 @@
     <string name="confirm_cancel_yes">Ĉesigi</string>
     <string name="confirm_cancel_no">Ne ĉesigi</string>
 
+    <string name="dialog_ok">Bone</string>
+    <string name="dialog_cancel">Nuligi</string>
+
+    <string name="action_help">Helpo</string>
     <string name="action_openCalendar">Malfermi</string>
     <string name="action_openCalendar1">Malfermi kalendaron</string>  <!-- actionbar version -->
+
+    <string name="action_deleteReminder">Forigi</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">post starto de okazaĵo</string>    <!-- checkbox text -->
+
+    <string-array name="reminder_method_display">   <!-- display values -->
+        <item>norma</item>
+        <item>sciigo</item>
+        <item>ret-letero</item>
+        <item>SMS</item>
+    </string-array>
+
+    <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 minuto</item>
+        <item>1 minuto</item>
+        <item>5 minutoj</item>
+        <item>10 minutoj</item>
+        <item>15 minutoj</item>
+        <item>20 minutoj</item>
+        <item>25 minutoj</item>
+        <item>30 minutoj</item>
+        <item>45 minutoj</item>
+        <item>1 horo</item>
+        <item>2 horoj</item>
+        <item>3 horoj</item>
+        <item>6 horoj</item>
+        <item>9 horoj</item>
+        <item>12 horoj</item>
+        <item>1 tago</item>
+        <item>2 tagoj</item>
+        <item>1 semajno</item>
+        <item>2 semajnoj</item>
+        <item>4 semajnoj</item>
+    </string-array>
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>unu jaro</item>
@@ -99,15 +177,73 @@
         
     <string name="toolbar_title">Kalendaroj</string>
 
+    <string name="notificationChannel_main_title">Sciigoj</string>  <!-- notification channel title -->
+    <string name="notificationChannel_main_desc">Sciigoj</string>  <!-- notification channel desc -->
+
     <string name="progress_title">Ĝisdatigado de kalendaroj</string>
     <string name="progress_message">Tio ĉi povas okupi kelkajn minutojn…\n\nVi povas fermi la aplikaĵon. La tasko pluiĝos fone.</string>
+
+    <string name="reminder_dialog_msg">Rememorigo</string>
+    <string name="action_add_reminder">Aldoni rememorigon</string>
+
+    <string name="flag_dialog_msg">Indikiloj de okazaĵo</string>
+    <string name="flag_dialog_defaults_toast">Restarigis implicitajn indikilojn de okazaĵo</string>
+
+    <string name="template_dialog_msg">Ŝablono de okazaĵo</string>
+    <string name="template_dialog_title_label">Nomo</string>
+    <string name="template_dialog_title_hint">Nomo</string>
+                            
+    <string name="template_dialog_desc_label">Priskribo</string>
+    <string name="template_dialog_desc_hint">Priskribo</string>
+
+    <string name="template_dialog_location_label">Loko</string>
+    <string name="template_dialog_location_hint">Loko</string>
+                                            
+    <string name="template_dialog_saved_toast">Konservis ŝablonon</string>
+    <string name="template_dialog_defaults_toast">Restarigis implicitan ŝablonon</string>
+
+    <string name="templatestrings_dialog_msg">Etikedoj</string>
+    <string name="templatestrings_dialog_saved_toast">Konservis etikedojn</string>
+    <string name="templatestrings_dialog_defaults_toast">Restarigis implicitajn etikedojn</string>
+                                                                
+    <string name="action_restore_defaults">Restarigi implicitajn</string>
+                                                                    
+    <string name="help_pattern_cal">kalendaro (ekz. “Civila krepusko”)</string>
+    <string name="help_pattern_summary">priskribo (ekz. “sunleviĝo / sunsubiro”)</string>
+    <string name="help_pattern_color">koloro de kalendaro (ekz. “#FFFFFF”)</string>
+    <string name="help_pattern_loc">nomo de loko (ekz. “Bjalistoko”)</string>
+    <string name="help_pattern_lat">latitudo de loko</string>
+    <string name="help_pattern_lon">longitudo de loko</string>
+    <string name="help_pattern_lel">altitudo de loko</string>
+    <string name="help_pattern_event">titilo de okazaĵo (ekz. “Plena Luno”)</string>
+    <string name="help_pattern_dist">distanco al Luno</string>
+    <string name="help_pattern_illum">prilumeco de Luno</string>
+    <string name="help_pattern_percent">signo \%</string>
+
+    <string name="help_flags"><![CDATA[<h3>Indikiloj</h3>Tiuj ĉi agordoj aplikiĝas dum aldoni okazaĵojn al kalendaro.<br/><br/>
+    Por ŝanĝi okazaĵojn en la kalendaro, modifu tiujn ĉi agordojn kaj sekve forigu kaj realdonu la kalendaron.
+    ]]></string>
+
+    <string name="help_template"><![CDATA[
+    <h3>Ŝablonoj</h3>
+    Ŝablonoj aplikiĝas dum aldoni okazaĵojn al kalendaro.
+    <br/><br/>
+    Por ŝanĝi aranĝon de okazaĵoj de la kalendaro, modifu ĝian ŝablonon kaj sekve forigu kaj realdonu la kalendaron.
+    <br/><br/>
+    <h3>Anstataŭigoj</h3>
+    %s
+    ]]></string>
+    <string name="help_template_strings">Nomoj de okazaĵoj<![CDATA[
+    <h3></h3>
+    La jenaj valoroj estas disponeblaj en la ŝablono uzante la anstataŭigon %M.
+    ]]></string>
 
     <string name="color_dialog_msg">Elekti koloron</string>
     <string name="color_dialog_ok">Aktualigi</string>
     <string name="color_dialog_cancel">Nuligi</string>
 
     <string name="calendar_solstice_displayName">Sunekstremoj kaj tagnoktegalecoj</string>
-    <string name="calendar_solstice_summary">Solsticoj kaj ekvinoksoj</string>
+    <string name="calendar_solstice_summary">Solsticoj, ekvinoksoj kaj jarsezon-mezoj</string>
     <string name="calendar_moonPhase_displayName">Fazoj de Luno</string>
     <string name="calendar_moonPhase_summary">Monato sinodika</string>
     <string name="calendar_moonApsis_displayName">Apsidoj de Luno</string>
@@ -120,6 +256,9 @@
     <string name="calendar_nautical_twilight_summary" />
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
     <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_blue_twilight_displayName">Blua horo</string>
+    <string name="calendar_daylight_displayName">Taglumo</string>
+    <string name="calendar_daylight_summary">Sunleviĝo, sunsubiro kaj tagmezo vera</string>
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">Pri</string>
@@ -162,7 +301,7 @@
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">erar‑spurilon</a> por raporti problemon.
     ]]></string>
     <string name="app_legal1"><![CDATA[
-        Kopirajto &#169 2018-2021 Forrest GUICE <br />
+        Aŭtorrajto &#169 2018-2024 Forrest GUICE <br />
         Fontkodo disponebla laŭ la permesilo GPLv3.
     ]]></string>
     <string name="app_legal2"><![CDATA[
