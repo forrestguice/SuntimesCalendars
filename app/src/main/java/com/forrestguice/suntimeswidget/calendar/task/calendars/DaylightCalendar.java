@@ -71,6 +71,16 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
+    }
+
+    @Override
     public CalendarEventStrings defaultStrings() {
         return new CalendarEventStrings(daylightStrings);
     }

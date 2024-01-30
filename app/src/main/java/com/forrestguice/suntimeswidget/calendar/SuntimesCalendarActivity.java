@@ -1046,6 +1046,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             TemplateDialog dialog = new TemplateDialog();
             dialog.setCalendar(calendar);
             dialog.setTemplate(SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendar, calendarObj.defaultTemplate()));
+            dialog.setSupportedPatterns(calendarObj.supportedPatterns());
             dialog.setDialogListener(templateDialog_listener);
             dialog.show(getSupportFragmentManager(), DIALOGTAG_TEMPLATE + "_" + calendar);
         }

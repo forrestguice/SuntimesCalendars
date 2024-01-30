@@ -26,6 +26,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
+import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 /**
  * @version 0.2.0
@@ -100,6 +101,10 @@ public interface SuntimesCalendar
      */
     CalendarEventTemplate defaultTemplate();
 
+    /**
+     * @return array of supported TemplatePatterns
+     */
+    TemplatePatterns[] supportedPatterns();
 
     /**
      * @return default strings

@@ -63,6 +63,18 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     }
 
     @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, null, //TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,  // TODO: position patterns
+                //TemplatePatterns.pattern_illum,    // TODO: illum pattern
+                TemplatePatterns.pattern_dist, null,
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
+    }
+
+    @Override
     public CalendarEventStrings defaultStrings() {
         return new CalendarEventStrings(apsisStrings);
     }

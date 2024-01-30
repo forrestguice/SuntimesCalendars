@@ -73,29 +73,37 @@ public enum TemplatePatterns
         return context.getString(helpResource);
     }
 
-    public static String getAllHelpText(Context context)
+    public static String getAllHelpText(Context context) {
+        return getPatternHelpText(context, TemplatePatterns.values());
+    }
+    public static String getPatternHelpText(Context context, TemplatePatterns... patterns)
     {
         int c = 8;
         StringBuilder substitutionHelp = new StringBuilder();
 
-        TemplatePatterns[] patterns = TemplatePatterns.values();
         //substitutionHelp.append("<font face='monospace'>");
         for (int i=0; i<patterns.length; i++)
         {
-            String pattern = patterns[i].getPattern();
-            String patternHelp = patterns[i].getHelpText(context);
+            TemplatePatterns p = patterns[i];
+            String pattern = ((p != null) ? p.getPattern() : null);
+            if (pattern == null)
+            {
+                substitutionHelp.append("<br/>");
+                continue;
+            }
 
             substitutionHelp.append("<b>").append(pattern).append("</b>").append("&nbsp;");
             for (int j=0; j<(c-pattern.length()); j++) {
                 substitutionHelp.append("&nbsp;");
             }
+
+            String patternHelp = p.getHelpText(context);
             substitutionHelp.append(patternHelp)
                     .append("<br/>");
         }
         //substitutionHelp.append("</font");
         return substitutionHelp.toString();
     }
-
 
     public static ContentValues createContentValues(@Nullable ContentValues values, SuntimesCalendar calendar)
     {

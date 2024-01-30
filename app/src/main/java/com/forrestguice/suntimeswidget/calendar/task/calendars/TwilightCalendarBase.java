@@ -85,6 +85,16 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
     }
 
     @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, null, //TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,   // TODO: position patterns
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
+    }
+
+    @Override
     public CalendarEventFlags defaultFlags() {
         return new CalendarEventFlags();
     }
