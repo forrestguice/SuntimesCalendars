@@ -73,7 +73,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M @ %loc\n%illum", "%loc");
+        return new CalendarEventTemplate("%M", "%M @ %loc\n%eZ, %illum", "%loc");
     }
 
     @Override
