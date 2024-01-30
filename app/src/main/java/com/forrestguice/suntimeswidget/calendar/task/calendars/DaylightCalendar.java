@@ -104,7 +104,6 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
-        Utils.initDisplayStrings(context);
 
         calendarTitle = context.getString(resID_calendarTitle);
         calendarSummary = context.getString(resID_calendarSummary);

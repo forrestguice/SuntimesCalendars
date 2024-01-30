@@ -40,7 +40,8 @@ public class Utils
         } else return Html.fromHtml(source);
     }
 
-    protected static String strAltSymbol = "∠";    // TODO: i18n
+    protected static String strDegSymbol = "°";
+    protected static String strAltSymbol = "∠";
     protected static String strRaSymbol = "α";
     protected static String strDecSymbol = "δ";
     protected static String strDegreesFormat = "%1$s\u00B0";
@@ -238,7 +239,18 @@ public class Utils
     public static void initDisplayStrings( Context context )
     {
         CardinalDirection.initDisplayStrings(context);
-        // TODO: others
+
+        strDegSymbol = context.getString(R.string.degrees_symbol);                // "%";
+        strAltSymbol = context.getString(R.string.altitude_symbol);               // "∠";
+        strRaSymbol = context.getString(R.string.rightascension_symbol);          // "α";
+        strDecSymbol = context.getString(R.string.declination_symbol);            //"δ";
+        strDegreesFormat = context.getString(R.string.degrees_format);            // "%1$s\u00B0";
+        strDirectionFormat = context.getString(R.string.direction_format);        // "%1$s\u00A0%2$s";
+        strElevationFormat = context.getString(R.string.elevation_format);        // "%1$s%2$s";
+        strDeclinationFormat = context.getString(R.string.declination_format);    // "%1$s %2$s";
+        strRaFormat = context.getString(R.string.rightascension_format);          //"%1$s %2$s";
+        strDistanceFormatKm = context.getString(R.string.distance_format);
+        strPercentFormat = context.getString(R.string.percent_format);            // "%1$s %%";
     }
 
 }

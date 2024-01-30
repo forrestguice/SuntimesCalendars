@@ -246,7 +246,23 @@
     <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%s\n%s</string>
+
     <string name="distance_format">%s km</string>  <!-- e.g. full moon (400.71 km) -->   <!-- TODO -->
+    <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
+
+    <!-- position formats -->
+    <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
+    <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
+    <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
+    <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
+    <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g> <xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
+    <string name="percent_format"><xliff:g id="value" example="45">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
+
+    <string name="percent_symbol">%%</string>                <!-- label/suffix -->
+    <string name="degrees_symbol">°</string>                <!-- label/suffix -->
+    <string name="altitude_symbol">∠</string>               <!-- label/suffix -->
+    <string name="declination_symbol">δ</string>            <!-- label/suffix -->
+    <string name="rightascension_symbol">α</string>         <!-- label/suffix -->
 
     <string name="toolbar_title">Calendars</string>
 

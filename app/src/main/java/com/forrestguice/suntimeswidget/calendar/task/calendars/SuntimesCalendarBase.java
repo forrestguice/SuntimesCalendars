@@ -30,6 +30,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.lang.ref.WeakReference;
 
@@ -44,6 +45,7 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     @Override
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings) {
         contextRef = new WeakReference<>(context);
+        Utils.initDisplayStrings(context);
     }
 
     @Override
