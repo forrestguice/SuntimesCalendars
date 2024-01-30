@@ -27,6 +27,7 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class Utils
@@ -47,6 +48,8 @@ public class Utils
     protected static String strElevationFormat = "%1$s%2$s";
     protected static String strDeclinationFormat = "%1$s %2$s";
     protected static String strRaFormat = "%1$s %2$s";
+    protected static String strDistanceFormatKm = "%1$s km";
+    protected static String strPercentFormat = "%1$s %%";
 
     private static NumberFormat formatter = NumberFormat.getInstance();
 
@@ -91,6 +94,26 @@ public class Utils
 
     public static String formatAsElevation(Double degrees, int places) {
         return String.format(strElevationFormat, formatAsDegrees(degrees, places), strAltSymbol);
+    }
+
+    public static String formatAsDistanceKm(Double value, int places)
+    {
+        if (value == null) {
+            return "";
+        }
+        formatter.setMinimumFractionDigits(places);
+        formatter.setMaximumFractionDigits(places);
+        return String.format(strDistanceFormatKm, formatter.format(value));
+    }
+
+    public static String formatAsPercent(Double value, int places)
+    {
+        if (value == null) {
+            return "";
+        }
+        formatter.setMinimumFractionDigits(places);
+        formatter.setMaximumFractionDigits(places);
+        return String.format(strPercentFormat, formatter.format(value * 100));
     }
 
     /**
