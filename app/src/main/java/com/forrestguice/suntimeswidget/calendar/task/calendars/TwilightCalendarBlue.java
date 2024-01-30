@@ -40,6 +40,13 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgres
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_BLUE8_RISE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_BLUE8_SET;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_GOLDEN_EVENING;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_GOLDEN_MORNING;
 
 @SuppressWarnings("Convert2Diamond")
 public class TwilightCalendarBlue extends TwilightCalendarBase implements SuntimesCalendar
@@ -57,7 +64,7 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%cal", "%M @ %loc", "%loc");
+        return new CalendarEventTemplate("%cal", "%M @ %loc\n%eZ", "%loc");
     }
 
     @Override
@@ -117,10 +124,22 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + window[0] + "-" + window[1]);
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_BLUE8_RISE, CalculatorProviderContract.COLUMN_SUN_BLUE4_RISE,
-                                                     CalculatorProviderContract.COLUMN_SUN_BLUE4_SET, CalculatorProviderContract.COLUMN_SUN_BLUE8_SET };   // 0, 1, 2, 3 .. expected order: blue8 (morning), blue4 (morning), blue4 (evening), blue8 (evening)
+                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(
+                        CalculatorProviderContract.COLUMN_SUN_BLUE8_RISE, CalculatorProviderContract.COLUMN_SUN_BLUE4_RISE,  // 0, 1
+                        CalculatorProviderContract.COLUMN_SUN_BLUE4_SET, CalculatorProviderContract.COLUMN_SUN_BLUE8_SET )); // 2, 3 .. expected order: blue8 (morning), blue4 (morning), blue4 (evening), blue8 (evening)
 
+                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();    // TODO
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();    // 0:s_BLUE_HOUR_MORNING, 1:s_BLUE_HOUR_EVENING, 2:s_BLUE_HOUR
+
+                Map<TemplatePatterns, Boolean> containsPattern = new HashMap<>();
+                Map<TemplatePatterns, Integer> i_pattern = new HashMap<>();
+                buildContainsPattern(template, containsPattern);
+                buildExtProjectionFromPatterns(containsPattern, i_pattern, projection0.size(), projection0,
+                        COLUMN_SUN_BLUE8_RISE, COLUMN_SUN_BLUE8_SET);    // 4, 5  .. rising position, setting position, etc
+
+                Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + window[0] + "-" + window[1]);
+                String[] projection = projection0.toArray(new String[0]);
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -133,9 +152,6 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();    // TODO
-                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();    // 0:s_BLUE_HOUR_MORNING, 1:s_BLUE_HOUR_EVENING, 2:s_BLUE_HOUR
-                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -144,9 +160,11 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
                         if (flags[0]) {
+                            populatePatternData(containsPattern, i_pattern, cursor, 0, data);
                             createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[0], strings[0], strings[2]);    // blue8 (morning), blue4 (morning)
                         }
                         if (flags[1]) {
+                            populatePatternData(containsPattern, i_pattern, cursor, 1, data);
                             createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[1], strings[1], strings[2]);    // blue4 (evening), blue8 (evening)
                         }
                         cursor.moveToNext();

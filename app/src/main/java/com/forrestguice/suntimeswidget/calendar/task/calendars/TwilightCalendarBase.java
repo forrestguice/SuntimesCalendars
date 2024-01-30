@@ -32,9 +32,16 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_ALT;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_AZ;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_DEC;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_RA;
 
 @SuppressWarnings("Convert2Diamond")
 public abstract class TwilightCalendarBase extends SuntimesCalendarBase implements SuntimesCalendar
@@ -129,6 +136,10 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
         Calendar eventStart = Calendar.getInstance();
         Calendar eventEnd = Calendar.getInstance();
 
+        //if (containsPattern.containsKey(TemplatePatterns.pattern_em)) {
+        //    data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
+        //}
+
         if (!cursor.isNull(i) && !cursor.isNull(j))                // avg case [i, j]
         {
             eventStart.setTimeInMillis(cursor.getLong(i));
@@ -162,6 +173,63 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
                     cursor.moveToPrevious();
                 }
             }
+        }
+    }
+
+    protected void populatePatternData(Map<TemplatePatterns, Boolean> containsPattern, Map<TemplatePatterns, Integer> i_pattern, Cursor cursor, int offset, ContentValues data)
+    {
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eZ)) {
+            data.put(TemplatePatterns.pattern_eZ.getPattern(), Utils.formatAsDirection(cursor.getDouble(offset + i_pattern.get(TemplatePatterns.pattern_eZ)), 2));
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eA)) {
+            data.put(TemplatePatterns.pattern_eA.getPattern(), Utils.formatAsElevation(cursor.getDouble(offset + i_pattern.get(TemplatePatterns.pattern_eA)), 2));
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eR)) {
+            data.put(TemplatePatterns.pattern_eR.getPattern(), Utils.formatAsRightAscension(cursor.getDouble(offset + i_pattern.get(TemplatePatterns.pattern_eR)), 1));
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eD)) {
+            data.put(TemplatePatterns.pattern_eD.getPattern(), Utils.formatAsDeclination(cursor.getDouble(offset + i_pattern.get(TemplatePatterns.pattern_eD)), 1));
+        }
+    }
+
+    protected void buildContainsPattern(CalendarEventTemplate template, Map<TemplatePatterns, Boolean> containsPattern)
+    {
+        containsPattern.put(TemplatePatterns.pattern_em, template.containsPattern(TemplatePatterns.pattern_em));
+        containsPattern.put(TemplatePatterns.pattern_eZ, template.containsPattern(TemplatePatterns.pattern_eZ));
+        containsPattern.put(TemplatePatterns.pattern_eA, template.containsPattern(TemplatePatterns.pattern_eA));
+        containsPattern.put(TemplatePatterns.pattern_eR, template.containsPattern(TemplatePatterns.pattern_eR));
+        containsPattern.put(TemplatePatterns.pattern_eD, template.containsPattern(TemplatePatterns.pattern_eD));
+    }
+
+    protected void buildExtProjectionFromPatterns(Map<TemplatePatterns, Boolean> containsPattern, Map<TemplatePatterns, Integer> i_pattern, int i, ArrayList<String> projection, String... columns)
+    {
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eZ)) {
+            i_pattern.put(TemplatePatterns.pattern_eZ, i);
+            for (int k=0; k<columns.length; k++) {
+                projection.add(columns[k] + _POSITION_AZ);
+            }
+            i += columns.length;
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eA)) {
+            i_pattern.put(TemplatePatterns.pattern_eA, i);
+            for (int k=0; k<columns.length; k++) {
+                projection.add(columns[k] + _POSITION_ALT);
+            }
+            i += columns.length;
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eR)) {
+            i_pattern.put(TemplatePatterns.pattern_eR, i);
+            for (int k=0; k<columns.length; k++) {
+                projection.add(columns[k] + _POSITION_RA);
+            }
+            i += columns.length;
+        }
+        if (containsPattern.containsKey(TemplatePatterns.pattern_eD)) {
+            i_pattern.put(TemplatePatterns.pattern_eD, i);
+            for (int k=0; k<columns.length; k++) {
+                projection.add(columns[k] + _POSITION_DEC);
+            }
+            i += columns.length;
         }
     }
 

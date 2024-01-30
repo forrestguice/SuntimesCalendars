@@ -40,6 +40,13 @@ import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_CIVIL_SET;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET;
 
 @SuppressWarnings("Convert2Diamond")
 public class TwilightCalendarNautical extends TwilightCalendarBase implements SuntimesCalendar
@@ -55,7 +62,7 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%cal", "%M @ %loc", "%loc");
+        return new CalendarEventTemplate("%cal", "%M @ %loc\n%eZ", "%loc");
     }
 
     @Override
@@ -110,9 +117,24 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(
+                        COLUMN_SUN_NAUTICAL_RISE, COLUMN_SUN_CIVIL_RISE,    // 0, 1
+                        COLUMN_SUN_CIVIL_SET, COLUMN_SUN_NAUTICAL_SET ));   // 2, 3
+
+                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                // 0:s_NAUTICAL_TWILIGHT, 1:s_NAUTICAL_TWILIGHT_MORNING, 2:s_NAUTICAL_TWILIGHT_EVENING, 3:s_NAUTICAL_DAWN, 4:s_NAUTICAL_DUSK, 5:s_CIVIL_NIGHT
+
+                Map<TemplatePatterns, Boolean> containsPattern = new HashMap<>();
+                Map<TemplatePatterns, Integer> i_pattern = new HashMap<>();
+                buildContainsPattern(template, containsPattern);
+                buildExtProjectionFromPatterns(containsPattern, i_pattern, projection0.size(), projection0,
+                        COLUMN_SUN_NAUTICAL_RISE, COLUMN_SUN_NAUTICAL_SET);    // 4, 5  .. rising position, setting position, etc
+
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + window[0] + "-" + window[1]);
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_NAUTICAL_RISE, CalculatorProviderContract.COLUMN_SUN_CIVIL_RISE,
-                        CalculatorProviderContract.COLUMN_SUN_CIVIL_SET, CalculatorProviderContract.COLUMN_SUN_NAUTICAL_SET };
+                String[] projection = projection0.toArray(new String[0]);
+
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -125,11 +147,6 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(c, numRows, progressTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                    // 0:s_NAUTICAL_TWILIGHT, 1:s_NAUTICAL_TWILIGHT_MORNING, 2:s_NAUTICAL_TWILIGHT_EVENING, 3:s_NAUTICAL_DAWN, 4:s_NAUTICAL_DUSK, 5:s_CIVIL_NIGHT
-
-                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -138,9 +155,11 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
                         if (flags[0]) {
+                            populatePatternData(containsPattern, i_pattern, cursor, 0, data);
                             createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 0, template, data, strings[1], strings[5], strings[0]);   // nautical twilight (morning), civil night, nautical twilight
                         }
                         if (flags[1]) {
+                            populatePatternData(containsPattern, i_pattern, cursor, 1, data);
                             createSunCalendarEvent(context, adapter, task, eventValues, calendarID, cursor, 2, template, data, strings[2], strings[0], strings[0]);   // nautical twilight (evening), nautical twilight, nautical twilight
                         }
                         cursor.moveToNext();
