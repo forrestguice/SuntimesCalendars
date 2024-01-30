@@ -136,6 +136,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
                 int i_eZ = -1, i_eA = -1, i_eR = -1, i_eD = -1, i_illum = -1, i_dist = -1;
                 boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD, containsPattern_dist, containsPattern_illum;
+                boolean containsPattern_em = template.containsPattern(TemplatePatterns.pattern_em);
 
                 int j = 2;
                 ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(COLUMN_MOON_RISE, COLUMN_MOON_SET));
@@ -227,6 +228,9 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                 }
                                 if (containsPattern_illum) {
                                     data.put(TemplatePatterns.pattern_illum.getPattern(), Utils.formatAsPercent(cursor.getDouble(i + i_illum), 1));
+                                }
+                                if (containsPattern_em) {
+                                    data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
                                 }
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);

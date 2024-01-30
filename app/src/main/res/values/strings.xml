@@ -344,7 +344,8 @@
     <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->
     <string name="help_pattern_lon">location longitude</string>   <!-- TODO -->
     <string name="help_pattern_lel">location elevation</string>   <!-- TODO -->
-    <string name="help_pattern_event">event title (e.g. "Full Moon").</string>   <!-- TODO -->
+    <string name="help_pattern_event">event title (e.g. "Full Moon")</string>   <!-- TODO -->
+    <string name="help_pattern_event_millis">event milliseconds</string>   <!-- TODO -->
     <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
     <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
     <string name="help_pattern_phase">moon phase</string>   <!-- TODO -->

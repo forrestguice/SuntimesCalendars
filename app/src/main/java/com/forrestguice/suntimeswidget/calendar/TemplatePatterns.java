@@ -39,6 +39,8 @@ public enum TemplatePatterns
     pattern_lel("%lel", R.string.help_pattern_lel),
 
     pattern_event("%M", R.string.help_pattern_event),
+    pattern_em("%em", R.string.help_pattern_altitude),
+
     pattern_eA("%eA", R.string.help_pattern_altitude),
     pattern_eZ("%eZ", R.string.help_pattern_azimuth),
     pattern_eD("%eD", R.string.help_pattern_declination),

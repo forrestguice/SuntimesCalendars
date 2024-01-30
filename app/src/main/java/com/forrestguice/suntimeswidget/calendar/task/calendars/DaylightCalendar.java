@@ -140,6 +140,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
 
                 int i_eZ = -1, i_eA = -1, i_eR = -1, i_eD = -1;
                 boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD;
+                boolean containsPattern_em = template.containsPattern(TemplatePatterns.pattern_em);
 
                 int j = 3;
                 ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(COLUMN_SUN_ACTUAL_RISE, COLUMN_SUN_NOON, COLUMN_SUN_ACTUAL_SET));
@@ -215,6 +216,9 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                                 }
                                 if (containsPattern_eD) {
                                     data.put(TemplatePatterns.pattern_eD.getPattern(), Utils.formatAsDeclination(cursor.getDouble(i + i_eD), 1));
+                                }
+                                if (containsPattern_em) {
+                                    data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
                                 }
 
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
