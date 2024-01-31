@@ -49,9 +49,6 @@ import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProvider
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_SET;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_SET_DISTANCE;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_SET_ILLUM;
-import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE;
-import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET;
-import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_NOON;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_ALT;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_AZ;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_DEC;
@@ -64,7 +61,8 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     private static final int resID_calendarTitle = R.string.calendar_moonrise_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonrise_summary;
 
-    private String[] moonStrings = new String[2];      // {moonrise, moonset}
+    private String[] moonStrings = new String[8];      // {moonrise, moonset, full moon, waning gibbous, waning crescent, new moon, waxing crescent, waxing gibbous}
+    protected String[] eventColumns = new String[] { COLUMN_MOON_RISE, COLUMN_MOON_SET} ;
 
     @Override
     public String calendarName() {
@@ -73,7 +71,18 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M @ %loc\n%eZ, %illum", "%loc");
+        return new CalendarEventTemplate("%M", "%M @ %loc\n%eZ, %illum\n%phase", "%loc");
+    }
+
+    @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,
+                TemplatePatterns.pattern_illum, TemplatePatterns.pattern_dist, TemplatePatterns.pattern_phase, null,
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
     }
 
     @Override
@@ -84,7 +93,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     @Override
     public CalendarEventFlags defaultFlags()
     {
-        boolean[] values = new boolean[moonStrings.length];
+        boolean[] values = new boolean[eventColumns.length];   // moonrise, moonset
         Arrays.fill(values, true);
         return new CalendarEventFlags(values);
     }
@@ -109,6 +118,12 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
 
         moonStrings[0] = context.getString(R.string.moonrise);
         moonStrings[1] = context.getString(R.string.moonset);
+        moonStrings[2] = context.getString(R.string.timeMode_moon_full);
+        moonStrings[3] = context.getString(R.string.timeMode_moon_waninggibbous);
+        moonStrings[4] = context.getString(R.string.timeMode_moon_waningcrescent);
+        moonStrings[5] = context.getString(R.string.timeMode_moon_new);
+        moonStrings[6] = context.getString(R.string.timeMode_moon_waxingcrescent);
+        moonStrings[7] = context.getString(R.string.timeMode_moon_waxinggibbous);
     }
 
     @Override
@@ -135,7 +150,8 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                 CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
 
                 int i_eZ = -1, i_eA = -1, i_eR = -1, i_eD = -1, i_illum = -1, i_dist = -1;
-                boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD, containsPattern_dist, containsPattern_illum;
+                boolean containsPattern_eZ = false, containsPattern_eA = false, containsPattern_eR = false, containsPattern_eD = false;
+                boolean containsPattern_dist = false, containsPattern_illum = false, containsPattern_phase = false;
                 boolean containsPattern_em = template.containsPattern(TemplatePatterns.pattern_em);
 
                 int j = 2;
@@ -174,16 +190,18 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     projection0.add(COLUMN_MOON_SET_DISTANCE);
                     j += 2;
                 }
-                if (containsPattern_illum = template.containsPattern(TemplatePatterns.pattern_illum))
+                containsPattern_illum = template.containsPattern(TemplatePatterns.pattern_illum);
+                containsPattern_phase = template.containsPattern(TemplatePatterns.pattern_phase);
+                if (containsPattern_illum || containsPattern_phase)
                 {
                     i_illum  = j;
                     projection0.add(COLUMN_MOON_RISE_ILLUM);
                     projection0.add(COLUMN_MOON_SET_ILLUM);
                     j += 2;
                 }
-                String[] projection = projection0.toArray(new String[0]);
 
                 Uri moonUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOON + "/" + window[0] + "-" + window[1]);
+                String[] projection = projection0.toArray(new String[0]);
                 Cursor cursor = resolver.query(moonUri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -203,6 +221,22 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
+                        boolean risingEventFirst = false;
+                        Calendar risingEventTime = null, settingEventTime = null;
+                        Double risingEventIllum = null, settingEventIllum = null;
+                        if (containsPattern_phase)
+                        {
+                            risingEventTime = Calendar.getInstance();
+                            risingEventTime.setTimeInMillis(cursor.getLong(0));
+                            risingEventIllum = cursor.getDouble(0 + i_illum);
+
+                            settingEventTime = Calendar.getInstance();
+                            settingEventTime.setTimeInMillis(cursor.getLong(1));
+                            settingEventIllum = cursor.getDouble(1 + i_illum);
+
+                            risingEventFirst = (risingEventTime != null && risingEventTime.before(settingEventTime));
+                        }
+
                         for (int i=0; i<2; i++)
                         {
                             if (flags[i] && !cursor.isNull(i))
@@ -228,6 +262,13 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                 }
                                 if (containsPattern_illum) {
                                     data.put(TemplatePatterns.pattern_illum.getPattern(), Utils.formatAsPercent(cursor.getDouble(i + i_illum), 1));
+                                }
+                                if (containsPattern_phase)
+                                {
+                                    double illum = (i == 0 ? risingEventIllum : settingEventIllum);
+                                    double deltaIllum = (risingEventFirst ? settingEventIllum - risingEventIllum
+                                                                          : risingEventIllum - settingEventIllum);
+                                    data.put(TemplatePatterns.pattern_phase.getPattern(), phaseStringFromIllumination(illum, deltaIllum > 0));
                                 }
                                 if (containsPattern_em) {
                                     data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
@@ -268,6 +309,20 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
         } else return false;
     }
 
-
+    protected String phaseStringFromIllumination(Double illum, boolean isWaxing)
+    {
+        if (illum == null) {
+            return "";
+        }
+        if (illum >= 0.995) {
+            return moonStrings[2];                   // 2; full moon
+        } else if (illum >= 0.5) {
+            return moonStrings[isWaxing ? 7 : 3];    // 7 or 3; waxing/waning gibbous
+        } else if (illum >= 0.01) {
+            return moonStrings[isWaxing ? 6 : 4];    // 6 or 4; waxing/waning crescent
+        } else {
+            return moonStrings[5];                   // 5; new moon
+        }
+    }
 
 }

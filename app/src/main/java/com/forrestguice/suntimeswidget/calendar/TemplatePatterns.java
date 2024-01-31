@@ -48,6 +48,7 @@ public enum TemplatePatterns
 
     pattern_dist("%dist", R.string.help_pattern_dist),
     pattern_illum("%illum", R.string.help_pattern_illum),
+    pattern_phase("%phase", R.string.help_pattern_phase),
 
     pattern_percent("%%", R.string.help_pattern_percent);
 
