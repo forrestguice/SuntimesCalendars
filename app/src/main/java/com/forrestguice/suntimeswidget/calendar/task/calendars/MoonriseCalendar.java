@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2023 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -258,7 +258,7 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                     data.put(TemplatePatterns.pattern_eD.getPattern(), Utils.formatAsDeclination(cursor.getDouble(i + i_eD), 1));
                                 }
                                 if (containsPattern_dist) {
-                                    data.put(TemplatePatterns.pattern_dist.getPattern(), Utils.formatAsDistanceKm(cursor.getDouble(i + i_dist), 1));   // TODO: length units
+                                    data.put(TemplatePatterns.pattern_dist.getPattern(), Utils.formatAsDistance(task.getLengthUnits(), cursor.getDouble(i + i_dist), 1));
                                 }
                                 if (containsPattern_illum) {
                                     data.put(TemplatePatterns.pattern_illum.getPattern(), Utils.formatAsPercent(cursor.getDouble(i + i_illum), 1));

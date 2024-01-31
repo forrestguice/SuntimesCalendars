@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2023 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -38,6 +38,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -198,8 +199,10 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 double distance = lookupMoonDistance(context, resolver, eventTime.getTimeInMillis());
+                                String distanceString = ((distance > 0) ? Utils.formatAsDistance(task.getLengthUnits(), distance, 1) : "");
+
                                 data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
-                                data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                                data.put(TemplatePatterns.pattern_dist.getPattern(), distanceString);
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                             }
                             date.setTimeInMillis(cursor.getLong(0) + (60 * 1000));  // advance to next cycle

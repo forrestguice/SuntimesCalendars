@@ -27,7 +27,6 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class Utils
@@ -50,6 +49,7 @@ public class Utils
     protected static String strDeclinationFormat = "%1$s %2$s";
     protected static String strRaFormat = "%1$s %2$s";
     protected static String strDistanceFormatKm = "%1$s km";
+    protected static String strDistanceFormatMi = "%1$s mi";
     protected static String strPercentFormat = "%1$s %%";
 
     private static NumberFormat formatter = NumberFormat.getInstance();
@@ -97,14 +97,33 @@ public class Utils
         return String.format(strElevationFormat, formatAsDegrees(degrees, places), strAltSymbol);
     }
 
-    public static String formatAsDistanceKm(Double value, int places)
+    public static String formatAsDistance(LengthUnit lengthUnits, Double distanceKm, int places) {
+        return formatAsDistance(lengthUnits.name(), distanceKm, places);
+    }
+    public static String formatAsDistance(String lengthUnits, Double distanceKm, int places)
+    {
+        if (distanceKm == null) {
+            return "";
+        }
+        boolean asImperial = Utils.LengthUnit.IMPERIAL.name().equals(lengthUnits);
+        double value = (asImperial ? Utils.LengthUnit.kilometersToMiles(distanceKm) : distanceKm);
+        return asImperial ? Utils.formatAsDistanceMi(value, places)
+                : Utils.formatAsDistanceKm(value, places);
+    }
+    public static String formatAsDistanceKm(Double value, int places) {
+        return formatAsDistance(value, places, strDistanceFormatKm);
+    }
+    public static String formatAsDistanceMi(Double value, int places) {
+        return formatAsDistance(value, places, strDistanceFormatMi);
+    }
+    public static String formatAsDistance(Double value, int places, String format)
     {
         if (value == null) {
             return "";
         }
-        formatter.setMinimumFractionDigits(places);
+        formatter.setMinimumFractionDigits(0);
         formatter.setMaximumFractionDigits(places);
-        return String.format(strDistanceFormatKm, formatter.format(value));
+        return String.format(format, formatter.format(value));
     }
 
     public static String formatAsPercent(Double value, int places)
@@ -239,6 +258,7 @@ public class Utils
     public static void initDisplayStrings( Context context )
     {
         CardinalDirection.initDisplayStrings(context);
+        LengthUnit.initDisplayStrings(context);
 
         strDegSymbol = context.getString(R.string.degrees_symbol);                // "%";
         strAltSymbol = context.getString(R.string.altitude_symbol);               // "∠";
@@ -249,8 +269,50 @@ public class Utils
         strElevationFormat = context.getString(R.string.elevation_format);        // "%1$s%2$s";
         strDeclinationFormat = context.getString(R.string.declination_format);    // "%1$s %2$s";
         strRaFormat = context.getString(R.string.rightascension_format);          //"%1$s %2$s";
-        strDistanceFormatKm = context.getString(R.string.distance_format);
+        strDistanceFormatKm = context.getString(R.string.distance_format_km);
+        strDistanceFormatMi = context.getString(R.string.distance_format_mi);
         strPercentFormat = context.getString(R.string.percent_format);            // "%1$s %%";
     }
+
+    /**
+     * LengthUnit
+     */
+    public static enum LengthUnit
+    {
+        METRIC("Metric"),
+        IMPERIAL("Imperial");
+
+        private LengthUnit(String displayString) {
+            this.displayString = displayString;
+        }
+
+        private String displayString;
+        public String getDisplayString() {
+            return displayString;
+        }
+        public void setDisplayString(String value) {
+            displayString = value;
+        }
+        public static void initDisplayStrings(Context context)
+        {
+            METRIC.setDisplayString(context.getString(R.string.lengthUnits_metric));
+            IMPERIAL.setDisplayString(context.getString(R.string.lengthUnits_imperial));
+        }
+        public String toString() {
+            return displayString;
+        }
+
+        public static double metersToFeet(double meters) {
+            return 3.28084d * meters;
+        }
+        public static double feetToMeters(double feet) {
+            return (feet * (1d / 3.28084d) );
+        }
+
+        public static double kilometersToMiles(double kilometers) {
+            return 0.62137 * kilometers;
+        }
+    }
+
 
 }

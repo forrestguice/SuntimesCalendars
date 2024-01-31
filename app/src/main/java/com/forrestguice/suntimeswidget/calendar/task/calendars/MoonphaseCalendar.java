@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2023 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -38,6 +38,7 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -203,7 +204,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
                             String[] eventStrings = getPhaseStrings(i, distance, strings);
                             data.put(TemplatePatterns.pattern_event.getPattern(), eventStrings[i]);
-                            data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                            data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? Utils.formatAsDistance(task.getLengthUnits(), distance, 2) : ""));
 
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));
