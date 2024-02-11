@@ -1,0 +1,4 @@
+- adds patterns for event position (azimuth, altitude, right ascension, and declination).
+- adds patterns for moon illumination, minor phase, and distance.
+- fixes bug where "update notification vibrates repeatedly" (#59).
+- updates translations to Polish (pl) and Esperanto (eo).
