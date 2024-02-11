@@ -3,6 +3,7 @@
 ### v0.6.1 (2024-02-10)
 * adds template patterns to the "Daylight", "Civil Twilight", "Nautical Twilight", "Astronomical Twilight", "Blue Hour", "Gold Hour", and "Moon" calendars; `%em` (milliseconds), `%eZ` (azimuth), `%eA` (altitude), `%eR` (right ascension), and `%eD` (declination).
 * adds template patterns to the "Moon" calendar; `%illum` (illumination %), `%phase` (minor phase), and `%dist` (distance).
+* adds donation link to the about dialog; adds Liberapay to donation options (#46); https://liberapay.com/forrestguice/
 * improves template pattern help so that only the supported patterns for each individual calendar are shown.
 * modifies default calendar templates to include the `%eZ` and `%eA` patterns.
 * fixes pattern `%dist` to respect the Suntimes "length units" option (km or mi).
