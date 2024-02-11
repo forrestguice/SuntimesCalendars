@@ -10,4 +10,6 @@
     <drawable name="ic_action_about_ref">@drawable/ic_action_about_light</drawable>
     <drawable name="ic_action_settings_ref">@drawable/ic_action_settings_light</drawable>
     <drawable name="ic_action_help_ref">@drawable/ic_action_help_light</drawable>
+
+    <drawable name="check_favorite_ref">@drawable/check_favorite_light</drawable>
 </resources>

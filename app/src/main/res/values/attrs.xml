@@ -20,6 +20,8 @@
     <attr name="icActionSettings" format="reference" />
     <attr name="icActionHelp" format="reference" />
 
+    <attr name="checkFavorite" format="reference" />
+
     <attr name="text_size_tiny" format="dimension" />
     <attr name="text_size_xsmall" format="dimension" />
     <attr name="text_size_small" format="dimension" />
