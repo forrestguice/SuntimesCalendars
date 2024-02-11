@@ -36,6 +36,8 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.BuildConfig;
@@ -146,6 +148,18 @@ public class AboutDialog extends BottomSheetDialogFragment
         TextView supportView = (TextView) dialogContent.findViewById(R.id.txt_about_support);
         supportView.setMovementMethod(LinkMovementMethod.getInstance());
         supportView.setText(Utils.fromHtml(context.getString(R.string.app_support_url)));
+
+        final TextView donateView = (TextView) dialogContent.findViewById(R.id.text_about_donate);
+        donateView.setMovementMethod(LinkMovementMethod.getInstance());
+        donateView.setText(Utils.fromHtml(context.getString(R.string.app_donate_url, context.getString(R.string.app_name))));
+        donateView.setVisibility(View.GONE);
+
+        CheckBox checkDonate = (CheckBox) dialogContent.findViewById(R.id.check_donate);
+        checkDonate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                donateView.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            }
+        });
 
         TextView legalView1 = (TextView) dialogContent.findViewById(R.id.txt_about_legal1);
         legalView1.setMovementMethod(LinkMovementMethod.getInstance());

@@ -146,6 +146,10 @@
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
     ]]></string>
+    <string name="app_donate_url"><![CDATA[
+        %s 免費使用，如果您認為它有價值，請
+        <a href="https://forrestguice.github.io/SuntimesWidget/donate">隨意付費</a>。
+    ]]></string>
     <string name="app_url"><xliff:g id="url"><![CDATA[
         <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
     ]]></xliff:g></string>
