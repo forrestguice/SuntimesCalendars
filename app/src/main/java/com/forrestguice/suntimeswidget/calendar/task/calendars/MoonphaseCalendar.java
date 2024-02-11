@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2023 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -38,10 +38,20 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_FIRST;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_FIRST_DISTANCE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_FULL;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_FULL_DISTANCE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_NEW;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_NEW_DISTANCE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_THIRD;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_MOON_THIRD_DISTANCE;
 
 @SuppressWarnings("Convert2Diamond")
 public class MoonphaseCalendar extends MoonCalendarBase
@@ -65,6 +75,18 @@ public class MoonphaseCalendar extends MoonCalendarBase
     @Override
     public CalendarEventTemplate defaultTemplate() {
         return new CalendarEventTemplate("%M", "%M\n%dist", null);
+    }
+
+    @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, null, // TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,   // TODO: position patterns
+                //TemplatePatterns.pattern_illum,  // TODO: illum pattern
+                TemplatePatterns.pattern_dist, null,
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
     }
 
     @Override
@@ -142,15 +164,6 @@ public class MoonphaseCalendar extends MoonCalendarBase
             adapter.createCalendar(calendarName, calendarTitle, calendarColor);
         } else return false;
 
-        String[] projection = new String[] {    // indices 0-3 should contain ordered phases!
-                CalculatorProviderContract.COLUMN_MOON_NEW,
-                CalculatorProviderContract.COLUMN_MOON_FIRST,
-                CalculatorProviderContract.COLUMN_MOON_FULL,
-                CalculatorProviderContract.COLUMN_MOON_THIRD,
-                CalculatorProviderContract.COLUMN_MOON_NEW_DISTANCE,  // use indices 4+ for other data
-                CalculatorProviderContract.COLUMN_MOON_FULL_DISTANCE
-        };
-
         long calendarID = adapter.queryCalendarID(calendarName);
         if (calendarID != -1)
         {
@@ -158,7 +171,30 @@ public class MoonphaseCalendar extends MoonCalendarBase
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+
+                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(
+                        COLUMN_MOON_NEW, COLUMN_MOON_FIRST,      // 0, 1
+                        COLUMN_MOON_FULL, COLUMN_MOON_THIRD));   // 2, 3
+
+                int i_dist = -1;
+                boolean containsPattern_dist = template.containsPattern(TemplatePatterns.pattern_dist);
+
+                int j = 4;
+                if (containsPattern_dist)
+                {
+                    i_dist = j;
+                    projection0.add(COLUMN_MOON_NEW_DISTANCE);
+                    projection0.add(COLUMN_MOON_FIRST_DISTANCE);
+                    projection0.add(COLUMN_MOON_FULL_DISTANCE);
+                    projection0.add(COLUMN_MOON_THIRD_DISTANCE);
+                    j += 4;
+                }
+
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_MOONPHASE + "/" + window[0] + "-" + window[1]);
+                String[] projection = projection0.toArray(new String[0]);
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -167,9 +203,6 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -183,15 +216,10 @@ public class MoonphaseCalendar extends MoonCalendarBase
                                 continue;
                             }
 
-                            double distance = -1;
-                            if (i == 0 || i == 2)  // new moon || full moon
-                            {
-                                distance = cursor.getDouble(i == 0 ? 4 : 5);
-                            }
-
+                            double distance = cursor.getDouble(i + i_dist);
                             String[] eventStrings = getPhaseStrings(i, distance, strings);
                             data.put(TemplatePatterns.pattern_event.getPattern(), eventStrings[i]);
-                            data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? context.getString(R.string.distance_format, formatDistanceString(distance)) : ""));
+                            data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? Utils.formatAsDistance(task.getLengthUnits(), distance, 2) : ""));
 
                             Calendar eventTime = Calendar.getInstance();
                             eventTime.setTimeInMillis(cursor.getLong(i));

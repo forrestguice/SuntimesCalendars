@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -123,7 +123,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
         }
 
         long[] window = getWindow();
-        boolean hasLocation = initLocation();
+        boolean hasLocation = queryConfig();
         boolean retValue = true;
 
         publishProgress(new SuntimesCalendarTaskProgress(1, 1000, notificationMsgUpdating));

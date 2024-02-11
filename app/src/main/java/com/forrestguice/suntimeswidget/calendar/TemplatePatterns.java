@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2023 Forrest Guice
+    Copyright (C) 2023-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -32,12 +32,24 @@ public enum TemplatePatterns
     pattern_cal("%cal", R.string.help_pattern_cal),
     pattern_summary("%summary", R.string.help_pattern_summary),
     pattern_color("%color", R.string.help_pattern_color),
+
     pattern_loc("%loc", R.string.help_pattern_loc),
     pattern_lat("%lat", R.string.help_pattern_lat),
     pattern_lon("%lon", R.string.help_pattern_lon),
     pattern_lel("%lel", R.string.help_pattern_lel),
+
     pattern_event("%M", R.string.help_pattern_event),
+    pattern_em("%em", R.string.help_pattern_altitude),
+
+    pattern_eA("%eA", R.string.help_pattern_altitude),
+    pattern_eZ("%eZ", R.string.help_pattern_azimuth),
+    pattern_eD("%eD", R.string.help_pattern_declination),
+    pattern_eR("%eR", R.string.help_pattern_rightascension),
+
     pattern_dist("%dist", R.string.help_pattern_dist),
+    pattern_illum("%illum", R.string.help_pattern_illum),
+    pattern_phase("%phase", R.string.help_pattern_phase),
+
     pattern_percent("%%", R.string.help_pattern_percent);
 
     private final String pattern;
@@ -64,29 +76,37 @@ public enum TemplatePatterns
         return context.getString(helpResource);
     }
 
-    public static String getAllHelpText(Context context)
+    public static String getAllHelpText(Context context) {
+        return getPatternHelpText(context, TemplatePatterns.values());
+    }
+    public static String getPatternHelpText(Context context, TemplatePatterns... patterns)
     {
         int c = 8;
         StringBuilder substitutionHelp = new StringBuilder();
 
-        TemplatePatterns[] patterns = TemplatePatterns.values();
         //substitutionHelp.append("<font face='monospace'>");
         for (int i=0; i<patterns.length; i++)
         {
-            String pattern = patterns[i].getPattern();
-            String patternHelp = patterns[i].getHelpText(context);
+            TemplatePatterns p = patterns[i];
+            String pattern = ((p != null) ? p.getPattern() : null);
+            if (pattern == null)
+            {
+                substitutionHelp.append("<br/>");
+                continue;
+            }
 
             substitutionHelp.append("<b>").append(pattern).append("</b>").append("&nbsp;");
             for (int j=0; j<(c-pattern.length()); j++) {
                 substitutionHelp.append("&nbsp;");
             }
+
+            String patternHelp = p.getHelpText(context);
             substitutionHelp.append(patternHelp)
                     .append("<br/>");
         }
         //substitutionHelp.append("</font");
         return substitutionHelp.toString();
     }
-
 
     public static ContentValues createContentValues(@Nullable ContentValues values, SuntimesCalendar calendar)
     {
