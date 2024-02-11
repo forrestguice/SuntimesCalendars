@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2020 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -30,10 +30,18 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_LATITUDE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_LENGTH_UNITS;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_LOCATION;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE;
 
 @SuppressWarnings("Convert2Diamond")
 public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean>
@@ -51,6 +59,7 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     protected String config_location_latitude = "";
     protected String config_location_longitude = "";
     protected String config_location_altitude = "";
+    protected String config_provider_length_units = Utils.LengthUnit.METRIC.name();
 
     protected long lastSync = -1;
     protected String lastError = null;
@@ -116,14 +125,19 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         return flag_clear;
     }
 
-    protected boolean initLocation()
+    /**
+     * init location and other settings defined by Suntimes
+     * @return
+     */
+    protected boolean queryConfig()
     {
         Context context = contextRef.get();
         ContentResolver resolver = (context == null ? null : context.getContentResolver());
         if (resolver != null)
         {
             Uri configUri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_CONFIG);
-            String[] configProjection = new String[]{CalculatorProviderContract.COLUMN_CONFIG_LOCATION, CalculatorProviderContract.COLUMN_CONFIG_LATITUDE, CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE, CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE, CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE};
+            String[] configProjection = new String[] { COLUMN_CONFIG_LOCATION, COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
+                    COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_PROVIDER_VERSION_CODE };
 
             try {
                 Cursor configCursor = resolver.query(configUri, configProjection, null, null, null);
@@ -131,11 +145,12 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
                 {
                     configCursor.moveToFirst();
                     for (int i = 0; i < configProjection.length; i++) {
-                        config_location_name = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LOCATION));
-                        config_location_latitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LATITUDE));
-                        config_location_longitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_LONGITUDE));
-                        config_location_altitude = configCursor.getString(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_ALTITUDE));
-                        config_provider_version = configCursor.getInt(configCursor.getColumnIndex(CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE));
+                        config_location_name = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LOCATION));
+                        config_location_latitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LATITUDE));
+                        config_location_longitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LONGITUDE));
+                        config_location_altitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_ALTITUDE));
+                        config_provider_version = configCursor.getInt(configCursor.getColumnIndex(COLUMN_CONFIG_PROVIDER_VERSION_CODE));
+                        config_provider_length_units = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LENGTH_UNITS));
                     }
                     configCursor.close();
                     return true;
@@ -158,6 +173,10 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
     }
     public String[] getLocation() {
         return new String[] { config_location_name, config_location_latitude, config_location_longitude, config_location_altitude };
+    }
+
+    public String getLengthUnits() {
+        return config_provider_length_units;
     }
 
     public int getProviderVersion() {

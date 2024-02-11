@@ -37,10 +37,19 @@ import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
+import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_NOON;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_ALT;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_AZ;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_DEC;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_RA;
 
 @SuppressWarnings("Convert2Diamond")
 public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCalendar
@@ -58,7 +67,17 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
 
     @Override
     public CalendarEventTemplate defaultTemplate() {
-        return new CalendarEventTemplate("%M", "%M @ %loc", "%loc");
+        return new CalendarEventTemplate("%M", "%M @ %loc\n%eZ, %eA", "%loc");
+    }
+
+    @Override
+    public TemplatePatterns[] supportedPatterns()
+    {
+        return new TemplatePatterns[] {
+                TemplatePatterns.pattern_event, TemplatePatterns.pattern_eZ, TemplatePatterns.pattern_eA, TemplatePatterns.pattern_eD, TemplatePatterns.pattern_eR, null,
+                TemplatePatterns.pattern_loc, TemplatePatterns.pattern_lat, TemplatePatterns.pattern_lon, TemplatePatterns.pattern_lel, null,
+                TemplatePatterns.pattern_cal, TemplatePatterns.pattern_summary, TemplatePatterns.pattern_color, TemplatePatterns.pattern_percent
+        };
     }
 
     @Override
@@ -115,8 +134,50 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
+                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+
+                int i_eZ = -1, i_eA = -1, i_eR = -1, i_eD = -1;
+                boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD;
+                boolean containsPattern_em = template.containsPattern(TemplatePatterns.pattern_em);
+
+                int j = 3;
+                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(COLUMN_SUN_ACTUAL_RISE, COLUMN_SUN_NOON, COLUMN_SUN_ACTUAL_SET));
+                if (containsPattern_eZ = template.containsPattern(TemplatePatterns.pattern_eZ)) {
+                    i_eZ  = j;
+                    projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_AZ);
+                    projection0.add(COLUMN_SUN_NOON + _POSITION_AZ);
+                    projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_AZ);
+                    j += 3;
+                }
+                if (containsPattern_eA = template.containsPattern(TemplatePatterns.pattern_eA))
+                {
+                    i_eA  = j;
+                    projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_ALT);
+                    projection0.add(COLUMN_SUN_NOON + _POSITION_ALT);
+                    projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_ALT);
+                    j += 3;
+                }
+                if (containsPattern_eR = template.containsPattern(TemplatePatterns.pattern_eR))
+                {
+                    i_eR  = j;
+                    projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_RA);
+                    projection0.add(COLUMN_SUN_NOON + _POSITION_RA);
+                    projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_RA);
+                    j += 3;
+                }
+                if (containsPattern_eD = template.containsPattern(TemplatePatterns.pattern_eD))
+                {
+                    i_eD  = j;
+                    projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_DEC);
+                    projection0.add(COLUMN_SUN_NOON + _POSITION_DEC);
+                    projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_DEC);
+                    j += 3;
+                }
+                String[] projection = projection0.toArray(new String[0]);
+
                 Uri uri = Uri.parse("content://" + CalculatorProviderContract.AUTHORITY + "/" + CalculatorProviderContract.QUERY_SUN + "/" + window[0] + "-" + window[1]);
-                String[] projection = new String[] { CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE, CalculatorProviderContract.COLUMN_SUN_NOON, CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET };
                 Cursor cursor = resolver.query(uri, projection, null, null, null);
                 if (cursor != null)
                 {
@@ -129,9 +190,6 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, progressTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -139,13 +197,30 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        for (int i=0; i<projection.length; i++)
+                        for (int i=0; i<3; i++)
                         {
                             if (flags[i] && !cursor.isNull(i))
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
+
+                                if (containsPattern_eZ) {
+                                    data.put(TemplatePatterns.pattern_eZ.getPattern(), Utils.formatAsDirection(cursor.getDouble(i + i_eZ), 2));
+                                }
+                                if (containsPattern_eA) {
+                                    data.put(TemplatePatterns.pattern_eA.getPattern(), Utils.formatAsElevation(cursor.getDouble(i + i_eA), 2));
+                                }
+                                if (containsPattern_eR) {
+                                    data.put(TemplatePatterns.pattern_eR.getPattern(), Utils.formatAsRightAscension(cursor.getDouble(i + i_eR), 1));
+                                }
+                                if (containsPattern_eD) {
+                                    data.put(TemplatePatterns.pattern_eD.getPattern(), Utils.formatAsDeclination(cursor.getDouble(i + i_eD), 1));
+                                }
+                                if (containsPattern_em) {
+                                    data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
+                                }
+
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                                 //Log.d("DEBUG", "create event: " + strings[i] + " at " + eventTime.toString());
                             }

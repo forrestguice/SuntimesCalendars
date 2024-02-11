@@ -98,4 +98,21 @@ public class CalendarEventTemplate implements Parcelable
         return TemplatePatterns.replaceSubstitutions(location, data);
     }
 
+    public boolean containsPattern(TemplatePatterns... patterns)
+    {
+        boolean retValue = false;
+        for (TemplatePatterns pattern : patterns) {
+            retValue = (retValue || containsPattern(pattern));
+            if (retValue) {
+                break;
+            }
+        }
+        return retValue;
+    }
+    public boolean containsPattern(TemplatePatterns p)
+    {
+        String pattern = p.getPattern();
+        return (title.contains(pattern) || desc.contains(pattern) || location.contains(pattern));
+    }
+
 }

@@ -100,6 +100,14 @@ public class TemplateDialog extends BottomSheetDialogFragment
     public static final String KEY_DATA = "data";
 
     /**
+     * setSupportedPatterns
+     */
+    public void setSupportedPatterns(TemplatePatterns... patterns) {
+        supportedPatterns = patterns;
+    }
+    protected TemplatePatterns[] supportedPatterns = TemplatePatterns.values();
+
+    /**
      * getResult
      */
     public CalendarEventTemplate getResult() {
@@ -329,7 +337,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         HelpDialog helpDialog = new HelpDialog();
         helpDialog.setShowDefaultsButton(true);
-        helpDialog.setContent(getString(R.string.help_template, TemplatePatterns.getAllHelpText(getActivity())) + "<br/>");
+        helpDialog.setContent(getString(R.string.help_template, TemplatePatterns.getPatternHelpText(getActivity(), supportedPatterns)) + "<br/>");
         helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }

@@ -200,7 +200,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
         //Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
         //        + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 
-        boolean retValue = initLocation();
+        boolean retValue = queryConfig();
         if (!retValue) {
             return false;
         }
