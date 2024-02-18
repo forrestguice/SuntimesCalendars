@@ -67,7 +67,7 @@ public interface SuntimesCalendar
     void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings);
     boolean initCalendar(@NonNull SuntimesCalendarSettings settings,
                          @NonNull SuntimesCalendarAdapter adapter,
-                         @NonNull SuntimesCalendarTask task,
+                         @NonNull SuntimesCalendarTaskInterface task,
                          @NonNull SuntimesCalendarTaskProgress progress0,
                          @NonNull long[] window);
 

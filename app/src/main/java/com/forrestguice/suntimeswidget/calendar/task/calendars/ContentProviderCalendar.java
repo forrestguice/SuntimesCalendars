@@ -34,7 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 
@@ -195,7 +195,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
     {
         if (task.isCancelled()) {
             return false;
@@ -276,7 +276,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     }
 
     @NonNull
-    private ArrayList<ContentValues> readCursor(long calendarID, @NonNull Cursor cursor, @NonNull SuntimesCalendarTask task)
+    private ArrayList<ContentValues> readCursor(long calendarID, @NonNull Cursor cursor, @NonNull SuntimesCalendarTaskInterface task)
     {
         cursor.moveToFirst();
 

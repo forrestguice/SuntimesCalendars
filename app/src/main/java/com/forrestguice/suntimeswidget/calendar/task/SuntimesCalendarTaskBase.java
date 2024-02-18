@@ -44,7 +44,7 @@ import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProvider
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_CONFIG_PROVIDER_VERSION_CODE;
 
 @SuppressWarnings("Convert2Diamond")
-public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean>
+public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalendarTaskItem, SuntimesCalendarTaskProgress, Boolean> implements SuntimesCalendarTaskInterface
 {
     protected SuntimesCalendarAdapter adapter;
     protected WeakReference<Context> contextRef;

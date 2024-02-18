@@ -28,7 +28,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
@@ -96,7 +96,7 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         return calendarColor;
     }
 
-    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTask task, @NonNull SuntimesCalendarTaskProgress progress0) {
+    public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0) {
         progress0.setProgress(progress0.itemNum(), progress0.getCount(), progress0.getMessage() + "\n" + context.getString(R.string.reminder_dialog_msg));
         task.createCalendarReminders(context, calendarName(), progress0);
     }

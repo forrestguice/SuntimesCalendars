@@ -46,7 +46,7 @@ import java.util.Calendar;
 import java.util.TreeSet;
 
 @SuppressWarnings("Convert2Diamond")
-public class SuntimesCalendarTask extends SuntimesCalendarTaskBase
+public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements SuntimesCalendarTaskInterface
 {
     public static final String TAG = "SuntimesCalendarTask";
 

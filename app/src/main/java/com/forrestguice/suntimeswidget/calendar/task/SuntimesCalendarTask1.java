@@ -46,7 +46,7 @@ import java.util.TreeSet;
  */
 @SuppressWarnings("Convert2Diamond")
 @Deprecated
-public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
+public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase implements SuntimesCalendarTaskInterface
 {
     public static final String TAG = "SuntimesCalendarTask";
 
@@ -949,4 +949,8 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase
         return distanceFormatter.format(distance);
     }
 
+    @Override
+    public boolean createCalendarReminders(Context context, String calendar, @NonNull SuntimesCalendarTaskProgress progress0) {
+        return false;
+    }
 }

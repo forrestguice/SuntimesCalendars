@@ -29,9 +29,9 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
      * @param desc0 avg case description (e.g. ending in sunrise, starting at sunset)
      * @param desc1 edge case description (e.g. polar twilight)
      */
-    protected void createSunCalendarEvent(Context context, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTask task,
+    protected void createSunCalendarEvent(Context context, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task,
                                           ArrayList<ContentValues> values, long calendarID, Cursor cursor, int i, CalendarEventTemplate template, ContentValues data, String desc0, String desc1, String desc_fallback)
     {
         int j = i + 1;             // [rise-start, rise-end, set-start, set-end]
