@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -114,13 +115,13 @@ public class EventStringsAdapter extends RecyclerView.Adapter<EventStringsAdapte
 
     private View.OnClickListener onClearStringClicked(final int position)
     {
-        return new View.OnClickListener()
+        return new ViewUtils.ThrottledClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
                 triggerOnItemClear(position);
             }
-        };
+        });
     }
 
     /**

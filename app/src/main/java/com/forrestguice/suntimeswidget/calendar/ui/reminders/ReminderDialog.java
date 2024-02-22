@@ -39,6 +39,7 @@ import android.widget.TextView;
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 public class ReminderDialog extends BottomSheetDialogFragment
 {
@@ -210,19 +211,19 @@ public class ReminderDialog extends BottomSheetDialogFragment
         }
     };
 
-    private final View.OnClickListener onAcceptButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onAcceptButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             dismiss();    // triggers save
         }
-    };
+    });
 
-    private final View.OnClickListener onAddButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onAddButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             addReminder();
         }
-    };
+    });
 
     protected void addReminder()
     {

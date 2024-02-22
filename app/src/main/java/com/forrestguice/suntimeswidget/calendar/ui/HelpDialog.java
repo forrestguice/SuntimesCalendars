@@ -34,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 public class HelpDialog extends BottomSheetDialogFragment
 {
@@ -95,7 +96,7 @@ public class HelpDialog extends BottomSheetDialogFragment
         if (restoreDefaultsButton != null)
         {
             restoreDefaultsButton.setVisibility(showDefaultsButton() ? View.VISIBLE : View.GONE);
-            restoreDefaultsButton.setOnClickListener(new View.OnClickListener()
+            restoreDefaultsButton.setOnClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v) {
@@ -103,7 +104,7 @@ public class HelpDialog extends BottomSheetDialogFragment
                         dialogListener.onRestoreDefaultsClicked(HelpDialog.this);
                     }
                 }
-            });
+            }));
         }
 
         if (savedState != null) {

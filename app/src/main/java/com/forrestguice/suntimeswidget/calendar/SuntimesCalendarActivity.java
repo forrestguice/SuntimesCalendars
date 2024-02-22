@@ -97,6 +97,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 import com.forrestguice.suntimeswidget.calendar.ui.template.TemplateDialog;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -674,7 +675,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             progressDialog.setOnCancelClickListener(onCancelClick);
         }
 
-        private final View.OnClickListener onCancelClick = new View.OnClickListener()
+        private final View.OnClickListener onCancelClick = new ViewUtils.ThrottledClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -692,7 +693,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 });
                 confirmCancel.show();
             }
-        };
+        });
 
         protected static void insertDependencyWarning(final Context context, @Nullable PreferenceCategory category, int order)
         {
@@ -932,13 +933,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 calendarPref.setNote(settings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
                 calendarPref.setIconColor(createColorStateList(calendarColor));
                 calendarPref.setIcon(R.drawable.ic_action_calendar);
-                calendarPref.setOnIconClickListener(new View.OnClickListener()
+                calendarPref.setOnIconClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
                         showContextMenu(context, v, calendar);
                     }
-                });
+                }));
                 calendarPrefs.put(calendar, calendarPref);
             }
 
@@ -1579,13 +1580,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             if (v != null)
             {
                 snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);
-                snackbar.setAction(getString(R.string.action_openCalendar), new View.OnClickListener()
+                snackbar.setAction(getString(R.string.action_openCalendar), new ViewUtils.ThrottledClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v) {
                         openCalendarApp(getActivity());
                     }
-                });
+                }));
                 snackbar.show();
             }
         }
@@ -1656,13 +1657,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));
-            snackbarView.setOnClickListener(new View.OnClickListener()
+            snackbarView.setOnClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v) {
                     showMissingDepsWebsite(context);
                 }
-            });
+            }));
 
             TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
             if (textView != null)
@@ -1684,14 +1685,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE);
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(context, R.color.snackbarError_background));
-            snackbarView.setOnClickListener(new View.OnClickListener()
+            snackbarView.setOnClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
                     // TODO: show dialog
                 }
-            });
+            }));
 
             TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
             if (textView != null)

@@ -46,6 +46,7 @@ import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 public class TemplateDialog extends BottomSheetDialogFragment
 {
@@ -298,7 +299,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     }
 
-    protected View.OnClickListener onAcceptButtonClicked = new View.OnClickListener() {
+    protected View.OnClickListener onAcceptButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v)
         {
@@ -310,9 +311,9 @@ public class TemplateDialog extends BottomSheetDialogFragment
                 dialog.dismiss();
             }
         }
-    };
+    });
 
-    protected View.OnClickListener onCancelButtonClicked = new View.OnClickListener() {
+    protected View.OnClickListener onCancelButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v)
         {
@@ -324,14 +325,14 @@ public class TemplateDialog extends BottomSheetDialogFragment
                 dialog.dismiss();
             }
         }
-    };
+    });
 
-    private final View.OnClickListener onHelpButtonClicked = new View.OnClickListener() {
+    private final View.OnClickListener onHelpButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             showHelp();
         }
-    };
+    });
 
     protected void showHelp()
     {
@@ -367,12 +368,12 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     };
 
-    protected View.OnClickListener onStringsButtonClicked = new View.OnClickListener() {
+    protected View.OnClickListener onStringsButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             showStringsDialog();
         }
-    };
+    });
 
     protected void showStringsDialog()
     {

@@ -42,6 +42,7 @@ import android.widget.TextView;
 
 import com.forrestguice.suntimescalendars.BuildConfig;
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -122,14 +123,14 @@ public class AboutDialog extends BottomSheetDialogFragment
     public void initViews(Context context, View dialogContent)
     {
         TextView nameView = (TextView) dialogContent.findViewById(R.id.txt_about_name);
-        nameView.setOnClickListener(new View.OnClickListener()
+        nameView.setOnClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 openLink(WEBSITE_URL);
             }
-        });
+        }));
         if (Build.VERSION.SDK_INT >= 17)
             nameView.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(context, param_iconID), null, null, null);
         else nameView.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(context, param_iconID), null, null, null);

@@ -31,6 +31,7 @@ import android.widget.Button;
 
 import com.forrestguice.suntimeswidget.views.Toast;
 import com.forrestguice.suntimescalendars.R;
+import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 public class SuntimesCalendarErrorActivity extends AppCompatActivity
 {
@@ -73,7 +74,7 @@ public class SuntimesCalendarErrorActivity extends AppCompatActivity
             public void onShow(DialogInterface dialog)
             {
                 Button neutralButton = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_NEUTRAL);
-                neutralButton.setOnClickListener(new View.OnClickListener() {
+                neutralButton.setOnClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v)
                     {
@@ -84,7 +85,7 @@ public class SuntimesCalendarErrorActivity extends AppCompatActivity
                             Toast.makeText(context, context.getString(R.string.actionCopyError_toast), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                }));
             }
         });
         dialog.show();
