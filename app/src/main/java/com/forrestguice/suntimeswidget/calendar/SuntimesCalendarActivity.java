@@ -704,14 +704,14 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 pref.setSummary(Utils.fromHtml(context.getString(R.string.snackbar_missing_dependency, MIN_SUNTIMES_VERSION_STRING)));
                 pref.setPersistent(false);
                 pref.setOrder(order);
-                pref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+                pref.setOnPreferenceClickListener(new ViewUtils.ThrottledPreferenceClickListener(new Preference.OnPreferenceClickListener()
                 {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         showMissingDepsWebsite(context);
                         return false;
                     }
-                });
+                }));
                 category.addPreference(pref);
             }
         }
@@ -1260,7 +1260,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        private final Preference.OnPreferenceClickListener onLocationPrefClicked = new Preference.OnPreferenceClickListener() {
+        private final Preference.OnPreferenceClickListener onLocationPrefClicked = new ViewUtils.ThrottledPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference)
             {
@@ -1269,7 +1269,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 helpDialog.show(getSupportFragmentManager(), DIALOGTAG_HELP);
                 return false;
             }
-        };
+        });
 
         private void updatePrefs(Activity activity)
         {
@@ -1764,7 +1764,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         aboutDialog.setPermissionStatus(needsSuntimesPermissions);
         aboutDialog.show(getSupportFragmentManager(), DIALOGTAG_ABOUT);
     }
-    private final Preference.OnPreferenceClickListener onAboutClick = new Preference.OnPreferenceClickListener()
+    private final Preference.OnPreferenceClickListener onAboutClick = new ViewUtils.ThrottledPreferenceClickListener(new Preference.OnPreferenceClickListener()
     {
         @Override
         public boolean onPreferenceClick(Preference preference)
@@ -1772,7 +1772,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             showAbout();
             return false;
         }
-    };
+    });
 
 
 }
