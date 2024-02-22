@@ -984,7 +984,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         protected PopupMenu.OnMenuItemClickListener onContextMenuClick(final Context context, final String calendar)
         {
-            return new PopupMenu.OnMenuItemClickListener() {
+            return new ViewUtils.ThrottledMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item)
                 {
@@ -1008,7 +1008,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     }
                     return false;
                 }
-            };
+            });
         }
 
         /**
