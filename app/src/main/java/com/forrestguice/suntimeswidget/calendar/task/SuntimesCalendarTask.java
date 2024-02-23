@@ -66,21 +66,27 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         Calendar now = Calendar.getInstance();
 
         startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
-        startDate.set(Calendar.MONTH, 0);            // round down to start of year
-        startDate.set(Calendar.DAY_OF_MONTH, 0);
         startDate.set(Calendar.HOUR_OF_DAY, 0);
         startDate.set(Calendar.MINUTE, 0);
         startDate.set(Calendar.SECOND, 0);
         startDate.set(Calendar.MILLISECOND, 0);
 
         endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
-        endDate.add(Calendar.YEAR, 1);       // round up to end of year
-        endDate.set(Calendar.MONTH, 0);
-        endDate.set(Calendar.DAY_OF_MONTH, 0);
         endDate.set(Calendar.HOUR_OF_DAY, 0);
         endDate.set(Calendar.MINUTE, 0);
         endDate.set(Calendar.SECOND, 0);
         endDate.set(Calendar.MILLISECOND, 0);
+
+        boolean roundUpOrDown = (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000 / 60 / 60 / 24 / 365) >= 1);
+        if (roundUpOrDown)
+        {
+            startDate.set(Calendar.MONTH, 0);            // round down to start of year
+            startDate.set(Calendar.DAY_OF_MONTH, 0);
+
+            endDate.add(Calendar.YEAR, 1);       // round up to end of year
+            endDate.set(Calendar.MONTH, 0);
+            endDate.set(Calendar.DAY_OF_MONTH, 0);
+        }
 
         return new long[] { startDate.getTimeInMillis(), endDate.getTimeInMillis() };
     }
