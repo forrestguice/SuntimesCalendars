@@ -43,6 +43,7 @@ public class CalendarWindowPreference extends DialogPreference
     protected TextView text0, text1;
     protected SeekBar seek0, seek1;
     protected int value0, value1;
+    protected TextView text_message;
 
     public CalendarWindowPreference(Context context, AttributeSet attrs)
     {
@@ -73,6 +74,11 @@ public class CalendarWindowPreference extends DialogPreference
         if (seek1 != null) {
             seek1.setMax(getMaxValue());
             seek1.setOnSeekBarChangeListener(onSeek1);
+        }
+
+        text_message = (TextView) view.findViewById(R.id.txt_message0);
+        if (text_message != null) {
+            text_message.setVisibility(View.GONE);
         }
 
         updateViews(getContext());
@@ -119,6 +125,15 @@ public class CalendarWindowPreference extends DialogPreference
         }
         if (seek1 != null) {
             seek1.setProgress(value1 - 1);
+        }
+        if (text_message != null && message != null)
+        {
+            text_message.setText(message);
+            text_message.setVisibility(View.VISIBLE);
+
+            if (messageClickListener != null) {
+                text_message.setOnClickListener(messageClickListener);
+            }
         }
     }
 
@@ -210,6 +225,14 @@ public class CalendarWindowPreference extends DialogPreference
         if (seek1 != null) {
             seek1.setMax(getMaxValue());
         }
+    }
+
+    protected CharSequence message = null;
+    protected View.OnClickListener messageClickListener = null;
+
+    public void setMessage(@Nullable CharSequence value, @Nullable View.OnClickListener listener) {
+        message = value;
+        messageClickListener = listener;
     }
 
     ////////////////////////////////////////////////////////////////////////
