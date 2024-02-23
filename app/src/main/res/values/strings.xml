@@ -232,6 +232,15 @@
         <item>315360000000</item>
     </string-array>
 
+    <plurals name="units_days_ago">
+        <item quantity="one">%s day ago</item>
+        <item quantity="other">%s days ago</item>
+    </plurals>  <!-- TODO -->
+    <plurals name="units_days_fromnow">
+        <item quantity="one">%d day from now</item>
+        <item quantity="other">%d days from now</item>
+    </plurals>  <!-- TODO -->
+
     <plurals name="units_years_ago">
         <item quantity="one">%s year ago</item>
         <item quantity="other">%s years ago</item>

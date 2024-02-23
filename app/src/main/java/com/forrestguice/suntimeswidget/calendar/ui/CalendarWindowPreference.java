@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2020-2023 Forrest Guice
+    Copyright (C) 2020-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -37,15 +37,12 @@ public class CalendarWindowPreference extends DialogPreference
     public static final String KEY_START= "0";
     public static final String KEY_END = "1";
 
-    public static final double YEARS_FROM_MILLIS = 1d / 1000d / 60d / 60d / 24d / 365d;
-    public static final long YEARS_TO_MILLIS = 1000L * 60L * 60L * 24L * 365L;
-
-    protected String defaultStartValue = YEARS_TO_MILLIS + "";
-    protected String defaultEndValue = YEARS_TO_MILLIS + "";
+    protected String defaultStartValue = getDefaultStartValue() + "";
+    protected String defaultEndValue = getDefaultEndValue() + "";
 
     protected TextView text0, text1;
     protected SeekBar seek0, seek1;
-    protected int years0, years1;
+    protected int value0, value1;
 
     public CalendarWindowPreference(Context context, AttributeSet attrs)
     {
@@ -67,14 +64,14 @@ public class CalendarWindowPreference extends DialogPreference
         text0 = (TextView) view.findViewById(R.id.label_past);
         seek0 = (SeekBar) view.findViewById(R.id.seekbar_past);
         if (seek0 != null) {
-            seek0.setMax(9);
+            seek0.setMax(getMaxValue());
             seek0.setOnSeekBarChangeListener(onSeek0);
         }
 
         text1 = (TextView) view.findViewById(R.id.label_future);
         seek1 = (SeekBar) view.findViewById(R.id.seekbar_future);
         if (seek1 != null) {
-            seek1.setMax(9);
+            seek1.setMax(getMaxValue());
             seek1.setOnSeekBarChangeListener(onSeek1);
         }
 
@@ -82,11 +79,11 @@ public class CalendarWindowPreference extends DialogPreference
         updateSummary();
     }
 
-    private SeekBar.OnSeekBarChangeListener onSeek0 = new SeekBar.OnSeekBarChangeListener() {
+    private final SeekBar.OnSeekBarChangeListener onSeek0 = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (fromUser) {
-                years0 = progress + 1;
+                value0 = progress + 1;
                 updateViews(getContext());
             }
         }
@@ -99,7 +96,7 @@ public class CalendarWindowPreference extends DialogPreference
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (fromUser) {
-                years1 = progress + 1;
+                value1 = progress + 1;
                 updateViews(getContext());
             }
         }
@@ -112,16 +109,16 @@ public class CalendarWindowPreference extends DialogPreference
     protected void updateViews(Context context)
     {
         if (text0 != null) {
-            text0.setText(context.getResources().getQuantityString(R.plurals.units_years_ago, years0, years0));
+            text0.setText(context.getResources().getQuantityString(getAgoStringResID(), value0, value0));
         }
         if (seek0 != null) {
-            seek0.setProgress(years0 - 1);
+            seek0.setProgress(value0 - 1);
         }
         if (text1 != null) {
-            text1.setText(context.getResources().getQuantityString(R.plurals.units_years_fromnow, years1, years1));
+            text1.setText(context.getResources().getQuantityString(getFromNowStringResID(), value1, value1));
         }
         if (seek1 != null) {
-            seek1.setProgress(years1 - 1);
+            seek1.setProgress(value1 - 1);
         }
     }
 
@@ -134,8 +131,8 @@ public class CalendarWindowPreference extends DialogPreference
         {
             String key = getKey();
             SharedPreferences.Editor editor = getEditor();
-            editor.putString(key + KEY_START, years0 * YEARS_TO_MILLIS + "");
-            editor.putString(key + KEY_END, years1 * YEARS_TO_MILLIS + "");
+            editor.putString(key + KEY_START, value0 * getValueToMillisFactor() + "");
+            editor.putString(key + KEY_END, value1 * getValueToMillisFactor() + "");
             editor.commit();
 
             updateSummary();
@@ -151,6 +148,7 @@ public class CalendarWindowPreference extends DialogPreference
     protected void onSetInitialValue(boolean restoreValue, Object defValue)
     {
         super.onSetInitialValue(restoreValue, defValue);
+        this.defValue = defValue;
 
         String defaultValue = (String) defValue;
         if (defaultValue != null)
@@ -166,9 +164,14 @@ public class CalendarWindowPreference extends DialogPreference
         SharedPreferences sharedPreferences = getSharedPreferences();
         long millis0 = Long.parseLong(sharedPreferences.getString(key + KEY_START, defaultStartValue));
         long millis1 = Long.parseLong(sharedPreferences.getString(key + KEY_END, defaultEndValue));
-        years0 = (int)(millis0 * YEARS_FROM_MILLIS);
-        years1 = (int)(millis1 * YEARS_FROM_MILLIS);
+        value0 = (int)(millis0 * getValueFromMillisFactor());
+        value1 = (int)(millis1 * getValueFromMillisFactor());
         updateSummary();
+    }
+
+    private Object defValue;    // cached value
+    protected void resetInitialValue() {
+        onSetInitialValue(true, defValue);
     }
 
     @Override
@@ -185,12 +188,99 @@ public class CalendarWindowPreference extends DialogPreference
     @Nullable
     private CharSequence makeSummary(Context context)
     {
-        String label0 = context.getResources().getQuantityString(R.plurals.units_years_ago, years0, years0);
-        String label1 = context.getResources().getQuantityString(R.plurals.units_years_fromnow, years1, years1);
+        String label0 = context.getResources().getQuantityString(getAgoStringResID(), value0, value0);
+        String label1 = context.getResources().getQuantityString(getFromNowStringResID(), value1, value1);
         return (summary0 != null) ? String.format(summary0, label0, label1) : summary0;
     }
 
     protected void updateSummary() {
         setSummary(makeSummary(getContext()));
     }
+
+    protected int maxValue = 9;
+    public int getMaxValue() {
+        return maxValue;
+    }
+    public void setMaxValue(int value)
+    {
+        maxValue = value;
+        if (seek0 != null) {
+            seek0.setMax(getMaxValue());
+        }
+        if (seek1 != null) {
+            seek1.setMax(getMaxValue());
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+
+    public static final int MODE_YEARS = 0;
+    public static final int MODE_DAYS = 1;
+
+    protected int mode = MODE_YEARS;
+    public int getMode() {
+        return mode;
+    }
+    public void setMode(int value)
+    {
+        mode = value;
+        defaultStartValue = getDefaultStartValue();
+        defaultEndValue = getDefaultEndValue();
+        resetInitialValue();
+        updateViews(getContext());
+    }
+
+    public static final double YEARS_FROM_MILLIS = 1d / 1000d / 60d / 60d / 24d / 365d;
+    public static final long YEARS_TO_MILLIS = 1000L * 60L * 60L * 24L * 365L;
+
+    public static final double DAYS_FROM_MILLIS = 1d / 1000d / 60d / 60d / 24d;
+    public static final long DAYS_TO_MILLIS = 1000L * 60L * 60L * 24L;
+
+    protected String getDefaultStartValue()
+    {
+        switch (mode) {
+            case MODE_DAYS: return DAYS_TO_MILLIS + "";
+            case MODE_YEARS: default: return YEARS_TO_MILLIS + "";
+        }
+    }
+    protected String getDefaultEndValue()
+    {
+        switch (mode) {
+            case MODE_DAYS: return DAYS_TO_MILLIS + "";
+            case MODE_YEARS: default: return YEARS_TO_MILLIS + "";
+        }
+    }
+
+    public double getValueFromMillisFactor()
+    {
+        switch (mode) {
+            case MODE_DAYS: return DAYS_FROM_MILLIS;
+            case MODE_YEARS: default: return YEARS_FROM_MILLIS;
+        }
+    }
+
+    public long getValueToMillisFactor()
+    {
+        switch (mode) {
+            case MODE_DAYS: return DAYS_TO_MILLIS;
+            case MODE_YEARS: default: return YEARS_TO_MILLIS;
+        }
+    }
+
+    protected int getAgoStringResID()
+    {
+        switch (mode) {
+            case MODE_DAYS: return R.plurals.units_days_ago;
+            case MODE_YEARS: default: return R.plurals.units_years_ago;
+        }
+    }
+    protected int getFromNowStringResID()
+    {
+        switch (mode) {
+            case MODE_DAYS: return R.plurals.units_days_fromnow;
+            case MODE_YEARS: default: return R.plurals.units_years_fromnow;
+        }
+    }
+
 }
