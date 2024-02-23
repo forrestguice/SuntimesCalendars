@@ -28,6 +28,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
@@ -231,6 +232,11 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
             }
             i += columns.length;
         }
+    }
+
+    @Override
+    public String[] getGroups() {
+        return new String[] { CalendarGroups.GROUP_TWILIGHT };
     }
 
 }

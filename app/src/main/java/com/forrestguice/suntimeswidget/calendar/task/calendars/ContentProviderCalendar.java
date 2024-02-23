@@ -33,6 +33,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
@@ -298,6 +299,11 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         }
         cursor.close();
         return eventValues;
+    }
+
+    @Override
+    public String[] getGroups() {
+        return new String[] { CalendarGroups.GROUP_ADDON };
     }
 
 }

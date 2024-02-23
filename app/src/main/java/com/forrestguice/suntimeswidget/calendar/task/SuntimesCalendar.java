@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
  * v0.1.0 initial version
  * v0.2.0 adds columns for default template; TEMPLATE_TITLE, TEMPLATE_DESCRIPTION, TEMPLATE_LOCATION, TEMPLATE_STRINGS
  *        adds QUERY_CALENDAR_TEMPLATE_STRINGS, QUERY_CALENDAR_TEMPLATE_FLAGS, QUERY_CALENDAR_TEMPLATE_FLAG_LABELS
+ * v0.2.1 adds GROUPS
  */
 @SuppressWarnings("Convert2Diamond")
 public interface SuntimesCalendar
@@ -42,6 +43,7 @@ public interface SuntimesCalendar
     String COLUMN_CALENDAR_TITLE = "calendar_title";           // String (display string)
     String COLUMN_CALENDAR_SUMMARY = "calendar_summary";       // String (display string)
     String COLUMN_CALENDAR_COLOR = "calendar_color";           // int (color)
+    String COLUMN_CALENDAR_GROUPS = "calendar_groups";         // String (calendar group ids)
 
     String COLUMN_CALENDAR_TEMPLATE_TITLE = "template_title";               // String (template title element)
     String COLUMN_CALENDAR_TEMPLATE_DESCRIPTION = "template_description";   // String (template description element)
@@ -121,5 +123,10 @@ public interface SuntimesCalendar
      * @return label for flag at position i
      */
     String flagLabel(int i);
+
+    /**
+     * @return array of groups this calendar has membership in
+     */
+    String[] getGroups();
 
 }

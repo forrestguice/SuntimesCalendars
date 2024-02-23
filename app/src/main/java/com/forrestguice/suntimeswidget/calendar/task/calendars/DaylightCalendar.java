@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
@@ -253,6 +254,11 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                 return false;
             }
         } else return false;
+    }
+
+    @Override
+    public String[] getGroups() {
+        return new String[] { CalendarGroups.GROUP_DEFAULT };
     }
 
 }

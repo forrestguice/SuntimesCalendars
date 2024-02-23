@@ -34,6 +34,7 @@ import com.forrestguice.suntimeswidget.calendar.CalendarEventTemplate;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskProgress;
@@ -98,6 +99,11 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
             case 1: return s_BLUE_HOUR_EVENING;
             default: return "";
         }
+    }
+
+    @Override
+    public String[] getGroups() {
+        return new String[] { CalendarGroups.GROUP_BLUEGOLD };
     }
 
     @Override

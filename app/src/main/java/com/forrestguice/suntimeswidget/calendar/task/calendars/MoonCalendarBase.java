@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -55,5 +56,10 @@ public abstract class MoonCalendarBase extends SuntimesCalendarBase
             cursor.close();
         }
         return retValue;
+    }
+
+    @Override
+    public String[] getGroups() {
+        return new String[] { CalendarGroups.GROUP_MOON };
     }
 }
