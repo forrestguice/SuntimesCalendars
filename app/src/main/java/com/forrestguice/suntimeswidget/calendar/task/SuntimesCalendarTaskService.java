@@ -112,7 +112,7 @@ public class SuntimesCalendarTaskService extends Service
 
     private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask calendarTask = null;
     private static SuntimesCalendarTaskListener calendarTaskListener;
-    private static NotificationCompat.Builder progressNotification;
+    private NotificationCompat.Builder progressNotification;
     public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
