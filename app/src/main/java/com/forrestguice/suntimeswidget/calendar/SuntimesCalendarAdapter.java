@@ -73,6 +73,29 @@ public class SuntimesCalendarAdapter
         contentResolver.insert(uri, contentValues);
     }
 
+    public boolean updateCalendarTitle(String calendarName, String title)
+    {
+        Cursor cursor = queryCalendar(calendarName);
+        if (cursor != null && cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            ContentValues values = new ContentValues();
+            DatabaseUtils.cursorRowToContentValues(cursor, values);
+            cursor.close();
+
+            values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, title);
+
+            Uri uri = SuntimesCalendarSyncAdapter.asSyncAdapter(CalendarContract.Calendars.CONTENT_URI);
+            String[] args = new String[] { SuntimesCalendarSyncAdapter.ACCOUNT_NAME, CalendarContract.ACCOUNT_TYPE_LOCAL, calendarName, SuntimesCalendarSyncAdapter.ACCOUNT_NAME };
+            String select = "((" + CalendarContract.Calendars.ACCOUNT_NAME + " = ?) AND ("
+                    + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                    + CalendarContract.Calendars.NAME + " = ?) AND ("
+                    + CalendarContract.Calendars.OWNER_ACCOUNT + " = ?))";
+            return (contentResolver.update(uri, values, select, args) > 0);
+        }
+        return false;
+    }
+
     public boolean updateCalendarColor(String calendarName, int calendarColor)
     {
         Cursor cursor = queryCalendar(calendarName);

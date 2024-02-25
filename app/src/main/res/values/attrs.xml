@@ -13,6 +13,7 @@
     <attr name="icActionAppearance" format="reference" />
     <attr name="icActionReminder" format="reference" />
     <attr name="icActionCalendar" format="reference" />
+    <attr name="icActionCalendarEdit" format="reference" />
     <attr name="icActionUpdate" format="reference" />
     <attr name="icActionAccept" format="reference" />
     <attr name="icActionBack" format="reference" />

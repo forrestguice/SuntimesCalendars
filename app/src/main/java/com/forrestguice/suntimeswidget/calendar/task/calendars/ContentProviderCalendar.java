@@ -114,7 +114,8 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         queryCalendarTemplateFlags();
         calendarDesc = null;
         calendarColor = (calenderName != null ? settings.loadPrefCalendarColor(context, calendarName()) : calendarColor);
-        calendarTitle = settings.loadPrefCalendarTitle(context, calendarName(), calendarTitle);
+        defaultCalendarTitle = calendarTitle;
+        calendarTitle = settings.loadPrefCalendarTitle(context, calendarName(), defaultCalendarTitle);
     }
 
     protected void queryCalendarInfo() throws SecurityException

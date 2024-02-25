@@ -4,6 +4,7 @@
     <drawable name="ic_action_appearance_ref">@drawable/ic_action_appearance_light</drawable>
     <drawable name="ic_action_delete_ref">@drawable/ic_action_delete_light</drawable>
     <drawable name="ic_action_calendar_ref">@drawable/ic_action_calendar_light</drawable>
+    <drawable name="ic_action_calendar_edit_ref">@drawable/ic_action_calendar_edit_light</drawable>
     <drawable name="ic_action_update_ref">@drawable/ic_action_update_light</drawable>
     <drawable name="ic_action_back_ref">@drawable/ic_action_back_light</drawable>
     <drawable name="ic_action_accept_ref">@drawable/ic_action_accept_light</drawable>

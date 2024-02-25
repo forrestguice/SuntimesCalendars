@@ -93,7 +93,8 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
     {
         super.init(context, settings);
-        calendarTitle = settings.loadPrefCalendarTitle(context, calendarName(), context.getString(resID_calendarTitle));
+        defaultCalendarTitle = context.getString(resID_calendarTitle);
+        calendarTitle = settings.loadPrefCalendarTitle(context, calendarName(), defaultCalendarTitle);
         calendarSummary = context.getString(resID_calendarSummary);
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());

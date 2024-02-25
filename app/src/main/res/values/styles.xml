@@ -13,6 +13,7 @@
         <item name="icActionAppearance">@drawable/ic_action_appearance_ref</item>
         <item name="icActionDelete">@drawable/ic_action_delete_ref</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_ref</item>
+        <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_ref</item>
         <item name="icActionUpdate">@drawable/ic_action_update_ref</item>
         <item name="icActionAccept">@drawable/ic_action_accept_ref</item>
         <item name="icActionBack">@drawable/ic_action_back_ref</item>
@@ -113,6 +114,7 @@
         <item name="icActionAppearance">@drawable/ic_action_appearance_light</item>
         <item name="icActionDelete">@drawable/ic_action_delete_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
+        <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_light</item>
         <item name="icActionUpdate">@drawable/ic_action_update_light</item>
         <item name="icActionAccept">@drawable/ic_action_accept_light</item>
         <item name="icActionBack">@drawable/ic_action_back_light</item>
@@ -210,6 +212,7 @@
         <item name="icActionAppearance">@drawable/ic_action_appearance_dark</item>
         <item name="icActionDelete">@drawable/ic_action_delete_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
+        <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_dark</item>
         <item name="icActionUpdate">@drawable/ic_action_update</item>
         <item name="icActionAccept">@drawable/ic_action_accept</item>
         <item name="icActionBack">@drawable/ic_action_back</item>

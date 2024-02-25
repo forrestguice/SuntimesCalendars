@@ -39,6 +39,7 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
 {
     protected WeakReference<Context> contextRef = null;
     protected String calendarTitle, calendarSummary, calendarDesc;
+    protected String defaultCalendarTitle;
     protected int calendarColor;
     protected String lastError;
 
@@ -55,6 +56,11 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
 
     @Override
     public abstract String calendarName();
+
+    @Override
+    public String defaultCalendarTitle() {
+        return defaultCalendarTitle;
+    }
 
     @Override
     public abstract CalendarEventTemplate defaultTemplate();

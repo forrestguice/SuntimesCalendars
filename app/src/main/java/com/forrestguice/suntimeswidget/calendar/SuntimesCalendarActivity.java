@@ -76,9 +76,12 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -998,6 +1001,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                         showColorPicker(context, calendar);
                         return true;
 
+                    } else if (itemId == R.id.action_title) {
+                        showTitleDialog(context, calendar);
+                        return true;
+
                     } else if (itemId == R.id.action_reminders) {
                         showReminderDialog(context, calendar);
                         return true;
@@ -1068,6 +1075,104 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 }
             }
         };
+
+        /**
+         * showTitleDialog
+         */
+
+        //private static final String DIALOGTAG_TITLE = "configtitle";
+        protected void showTitleDialog(final Context context, final String calendar)
+        {
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+
+            LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View editView = inflater.inflate(R.layout.layout_edit_title, null, false);
+
+            final EditText editTitle = editView.findViewById(R.id.edit_title);
+            if (editTitle != null) {
+                SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
+                editTitle.setText(settings.loadPrefCalendarTitle(context, calendar, calendarObj.defaultCalendarTitle()));
+                editTitle.setHint(calendarObj.defaultCalendarTitle());
+            }
+
+            final ImageButton menuButton = editView.findViewById(R.id.menu_button);
+            if (menuButton != null) {
+                menuButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        showTitleDialogContextMenu(context, menuButton, calendar, editTitle);
+                    }
+                });
+            }
+
+            int[] colorAttrs = { R.attr.icActionCalendarEdit };
+            TypedArray typedArray = context.obtainStyledAttributes(colorAttrs);
+            int iconResID = typedArray.getResourceId(0, R.drawable.ic_action_calendar_edit_dark);
+            typedArray.recycle();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle(getString(R.string.title_dialog_msg));
+            builder.setIcon(iconResID);
+            //builder.setMessage(Utils.fromHtml(context.getString(R.string.help_title)));
+            builder.setView(editView);
+            builder.setPositiveButton(getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    String title = editTitle.getText().toString();
+                    if (isValidTitle(title)) {
+                        applyCalendarTitle(context, calendar, title);
+                    }
+                }
+            });
+            builder.setNegativeButton(getString(R.string.dialog_cancel), null);
+            builder.show();
+        }
+        protected boolean isValidTitle(@Nullable String title) {
+            return (title != null && !title.trim().isEmpty());
+        }
+
+        protected boolean showTitleDialogContextMenu(final Context context, View v, final String calendar, @Nullable final EditText edit)
+        {
+            PopupMenu menu = PopupMenuCompat.createMenu(context, v, R.menu.menu_title, new PopupMenu.OnMenuItemClickListener()
+            {
+                @Override
+                public boolean onMenuItemClick(MenuItem item)
+                {
+                    if (item.getItemId() == R.id.action_defaults)
+                    {
+                        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+                        if (edit != null) {
+                            edit.setText(calendarObj.defaultCalendarTitle());
+                        }
+                        applyCalendarTitle(context, calendar, calendarObj.defaultCalendarTitle());
+                        return true;
+                    } else return false;
+                }
+            });
+            menu.show();
+            return true;
+        }
+
+        protected void applyCalendarTitle(final Context context, final String calendar, final String title)
+        {
+            SuntimesCalendarSettings settings = new SuntimesCalendarSettings();
+            settings.savePrefCalendarTitle(getActivity(), calendar, title);
+            Toast.makeText(getActivity(), getString(R.string.title_dialog_saved_toast, title), Toast.LENGTH_SHORT).show();
+
+            SuntimesCalendarPreference pref = calendarPrefs.get(calendar);
+            if (pref != null) {
+                pref.setTitle(title);
+            }
+
+            Thread thread = new Thread( new Runnable()
+            {
+                @Override
+                public void run() {
+                    SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(context.getContentResolver(), SuntimesCalendarDescriptor.getCalendars(context));
+                    adapter.updateCalendarTitle(calendar, title);
+                }
+            });
+            thread.start();
+        }
 
         /**
          * showReminderDialog

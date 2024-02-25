@@ -99,6 +99,11 @@ public interface SuntimesCalendar
     int calendarColor();
 
     /**
+     * @return display string/title
+     */
+    String defaultCalendarTitle();
+
+    /**
      * @return default template
      */
     CalendarEventTemplate defaultTemplate();
