@@ -62,4 +62,9 @@ public abstract class MoonCalendarBase extends SuntimesCalendarBase
     public String[] getGroups() {
         return new String[] { CalendarGroups.GROUP_MOON };
     }
+
+    @Override
+    public int priority() {
+        return 6;
+    }
 }

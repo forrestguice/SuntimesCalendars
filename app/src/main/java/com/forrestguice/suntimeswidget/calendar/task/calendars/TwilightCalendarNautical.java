@@ -192,4 +192,9 @@ public class TwilightCalendarNautical extends TwilightCalendarBase implements Su
         } else return false;
     }
 
+    @Override
+    public int priority() {
+        return 2;
+    }
+
 }

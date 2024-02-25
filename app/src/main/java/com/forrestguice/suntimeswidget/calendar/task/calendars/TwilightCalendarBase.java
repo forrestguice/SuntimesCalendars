@@ -239,4 +239,9 @@ public abstract class TwilightCalendarBase extends SuntimesCalendarBase implemen
         return new String[] { CalendarGroups.GROUP_TWILIGHT };
     }
 
+    @Override
+    public int priority() {
+        return 0;
+    }
+
 }

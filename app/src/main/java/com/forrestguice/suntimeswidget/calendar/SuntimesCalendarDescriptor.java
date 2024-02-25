@@ -148,7 +148,7 @@ public class SuntimesCalendarDescriptor implements Comparable
                                 SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
                                 if (calendar != null)
                                 {
-                                    SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), c, references[i]);
+                                    SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), calendar.priority(), references[i]);
                                     SuntimesCalendarDescriptor.addValue(descriptor);
                                     c++;
                                     Log.i("initDescriptors", "..added " + descriptor.toString());

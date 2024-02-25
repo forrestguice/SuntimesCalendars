@@ -204,4 +204,9 @@ public class TwilightCalendarGold extends TwilightCalendarBase implements Suntim
         return new String[] { CalendarGroups.GROUP_BLUEGOLD };
     }
 
+    @Override
+    public int priority() {
+        return 5;
+    }
+
 }

@@ -325,4 +325,9 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
         }
     }
 
+    @Override
+    public int priority() {
+        return 6;
+    }
+
 }

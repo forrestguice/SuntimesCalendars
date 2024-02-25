@@ -259,4 +259,8 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
         return new String[] { CalendarGroups.GROUP_SOLSTICE };
     }
 
+    @Override
+    public int priority() {
+        return 9;
+    }
 }

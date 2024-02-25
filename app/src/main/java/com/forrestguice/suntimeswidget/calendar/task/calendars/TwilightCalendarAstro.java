@@ -192,4 +192,9 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
         } else return false;
     }
 
+    @Override
+    public int priority() {
+        return 3;
+    }
+
 }

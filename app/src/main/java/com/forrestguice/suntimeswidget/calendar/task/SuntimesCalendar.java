@@ -129,4 +129,9 @@ public interface SuntimesCalendar
      */
     String[] getGroups();
 
+    /**
+     * @return list priority (sorting); 0 highest priority (show first)
+     */
+    int priority();
+
 }

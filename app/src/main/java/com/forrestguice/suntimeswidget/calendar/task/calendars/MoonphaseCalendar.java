@@ -253,4 +253,9 @@ public class MoonphaseCalendar extends MoonCalendarBase
         } else return false;
     }
 
+    @Override
+    public int priority() {
+        return 7;
+    }
+
 }

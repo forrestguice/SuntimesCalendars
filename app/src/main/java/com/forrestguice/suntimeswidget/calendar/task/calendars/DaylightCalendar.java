@@ -261,4 +261,9 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
         return new String[] { CalendarGroups.GROUP_DEFAULT };
     }
 
+    @Override
+    public int priority() {
+        return 0;
+    }
+
 }

@@ -203,4 +203,9 @@ public class TwilightCalendarBlue extends TwilightCalendarBase implements Suntim
         } else return false;
     }
 
+    @Override
+    public int priority() {
+        return 4;
+    }
+
 }

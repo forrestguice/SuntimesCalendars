@@ -306,4 +306,9 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
         return new String[] { CalendarGroups.GROUP_ADDON };
     }
 
+    @Override
+    public int priority() {
+        return 0;
+    }
+
 }

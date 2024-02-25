@@ -233,6 +233,9 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
         } else return false;
     }
 
-
+    @Override
+    public int priority() {
+        return 8;
+    }
 
 }
