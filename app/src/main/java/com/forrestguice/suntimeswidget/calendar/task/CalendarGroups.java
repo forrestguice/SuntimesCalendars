@@ -18,6 +18,12 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
+import android.content.Context;
+import android.graphics.Color;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 public class CalendarGroups
 {
     public static final String GROUP_DEFAULT = "DEFAULT";
@@ -26,4 +32,26 @@ public class CalendarGroups
     public static final String GROUP_BLUEGOLD = "BLUEGOLD";
     public static final String GROUP_MOON = "MOON";
     public static final String GROUP_ADDON = "ADDON";
+
+    public static Integer getGroupColor(Context context, @Nullable String[] groups) {
+        return getGroupColor(context, ((groups != null && groups.length > 0) ? groups[0] : null));
+    }
+
+    @Nullable
+    public static Integer getGroupColor(@NonNull Context context, @Nullable String group)
+    {
+        if (group == null) {
+            return Color.TRANSPARENT;
+        }
+        switch (group)
+        {
+            case GROUP_DEFAULT:
+            case GROUP_SOLSTICE:
+            case GROUP_TWILIGHT:
+            case GROUP_BLUEGOLD:
+            case GROUP_MOON:
+            case GROUP_ADDON:
+            default: return null;
+        }
+    }
 }

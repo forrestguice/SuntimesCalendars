@@ -58,6 +58,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import android.preference.TwoStatePreference;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -67,6 +68,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
+
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -82,6 +84,7 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
@@ -926,6 +929,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPref.setTitle(descriptor.calendarTitle());
                 calendarPref.setSummary(descriptor.calendarSummary());
+                calendarPref.setBackgroundColor(CalendarGroups.getGroupColor(context, descriptor.getGroups()));
                 category.addPreference(calendarPref);
 
                 int calendarColor = settings.loadPrefCalendarColor(context, calendar);

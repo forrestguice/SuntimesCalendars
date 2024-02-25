@@ -37,13 +37,14 @@ import java.util.HashMap;
 @SuppressWarnings("Convert2Diamond")
 public class SuntimesCalendarDescriptor implements Comparable
 {
-    public SuntimesCalendarDescriptor(String name, String title, String summary, int color, int priority, String classRef)
+    public SuntimesCalendarDescriptor(String name, String title, String summary, int color, String[] groups, int priority, String classRef)
     {
         calendarName = name;
         calendarTitle = title;
         calendarSummary = summary;
         calendarColor = color;
         calendarRef = classRef;
+        this.groups = groups;
         this.priority = priority;
     }
 
@@ -75,6 +76,11 @@ public class SuntimesCalendarDescriptor implements Comparable
     protected int priority;
     public int getPriority() {
         return priority;
+    }
+
+    protected String[] groups;
+    public String[] getGroups() {
+        return groups;
     }
 
     @Override
@@ -148,7 +154,7 @@ public class SuntimesCalendarDescriptor implements Comparable
                                 SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
                                 if (calendar != null)
                                 {
-                                    SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), calendar.priority(), references[i]);
+                                    SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), calendar.getGroups(), calendar.priority(), references[i]);
                                     SuntimesCalendarDescriptor.addValue(descriptor);
                                     c++;
                                     Log.i("initDescriptors", "..added " + descriptor.toString());

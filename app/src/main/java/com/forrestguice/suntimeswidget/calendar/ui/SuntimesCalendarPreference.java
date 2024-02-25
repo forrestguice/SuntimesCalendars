@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2019-2023 Forrest Guice
+    Copyright (C) 2019-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -33,6 +33,7 @@ import com.forrestguice.suntimescalendars.R;
 public class SuntimesCalendarPreference extends CheckBoxPreference
 {
     protected FloatingActionButton button;
+    protected View layout;
 
     public SuntimesCalendarPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -68,6 +69,11 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     protected void onBindView(View view)
     {
         super.onBindView(view);
+
+        layout = view.findViewById(R.id.layout_pref);
+        if (layout != null && backgroundColor != null) {
+            layout.setBackgroundColor(backgroundColor);
+        }
 
         button = (FloatingActionButton) view.findViewById(R.id.button_options);
         if (button != null)
@@ -114,6 +120,15 @@ public class SuntimesCalendarPreference extends CheckBoxPreference
     private int resID_noteFormat = -1;
     public void setNoteFormat( int stringFormatResourceID ) {
         resID_noteFormat = stringFormatResourceID;
+    }
+
+    private Integer backgroundColor = null;
+    public void setBackgroundColor(Integer color)
+    {
+        backgroundColor = color;
+        if (layout != null && backgroundColor != null) {
+            layout.setBackgroundColor(backgroundColor);
+        }
     }
 
     private ColorStateList iconColor = null;
