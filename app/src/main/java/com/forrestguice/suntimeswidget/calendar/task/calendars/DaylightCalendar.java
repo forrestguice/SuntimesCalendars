@@ -106,7 +106,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
     {
         super.init(context, settings);
 
-        calendarTitle = context.getString(resID_calendarTitle);
+        calendarTitle = settings.loadPrefCalendarTitle(context, calendarName(), context.getString(resID_calendarTitle));
         calendarSummary = context.getString(resID_calendarSummary);
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());

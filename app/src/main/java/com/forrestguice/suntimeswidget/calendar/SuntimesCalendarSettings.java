@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2018-2022 Forrest Guice
+    Copyright (C) 2018-2024 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -42,6 +42,7 @@ public class SuntimesCalendarSettings
 
     public static final String PREF_KEY_CALENDARS_CALENDAR = "app_calendars_calendar_";
     public static final String PREF_KEY_CALENDARS_COLOR = "app_calendars_color_";
+    public static final String PREF_KEY_CALENDARS_TITLE = "app_calendars_title_";
 
     public static final String PREF_KEY_CALENDARS_TEMPLATE_TITLE = "app_calendars_template_title_";
     public static final String PREF_KEY_CALENDARS_TEMPLATE_DESC = "app_calendars_template_desc_";
@@ -405,6 +406,21 @@ public class SuntimesCalendarSettings
             case 1: return 5;      // 5m before
             case 0: default: return 0;
         }
+    }
+
+    /**
+     * loadPrefCalendarTitle
+     */
+    public String loadPrefCalendarTitle(Context context, String calendar, String defaultValue)
+    {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(PREF_KEY_CALENDARS_TITLE + calendar, defaultValue);
+    }
+    public void savePrefCalendarTitle(Context context, String calendar, String value)
+    {
+        SharedPreferences.Editor prefs = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefs.putString(PREF_KEY_CALENDARS_TITLE + calendar, value);
+        prefs.apply();
     }
 
     /**
