@@ -1158,6 +1158,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             settings.savePrefCalendarTitle(getActivity(), calendar, title);
             Toast.makeText(getActivity(), getString(R.string.title_dialog_saved_toast, title), Toast.LENGTH_SHORT).show();
 
+            SuntimesCalendarDescriptor.reinitDescriptors(context);
             SuntimesCalendarPreference pref = calendarPrefs.get(calendar);
             if (pref != null) {
                 pref.setTitle(title);

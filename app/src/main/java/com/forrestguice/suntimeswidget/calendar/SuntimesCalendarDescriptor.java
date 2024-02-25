@@ -176,6 +176,14 @@ public class SuntimesCalendarDescriptor implements Comparable
         initialized = true;
     }
 
+    public static void reinitDescriptors(Context context)
+    {
+        if (initialized) {
+            calendars.clear();
+        }
+        initDescriptors(context);
+    }
+
     private static boolean hasPermission(@NonNull PackageInfo packageInfo, @NonNull ActivityInfo activityInfo)
     {
         boolean hasPermission = false;
