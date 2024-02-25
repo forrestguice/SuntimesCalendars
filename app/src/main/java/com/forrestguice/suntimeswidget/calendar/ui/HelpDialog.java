@@ -87,7 +87,7 @@ public class HelpDialog extends BottomSheetDialogFragment
             dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
 
         } else {
-            dialogContent = inflater.inflate(R.layout.dialog_help, parent, false);
+            dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);
         }
 
         txtView = (TextView) dialogContent.findViewById(R.id.help_content);
