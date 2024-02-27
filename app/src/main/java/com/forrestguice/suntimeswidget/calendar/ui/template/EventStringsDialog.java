@@ -21,6 +21,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
@@ -28,6 +29,9 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import com.forrestguice.suntimeswidget.views.TooltipCompat;
+
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,16 +156,19 @@ public class EventStringsDialog extends BottomSheetDialogFragment
 
         ImageButton accept_button = (ImageButton) dialogContent.findViewById(R.id.accept_button);
         if (accept_button != null) {
+            TooltipCompat.setTooltipText(accept_button, accept_button.getContentDescription());
             accept_button.setOnClickListener(onAcceptButtonClicked);
         }
 
         ImageButton cancel_button = (ImageButton) dialogContent.findViewById(R.id.back_button);
         if (cancel_button != null) {
+            TooltipCompat.setTooltipText(cancel_button, cancel_button.getContentDescription());
             cancel_button.setOnClickListener(onCancelButtonClicked);
         }
 
         ImageButton help_button = (ImageButton) dialogContent.findViewById(R.id.help_button);
         if (help_button != null) {
+            TooltipCompat.setTooltipText(help_button, help_button.getContentDescription());
             help_button.setOnClickListener(onHelpButtonClicked);
         }
     }
