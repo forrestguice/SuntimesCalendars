@@ -118,27 +118,25 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
         }
+        if (!listener.onStarted()) {
+            return false;
+        }
 
-        String calendarName = calendarName();
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
-        long calendarID = adapter.queryCalendarID(calendarName);
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                CalendarEventTemplate template = settings.loadPrefCalendarTemplate(context, calendarName(), defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName(), defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName(), defaultStrings()).getValues();
 
                 int i_eZ = -1, i_eA = -1, i_eR = -1, i_eD = -1;
                 boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD;
@@ -184,7 +182,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                 if (cursor != null)
                 {
                     String[] location = task.getLocation();
-                    settings.saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
+                    settings.saveCalendarNote(context, calendarName(), SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
 
                     int c = 0;
                     int totalProgress = cursor.getCount();
@@ -231,7 +229,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                         c++;
 
                         if (c % 128 == 0 || cursor.isLast()) {
-                            adapter.createCalendarEvents( eventValues.toArray(new ContentValues[0]) );
+                            listener.processEventValues( eventValues.toArray(new ContentValues[0]) );
                             eventValues.clear();
                         }
                         if (c % 8 == 0 || cursor.isLast()) {
@@ -240,7 +238,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                         }
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress0);
+                    listener.onFinished();
                     return !task.isCancelled();
 
                 } else {

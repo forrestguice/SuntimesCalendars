@@ -101,18 +101,16 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
         }
+        if (!listener.onStarted()) {
+            return false;
+        }
 
-        String calendarName = calendarName();
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
-        long calendarID = adapter.queryCalendarID(calendarName);
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
@@ -123,9 +121,9 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
                         COLUMN_SUN_ASTRO_RISE, COLUMN_SUN_NAUTICAL_RISE,   // 0, 1
                         COLUMN_SUN_NAUTICAL_SET, COLUMN_SUN_ASTRO_SET ));  // 2, 3
 
-                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                CalendarEventTemplate template = settings.loadPrefCalendarTemplate(context, calendarName(), defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName(), defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName(), defaultStrings()).getValues();
                 // 0:s_ASTRO_TWILIGHT, 1:s_ASTRO_TWILIGHT_MORNING, 2:s_ASTRO_TWILIGHT_EVENING, 3:s_ASTRO_DAWN, 4:s_ASTRO_DUSK, 5:s_NAUTICAL_NIGHT
 
                 Map<TemplatePatterns, Boolean> containsPattern = new HashMap<>();
@@ -140,7 +138,7 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
                 if (cursor != null)
                 {
                     String[] location = task.getLocation();
-                    new SuntimesCalendarSettings().saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
+                    new SuntimesCalendarSettings().saveCalendarNote(context, calendarName(), SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
 
                     int c = 0;
                     int totalProgress = cursor.getCount();
@@ -167,7 +165,7 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
                         c++;
 
                         if (c % 128 == 0 || cursor.isLast()) {
-                            adapter.createCalendarEvents( eventValues.toArray(new ContentValues[0]) );
+                            listener.processEventValues( eventValues.toArray(new ContentValues[0]) );
                             eventValues.clear();
                         }
                         if (c % 8 == 0 || cursor.isLast()) {
@@ -176,7 +174,7 @@ public class TwilightCalendarAstro extends TwilightCalendarBase implements Sunti
                         }
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress0);
+                    listener.onFinished();
                     return !task.isCancelled();
 
                 } else {

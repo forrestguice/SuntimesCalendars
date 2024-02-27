@@ -18,6 +18,7 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -72,6 +73,39 @@ public interface SuntimesCalendar
                          @NonNull SuntimesCalendarTaskInterface task,
                          @NonNull SuntimesCalendarTaskProgress progress0,
                          @NonNull long[] window);
+
+
+    boolean initCalendar(@NonNull SuntimesCalendarSettings settings,
+                         @NonNull SuntimesCalendarAdapter adapter,
+                         @NonNull SuntimesCalendarTaskInterface task,
+                         @NonNull SuntimesCalendarTaskProgress progress0,
+                         @NonNull long[] window,
+                         @NonNull CalendarInitializer listener);
+
+    interface CalendarInitializer
+    {
+        /**
+         * @return calendarID to attach to event values; -1 (invalid) prevents initialization
+         */
+        long calendarID();
+
+        /**
+         * An opportunity to run tasks when starting; create calendars, verify they exist, etc.
+         * @return true continue to initialize, false something failed so stop
+         */
+        boolean onStarted();
+
+        /**
+         * Do something with event values; e.g. add them to a calendar via an adapter.
+         * @param eventValues
+         */
+        void processEventValues(ContentValues... eventValues);
+
+        /**
+         * An opportunity to run additional tasks when ending; add reminders, etc.
+         */
+        void onFinished();
+    }
 
     /**
      * @return last error message encountered during processing (if any)

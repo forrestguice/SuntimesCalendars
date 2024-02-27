@@ -198,18 +198,16 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
         }
+        if (!listener.onStarted()) {
+            return false;
+        }
 
-        String calendarName = calendarName();
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
-        long calendarID = adapter.queryCalendarID(calendarName);
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
@@ -217,7 +215,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
             if (resolver != null)
             {
                 String[] location = task.getLocation();
-                new SuntimesCalendarSettings().saveCalendarNote(context, calendarName, SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
+                new SuntimesCalendarSettings().saveCalendarNote(context, calendarName(), SuntimesCalendarSettings.NOTE_LOCATION_NAME, location[0]);
 
                 Calendar startDate = Calendar.getInstance();
                 startDate.setTimeInMillis(window[0]);
@@ -239,7 +237,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                         }
 
                         ArrayList<ContentValues> values = readCursor(calendarID, cursor, task);
-                        adapter.createCalendarEvents(values.toArray(new ContentValues[0]));
+                        listener.processEventValues( values.toArray(new ContentValues[0]) );
                         c++;
                         start = i;
 
@@ -248,6 +246,7 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
                         task.publishProgress(progress0, progress);
                     }
                 }
+                listener.onFinished();
                 return true;
 
             } else {

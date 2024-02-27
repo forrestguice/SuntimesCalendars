@@ -18,12 +18,14 @@
 
 package com.forrestguice.suntimeswidget.calendar.task.calendars;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventFlags;
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.TemplatePatterns;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -105,6 +107,37 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
     public void createCalendarReminders(Context context, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0) {
         progress0.setProgress(progress0.itemNum(), progress0.getCount(), progress0.getMessage() + "\n" + context.getString(R.string.reminder_dialog_msg));
         task.createCalendarReminders(context, calendarName(), progress0);
+    }
+
+    @Override
+    public boolean initCalendar(@NonNull final SuntimesCalendarSettings settings, @NonNull final SuntimesCalendarAdapter adapter, @NonNull final SuntimesCalendarTaskInterface task, @NonNull final SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    {
+        return initCalendar(settings, adapter, task, progress0, window, new CalendarInitializer()
+        {
+            @Override
+            public long calendarID() {
+                return adapter.queryCalendarID(calendarName());
+            }
+
+            @Override
+            public boolean onStarted()
+            {
+                if (!adapter.hasCalendar(calendarName())) {
+                    adapter.createCalendar(calendarName(), calendarTitle, calendarColor);
+                    return (calendarID() != -1);
+                }
+                return false;
+            }
+            @Override
+            public void processEventValues(ContentValues... values) {
+                adapter.createCalendarEvents(values);
+            }
+
+            @Override
+            public void onFinished() {
+                createCalendarReminders(contextRef.get(), task, progress0);
+            }
+        });
     }
 
 }

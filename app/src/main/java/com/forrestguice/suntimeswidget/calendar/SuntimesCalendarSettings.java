@@ -162,7 +162,7 @@ public class SuntimesCalendarSettings
      * loadPrefCalendarTemplate
      */
     @NonNull
-    public static CalendarEventTemplate loadPrefCalendarTemplate(Context context, String calendar, @NonNull CalendarEventTemplate defaultTemplate)
+    public CalendarEventTemplate loadPrefCalendarTemplate(Context context, String calendar, @NonNull CalendarEventTemplate defaultTemplate)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String title = prefs.getString(PREF_KEY_CALENDARS_TEMPLATE_TITLE + calendar, defaultTemplate.getTitle());

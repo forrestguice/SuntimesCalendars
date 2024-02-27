@@ -111,7 +111,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
@@ -130,16 +130,16 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
             return false;
         }
 
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
         String[] projection = new String[] {
                 CalculatorProviderContract.COLUMN_MOONPOS_APOGEE,
                 CalculatorProviderContract.COLUMN_MOONPOS_PERIGEE
         };
 
-        long calendarID = adapter.queryCalendarID(calendarName);
+        if (!listener.onStarted()) {
+            return false;
+        }
+
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
@@ -173,7 +173,7 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
 
                         boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
                         String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                        CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                        CalendarEventTemplate template = settings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
                         ContentValues data = TemplatePatterns.createContentValues(null, this);
                         data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -219,11 +219,11 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
                         int n = eventValues.size();
                         for (int i = 0; i < n; i += chunk) {
                             int j = i + chunk;
-                            adapter.createCalendarEvents(eventValues.subList(i, (j > n ? n : j)).toArray(new ContentValues[0]));
+                            listener.processEventValues( eventValues.subList(i, (j > n ? n : j)).toArray(new ContentValues[0]) );
                         }
                     }
                 }
-                createCalendarReminders(context, task, progress0);
+                listener.onFinished();
                 return !task.isCancelled();
 
             } else {

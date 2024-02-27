@@ -132,18 +132,16 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
         }
+        if (!listener.onStarted()) {
+            return false;
+        }
 
-        String calendarName = calendarName();
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
-        long calendarID = adapter.queryCalendarID(calendarName);
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
@@ -169,9 +167,9 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
                     SuntimesCalendarTaskProgress progress = task.createProgressObj(c, totalProgress, calendarTitle);
                     task.publishProgress(progress0, progress);
 
-                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
-                    CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
+                    boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName(), defaultFlags()).getValues();
+                    String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName(), defaultStrings()).getValues();
+                    CalendarEventTemplate template = settings.loadPrefCalendarTemplate(context, calendarName(), defaultTemplate());
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
@@ -194,14 +192,14 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
 
                         if (c % 128 == 0 || cursor.isLast())
                         {
-                            adapter.createCalendarEvents(eventValues.toArray(new ContentValues[0]));
+                            listener.processEventValues( eventValues.toArray(new ContentValues[0]) );
                             eventValues.clear();
                         }
                         progress.setProgress(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress0);
+                    listener.onFinished();
                     return !task.isCancelled();
 
                 } else {

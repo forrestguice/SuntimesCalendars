@@ -154,27 +154,25 @@ public class MoonphaseCalendar extends MoonCalendarBase
     }
 
     @Override
-    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window)
+    public boolean initCalendar(@NonNull SuntimesCalendarSettings settings, @NonNull SuntimesCalendarAdapter adapter, @NonNull SuntimesCalendarTaskInterface task, @NonNull SuntimesCalendarTaskProgress progress0, @NonNull long[] window, @NonNull CalendarInitializer listener)
     {
         if (task.isCancelled()) {
             return false;
         }
+        if (!listener.onStarted()) {
+            return false;
+        }
 
-        String calendarName = calendarName();
-        if (!adapter.hasCalendar(calendarName)) {
-            adapter.createCalendar(calendarName, calendarTitle, calendarColor);
-        } else return false;
-
-        long calendarID = adapter.queryCalendarID(calendarName);
+        long calendarID = listener.calendarID();
         if (calendarID != -1)
         {
             Context context = contextRef.get();
             ContentResolver resolver = (context == null ? null : context.getContentResolver());
             if (resolver != null)
             {
-                CalendarEventTemplate template = SuntimesCalendarSettings.loadPrefCalendarTemplate(context, calendarName, defaultTemplate());
-                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName, defaultFlags()).getValues();
-                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName, defaultStrings()).getValues();
+                CalendarEventTemplate template = settings.loadPrefCalendarTemplate(context, calendarName(), defaultTemplate());
+                boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendarName(), defaultFlags()).getValues();
+                String[] strings = SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendarName(), defaultStrings()).getValues();
 
                 ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(
                         COLUMN_MOON_NEW, COLUMN_MOON_FIRST,      // 0, 1
@@ -231,14 +229,14 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
                         if (c % 128 == 0 || cursor.isLast())
                         {
-                            adapter.createCalendarEvents(eventValues.toArray(new ContentValues[0]));
+                            listener.processEventValues( eventValues.toArray(new ContentValues[0]) );
                             eventValues.clear();
                         }
                         progress.setProgress(c, totalProgress, calendarTitle);
                         task.publishProgress(progress0, progress);
                     }
                     cursor.close();
-                    createCalendarReminders(context, task, progress0);
+                    listener.onFinished();
                     return !task.isCancelled();
 
                 } else {
