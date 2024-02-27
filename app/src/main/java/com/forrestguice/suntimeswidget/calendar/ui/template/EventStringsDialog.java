@@ -242,6 +242,7 @@ public class EventStringsDialog extends BottomSheetDialogFragment
                 BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
                 behavior.setHideable(false);
                 behavior.setSkipCollapsed(false);
+                ViewUtils.disableTouchOutsideBehavior(bottomSheet);
                 behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         }
