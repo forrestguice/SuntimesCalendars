@@ -155,7 +155,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase implements S
         notificationMsgAddFailed = context.getString(R.string.calendars_notification_adding_failed);
     }
 
-    private Calendar[] getWindow()
+    private Calendar[] getWindow0()
     {
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -180,6 +180,36 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase implements S
     }
 
     @Override
+    public long[] getWindow() {
+        return getWindow(calendarWindow0, calendarWindow1);
+    }
+
+    @Override
+    public long[] getWindow(long calendarWindow0, long calendarWindow1)
+    {
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
+
+        startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
+        startDate.set(Calendar.MONTH, 0);            // round down to start of year
+        startDate.set(Calendar.DAY_OF_MONTH, 0);
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+
+        endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
+        endDate.add(Calendar.YEAR, 1);       // round up to end of year
+        endDate.set(Calendar.MONTH, 0);
+        endDate.set(Calendar.DAY_OF_MONTH, 0);
+        endDate.set(Calendar.HOUR_OF_DAY, 0);
+        endDate.set(Calendar.MINUTE, 0);
+        endDate.set(Calendar.SECOND, 0);
+
+        return new long[] { startDate.getTimeInMillis(), endDate.getTimeInMillis() };
+    }
+
+    @Override
     protected Boolean doInBackground(SuntimesCalendarTaskItem... items)
     {
         if (Build.VERSION.SDK_INT < 14)
@@ -196,7 +226,7 @@ public class SuntimesCalendarTask1 extends SuntimesCalendarTaskBase implements S
             }
         }
 
-        Calendar[] window = getWindow();
+        Calendar[] window = getWindow0();
         //Log.d(TAG, "Adding... startWindow: " + calendarWindow0 + " (" + window[0].get(Calendar.YEAR) + "), "
         //        + "endWindow: " + calendarWindow1 + " (" + window[1].get(Calendar.YEAR) + ")");
 

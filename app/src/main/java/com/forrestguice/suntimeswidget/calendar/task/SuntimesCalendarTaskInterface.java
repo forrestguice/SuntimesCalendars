@@ -28,6 +28,9 @@ public interface SuntimesCalendarTaskInterface
     String[] getLocation();
     String getLengthUnits();
 
+    long[] getWindow();
+    long[] getWindow(long calendarWindow0, long calendarWindow1);
+
     SuntimesCalendarTaskProgress createProgressObj(int i, int n, String message);
     void publishProgress(SuntimesCalendarTaskProgress primary, SuntimesCalendarTaskProgress secondary);
     boolean isCancelled();

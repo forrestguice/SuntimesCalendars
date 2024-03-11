@@ -239,4 +239,9 @@ public class MoonapsisCalendar extends MoonCalendarBase implements SuntimesCalen
         return 8;
     }
 
+    @Override
+    public long[] defaultWindow() {
+        return new long[] {1000L * 60 * 60 * 24, 1000L * 60 * 60 * 24 * 31};    // 1 month
+    }
+
 }

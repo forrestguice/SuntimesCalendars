@@ -173,4 +173,9 @@ public interface SuntimesCalendar
      */
     int priority();
 
+    /**
+     * @return default window; a long[2] where [0] is millis past, and [1] is millis future
+     */
+    long[] defaultWindow();
+
 }

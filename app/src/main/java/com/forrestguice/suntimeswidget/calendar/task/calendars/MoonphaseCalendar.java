@@ -257,4 +257,9 @@ public class MoonphaseCalendar extends MoonCalendarBase
         return 7;
     }
 
+    @Override
+    public long[] defaultWindow() {
+        return new long[] {1000L * 60 * 60 * 24 * 1, 1000L * 60 * 60 * 24 * 31};    // 1 month
+    }
+
 }

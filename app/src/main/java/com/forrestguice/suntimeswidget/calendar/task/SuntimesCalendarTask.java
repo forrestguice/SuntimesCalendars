@@ -59,7 +59,10 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
     }
 
-    private long[] getWindow()
+    public long[] getWindow() {
+        return getWindow(calendarWindow0, calendarWindow1);
+    }
+    public long[] getWindow(long calendarWindow0, long calendarWindow1)
     {
         Calendar startDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -72,10 +75,10 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         startDate.set(Calendar.MILLISECOND, 0);
 
         endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
-        endDate.set(Calendar.HOUR_OF_DAY, 0);
-        endDate.set(Calendar.MINUTE, 0);
-        endDate.set(Calendar.SECOND, 0);
-        endDate.set(Calendar.MILLISECOND, 0);
+        endDate.set(Calendar.HOUR_OF_DAY, 23);
+        endDate.set(Calendar.MINUTE, 59);
+        endDate.set(Calendar.SECOND, 59);
+        endDate.set(Calendar.MILLISECOND, 999);
 
         boolean roundUpOrDown = (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000 / 60 / 60 / 24 / 365) >= 1);
         if (roundUpOrDown)

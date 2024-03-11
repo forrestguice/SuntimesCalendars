@@ -140,4 +140,9 @@ public abstract class SuntimesCalendarBase implements SuntimesCalendar
         });
     }
 
+    @Override
+    public long[] defaultWindow() {
+        return new long[] {0, 0};
+    }
+
 }

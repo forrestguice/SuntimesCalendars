@@ -262,4 +262,9 @@ public class SolsticeCalendar extends SuntimesCalendarBase implements SuntimesCa
     public int priority() {
         return 9;
     }
+
+    @Override
+    public long[] defaultWindow() {
+        return new long[] {1000L * 60 * 60 * 24, 1000L * 60 * 60 * 24 * 365};    // 1 year
+    }
 }

@@ -129,10 +129,10 @@ public class ContentProviderCalendar extends SuntimesCalendarBase implements Sun
             if (cursor != null)
             {
                 cursor.moveToFirst();
-                calenderName = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_NAME));
-                calendarTitle = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_TITLE));
-                calendarSummary = cursor.getString(cursor.getColumnIndex(COLUMN_CALENDAR_SUMMARY));
-                calendarColor = cursor.getInt(cursor.getColumnIndex(COLUMN_CALENDAR_COLOR));
+                calenderName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CALENDAR_NAME));
+                calendarTitle = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CALENDAR_TITLE));
+                calendarSummary = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CALENDAR_SUMMARY));
+                calendarColor = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CALENDAR_COLOR));
 
                 int i_templateTitle = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_TITLE);
                 int i_templateDesc = cursor.getColumnIndex(COLUMN_CALENDAR_TEMPLATE_DESCRIPTION);
