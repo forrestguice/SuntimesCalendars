@@ -289,6 +289,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
             helpDialog.setDialogListener(helpDialogListener);
         }
 
+        EventStringsDialog stringsDialog = (EventStringsDialog) fragments.findFragmentByTag(DIALOGTAG_STRINGS);
+        if (stringsDialog != null) {
+            stringsDialog.setDialogListener(stringsDialogListener);
+        }
+
         updateViews(getActivity());
         expandSheet(getDialog());
     }
