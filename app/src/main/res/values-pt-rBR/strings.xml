@@ -153,7 +153,7 @@
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> e deixe uma mensagem (em inglês).
     ]]></string>
     <string name="app_url"><xliff:g id="url"><![CDATA[
-        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_legal1"><![CDATA[
         <b>Código Fonte:</b><br />
@@ -168,9 +168,6 @@
     <string name="privacy_policy"><![CDATA[<b>Privacidade:</b><br/>Calendário Suntimes não coleta, estoca, ou distribue os dados. Não possui <b>propagandas</b>, <b>ferramentas de análises</b>, <b>rastreadores</b>, e <b>permissões desnecessárias</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Calendário Suntimes usa a permissão <b>calendário</b> para integrar com seu app de calendário, necessário para permitir a criação de calendários customizados e eventos.<br/><br/>Permissões são requeridas quando desativa a integração com calendário (para remover calendário(s)).]]></string>
     <string name="privacy_permissiondialog_title">Permissões</string>
-    <string name="privacy_url"><xliff:g id="url"><![CDATA[
-        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
-    ]]></xliff:g></string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> por <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->

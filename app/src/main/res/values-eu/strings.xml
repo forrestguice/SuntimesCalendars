@@ -147,10 +147,10 @@
     <string name="app_shortdesc">Eguzki eta ilargiaren argiaren denborak erakusten ditu.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Laguntza:</b> joan zaitez
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">arazoen jarraitzailera</a> eskaera bat bidaltzeko.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">arazoen jarraitzailera</a> eskaera bat bidaltzeko.
     ]]></string>
     <string name="app_url"><xliff:g id="url"><![CDATA[
-        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_legal1"><![CDATA[
         <b>Iturburu kodea:</b><br />

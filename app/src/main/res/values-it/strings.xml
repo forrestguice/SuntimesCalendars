@@ -146,10 +146,10 @@
     <string name="app_shortdesc">Visualizza orari di luce solare e luce lunare.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visita
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> per inviare una richiesta.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> per inviare una richiesta.
     ]]></string>
     <string name="app_url"><xliff:g id="url" ><![CDATA[
-             <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+             <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_legal1"><![CDATA[
         <b>Codice sorgente:</b><br />
@@ -164,9 +164,6 @@
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes non raccoglie, memorizza, né trasmette dati personali dell\'utente. Non contiene <b>nessuna pubblicità</b>, <b>nessuna analitica</b>, <b>nessun tracker</b>, e <b>nessun permesso superfluo</b>. <br/><br/>L\'applicazione si configura in base alla località.  Queste informazioni (e altri dati di configurazione utilizzati dall\'applicazione) sono memorizzate localmente e non vengono trasmesse altrove.<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilizza i permessi di accesso al <b>calendario</b> per integrarsi con l\'applicazione Calendario. Questi permessi consentono all\'applicazione di creare calendari propri ed eventi.<br/><br/>I permessi sono anche utilizzati quando si disattivano le integrazioni con il calendario (per rimuovere i calendari creati).]]></string>
     <string name="privacy_permissiondialog_title">Permessi</string>
-    <string name="privacy_url"><xliff:g id="url" ><![CDATA[
-        <a href="https://github.com/forrestguice/SuntimesWidget/wiki/Privacy">github.com/forrestguice/SuntimesWidget/wiki/Privacy</a>
-    ]]></xliff:g></string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> di <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->

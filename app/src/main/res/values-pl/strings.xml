@@ -300,9 +300,9 @@
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_donate_url"><![CDATA[
         Aplikacja %s jest udostępniana bezpłatnie, ale jeżeli jest ona dla Ciebie użyteczna, prosimy
-        <a href="https://forrestguice.github.io/SuntimesWidget/donate">rozważyć wpłatę dowolnej kwoty</a>.
+        <a href="https://forrestguice.github.io/Suntimes/donate">rozważyć wpłatę dowolnej kwoty</a>.
     ]]></string>
-    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2024 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
+    <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2026 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
     <string name="app_legal2"><![CDATA[
         <b>Tłumaczenia:</b><br/>
         <xliff:g id="locale_credits">%1$s</xliff:g>

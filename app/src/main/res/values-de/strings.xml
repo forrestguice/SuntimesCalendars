@@ -146,7 +146,7 @@
   <string name="app_shortdesc">Ein Kalender-Provider Add-on für Suntimes.</string>  
   <string name="app_support_url"><![CDATA[
       <b>Unterst&uuml;tzung:</b> Besuchen Sie
-      <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> um eine Anfrage zu stellen.
+      <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> um eine Anfrage zu stellen.
   ]]></string>
   <string name="app_legal1"><![CDATA[
       Copyright &#169 2018-2024 Forrest Guice <br />

@@ -146,7 +146,7 @@
     <string name="app_shortdesc">Affiche les heures de lever et coucher de soleil et de la lune.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visitez le
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">gestionnaire de ticket</a> pour soumettre une requête.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">gestionnaire de ticket</a> pour soumettre une requête.
     ]]></string>
     <string name="app_legal1"><![CDATA[
         <b>Code source :</b><br />

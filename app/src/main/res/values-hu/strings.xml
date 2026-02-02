@@ -146,7 +146,7 @@
     <string name="app_shortdesc">Megnézheti a napkelte, a napnyugta és a szürkület idejét.</string>  <!-- TODO: needs update to mention the moon. default changed to -> "Displays sunlight and moonlight times" -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
     ]]></string>
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />

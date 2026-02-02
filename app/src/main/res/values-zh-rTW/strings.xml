@@ -144,14 +144,14 @@
     <string name="app_shortdesc">展示太陽和月亮的時間。</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
-        <a href="https://github.com/forrestguice/SuntimesWidget/issues">issue tracker</a> to submit a request.
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
     ]]></string>
     <string name="app_donate_url"><![CDATA[
         %s 免費使用，如果您認為它有價值，請
-        <a href="https://forrestguice.github.io/SuntimesWidget/donate">隨意付費</a>。
+        <a href="https://forrestguice.github.io/Suntimes/donate">隨意付費</a>。
     ]]></string>
     <string name="app_url"><xliff:g id="url"><![CDATA[
-        <a href="https://forrestguice.github.io/SuntimesWidget/">forrestguice.github.io/SuntimesWidget</a>
+        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_legal1"><![CDATA[
         <b>Source Code:</b><br />
@@ -166,9 +166,6 @@
     <string name="privacy_policy"><![CDATA[<b>隱私：</b><br/>Suntimes不會蒐集、儲存、傳輸個人用戶數據。它<b>沒有廣告</b>, <b>沒有用戶分析</b>, <b>沒有跟蹤器</b>，並且<b>不使用不必要的權限</b>。<br/><br/>本應用使用位置信息來配置。位置信息（和其他用來配置本應用的數據）保存在本機並且不會離開本機。<br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string>
     <string name="privacy_permissiondialog_title">Permissions</string>
-    <string name="privacy_url"><xliff:g id="url"><![CDATA[
-        <a href="https://github.com/forrestguice/SuntimesWidget/wiki/Privacy">github.com/forrestguice/SuntimesWidget/wiki/Privacy</a>
-    ]]></xliff:g></string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> by <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO -->
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
