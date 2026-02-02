@@ -225,13 +225,14 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                         Double risingEventIllum = null, settingEventIllum = null;
                         if (containsPattern_phase)
                         {
+                            int k = i_illum;
                             risingEventTime = Calendar.getInstance();
                             risingEventTime.setTimeInMillis(cursor.getLong(0));
-                            risingEventIllum = cursor.getDouble(0 + i_illum);
+                            risingEventIllum = ((k >= 0) ? cursor.getDouble(k) : null);
 
                             settingEventTime = Calendar.getInstance();
                             settingEventTime.setTimeInMillis(cursor.getLong(1));
-                            settingEventIllum = cursor.getDouble(1 + i_illum);
+                            settingEventIllum = cursor.getDouble(k + 1);
 
                             risingEventFirst = (risingEventTime != null && risingEventTime.before(settingEventTime));
                         }

@@ -145,12 +145,12 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
                 {
                     configCursor.moveToFirst();
                     for (int i = 0; i < configProjection.length; i++) {
-                        config_location_name = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LOCATION));
-                        config_location_latitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LATITUDE));
-                        config_location_longitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LONGITUDE));
-                        config_location_altitude = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_ALTITUDE));
-                        config_provider_version = configCursor.getInt(configCursor.getColumnIndex(COLUMN_CONFIG_PROVIDER_VERSION_CODE));
-                        config_provider_length_units = configCursor.getString(configCursor.getColumnIndex(COLUMN_CONFIG_LENGTH_UNITS));
+                        config_location_name = configCursor.getString(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_LOCATION));
+                        config_location_latitude = configCursor.getString(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_LATITUDE));
+                        config_location_longitude = configCursor.getString(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_LONGITUDE));
+                        config_location_altitude = configCursor.getString(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_ALTITUDE));
+                        config_provider_version = configCursor.getInt(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_PROVIDER_VERSION_CODE));
+                        config_provider_length_units = configCursor.getString(configCursor.getColumnIndexOrThrow(COLUMN_CONFIG_LENGTH_UNITS));
                     }
                     configCursor.close();
                     return true;
@@ -160,8 +160,13 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
                     Log.e(getClass().getSimpleName(), lastError);
                     return false;
                 }
+            } catch (IllegalArgumentException e) {
+                lastError = "Missing Arguments! " + configUri + ", " + e;
+                Log.e(getClass().getSimpleName(), lastError);
+                return false;
+
             } catch (SecurityException e) {
-                lastError = "Permission Denied! " + configUri;
+                lastError = "Permission Denied! " + configUri + ", " + e;
                 Log.e(getClass().getSimpleName(), lastError);
                 return false;
             }

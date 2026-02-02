@@ -215,7 +215,8 @@ public class MoonphaseCalendar extends MoonCalendarBase
                                 continue;
                             }
 
-                            double distance = cursor.getDouble(i + i_dist);
+                            int k = i + i_dist;
+                            double distance = ((k >= 0) ? cursor.getDouble(k) : 0);
                             String[] eventStrings = getPhaseStrings(i, distance, strings);
                             data.put(TemplatePatterns.pattern_event.getPattern(), eventStrings[i]);
                             data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? Utils.formatAsDistance(task.getLengthUnits(), distance, 2) : ""));
