@@ -36,9 +36,9 @@ The app requires the following permissions...
 
 Do you find value in this software? Please pay as you feel. 
 
-[![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
-
 <noscript><a href="https://liberapay.com/forrestguice/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+
+[![paypal](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/silver-rect-paypal-26px.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NZJ5FJBCKY6K2)
 
 [:heart: Sponsor](https://github.com/sponsors/forrestguice)
 
@@ -49,7 +49,7 @@ Use the issue tracker to submit a bug report or a feature request.
 When reporting a bug **please be detailed as possible**. What did you expect the app to do, what did you actually observe? Include the app version number in your report. Other useful information includes the Android OS version (and sometimes your specific device model).
 
 ## Legal Stuff
-Copyright © 2018-2024 Forrest Guice <br />
+Copyright © 2018-2026 Forrest Guice <br />
 The source code is available under [GPLv3](LICENSE) (https://github.com/forrestguice/SuntimesCalendars).
 
 > This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the [GNU General Public License](LICENSE) for more details.
