@@ -110,7 +110,7 @@
 
     <!-- Dialog: About -->
     <string name="about_dialog_title">關於</string>
-    <string name="app_name">Suntimes</string>
+    <string name="app_name">Suntimes Calendars</string>
 
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing!</b></font>
