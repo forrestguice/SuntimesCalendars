@@ -1,0 +1,3 @@
+- adds support for changing calendar title.
+- updates translations.
+- updates build.
