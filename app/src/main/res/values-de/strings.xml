@@ -112,7 +112,7 @@
 
   <!-- Dialog: About -->
   <string name="about_dialog_title">Über</string>
-  <string name="app_name">Suntimes Calendars</string>
+  <string name="app_name">Suntimes Kalender</string>
 
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Fehlt!</b></font>
