@@ -26,23 +26,23 @@
     <string name="timeMode_moon_firstquarter">上弦月</string>                 <!-- setting -->
     <string name="timeMode_moon_full">滿月</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">下弦月</string>                 <!-- setting -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_super">超級月亮</string>               <!-- label -->
+    <string name="timeMode_moon_micro">微月</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">超級滿月</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">超級新月</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">微滿月</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">微新月</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">遠地點</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">近地點</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
     <string name="configLabel_calendars">日曆</string>   <!-- group title -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_options">選項</string>
+    <string name="configLabel_calendars_location">位置</string>
 
     <string name="configLabel_calendars_enabled">日曆集成</string>
     <string name="configLabel_calendars_enabled_summary">為日曆應用提供事件。</string>
@@ -71,7 +71,7 @@
     <string name="confirm_cancel_no">Back</string>  <!-- TODO -->
 
     <string name="action_openCalendar">Open</string> <!-- TODO -->
-    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version --> <!-- TODO -->
+    <string name="action_openCalendar1">顯示日曆應用</string>  <!-- actionbar version -->
 
     <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
         <item>一年</item>

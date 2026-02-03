@@ -36,13 +36,13 @@
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Apogée</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Périgée</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Calendars</string>   <!-- group title -->  <!-- TODO -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_calendars">Calendriers</string>   <!-- group title -->
+    <string name="configLabel_options">Options</string>
+    <string name="configLabel_calendars_location">Localisation</string>
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
@@ -177,10 +177,10 @@
         <item>Catalan</item>
         <item>Basque</item>
         <item>Norvégien</item>
-        <item>Traditional Chinese</item> <!-- TODO -->
-        <item>Portuguese</item>  <!-- TODO -->
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
+        <item>Chinois traditionnel</item>
+        <item>Portugais</item>
+        <item>Néerlandais</item>
+        <item>Russe</item>
     </string-array>
 
 </resources>

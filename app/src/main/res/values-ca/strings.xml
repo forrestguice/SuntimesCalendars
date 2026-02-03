@@ -162,9 +162,9 @@
     <string name="privacy_permission_calendar"><![CDATA[Suntimes utilitza el permís de <b>calendari</b> per integrar-se amb l\'aplicació Calendari. Aquests permisos permeten crear calendaris i esdeveniments personalitzats.<br/><br/>També es necessiten permisos quan es desactiva la integració amb el calendari (per eliminar calendaris personalitzats).]]></string>
     <string name="privacy_permissiondialog_title">Permisos</string>
 
-    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> per <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> per <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
-    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, i <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
     <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
         <item>Anglès</item>
         <item>Esperanto</item>
@@ -180,7 +180,7 @@
         <item>Xinès tradicional</item>
         <item>Portuguès</item>  
         <item>Holandès</item>
-        <item>Russian</item>  <!-- TODO -->
+        <item>Rus</item>
     </string-array>
 
 </resources>

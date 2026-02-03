@@ -13,36 +13,36 @@
     <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
     <string name="white_night">White night</string>    <!-- TODO -->
 
-    <string name="moonrise">Moonrise</string>                             <!-- contentDescription -->  <!-- TODO -->
-    <string name="moonset">Moonset</string>                             <!-- contentDescription -->  <!-- TODO -->
+    <string name="moonrise">Holdkelte</string>                             <!-- contentDescription -->
+    <string name="moonset">Holdnyugta</string>                             <!-- contentDescription -->
 
-    <string name="timeMode_equinox_vernal">Spring Equinox</string>      <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_equinox_autumnal">Fall Equinox</string>  <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_solstice_summer">Summer Solstice</string>    <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_solstice_winter">Winter Solstice</string>    <!-- setting -->  <!-- TODO -->
+    <string name="timeMode_equinox_vernal">Tavaszi nap-éj egyenlőség</string>      <!-- setting -->
+    <string name="timeMode_equinox_autumnal">Őszi nap-éj egyenlőség</string>  <!-- setting -->
+    <string name="timeMode_solstice_summer">Nyári napforduló</string>    <!-- setting -->
+    <string name="timeMode_solstice_winter">Téli napforduló</string>    <!-- setting -->
 
-    <string name="timeMode_moon">Moon</string>                               <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_new">New Moon</string>                               <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_moon_firstquarter">First Quarter</string>                 <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_moon_full">Full Moon</string>                             <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_moon_thirdquarter">Third Quarter</string>                 <!-- setting -->  <!-- TODO -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon">Hold</string>                               <!-- label -->
+    <string name="timeMode_moon_new">Újhold</string>                               <!-- setting -->
+    <string name="timeMode_moon_firstquarter">Első negyed</string>                 <!-- setting -->
+    <string name="timeMode_moon_full">Telihold</string>                             <!-- setting -->
+    <string name="timeMode_moon_thirdquarter">Utolsó negyed</string>                 <!-- setting -->
+    <string name="timeMode_moon_super">Szuperhold</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Mikrohold</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Szupertelihold</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">Szuperújhold</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">Mikrotelihold</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">Mikroújhold</string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_apogee">Apogee</string>                             <!-- label -->  <!-- TODO -->
-    <string name="timeMode_moon_perigee">Perigee</string>                             <!-- label -->  <!-- TODO -->
+    <string name="timeMode_moon_apogee">Földtávol</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Földközel</string>                             <!-- label -->
 
     <!-- App Setting: calendars -->
-    <string name="configLabel_calendars">Calendars</string>   <!-- group title -->  <!-- TODO -->
-    <string name="configLabel_options">Options</string>   <!-- TODO -->
-    <string name="configLabel_calendars_location">Location</string>  <!-- TODO -->
+    <string name="configLabel_calendars">Naptárak</string>   <!-- group title -->
+    <string name="configLabel_options">Testreszabás</string>
+    <string name="configLabel_calendars_location">Hely</string>
 
     <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
@@ -92,7 +92,7 @@
     <string name="progress_title">Updating Calendars</string>  <!-- TODO -->
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>  <!-- TODO -->
 
-    <string name="color_dialog_msg">Choose Colour</string>  <!-- TODO -->
+    <string name="color_dialog_msg">Szín választása</string>
     <string name="color_dialog_ok">OK</string>
     <string name="color_dialog_cancel">Mégse</string>
 
@@ -166,21 +166,21 @@
     <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
     <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, and <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO -->
     <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
-        <item>English</item>
-        <item>Esperanto</item>
-        <item>French</item>
-        <item>German</item>
-        <item>Hungarian</item>
-        <item>Italian</item>
-        <item>Polish</item>
-        <item>Spanish</item>
-        <item>Catalan</item>
-        <item>Basque</item>
-        <item>Norwegian</item>
-        <item>Traditional Chinese</item>
-        <item>Portuguese</item>
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
-    </string-array> <!-- TODO -->
+        <item>Angol</item>
+        <item>Eszperantó</item>
+        <item>Francia</item>
+        <item>Német</item>
+        <item>Magyar</item>
+        <item>Olasz</item>
+        <item>Lengyel</item>
+        <item>Spanyol</item>
+        <item>Katalán</item>
+        <item>Baszk</item>
+        <item>Norvég</item>
+        <item>Kínai (hagyományos)</item>
+        <item>Portugál</item>
+        <item>Holland</item>
+        <item>Orosz</item>
+    </string-array>
 
 </resources>
