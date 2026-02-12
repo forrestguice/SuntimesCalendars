@@ -336,6 +336,7 @@
         <item>Portugala</item>
         <item>Nederlanda</item>
         <item>Rusa</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>

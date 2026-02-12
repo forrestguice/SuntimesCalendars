@@ -181,6 +181,7 @@
         <item>Portugál</item>
         <item>Holland</item>
         <item>Orosz</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>

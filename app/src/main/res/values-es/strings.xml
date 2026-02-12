@@ -179,6 +179,7 @@
         <item>Portugués</item>  
         <item>Holandés</item>
         <item>Ruso</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>

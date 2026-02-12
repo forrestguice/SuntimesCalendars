@@ -197,6 +197,7 @@
         <item>Portugees</item>
         <item>Nederlands</item>
         <item>Russian</item>  <!-- TODO -->
+        <item>Czech</item>   <!-- TODO -->
     </string-array>  <!-- should contain localized language names -->
 
 </resources>

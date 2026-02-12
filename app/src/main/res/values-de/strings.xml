@@ -179,7 +179,8 @@
       <item>Traditionelles Chinesisch</item> 
       <item>Portugisisch</item>  
       <item>Niederländisch</item>  
-      <item>Russisch</item>  
+      <item>Russisch</item>
+      <item>Czech</item>   <!-- TODO -->
   </string-array>
 
 </resources>

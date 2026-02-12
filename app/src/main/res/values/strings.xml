@@ -485,6 +485,7 @@
         <item>Portuguese</item>
         <item>Dutch</item>
         <item>Russian</item>
+        <item>Czech</item>
     </string-array>
     <string-array name="locale_values" translatable="false">  <!-- one-to-one with locale_display -->
         <item>en</item>
@@ -502,6 +503,7 @@
         <item>pt_BR</item>
         <item>nl</item>
         <item>ru</item>
+        <item>cs</item>
     </string-array>
     <string-array name="locale_credits" translatable="false">  <!-- one-to-one with locale_display -->
         <item />
@@ -519,6 +521,7 @@
         <item><![CDATA[<a href=https://github.com/NetoSilva>Neto Silva</a>|<a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a>|<a href=https://github.com/efraletti>Enrico S. B. Fraletti</a>]]></item>
         <item><![CDATA[<a href=https://github.com/Joppla>Joppla</a>]]></item>
         <item><![CDATA[<a href=https://github.com/ddanilov>ddanilov</a>]]></item>
+        <item><![CDATA[<a href=https://github.com/utaxiu>utaxiu</a>]]></item>
     </string-array>
 
     <!-- pref defaults -->

@@ -188,6 +188,7 @@
         <item>Português</item>
         <item>Holandês</item>
         <item>Russo</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>
