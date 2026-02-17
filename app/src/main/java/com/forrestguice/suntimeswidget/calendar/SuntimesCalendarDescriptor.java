@@ -28,6 +28,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.forrestguice.suntimescalendars.BuildConfig;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 
 import java.util.ArrayList;
@@ -112,7 +113,7 @@ public class SuntimesCalendarDescriptor implements Comparable
     public static final String ACTION_SUNTIMES_CALENDAR = "suntimes.action.ADD_CALENDAR";
     public static final String CATEGORY_SUNTIMES_CALENDAR = "suntimes.SUNTIMES_CALENDAR";
     public static final String KEY_REFERENCE = "SuntimesCalendarReference";
-    public static final String REQUIRED_PERMISSION = "suntimes.permission.READ_CALCULATOR";
+    public static final String REQUIRED_PERMISSION = BuildConfig.SUNTIMES_PERMISSION_ROOT + ".permission.READ_CALCULATOR";    //"suntimes.permission.READ_CALCULATOR";
 
     protected static HashMap<String, SuntimesCalendarDescriptor> calendars = new HashMap<>();
     protected static boolean initialized = false;

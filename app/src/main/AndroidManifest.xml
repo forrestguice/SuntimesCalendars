@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" tools:ignore="GoogleAppIndexingWarning"
     package="com.forrestguice.suntimescalendars">
 
-    <uses-permission android:name="suntimes.permission.READ_CALCULATOR" />  <!-- needed to interact w/ Suntimes provider -->
+    <uses-permission android:name="${suntimesPermissionRoot}.permission.READ_CALCULATOR" />  <!-- needed to interact w/ Suntimes provider -->
 
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />           <!-- needed to interact w/ Calendar -->
@@ -74,7 +74,7 @@
         <provider
             android:name="com.forrestguice.suntimeswidget.calendar.CalendarEventTemplateProvider"
             android:authorities="com.forrestguice.suntimescalendars.template.provider"
-            android:permission="suntimes.permission.READ_CALCULATOR"
+            android:permission="${suntimesPermissionRoot}.permission.READ_CALCULATOR"
             android:exported="true" tools:ignore="ExportedContentProvider"
             android:syncable="false" />
 
