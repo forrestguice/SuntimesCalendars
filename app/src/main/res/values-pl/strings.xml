@@ -331,6 +331,7 @@
         <item>Portugalski</item>
         <item>Holenderski</item>
         <item>Rosyjski</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>

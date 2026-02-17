@@ -186,8 +186,9 @@
         <item>Norueguês</item>
         <item>Chinês Tradicional</item>
         <item>Português</item>
-        <item>Dutch</item>  <!-- TODO -->
-        <item>Russian</item>  <!-- TODO -->
+        <item>Holandês</item>
+        <item>Russo</item>
+        <item>Czech</item>   <!-- TODO -->
     </string-array>
 
 </resources>

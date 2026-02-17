@@ -67,4 +67,4 @@ Italian translation by <u>Matteo Caoduro</u>.<br/>
 Traditional Chinese translation by <u><a href=https://github.com/pggdt>ft42</a></u>.<br />
 Brazilian Portuguese translation by <u><a href=https://github.com/netosilva15>NetoSilva</a></u>, <u><a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a></u>, and <u><a href=https://github.com/efraletti>Enrico S. B. Fraletti</a></u>.<br />
 Dutch translation by <u><a href=https://github.com/joppla>Joppla</a></u>.<br />
-Russian translation by <u><a href=https://github.com/ddanilov>ddanilov</a></u>.<br />
+Russian translation by <u><a href=https://github.com/ddanilov>ddanilov</a></u>, and <u><a href=https://github.com/rchintsov>Ruslan Chintsov</a></u>.<br />

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="textSize_small">Small</string>  <!-- TODO -->
+    <string name="textSize_normal">Normal</string>  <!-- TODO -->
+    <string name="textSize_large">Large</string>  <!-- TODO -->
+    <string name="textSize_xlarge">Extra Large</string>  <!-- TODO -->
+
+    <string name="timeMode_noon">Pravé poledne</string>
+    <string name="sunrise">Východ slunce</string>
+    <string name="sunset">Západ slunce</string>
+    <string name="timeMode_civil">Občanský soumrak</string>
+    <string name="timeMode_civil_morning">Občanský soumrak (ráno)</string>
+    <string name="timeMode_civil_evening">Občanský soumrak (večer)</string>
+    <string name="timeMode_nautical">Nautický soumrak</string>
+    <string name="timeMode_nautical_morning">Nautický soumrak (ráno)</string>
+    <string name="timeMode_nautical_evening">Nautický soumrak (večer)</string>
+    <string name="timeMode_astronomical">Astronomický soumrak</string>
+    <string name="timeMode_astronomical_morning">Astronomický soumrak (ráno)</string>
+    <string name="timeMode_astronomical_evening">Astronomický soumrak (večer)</string>
+
+    <string name="dawn">Dawn</string>
+    <string name="dawn_civil">Civil Dawn</string>                  <!-- TODO -->
+    <string name="dawn_nautical">Nautical Dawn</string>            <!-- TODO -->
+    <string name="dawn_astronomical">Astronomical Dawn</string>    <!-- TODO -->
+
+    <string name="dusk">Dusk</string>
+    <string name="dusk_civil">Civil Dusk</string>                  <!-- TODO -->
+    <string name="dusk_nautical">Nautical Dusk</string>            <!-- TODO -->
+    <string name="dusk_astronomical">Astronomical Dusk</string>    <!-- TODO -->
+
+    <string name="polar_twilight">Polar twilight</string>          <!-- TODO -->
+    <string name="civil_night">Civil polar night</string>          <!-- TODO -->
+    <string name="nautical_night">Nautical polar night</string>    <!-- TODO -->
+    <string name="white_night">White night</string>                <!-- TODO -->
+
+    <string name="timeMode_golden">Zlatá hodina</string>
+    <string name="timeMode_golden_morning">Zlatá hodina (ráno)</string>
+    <string name="timeMode_golden_evening">Zlatá hodina (večer)</string>
+
+    <string name="timeMode_blue8">Modrá hodina (8\u00B0)</string>
+    <string name="timeMode_blue4">Modrá hodina (4\u00B0)</string>
+    <string name="timeMode_blue_morning">Modrá hodina (ráno)</string>
+    <string name="timeMode_blue_evening">Modrá hodina (večer)</string>
+
+    <string name="moonrise">Východ měsíce</string>
+    <string name="moonset">Západ měsíce</string>
+
+    <string name="timeMode_equinox_vernal">Jarní rovnodennost</string>
+    <string name="timeMode_equinox_autumnal">Podzimní rovnodennost</string>
+    <string name="timeMode_solstice_summer">Letní slunovrat</string>
+    <string name="timeMode_solstice_winter">Zimní slunovrat</string>
+
+    <string name="timeMode_cross_spring">Spring Cross-Quarter</string>     <!-- TODO -->
+    <string name="timeMode_cross_autumnal">Autumn Cross-Quarter</string>   <!-- TODO -->
+    <string name="timeMode_cross_summer">Summer Cross-Quarter</string>     <!-- TODO -->
+    <string name="timeMode_cross_winter">Winter Cross-Quarter</string>     <!-- TODO -->
+
+    <string name="timeMode_moon">Měsíc</string>
+    <string name="timeMode_moon_new">Nov</string>
+    <string name="timeMode_moon_firstquarter">První čtvrť</string>
+    <string name="timeMode_moon_full">Úplněk</string>
+    <string name="timeMode_moon_thirdquarter">Poslední čtvrť</string>
+    <string name="timeMode_moon_super">Superměsíc</string>
+    <string name="timeMode_moon_micro">Mikroměsíc</string>
+    <string name="timeMode_moon_superfull">Superúplněk</string>
+    <string name="timeMode_moon_supernew">Supernov</string>
+    <string name="timeMode_moon_microfull">Mikroúplněk</string>
+    <string name="timeMode_moon_micronew">Mikronov</string>
+    <string name="timeMode_moon_apogee">Apogeum</string>
+    <string name="timeMode_moon_perigee">Perigeum</string>
+    <string name="timeMode_moon_waxingcrescent">Dorůstající srpek</string>
+    <string name="timeMode_moon_waxinggibbous">Dorůstající měsíc</string>
+    <string name="timeMode_moon_waninggibbous">Couvající měsíc</string>
+    <string name="timeMode_moon_waningcrescent">Couvající srpek</string>
+
+    <string name="configLabel_calendars">Kalendáře</string>
+    <string name="configLabel_options">Možnosti</string>
+    <string name="configLabel_calendars_location">Poloha</string>
+
+    <string name="calendar_solstice_displayName">Solstices, Equinoxes</string>           <!-- TODO -->
+    <string name="calendar_solstice_summary">Solstices, Equinoxes, and Cross-Quarter days</string>    <!-- TODO -->
+    <string name="calendar_moonPhase_displayName">Moon Phases</string>                   <!-- TODO -->
+    <string name="calendar_moonPhase_summary">Synodic month</string>                     <!-- TODO -->
+    <string name="calendar_moonApsis_displayName">Moon Apsis</string>                    <!-- TODO -->
+    <string name="calendar_moonApsis_summary">Anomalistic month</string>                 <!-- TODO -->
+    <string name="calendar_moonrise_summary">Moonrise, moonset</string>                  <!-- TODO -->
+    <string name="calendar_blue_twilight_displayName">Modrá hodina</string>
+    <string name="calendar_daylight_displayName">Daylight</string>                       <!-- TODO -->
+    <string name="calendar_daylight_summary">Sunrise, sunset, and solar noon</string>    <!-- TODO -->
+
+    <string name="configLabel_calendars_enabled">Calendar Integration</string>           <!-- TODO -->
+    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>    <!-- TODO -->
+
+    <string name="configLabel_calendars_window">Calendar Window</string>    <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>    <!-- TODO -->
+
+    <string name="configLabel_calendars_window0">Window (start)</string>    <!-- TODO -->
+    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>    <!-- TODO -->
+
+    <string name="configLabel_calendars_window1">Window (end)</string>    <!-- TODO -->
+    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>     <!-- TODO -->
+
+    <string name="calendars_notification_adding">Adding calendars…</string>                   <!-- TODO -->
+    <string name="calendars_notification_added">Calendars have been added.</string>           <!-- TODO -->
+    <string name="calendars_notification_adding_failed">Failed to add calendars!</string>     <!-- TODO -->
+
+    <string name="calendars_notification_clearing">Clearing calendars…</string>               <!-- TODO -->
+    <string name="calendars_notification_cleared">Calendars have been cleared.</string>       <!-- TODO -->
+
+    <string name="calendars_notification_updating">Updating calendars…</string>               <!-- TODO -->
+    <string name="calendars_notification_updated">Calendars have been updated.</string>       <!-- TODO -->
+
+    <string name="calendars_notification_reminders_updating">Updating reminders…</string>     <!-- TODO -->
+    <string name="calendars_notification_reminders_updated">Reminders have been updated.</string>  <!-- TODO -->
+
+    <string name="confirm_add_message1">Add calendar?</string>                <!-- TODO -->
+    <string name="confirm_clear_message0">Remove calendars?</string>          <!-- TODO -->
+    <string name="confirm_clear_message1">Remove calendar?</string>           <!-- TODO -->
+
+    <string name="confirm_cancel_message">Cancel the running task?\n\nThis may result in calendars that are missing or incomplete.</string>   <!-- TODO -->
+    <string name="confirm_cancel_yes">Confirm</string>   <!-- TODO -->
+    <string name="confirm_cancel_no">Back</string>       <!-- TODO -->
+
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Zrušit</string>
+
+    <string name="action_help">Nápověda</string>
+    <string name="action_openCalendar">Open</string>            <!-- snackbar version -->     <!-- TODO -->
+    <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->    <!-- TODO -->
+
+    <string name="action_deleteReminder">Odstranit</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">after start of event</string>    <!-- checkbox text -->    <!-- TODO -->
+
+    <string-array name="reminder_method_display">   <!-- display values -->
+        <item>Default</item>
+        <item>Notification</item>
+        <item>Email</item>
+        <item>SMS</item>
+        <!--<item>Alarm</item>-->
+    </string-array>     <!-- TODO -->
+
+    <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 minutes</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>45 minutes</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>9 hours</item>
+        <item>12 hours</item>
+        <item>1 day</item>
+        <item>2 days</item>
+        <item>1 week</item>
+        <item>2 weeks</item>
+        <item>4 weeks</item>
+    </string-array>    <!-- TODO -->
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>one year</item>
+        <item>two years</item>
+        <item>five years</item>
+        <item>ten years</item>
+    </string-array> <!-- TODO -->
+
+    <plurals name="units_days_ago">
+        <item quantity="one">%s day ago</item>
+        <item quantity="few">%s days ago</item>
+        <item quantity="other">%s days ago</item>
+    </plurals>  <!-- TODO -->
+    <plurals name="units_days_fromnow">
+        <item quantity="one">%d day from now</item>
+        <item quantity="few">%d days from now</item>
+        <item quantity="other">%d days from now</item>
+    </plurals>  <!-- TODO -->
+
+    <plurals name="units_years_ago">
+        <item quantity="one">%s year ago</item>
+        <item quantity="few">%s year ago</item>
+        <item quantity="other">%s years ago</item>
+    </plurals> <!-- TODO -->
+    <plurals name="units_years_fromnow">
+        <item quantity="one">%d year from now</item>
+        <item quantity="few">%d year from now</item>
+        <item quantity="other">%d years from now</item>
+    </plurals> <!-- TODO -->
+
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%s\n%s</string>
+
+    <string name="distance_format_km">%s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="distance_format_mi">%s mil</string>
+
+    <string name="toolbar_title">Kalendáře</string>
+
+    <string name="notificationChannel_main_title">Notifikace</string>  <!-- notification channel title -->
+    <string name="notificationChannel_main_desc">Notifikace</string>  <!-- notification channel desc -->
+
+    <string name="progress_title">Updating Calendars</string>       <!-- TODO -->
+    <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>       <!-- TODO -->
+
+    <string name="title_dialog_msg">Nadpis</string>
+    <string name="title_dialog_saved_toast">Calendar title: %s</string>  <!-- TODO -->
+
+    <string name="reminder_dialog_msg">Reminders</string>     <!-- TODO -->
+    <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
+
+    <string name="flag_dialog_msg">Event Flags</string>                              <!-- TODO -->
+    <string name="flag_dialog_defaults_toast">Restored default event flags</string>  <!-- TODO -->
+
+    <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
+    <string name="template_dialog_title_label">Name</string>    <!-- TODO -->
+    <string name="template_dialog_title_hint">Name</string>     <!-- TODO -->
+
+    <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
+    <string name="template_dialog_desc_hint">Description</string>   <!-- TODO -->
+
+    <string name="template_dialog_location_label">Poloha</string>
+    <string name="template_dialog_location_hint">Poloha</string>
+
+    <string name="template_dialog_saved_toast">Template saved</string>                <!-- TODO -->
+    <string name="template_dialog_defaults_toast">Restored default template</string>  <!-- TODO -->
+
+    <string name="templatestrings_dialog_msg">Event Strings</string>                        <!-- TODO -->
+    <string name="templatestrings_dialog_saved_toast">Strings saved</string>                <!-- TODO -->
+    <string name="templatestrings_dialog_defaults_toast">Restored default strings</string>  <!-- TODO -->
+
+    <string name="action_restore_defaults">Obnovit výchozí</string>
+
+    <!-- cardinal directions -->
+    <string-array name="directions_short">  <!-- one-to-one with directions_long -->
+        <item>S</item>
+        <item>SSV</item>
+        <item>SV</item>
+        <item>VSV</item>
+        <item>V</item>
+        <item>VJV</item>
+        <item>JV</item>
+        <item>JJV</item>
+        <item>J</item>
+        <item>JJZ</item>
+        <item>JZ</item>
+        <item>ZJZ</item>
+        <item>Z</item>
+        <item>ZSZ</item>
+        <item>SZ</item>
+        <item>SSZ</item>
+        <item>S</item>
+    </string-array>
+    <string-array name="directions_long">   <!-- one-to-one with directions_short -->
+        <item>Sever</item>
+        <item>Severoseverovýchod</item>
+        <item>Severovýchod</item>
+        <item>Východoseverovýchod</item>
+        <item>Východ</item>
+        <item>Východojihovýchod</item>
+        <item>Jihovýchod</item>
+        <item>Jihojihovýchod</item>
+        <item>Jih</item>
+        <item>Jihojihozápad</item>
+        <item>Jihozápad</item>
+        <item>Západojihozápad</item>
+        <item>Západ</item>
+        <item>Západoseverozápad</item>
+        <item>Severozápad</item>
+        <item>Severoseverozápad</item>
+        <item>Sever</item>
+    </string-array>
+
+    <!-- distances (meters, feet, etc) -->
+    <string name="lengthUnits_metric">Metrické</string>
+    <string name="lengthUnits_imperial">Imperiální</string>
+
+    <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
+    <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
+    <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
+    <string name="help_pattern_loc">location name (e.g. Phoenix)</string>   <!-- TODO -->
+    <string name="help_pattern_lat">location latitude</string>   <!-- TODO -->
+    <string name="help_pattern_lon">location longitude</string>   <!-- TODO -->
+    <string name="help_pattern_lel">location elevation</string>   <!-- TODO -->
+    <string name="help_pattern_event">event title (e.g. "Full Moon")</string>   <!-- TODO -->
+    <string name="help_pattern_event_millis">event milliseconds</string>   <!-- TODO -->
+    <string name="help_pattern_dist">moon distance</string>   <!-- TODO -->
+    <string name="help_pattern_illum">moon illumination</string>   <!-- TODO -->
+    <string name="help_pattern_phase">moon phase</string>   <!-- TODO -->
+    <string name="help_pattern_altitude">event altitude</string>   <!-- TODO -->
+    <string name="help_pattern_azimuth">event azimuth</string>   <!-- TODO -->
+    <string name="help_pattern_declination">event declination</string>   <!-- TODO -->
+    <string name="help_pattern_rightascension">event right ascension</string>   <!-- TODO -->
+    <string name="help_pattern_percent">\% character</string>   <!-- TODO -->
+
+    <string name="help_flags"><![CDATA[
+        <h3>Flags</h3>
+        These settings are applied when calendar events are added.
+        <br/><br/>
+        To change a calendar\'s events, modify these settings, then remove and re-add the calendar.
+    ]]></string>  <!-- TODO-->
+
+    <string name="help_template"><![CDATA[
+        <h3>Templates</h3>
+        Templates are applied when calendar events are added.
+        <br/><br/>
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        <br/><br/>
+        <h3>Substitutions</h3>
+        %s
+    ]]></string>  <!-- TODO-->
+    <string name="help_template_strings"><![CDATA[
+        <h3>Event Strings</h3>
+        The following values are available to the template using the %M substitution.
+    ]]></string>  <!-- TODO-->
+
+    <string name="color_dialog_msg">Vybrat barvu</string>
+    <string name="color_dialog_ok">Vybrat</string>
+    <string name="color_dialog_cancel">Zrušit</string>
+
+    <string name="about_dialog_title">O aplikaci</string>
+    <string name="app_name">Suntimes Calendars</string>
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Missing Dependency!</b></font>
+    ]]></string>
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Permission Denied!</b></font>
+    ]]></string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>
+    <string name="snackbar_missing_dependency"><![CDATA[
+        This app requires<br />
+        <b><u>%s</u></b> or greater!
+    ]]></string>
+    <string name="snackbar_missing_permission"><![CDATA[
+        Permission Denied!<br />
+        <u>%s</u> must be reinstalled to work correctly.
+        <br /><br />
+        This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
+    ]]></string>
+    <string name="actionCopyError">Copy to clipboard</string>
+    <string name="actionCopyError_toast">Error copied to clipboard.</string>
+
+    <string name="help_location"><![CDATA[
+        <h1>Location</h1>
+        The location is configured from Suntimes. This setting is applied when calendars are added.
+        <br/><br/>
+        To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
+    ]]></string>
+
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Support:</b> visit the
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
+    ]]></xliff:g></string>
+    <string name="app_donate_url"><![CDATA[
+        %s is available gratis, but if it has proven its value, please
+        <a href="https://forrestguice.github.io/Suntimes/donate">pay as you like</a>.
+    ]]></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Source Code:</b><br />
+        Copyright &#169 2018-2026 Forrest Guice <br />
+        Source code available under GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Translations:</b><br/>
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string>
+    <string name="privacy_permissiondialog_title">Permissions</string>
+    <string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
+    ]]></xliff:g></string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> by <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
+    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, and <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Angličtina</item>
+        <item>Esperanto</item>
+        <item>Francouzština</item>
+        <item>Němčina</item>
+        <item>Maďarština</item>
+        <item>Italština</item>
+        <item>Polština</item>
+        <item>Španělština</item>
+        <item>Katalánština</item>
+        <item>Baskičtina</item>
+        <item>Norština</item>
+        <item>Čínština (tradiční)</item>
+        <item>Portugalština</item>
+        <item>Nizozemština</item>
+        <item>Ruština</item>
+        <item>Čeština</item>
+    </string-array>
+
+</resources>

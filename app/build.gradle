@@ -13,7 +13,7 @@ android {
         versionName "0.6.2"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
-        resConfigs "ca", "de", "en", "eo", "es", "eu", "fr", "hu", "it", "nb", "nl", "pl", "pt", "ru", "zh"
+        resConfigs "ca", "cs", "de", "en", "eo", "es", "eu", "fr", "hu", "it", "nb", "nl", "pl", "pt", "ru", "zh"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

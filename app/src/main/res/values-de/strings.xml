@@ -161,9 +161,9 @@
   <string name="privacy_permission_calendar"><![CDATA[Suntimes verwendet <b>Kalenderberechtigungen</b> zur Integration in die Kalender-App. Diese Berechtigungen erlauben der App eigene Kalender und Ereignisse zu erzeugen.<br/><br/>Berechtigungen werden auch benötigt um die Kalenderintegration zu deaktivieren und um eigene Kalendar zu löschen.]]></string> 
   <string name="privacy_permissiondialog_title">Berechtigungen</string> 
 
-  <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> von <xliff:g id="authorList">%2$s</xliff:g>.]]></string>   <!-- TODO: review -->
+  <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> von <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
   <!--<string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>-->  <!-- e.g. "name1, name2, name3, ..." -->
-  <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g> und <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->   <!-- TODO: review -->
+  <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g> und <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
   <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
       <item>Englisch</item>
       <item>Esperanto</item>
@@ -179,7 +179,8 @@
       <item>Traditionelles Chinesisch</item> 
       <item>Portugisisch</item>  
       <item>Niederländisch</item>  
-      <item>Russisch</item>  
+      <item>Russisch</item>
+      <item>Czech</item>   <!-- TODO -->
   </string-array>
 
 </resources>
