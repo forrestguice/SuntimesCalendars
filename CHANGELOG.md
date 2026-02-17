@@ -1,10 +1,11 @@
 ### ~
 
-### v0.6.2 (2026-02-09)
-* adds title option; support for changing the calendar's display name.
-* fixes incorrect translation of the app name (#69), and other translation updates.
-* fixes bug where button clicks trigger more than once (throttles clicks to once a second).
-* changes the order of the calendar list (calendars specify "grouping" and "priority").
+### v0.6.2 (2026-02-17)
+* adds calendar title option.
+* adds translation to Czech (cs) (copied from SuntimesWidget (by utaxiu)).
+* updates translation to Russian (ru) (#71 by Ruslan Chintsov).
+* fixes incorrect translation of the app name (#69), and other miscellaneous translation updates.
+* changes the order of the calendar list (calendars may specify "grouping" and "priority").
 * refactor; miscellaneous changes to calendar interfaces to improve modularity.
 * updates build; removes dependency on jcenter and jitpack.io (replaced with a git submodule).
 * updates build; updates dependency constraint-layout (1.1.3 -> 2.0.4).
