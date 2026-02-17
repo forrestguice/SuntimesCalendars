@@ -5,12 +5,6 @@
     <string name="textSize_normal">Средний</string>
     <string name="textSize_large">Крупный</string>
     <string name="textSize_xlarge">Огромный</string>
-    <string-array name="textSize_display">                      <!-- one-to-one with textSize_values -->
-        <item>@string/textSize_small</item>
-        <item>@string/textSize_normal</item>
-        <item>@string/textSize_large</item>
-        <item>@string/textSize_xlarge</item>
-    </string-array>
 
     <string name="timeMode_noon">Солнечный полдень</string>
     <string name="sunrise">Восход солнца</string>
@@ -401,9 +395,6 @@
         <b>Поддержка</b>: посетите
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">трекер отслеживания проблем</a> на GitHub для создания запроса.
     ]]></string>
-    <string name="app_url"><xliff:g id="url"><![CDATA[
-        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
-    ]]></xliff:g></string>
     <string name="app_donate_url"><![CDATA[
         Приложение %s доступно бесплатно. Но если оно оказалось для вас полезным, пожалуйста,
         <a href="https://forrestguice.github.io/Suntimes/donate">поддержите проект любой суммой</a>.
@@ -421,9 +412,6 @@
     <string name="privacy_policy"><![CDATA[<b>Конфиденциальность:</b><br/>Suntimes Calendars не собирает, не хранит и не передает персональные данные пользователя. Приложение <b>не содержит рекламы</b>, <b>сбора аналитики</b>, <b>трекеров</b> и <b>не требует лишних разрешений</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars использует разрешения <b>доступа к календарю</b> для интеграции с системным приложением <b>Календарь</b>. Эти разрешения позволяют создавать пользовательские календари и события в них.<br/><br/>Разрешения также требуются при отключении интеграции с календарем (для удаления пользовательских календарей).]]></string>
     <string name="privacy_permissiondialog_title">Разрешения</string>
-    <string name="privacy_url"><xliff:g id="url"><![CDATA[
-        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
-    ]]></xliff:g></string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b>: <xliff:g id="authorList">%2$s</xliff:g>]]></string>
     <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
@@ -444,6 +432,7 @@
         <item>Португальский</item>
         <item>Голландский</item>
         <item>Русский</item>
+        <item>Чешский</item>
     </string-array>
 
 </resources>
