@@ -40,3 +40,5 @@ proguard/
 # Android Studio Files
 .idea/workspace.xml
 .idea/vcs.xml
+.idea/inspectionProfiles
+.idea/shelf

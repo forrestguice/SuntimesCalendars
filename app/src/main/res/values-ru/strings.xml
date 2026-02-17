@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="http://schemas.android.com/tools">
 
+    <string name="textSize_small">Мелкий</string>
+    <string name="textSize_normal">Средний</string>
+    <string name="textSize_large">Крупный</string>
+    <string name="textSize_xlarge">Огромный</string>
+    <string-array name="textSize_display">                      <!-- one-to-one with textSize_values -->
+        <item>@string/textSize_small</item>
+        <item>@string/textSize_normal</item>
+        <item>@string/textSize_large</item>
+        <item>@string/textSize_xlarge</item>
+    </string-array>
+
+    <string name="timeMode_noon">Солнечный полдень</string>
     <string name="sunrise">Восход солнца</string>
     <string name="sunset">Заход солнца</string>
     <string name="timeMode_civil">Гражданские сумерки</string>
+    <string name="timeMode_civil_morning">Гражданские сумерки (утро)</string>
+    <string name="timeMode_civil_evening">Гражданские сумерки (вечер)</string>
     <string name="timeMode_nautical">Навигационные сумерки</string>
+    <string name="timeMode_nautical_morning">Навигационные сумерки (утро)</string>
+    <string name="timeMode_nautical_evening">Навигационные сумерки (вечер)</string>
     <string name="timeMode_astronomical">Астрономические сумерки</string>
+    <string name="timeMode_astronomical_morning">Астрономические сумерки (утро)</string>
+    <string name="timeMode_astronomical_evening">Астрономические сумерки (вечер)</string>
+
     <string name="dawn">Рассвет</string>
+    <string name="dawn_civil">Гражданский рассвет</string>
+    <string name="dawn_nautical">Навигационный рассвет</string>
+    <string name="dawn_astronomical">Астрономический рассвет</string>
+
     <string name="dusk">Сумерки</string>
+    <string name="dusk_civil">Гражданские сумерки</string>
+    <string name="dusk_nautical">Навигационные сумерки</string>
+    <string name="dusk_astronomical">Астрономические сумерки</string>
+
     <string name="polar_twilight">Полярные сумерки</string>
     <string name="civil_night">Гражданская полярная ночь</string>
     <string name="nautical_night">Навигационная полярная ночь</string>
     <string name="white_night">Белые ночи</string>
+
+    <string name="timeMode_golden">Золотой час</string>
+    <string name="timeMode_golden_morning">Золотой час (утро)</string>
+    <string name="timeMode_golden_evening">Золотой час (вечер)</string>
+
+    <string name="timeMode_blue8">Режимное время (8\u00B0)</string>
+    <string name="timeMode_blue4">Режимное время (4\u00B0)</string>
+    <string name="timeMode_blue_morning">Режимное время (утро)</string>
+    <string name="timeMode_blue_evening">Режимное время (вечер)</string>
 
     <string name="moonrise">Восход луны</string>
     <string name="moonset">Заход луны</string>
@@ -21,72 +57,393 @@
     <string name="timeMode_solstice_summer">Летнее солнцестояние</string>
     <string name="timeMode_solstice_winter">Зимнее солнцестояние</string>
 
+    <string name="timeMode_cross_spring">Бельтайн (межсезонный)</string>
+    <string name="timeMode_cross_autumnal">Самайн (межсезонный)</string>
+    <string name="timeMode_cross_summer">Лугнасад (межсезонный)</string>
+    <string name="timeMode_cross_winter">Имболк (межсезонный)</string>
+
     <string name="timeMode_moon">Луна</string>
     <string name="timeMode_moon_new">Новолуние</string>
     <string name="timeMode_moon_firstquarter">Первая четверть</string>
     <string name="timeMode_moon_full">Полнолуние</string>
     <string name="timeMode_moon_thirdquarter">Третья четверть</string>
-    <string name="timeMode_moon_super">Суперлуние</string>
-    <string name="timeMode_moon_micro">Микролуние</string>
-    <string name="timeMode_moon_superfull">Суперполнолуние</string>
-    <string name="timeMode_moon_supernew">Суперноволуние</string>
-    <string name="timeMode_moon_microfull">Микрополнолуние</string>
-    <string name="timeMode_moon_micronew">Микроноволуние</string>
-    <string name="timeMode_moon_apogee">Апогей</string>
-    <string name="timeMode_moon_perigee">Перигей</string>
+    <string name="timeMode_moon_super">Суперлуние</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Микролуние</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Суперполнолуние</string>                             <!-- setting -->
+    <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_supernew">Суперноволуние</string>                             <!-- setting -->
+    <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
+    <string name="timeMode_moon_microfull">Микрополнолуние</string>                             <!-- setting -->
+    <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_micronew">Микроноволуние</string>                             <!-- setting -->
+    <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
+    <string name="timeMode_moon_apogee">Апогей</string>                             <!-- label -->
+    <string name="timeMode_moon_perigee">Перигей</string>                             <!-- label -->
+    <string name="timeMode_moon_waxingcrescent">Растущий полумесяц</string>
+    <string name="timeMode_moon_waxinggibbous">Растущая луна</string>
+    <string name="timeMode_moon_waninggibbous">Убывающая луна</string>
+    <string name="timeMode_moon_waningcrescent">Убывающий полумесяц</string>
 
     <string name="configLabel_calendars">Календари</string>
     <string name="configLabel_options">Параметры</string>
     <string name="configLabel_calendars_location">Местоположение</string>
 
-    <string name="calendar_solstice_displayName">Солнцестояние и равноденствие</string>
+    <string name="calendar_solstice_displayName">Солнцестояния и равноденствия</string>
+    <string name="calendar_solstice_summary">Солнцестояния, равноденствия и межсезонные дни</string>
     <string name="calendar_moonPhase_displayName">Фазы луны</string>
     <string name="calendar_moonPhase_summary">Синодический месяц</string>
-    <string name="calendar_moonApsis_displayName">Апсиды луны</string>
+    <string name="calendar_moonApsis_displayName">Апогей и перигей</string>
     <string name="calendar_moonApsis_summary">Аномалистический месяц</string>
+    <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Восход и заход луны</string>
-    <string name="calendar_civil_twilight_summary">Восход и заход солнца</string>
+    <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
+    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
+    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
+    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
+    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_blue_twilight_displayName">Режимное время</string>
+    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_daylight_displayName">Солнце</string>
+    <string name="calendar_daylight_summary">Восход и заход солнца, солнечный полдень</string>
 
     <string name="configLabel_calendars_enabled">Интеграция в систему</string>
-    <string name="configLabel_calendars_enabled_summary">Добавлять события в системный календарь.</string>
+    <string name="configLabel_calendars_enabled_summary">Добавлять отмеченные категории событий в календарь системы (в виде отдельных календарей)</string>
 
-    <string name="configLabel_calendars_window">Интервал событий</string>
-    <string name="configLabel_calendars_window_summary">Начинается <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, заканчивается <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window">Период событий</string>
+    <string name="configLabel_calendars_window_summary">Период заполнения календаря. Начинается <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> и заканчивается <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g></string>
+
+    <string name="configLabel_calendars_window0">Окно (начало)</string>
+    <string name="configLabel_calendars_window0_summary">Период, начинающийся <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> назад</string>
+
+    <string name="configLabel_calendars_window1">Окно (конец)</string>
+    <string name="configLabel_calendars_window1_summary">Период, заканчивающийся через <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
 
     <string name="calendars_notification_adding">Добавление календарей…</string>
-    <string name="calendars_notification_added">Календари добавлены.</string>
+    <string name="calendars_notification_added">Календари добавлены</string>
+    <string name="calendars_notification_adding_failed">Не удалось добавить календари!</string>
 
     <string name="calendars_notification_clearing">Удаление календарей…</string>
-    <string name="calendars_notification_cleared">Календари удалены.</string>
+    <string name="calendars_notification_cleared">Календари удалены</string>
 
+    <string name="calendars_notification_updating">Обновление календарей…</string>
+    <string name="calendars_notification_updated">Календари обновлены</string>
+
+    <string name="calendars_notification_reminders_updating">Обновление напоминаний…</string>
+    <string name="calendars_notification_reminders_updated">Напоминания обновлены</string>
+
+    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Добавить календарь?</string>
     <string name="confirm_clear_message0">Удалить календари?</string>
     <string name="confirm_clear_message1">Удалить календарь?</string>
 
-    <string name="action_openCalendar">Открыть</string>
-    <string name="action_openCalendar1">Открыть календарь</string>
+    <string name="confirm_cancel_message">Отменить выполняемую задачу?\n\nЭто может привести к тому, что календари будут отсутствовать или будут неполными.</string>
+    <string name="confirm_cancel_yes">Подтвердить</string>
+    <string name="confirm_cancel_no">Назад</string>
+
+    <string name="dialog_ok">ОК</string>
+    <string name="dialog_cancel">Отменить</string>
+
+    <string name="action_help">Справка</string>
+    <string name="action_openCalendar">Открыть календарь</string>            <!-- snackbar version -->
+    <string name="action_openCalendar1">Открыть календарь</string>  <!-- actionbar version -->
+
+    <string name="action_deleteReminder">Удалить</string>    <!-- ImageButton content-description -->
+    <string name="reminder_afterEvent">после начала события</string>    <!-- checkbox text -->
+
+    <string-array name="reminder_method_display">   <!-- display values -->
+        <item>По умолчанию</item>
+        <item>Уведомление</item>
+        <item>Эл. почта</item>
+        <item>SMS</item>
+        <!--<item>Alarm</item>-->
+    </string-array>
+
+    <string-array name="reminder_minutes_display">   <!-- display values -->
+        <item>0 минут</item>
+        <item>1 минута</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>15 минут</item>
+        <item>20 минут</item>
+        <item>25 минут</item>
+        <item>30 минут</item>
+        <item>45 минут</item>
+        <item>1 час</item>
+        <item>2 часа</item>
+        <item>3 часа</item>
+        <item>6 часов</item>
+        <item>9 часов</item>
+        <item>12 часов</item>
+        <item>1 день</item>
+        <item>2 дня</item>
+        <item>1 неделя</item>
+        <item>2 недели</item>
+        <item>4 недели</item>
+    </string-array>
+
+    <string-array name="calendars_window_display">   <!-- display values (one-to-one with getFix_maxAge_values) -->
+        <item>1 год</item>
+        <item>2 года</item>
+        <item>5 лет</item>
+        <item>10 лет</item>
+    </string-array>
+
+    <plurals name="units_days_ago">
+        <item quantity="one">%s день назад</item>
+        <item quantity="few">%s дня назад</item>
+        <item quantity="many">%s дней назад</item>
+        <item quantity="other">%s дней назад</item>
+    </plurals>
+    <plurals name="units_days_fromnow">
+        <item quantity="one">через %d день</item>
+        <item quantity="few">через %d дня</item>
+        <item quantity="many">через %d дней</item>
+        <item quantity="other">через %d дней</item>
+    </plurals>
 
     <plurals name="units_years_ago">
         <item quantity="one">%s год назад</item>
         <item quantity="few">%s года назад</item>
         <item quantity="many">%s лет назад</item>
+        <item quantity="other">%s лет назад</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">через %d год</item>
         <item quantity="few">через %d года</item>
         <item quantity="many">через %d лет</item>
+        <item quantity="other">через %d лет</item>
     </plurals>
 
+    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%s в %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%s\n%s км</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%s\n%s</string>
+
+    <string name="distance_format_km">%s км</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="distance_format_mi">%s ми</string>
+    <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
+    
     <string name="toolbar_title">Календари</string>
 
+    <string name="notificationChannel_main_title">Уведомления</string>  <!-- notification channel title -->
+    <string name="notificationChannel_main_desc">Уведомления</string>  <!-- notification channel desc -->
+
     <string name="progress_title">Обновление календарей</string>
-    <string name="progress_message">Это может занять несколько минут…\n\nВы можете закрыть приложение. Обновление продолжится в фоне.</string>
+    <string name="progress_message">Это может занять несколько минут…\n\nВы можете закрыть приложение, обновление продолжится в фоновом режиме.</string>
+
+    <string name="title_dialog_msg">Название</string>
+    <string name="title_dialog_saved_toast">Название календаря: %s</string>
+
+    <string name="reminder_dialog_msg">Напоминания</string>
+    <string name="action_add_reminder">Добавить напоминание</string>
+
+    <string name="flag_dialog_msg">Выбор событий</string>
+    <string name="flag_dialog_defaults_toast">Восстановлен выбор событий по умолчанию</string>
+
+    <string name="template_dialog_msg">Шаблон событий</string>
+    <string name="template_dialog_title_label">Название</string>
+    <string name="template_dialog_title_hint">Название</string>
+
+    <string name="template_dialog_desc_label">Описание</string>
+    <string name="template_dialog_desc_hint">Описание</string>
+
+    <string name="template_dialog_location_label">Местоположение</string>
+    <string name="template_dialog_location_hint">Местоположение</string>
+
+    <string name="template_dialog_saved_toast">Шаблон сохранен</string>
+    <string name="template_dialog_defaults_toast">Восстановлен шаблон по умолчанию</string>
+
+    <string name="templatestrings_dialog_msg">Строки подстановки</string>
+    <string name="templatestrings_dialog_saved_toast">Названия сохранены</string>
+    <string name="templatestrings_dialog_defaults_toast">Восстановлены названия по умолчанию</string>
+
+    <string name="action_restore_defaults">Восстановить умолчания</string>
+
+    <!-- cardinal directions -->
+    <string-array name="directions_short">  <!-- one-to-one with directions_long -->
+        <item>С</item>
+        <item>ССВ</item>
+        <item>СВ</item>
+        <item>ВСВ</item>
+        <item>В</item>
+        <item>ВЮВ</item>
+        <item>ЮВ</item>
+        <item>ЮЮВ</item>
+        <item>Ю</item>
+        <item>ЮЮЗ</item>
+        <item>ЮЗ</item>
+        <item>ЗЮЗ</item>
+        <item>З</item>
+        <item>ЗСЗ</item>
+        <item>СЗ</item>
+        <item>ССЗ</item>
+        <item>С</item>
+    </string-array>
+    <string-array name="directions_long">   <!-- one-to-one with directions_short -->
+        <item>Север</item>
+        <item>Северо-Северо-Восток</item>
+        <item>Северо-Восток</item>
+        <item>Востоко-Северо-Восток</item>
+        <item>Восток</item>
+        <item>Востоко-Юго-Восток</item>
+        <item>Юго-Восток</item>
+        <item>Юго-Юго-Восток</item>
+        <item>Юг</item>
+        <item>Юго-Юго-Запад</item>
+        <item>Юго-Запад</item>
+        <item>Западо-Юго-Запад</item>
+        <item>Запад</item>
+        <item>Западо-Северо-Запад</item>
+        <item>Северо-Запад</item>
+        <item>Северо-Северо-Запад</item>
+        <item>Север</item>
+    </string-array>
+
+    <!-- distances (meters, feet, etc) -->
+    <string name="lengthUnits_metric">Метрическая система мер (СИ)</string>
+    <string name="lengthUnits_imperial">Английская система мер</string>
+
+    <string name="help_pattern_cal">название календаря (напр. Гражданские сумерки)</string>
+    <string name="help_pattern_summary">описание (напр. Восход / Закат)</string>
+    <string name="help_pattern_color">цвет календаря (напр. #FFFFFF)</string>
+    <string name="help_pattern_loc">название места (напр. Урюпинск)</string>
+    <string name="help_pattern_lat">широта места</string>
+    <string name="help_pattern_lon">долгота места</string>
+    <string name="help_pattern_lel">высота места</string>
+    <string name="help_pattern_event">название события (напр. Полнолуние)</string>
+    <string name="help_pattern_event_millis">миллисекунды события</string>
+    <string name="help_pattern_dist">расстояние до луны</string>
+    <string name="help_pattern_illum">освещенность луны</string>
+    <string name="help_pattern_phase">фаза луны</string>
+    <string name="help_pattern_altitude">высота события</string>
+    <string name="help_pattern_azimuth">азимут события</string>
+    <string name="help_pattern_declination">склонение события</string>
+    <string name="help_pattern_rightascension">прямое восхождение события</string>
+    <string name="help_pattern_percent">символ \%</string>
+
+    <string name="help_flags"><![CDATA[
+        <h3>Выбор событий</h3>
+        Эти настройки применяются для изменения списка частных событий в календаре (общей категории).
+        <br/><br/>
+        Чтобы изменить список событий в календаре, отметьте нужные события галочками (утро, вечер, восход, заход и др.).
+        <br/><br/>
+        Затем перейдите на главный экран, снимите галочку с календаря (общей категории) и поставьте ее заново. Это удалит выбранный календарь из системы и добавит его заново.
+        <br/><br/>
+        Не забудьте активировать пункт <b>«Интеграция в систему»</b> перед проведением изменений.
+    ]]></string>
+
+    <string name="help_template"><![CDATA[
+        <h3>Шаблоны</h3>
+        Шаблоны применяются для форматирования частных событий в календаре.
+        <br/><br/>
+        Чтобы изменить форматирование событий календаря, измените его шаблон, используя символы подстановки (ниже).
+        <br/><br/>
+        Затем перейдите на главный экран, снимите галочку с календаря (общей категории) и поставьте ее заново. Это удалит выбранный календарь из системы и добавит его заново.
+        <br/><br/>
+        Не забудьте активировать пункт <b>«Интеграция в систему»</b> перед проведением изменений.
+        <br/><br/>
+        <h3>Символы подстановки:</h3>
+        %s
+    ]]></string>=
+    <string name="help_template_strings"><![CDATA[
+        <h3>Строки событий</h3>
+        Перечисленные частные события доступны в шаблоне календаря (общей категории) через символ подстановки %M.
+        <br/><br/>
+        Вы можете переименовывать частные события по своему усмотрению.
+    ]]></string>
+
+    <string name="color_dialog_msg">Цвет</string>
+    <string name="color_dialog_ok">Выбрать</string>
+    <string name="color_dialog_cancel">Отменить</string>
+
+    <string name="about_dialog_title">О приложении</string>
+    <string name="app_name">Suntimes Calendars</string>
+
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version_missing"><![CDATA[
+        <font color="#e65100"><b>Отсутствует зависимость!</b></font>
+    ]]></string>
+    <string name="app_provider_version_denied"><![CDATA[
+        <font color="#e65100"><b>Доступ запрещен!</b></font>
+    ]]></string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> не поддерживается текущей версией, требуется <xliff:g id="versionString">%s</xliff:g> или выше</string>
+    <string name="snackbar_missing_dependency"><![CDATA[
+        Для этого приложения требуется<br />
+        <b><u>%s</u></b> или выше!
+    ]]></string>
+    <string name="snackbar_missing_permission"><![CDATA[
+        Доступ запрещен!<br />
+        <u>%s</u> необходимо переустановить для корректной работы.
+        <br /><br />
+        Этому приложению не хватает разрешений, которые выдаются во время установки. Это происходит, когда приложения устанавливаются в неправильном порядке. Установите основное приложение Suntimes перед установкой дополнений.
+    ]]></string>
+    <string name="actionCopyError">Скопировать в буфер обмена</string>
+    <string name="actionCopyError_toast">Ошибка скопирована в буфер обмена</string>
 
     <string name="help_location"><![CDATA[
         <h1>Местоположение</h1>
-        Местоположение настраивается в приложении Suntimes и используется при добавлении календарей.
+        Местоположение настраивается в приложении Suntimes и используется для добавления событий.
         <br/><br/>
-        Чтобы изменить местоположение календаря, измените сначала местоположение в приложении Suntimes, затем удалите календарь и добавьте его снова.
+        Чтобы изменить местоположение для календаря (общей категории), сначала измените местоположение в основном приложении Suntimes, а затем замените календарь события в этом приложении.
+        <br/><br/>
+        Чтобы заменить, перейдите на главный экран, снимите галочку с календаря (общей категории) и поставьте ее заново. Это удалит календарь события в системе и добавит его заново.
+        <br/><br/>
+        Не забудьте активировать пункт <b>«Интеграция в систему»</b> перед проведением изменений.
     ]]></string>
+
+    <string name="app_version"><![CDATA[<b>Версия:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_shortdesc">Астрономические события для календаря Android.</string>
+    <string name="app_support_url"><![CDATA[
+        <b>Поддержка</b>: посетите
+        <a href="https://github.com/forrestguice/SuntimesCalendars/issues">трекер отслеживания проблем</a> на GitHub для создания запроса.
+    ]]></string>
+    <string name="app_url"><xliff:g id="url"><![CDATA[
+        <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
+    ]]></xliff:g></string>
+    <string name="app_donate_url"><![CDATA[
+        Приложение %s доступно бесплатно. Но если оно оказалось для вас полезным, пожалуйста,
+        <a href="https://forrestguice.github.io/Suntimes/donate">поддержите проект любой суммой</a>.
+    ]]></string>
+    <string name="app_legal1"><![CDATA[
+        <b>Исходный код:</b><br />
+        Copyright &#169 2018-2026 Forrest Guice <br />
+        Исходный код доступен по лицензии GPLv3.
+    ]]></string>
+    <string name="app_legal2"><![CDATA[
+        <b>Переводы:</b><br/>
+        <xliff:g id="locale_credits">%1$s</xliff:g>
+    ]]></string>
+
+    <string name="privacy_policy"><![CDATA[<b>Конфиденциальность:</b><br/>Suntimes Calendars не собирает, не хранит и не передает персональные данные пользователя. Приложение <b>не содержит рекламы</b>, <b>сбора аналитики</b>, <b>трекеров</b> и <b>не требует лишних разрешений</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
+    <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars использует разрешения <b>доступа к календарю</b> для интеграции с системным приложением <b>Календарь</b>. Эти разрешения позволяют создавать пользовательские календари и события в них.<br/><br/>Разрешения также требуются при отключении интеграции с календарем (для удаления пользовательских календарей).]]></string>
+    <string name="privacy_permissiondialog_title">Разрешения</string>
+    <string name="privacy_url"><xliff:g id="url"><![CDATA[
+        <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
+    ]]></xliff:g></string>
+
+    <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b>: <xliff:g id="authorList">%2$s</xliff:g>]]></string>
+    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g> и <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
+    <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
+        <item>Английский</item>
+        <item>Эсперанто</item>
+        <item>Французский</item>
+        <item>Немецкий</item>
+        <item>Венгерский</item>
+        <item>Итальянский</item>
+        <item>Польский</item>
+        <item>Испанский</item>
+        <item>Каталанский</item>
+        <item>Баскский</item>
+        <item>Норвежский</item>
+        <item>Китайский (традиционный)</item>
+        <item>Португальский</item>
+        <item>Голландский</item>
+        <item>Русский</item>
+    </string-array>
 
 </resources>
