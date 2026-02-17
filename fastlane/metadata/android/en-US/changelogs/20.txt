@@ -1,0 +1,3 @@
+- adds calendar title option.
+- adds translation to Czech.
+- updates translation to Russian.
