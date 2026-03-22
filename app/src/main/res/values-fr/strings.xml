@@ -99,7 +99,7 @@
     <string name="calendar_solstice_displayName">Solstices et Equinoxes</string>
     <string name="calendar_moonPhase_displayName">Phases de lune</string>
     <string name="calendar_moonPhase_summary">Mois synodic</string>
-    <string name="calendar_moonApsis_displayName">apsides lunaire</string>
+    <string name="calendar_moonApsis_displayName">Apsides lunaire</string>
     <string name="calendar_moonApsis_summary">Mois anomalistique</string>
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary" />
