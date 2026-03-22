@@ -26,15 +26,15 @@
     <string name="timeMode_moon_firstquarter">Premier quartier</string>                 <!-- setting -->
     <string name="timeMode_moon_full">Pleine lune</string>                             <!-- setting -->
     <string name="timeMode_moon_thirdquarter">Dernier quartier</string>                 <!-- setting -->
-    <string name="timeMode_moon_super">Supermoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_micro">Micromoon</string>               <!-- label -->    <!-- TODO -->
-    <string name="timeMode_moon_superfull">Super Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_super">Super lune</string>               <!-- label -->
+    <string name="timeMode_moon_micro">Micro lune</string>               <!-- label -->
+    <string name="timeMode_moon_superfull">Super pleine lune</string>                             <!-- setting -->
     <string name="timeMode_moon_superfull_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_supernew">Super New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_supernew">Super nouvelle lune</string>                             <!-- setting -->
     <string name="timeMode_moon_supernew_short">@string/timeMode_moon_super</string>     <!-- label -->
-    <string name="timeMode_moon_microfull">Micro Full Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_microfull">Micro pleine lune</string>                             <!-- setting -->
     <string name="timeMode_moon_microfull_short">@string/timeMode_moon_micro</string>     <!-- label -->
-    <string name="timeMode_moon_micronew">Micro New Moon</string>                             <!-- setting -->    <!-- TODO -->
+    <string name="timeMode_moon_micronew">Micro nouvelle lune/string>                             <!-- setting -->
     <string name="timeMode_moon_micronew_short">@string/timeMode_moon_micro</string>     <!-- label -->
     <string name="timeMode_moon_apogee">Apogée</string>                             <!-- label -->
     <string name="timeMode_moon_perigee">Périgée</string>                             <!-- label -->
@@ -44,20 +44,20 @@
     <string name="configLabel_options">Options</string>
     <string name="configLabel_calendars_location">Localisation</string>
 
-    <string name="configLabel_calendars_enabled">Calendar Integration</string>  <!-- TODO -->
-    <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>  <!-- TODO -->
+    <string name="configLabel_calendars_enabled">Intégration au calendrier</string>
+    <string name="configLabel_calendars_enabled_summary">Ajoute les événements au calendrier.</string>
 
-    <string name="configLabel_calendars_window">Calendar Window</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
+    <string name="configLabel_calendars_window">Intervalle de calendrier</string>
+    <string name="configLabel_calendars_window_summary">L\'intervalle commence <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, se termine <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
-    <string name="configLabel_calendars_window0">Window (start)</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window0">Début de l\'intervalle</string>
+    <string name="configLabel_calendars_window0_summary">L'intervalle commence il y à <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
 
-    <string name="configLabel_calendars_window1">Window (end)</string>  <!-- TODO -->
-    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>  <!-- TODO -->
+    <string name="configLabel_calendars_window1">Fin de l'intervalle</string>
+    <string name="configLabel_calendars_window1_summary">L\'intervalle se termine dans <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
 
-    <string name="calendars_notification_adding">Adding calendars…</string>  <!-- TODO -->
-    <string name="calendars_notification_added">Calendars have been added.</string>  <!-- TODO -->
+    <string name="calendars_notification_adding">Ajout des calendriers…</string>
+    <string name="calendars_notification_added">Les calendriers ont été ajoutés.</string>
 
     <string name="calendars_notification_clearing">Clearing calendars…</string>  <!-- TODO -->
     <string name="calendars_notification_cleared">Calendars have been cleared.</string>  <!-- TODO -->
