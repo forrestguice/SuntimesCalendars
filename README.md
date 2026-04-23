@@ -58,14 +58,14 @@ The source code is available under [GPLv3](LICENSE) (https://github.com/forrestg
 
 German translation by <u>Henrik "HerHde" Hüttemann</u> and <u>Wolkenschieber</u>.<br/>
 Polish and Esperanto translations by <u>Verdulo</u>.<br/>
-French translation by <u>Jej</u> and <u>Aloha</u>.<br/>
+French translation by <u>Jej</u>, <u>Aloha</u>, and <u>chfo-bidouille</u>.<br/>
 Hungarian translation by <u>Erci</u>.<br/>
-Catalan and Spanish translations by <u><a href="https://github.com/Raulvo">Raulvo</a></u> and <u><a href="https://github.com/gnusuari0">gnusuari0</a></u>.<br/>
+Catalan and Spanish translations by <u>Raulvo</u> and <u>gnusuari0</u>.<br/>
 Basque translation by <u>beriain</u>.<br/>
 Norwegian translation by <u>FTno</u>.<br/>
 Italian translation by <u>Matteo Caoduro</u>.<br/>
-Traditional Chinese translation by <u><a href=https://github.com/pggdt>ft42</a></u>.<br />
-Brazilian Portuguese translation by <u><a href=https://github.com/netosilva15>NetoSilva</a></u>, <u><a href=https://github.com/naoliv>Nelson&#160;A.&#160;de&#160;Oliveira</a></u>, and <u><a href=https://github.com/efraletti>Enrico S. B. Fraletti</a></u>.<br />
-Dutch translation by <u><a href=https://github.com/joppla>Joppla</a></u>.<br />
-Russian translation by <u><a href=https://github.com/ddanilov>ddanilov</a></u>, and <u><a href=https://github.com/rchintsov>Ruslan Chintsov</a></u>.<br />
-Czech translation by <u><a href=https://github.com/utaxiu>utaxiu</a></u>.<br />
+Traditional Chinese translation by <u>ft42</u>.<br />
+Brazilian Portuguese translation by <u>NetoSilva</u>, <u>Nelson&#160;A.&#160;de&#160;Oliveira</u>, and <u>Enrico S. B. Fraletti</u>.<br />
+Dutch translation by <u>Joppla</u>.<br />
+Russian translation by <u>ddanilov</u>, and <u>Ruslan Chintsov</u>.<br />
+Czech translation by <u>utaxiu</u>.<br />
