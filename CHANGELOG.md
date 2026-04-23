@@ -1,5 +1,8 @@
 ### ~
 
+### v0.6.3 (2026-04-22)
+* updates translation to French (#73 by chfo-bidouille).
+
 ### v0.6.2 (2026-02-17)
 * adds calendar title option.
 * adds translation to Czech (cs) (copied from SuntimesWidget (by utaxiu)).
