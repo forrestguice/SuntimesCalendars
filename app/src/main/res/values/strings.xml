@@ -362,6 +362,8 @@
         <item>@string/lengthUnits_imperial</item>
     </string-array>
 
+    <string name="timespan_format0">%s</string>
+    <string name="timespan_format1">%s - %s</string>
     <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
     <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
     <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->
