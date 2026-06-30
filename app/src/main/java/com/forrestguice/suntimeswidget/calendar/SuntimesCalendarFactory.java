@@ -30,12 +30,12 @@ import com.forrestguice.suntimeswidget.calendar.task.calendars.ContentProviderCa
 public class SuntimesCalendarFactory
 {
     @Nullable
-    public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor, SuntimesCalendarSettings settings) {
+    public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor, @NonNull SuntimesCalendarSettings settings) {
         return createCalendar(context, descriptor.calendarRef(), settings);
     }
 
     @Nullable
-    public SuntimesCalendar createCalendar(Context context, String classRef, SuntimesCalendarSettings settings)
+    public SuntimesCalendar createCalendar(Context context, String classRef, @NonNull SuntimesCalendarSettings settings)
     {
         SuntimesCalendar calendar = null;
         if (classRef != null)

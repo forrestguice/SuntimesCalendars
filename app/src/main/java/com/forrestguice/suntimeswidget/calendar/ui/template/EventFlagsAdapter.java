@@ -50,6 +50,7 @@ public class EventFlagsAdapter extends RecyclerView.Adapter<EventFlagsAdapter.Ev
     {
         this.contextRef = new WeakReference<>(context);
         this.calendar = calendar;
+        this.settings = settings;
         this.calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
         this.data = data;
     }

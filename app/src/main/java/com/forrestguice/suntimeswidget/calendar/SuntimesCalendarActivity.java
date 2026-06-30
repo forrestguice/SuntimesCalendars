@@ -1130,6 +1130,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
             EventFlagsDialog dialog = new EventFlagsDialog();
             dialog.setCalendar(calendar);
+            dialog.setSettings(getSettings());
             dialog.setData(SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()));
             dialog.setDialogListener(flagDialog_listener);
             dialog.show(getSupportFragmentManager(), DIALOGTAG_FLAGS + "_" + calendar);
@@ -1155,6 +1156,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
             TemplateDialog dialog = new TemplateDialog();
             dialog.setCalendar(calendar);
+            dialog.setSettings(getSettings());
             dialog.setTemplate(getSettings().loadPrefCalendarTemplate(context, calendar, calendarObj.defaultTemplate()));
             dialog.setSupportedPatterns(calendarObj.supportedPatterns());
             dialog.setDialogListener(templateDialog_listener);
