@@ -55,6 +55,7 @@ import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 public class TemplateDialog extends BottomSheetDialogFragment
 {
+    public static final String DIALOGTAG_PREVIEW = "TemplateDialog_Preview";
     public static final String DIALOGTAG_STRINGS = "TemplateDialog_Strings";
     public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
 
@@ -290,6 +291,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
             helpDialog.setDialogListener(helpDialogListener);
         }
 
+        TemplatePreviewDialog previewDialog = (TemplatePreviewDialog) fragments.findFragmentByTag(DIALOGTAG_PREVIEW);
+        if (previewDialog != null) {
+            previewDialog.setSettings(getSettings());
+        }
+
         EventStringsDialog stringsDialog = (EventStringsDialog) fragments.findFragmentByTag(DIALOGTAG_STRINGS);
         if (stringsDialog != null) {
             stringsDialog.setSettings(getSettings());
@@ -418,6 +424,20 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     };
 
+    protected View.OnClickListener onPreviewButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showPreviewDialog();
+        }
+    });
+    protected void showPreviewDialog()
+    {
+        TemplatePreviewDialog dialog = new TemplatePreviewDialog();
+        dialog.setSettings(getSettings());
+        dialog.setCalendar(getCalendar());
+        dialog.setTemplate(getTemplate());
+        dialog.show(getChildFragmentManager(), DIALOGTAG_PREVIEW);
+    }
 
     /**
      * getSettings

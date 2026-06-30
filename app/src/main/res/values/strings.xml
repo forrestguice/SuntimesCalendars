@@ -140,6 +140,11 @@
     <string name="calendars_notification_reminders_updating">Updating reminders…</string>  <!-- TODO -->
     <string name="calendars_notification_reminders_updated">Reminders have been updated.</string>  <!-- TODO -->
 
+    <string name="calendars_notification_writing">Creating calendars…</string>  <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>  <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>  <!-- TODO -->
+
+
     <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Add calendar?</string>
     <string name="confirm_clear_message0">Remove calendars?</string>
@@ -152,6 +157,12 @@
     <string name="dialog_ok">OK</string>  <!-- TODO -->
     <string name="dialog_cancel">Cancel</string>  <!-- TODO -->
 
+    <string name="action_addCalendar">Add Calendar</string>  <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>  <!-- TODO -->
+    <string name="action_preview">Preview</string>  <!-- TODO -->
+    <string name="action_share">Share</string>  <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>  <!-- TODO -->
+    <string name="action_settings">Settings</string>  <!-- TODO -->
     <string name="action_help">Help</string>   <!-- TODO -->
     <string name="action_openCalendar">Open</string>            <!-- snackbar version -->
     <string name="action_openCalendar1">Open Calendar</string>  <!-- actionbar version -->
@@ -279,6 +290,7 @@
     <string name="notificationChannel_main_title">Notifications</string>  <!-- notification channel title -->   <!-- TODO -->
     <string name="notificationChannel_main_desc">Notifications</string>  <!-- notification channel desc -->     <!-- TODO -->
 
+    <string name="progress_title1">Creating Calendars</string>   <!-- TODO -->
     <string name="progress_title">Updating Calendars</string>
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>
 
@@ -294,6 +306,9 @@
     <string name="template_dialog_msg">Event Template</string>  <!-- TODO -->
     <string name="template_dialog_title_label">Name</string>  <!-- TODO -->
     <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
+
+    <string name="template_dialog_msg1">@string/action_preview</string>  <!-- preview dialog --> <!-- TODO -->
+    <string name="template_preview_warning" />
 
     <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
     <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
@@ -364,6 +379,9 @@
 
     <string name="timespan_format0">%s</string>
     <string name="timespan_format1">%s - %s</string>
+    <string name="msg_export_to">Save to</string>
+    <string name="msg_share_with">Share with</string>
+
     <string name="help_pattern_cal">calendar (e.g. "Civil Twilight")</string>   <!-- TODO -->
     <string name="help_pattern_summary">summary (e.g. "Sunrise / Sunset")</string>   <!-- TODO -->
     <string name="help_pattern_color">calendar color (e.g. "#FFFFFF")</string>   <!-- TODO -->

@@ -88,9 +88,11 @@ import android.widget.Toast;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract;
+import com.forrestguice.suntimeswidget.calendar.ical.ICalDialogs;
 import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
+import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService;
@@ -104,6 +106,7 @@ import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarPreference;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 import com.forrestguice.suntimeswidget.calendar.ui.template.TemplateDialog;
+import com.forrestguice.suntimeswidget.calendar.ui.template.TemplatePreviewDialog;
 import com.forrestguice.suntimeswidget.views.ViewUtils;
 
 import java.util.ArrayList;
@@ -125,6 +128,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static final String DIALOGTAG_ABOUT = "aboutdialog";
     public static final String DIALOGTAG_HELP = "helpdialog";
     public static final String DIALOGTAG_PROGRESS = "progressdialog";
+    public static final String DIALOGTAG_PREVIEW = "previewdialog";
 
     public static final int MIN_PROVIDER_VERSION = 1;
     public static final String MIN_SUNTIMES_VERSION = "0.10.3";
@@ -564,6 +568,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
      */
     public static class CalendarPrefsFragmentBase extends PreferenceFragment
     {
+        protected ICalDialogs iCalDialogs;
+
         @Override
         public void onCreate(Bundle savedInstanceState)
         {
@@ -887,6 +893,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
             for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore dialog listeners
             {
+                TemplatePreviewDialog previewDialog = (TemplatePreviewDialog) fragments.findFragmentByTag(DIALOGTAG_PREVIEW + "_" + calendar);
+                if (previewDialog != null) {
+                    previewDialog.setDialogListener(previewDialog_listener);
+                }
+
                 ReminderDialog reminderDialog = (ReminderDialog) fragments.findFragmentByTag(DIALOGTAG_REMINDER + "_" + calendar);
                 if (reminderDialog != null) {
                     reminderDialog.setDialogListener(reminderDialog_listener);
@@ -903,6 +914,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     colorDialog.setColorChangeListener(onColorChanged(calendar));
                 }
             }
+
+            iCalDialogs.setSupportFragmentManager(getSupportFragmentManager());
+            iCalDialogs.setSettings(getSettings());
+            iCalDialogs.onResume();
         }
 
         @SuppressLint("ResourceType")
@@ -945,7 +960,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
                 calendarPref.setTitle(descriptor.calendarTitle());
                 calendarPref.setSummary(descriptor.calendarSummary());
-                calendarPref.setBackgroundColor(CalendarGroups.getGroupColor(context, descriptor.getGroups()));
+                calendarPref.setBackgroundColor(CalendarGroups.getGroupColor(context, descriptor.getGroups(), true));
                 category.addPreference(calendarPref);
 
                 int calendarColor = settings.loadPrefCalendarColor(context, calendar);
@@ -977,7 +992,74 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     }
                 });
             }
+
+            iCalDialogs = new ICalDialogs(this, getSupportFragmentManager(), getSettings(), new ICalDialogs.ICalDialogsListener()
+            {
+                @Override
+                public void showProgress(String calendar, boolean value) {
+                    FragmentManager fragments = getSupportFragmentManager();
+                    TemplatePreviewDialog dialog = (TemplatePreviewDialog) fragments.findFragmentByTag(DIALOGTAG_PREVIEW + "_" + calendar);
+                    if (dialog != null) {
+                        dialog.setShowProgress(value);
+                    }
+                }
+
+                @Override
+                public boolean saveCalendarToFile(final Context context, final String calendar, final Uri uri)
+                {
+                    if (saveAttempts > MAX_ATTEMPTS)
+                    {
+                        Log.e(TAG, "CalendarTaskService is not bound! retried 'saveCalendarToFile' " + saveAttempts + " times.");
+                        saveAttempts = 0;
+                        return false;
+                    }
+
+                    if (boundToTaskService) {
+                        runCalendarTask3(getActivity(), calendar, uri);
+                        saveAttempts = 0;
+
+                    } else {
+                        Log.w(TAG, "CalendarTaskService is not yet bound! attempt " + (saveAttempts+1) + ", deferring " + RETRY_DELAY + " ms...");
+                        getView().postDelayed(new Runnable()
+                        {
+                            public void run() {
+                                saveCalendarToFile(context, calendar, uri);
+                                saveAttempts++;
+                            }
+                        }, RETRY_DELAY);
+                    }
+                    return true;
+                }
+                private int saveAttempts = 0;   // count recursive calls
+                private static final int MAX_ATTEMPTS = 10;
+                private static final long RETRY_DELAY = 100;   // ms
+            });
+
             setIsBusy(isBusy);
+        }
+
+        protected SuntimesCalendarPreference createCalendarPreference(final Context context, final String calendar, SuntimesCalendarDescriptor descriptor, SuntimesCalendarSettings settings, boolean enabled)
+        {
+            SuntimesCalendarPreference calendarPref = new SuntimesCalendarPreference(context);
+            calendarPref.setKey(SuntimesCalendarSettings.PREF_KEY_CALENDARS_CALENDAR + calendar);
+            calendarPref.setTitle(descriptor.calendarTitle());
+            calendarPref.setSummary(descriptor.calendarSummary());
+            calendarPref.setBackgroundColor(CalendarGroups.getGroupColor(context, descriptor.getGroups(), enabled));
+            calendarPref.setEnabled(enabled);
+
+            int calendarColor = settings.loadPrefCalendarColor(context, calendar);
+            calendarPref.setNoteFormat(R.string.summarylist_format);
+            calendarPref.setNote(settings.loadCalendarNote(context, calendar, SuntimesCalendarSettings.NOTE_LOCATION_NAME));
+            calendarPref.setIconColor(createColorStateList(calendarColor));
+            calendarPref.setIcon(R.drawable.ic_action_calendar);
+            calendarPref.setOnIconClickListener(new ViewUtils.ThrottledClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    showContextMenu(context, v, calendar);
+                }
+            }));
+            return calendarPref;
         }
 
         /**
@@ -1017,6 +1099,9 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     } else if (itemId == R.id.action_title) {
                         showTitleDialog(context, calendar);
                         return true;
+
+                    } else if (itemId == R.id.action_preview) {
+                        showPreviewDialog(context, calendar);
 
                     } else if (itemId == R.id.action_reminders) {
                         showReminderDialog(context, calendar);
@@ -1086,6 +1171,42 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     SuntimesCalendarSettings.savePrefCalendarTemplate(getActivity(), dialog.getCalendar(), dialog.getResult());
                     Toast.makeText(getActivity(), getString(R.string.template_dialog_saved_toast), Toast.LENGTH_SHORT).show();
                 }
+            }
+        };
+
+        /**
+         * showPreviewDialog
+         */
+
+        protected void showPreviewDialog(final Context context, final String calendar)
+        {
+            TemplatePreviewDialog dialog = new TemplatePreviewDialog();
+            dialog.setSettings(getSettings());
+            dialog.setCalendar(calendar);
+            dialog.setShowAddButton(true);
+            dialog.setShowMenuButton(true);
+            dialog.setShowHelpButton(false);
+            dialog.setShowSubtitle(false);
+            dialog.setDialogListener(previewDialog_listener);
+            dialog.show(getSupportFragmentManager(), DIALOGTAG_PREVIEW + "_" + calendar);
+        }
+
+        protected TemplatePreviewDialog.DialogListener previewDialog_listener = new TemplatePreviewDialog.DialogListener()
+        {
+            @Override
+            public void onRequestSave(TemplatePreviewDialog dialog) {
+                iCalDialogs.showSaveToFileDialog(dialog.getCalendar());
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onRequestAdd(TemplatePreviewDialog dialog)
+            {
+                SuntimesCalendarPreference pref = calendarPrefs.get(dialog.getCalendar());
+                if (pref != null) {
+                    pref.getOnPreferenceChangeListener().onPreferenceChange(null, !pref.isChecked());
+                }
+                dialog.dismiss();
             }
         };
 
@@ -1489,6 +1610,18 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, calendarTaskListener);
         }
 
+        /**
+         * write to file
+         */
+        protected boolean runCalendarTask3(Activity activity, String calendar, Uri uri)
+        {
+            Intent taskIntent = new Intent(getActivity(), SuntimesCalendarSyncService.class);
+            taskIntent.setAction( SuntimesCalendarTaskService.ACTION_WRITE_CALENDARS );
+            taskIntent.putExtra( SuntimesCalendarTaskService.EXTRA_WRITE_URI, uri );
+            savePendingItem(activity, taskIntent, calendar, SuntimesCalendarTaskItem.ACTION_CREATE_FILE);
+            return calendarTaskService.runCalendarTask(activity, taskIntent, false, true, uri, calendarTaskListener);
+        }
+
         private Preference.OnPreferenceChangeListener onPreferenceChanged0(final Activity activity)
         {
             return new Preference.OnPreferenceChangeListener()
@@ -1603,7 +1736,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 textView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
                 textView.setCompoundDrawablePadding(padding);
             }
-            
+
             builder.setView(textView);
 
             DialogInterface.OnClickListener onOkClick = (add ? new DialogInterface.OnClickListener() {
