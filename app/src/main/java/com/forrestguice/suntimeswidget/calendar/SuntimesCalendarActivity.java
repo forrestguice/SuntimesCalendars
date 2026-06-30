@@ -1424,6 +1424,11 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         @Override
         public void onActivityResult(int requestCode, int resultCode, Intent data)
         {
+            super.onActivityResult(requestCode, resultCode, data);
+            if (iCalDialogs.onActivityResult(requestCode, resultCode, data)) {
+                return;
+            }
+
             if (resultCode == RESULT_OK)
             {
                 SuntimesCalendarAdapter adapter = new SuntimesCalendarAdapter(getActivity().getContentResolver(), SuntimesCalendarDescriptor.getCalendars(getActivity()));
