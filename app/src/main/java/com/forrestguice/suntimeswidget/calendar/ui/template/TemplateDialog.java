@@ -418,6 +418,18 @@ public class TemplateDialog extends BottomSheetDialogFragment
         }
     };
 
+
+    /**
+     * getSettings
+     */
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    public void setSettings(SuntimesCalendarSettings settings) {
+        this.settings = settings;
+    }
+    protected SuntimesCalendarSettings settings = null;
+
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {
         super.onSaveInstanceState(out);

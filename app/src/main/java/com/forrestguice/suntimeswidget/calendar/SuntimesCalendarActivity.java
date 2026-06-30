@@ -324,7 +324,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             //Log.d("DEBUG", "onProgressMessage: " + i + " of " + n + " .. " + j + " of " + m);
             if (mainFragment != null) {
-                mainFragment.updateProgressDialog(i, n, j, m, message);
+                mainFragment.updateProgressDialog(i, n, j, m, title, message);
             }
         }
 
