@@ -28,6 +28,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 
 import android.text.Editable;
@@ -291,6 +292,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
 
         EventStringsDialog stringsDialog = (EventStringsDialog) fragments.findFragmentByTag(DIALOGTAG_STRINGS);
         if (stringsDialog != null) {
+            stringsDialog.setSettings(getSettings());
             stringsDialog.setDialogListener(stringsDialogListener);
         }
 
@@ -363,7 +365,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         public void onRestoreDefaultsClicked(HelpDialog dialog)
         {
             Context context = getActivity();
-            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()), getSettings());
             SuntimesCalendarSettings.clearPrefCalendarTemplate(context, getCalendar());
             setTemplate(calendarObj.defaultTemplate());
             setModified(true);
@@ -393,10 +395,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         Context context = getActivity();
         String calendar = getCalendar();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
 
         EventStringsDialog dialog = new EventStringsDialog();
         dialog.setCalendar(getCalendar());
+        dialog.setSettings(getSettings());
         dialog.setData(SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendar, calendarObj.defaultStrings()));
         dialog.setDialogListener(stringsDialogListener);
         dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);

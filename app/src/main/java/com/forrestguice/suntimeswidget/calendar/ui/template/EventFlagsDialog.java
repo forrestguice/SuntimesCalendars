@@ -30,6 +30,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 
 import android.util.AttributeSet;
@@ -180,7 +181,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
 
     protected void initAdapter(Context context)
     {
-        card_adapter = new EventFlagsAdapter(context, getCalendar(), getData());
+        card_adapter = new EventFlagsAdapter(context, getCalendar(), getSettings(), getData());
         card_adapter.setAdapterListener(card_adapterListener);
         card_view.setAdapter(card_adapter);
     }
@@ -302,7 +303,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
         public void onRestoreDefaultsClicked(HelpDialog dialog)
         {
             Context context = getActivity();
-            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()), getSettings());
             SuntimesCalendarSettings.clearPrefCalendarFlags(context, getCalendar());
             setData(calendarObj.defaultFlags());
             setModified(true);
@@ -333,10 +334,11 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
     {
         Context context = getActivity();
         String calendar = getCalendar();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
 
         EventStringsDialog dialog = new EventStringsDialog();
         dialog.setCalendar(getCalendar());
+        dialog.setSettings(getSettings());
         dialog.setData(SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendar, calendarObj.defaultStrings()));
         dialog.setDialogListener(stringsDialogListener);
         dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
@@ -354,6 +356,17 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
             }
         }
     };
+
+    /**
+     * getSettings
+     */
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    public void setSettings(SuntimesCalendarSettings settings) {
+        this.settings = settings;
+    }
+    protected SuntimesCalendarSettings settings = null;
 
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {

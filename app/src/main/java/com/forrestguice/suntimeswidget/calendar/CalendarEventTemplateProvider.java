@@ -82,6 +82,10 @@ public class CalendarEventTemplateProvider extends ContentProvider
         return true;
     }
 
+    public SuntimesCalendarSettings getSettings() {
+        return SuntimesCalendarSettingsFactory.createSettings();
+    }
+
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder)
@@ -344,7 +348,7 @@ public class CalendarEventTemplateProvider extends ContentProvider
             SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
             if (descriptor != null)
             {
-                SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, descriptor);
+                SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, descriptor, getSettings());
                 if (calendarObj != null)
                 {
                     boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()).getValues();

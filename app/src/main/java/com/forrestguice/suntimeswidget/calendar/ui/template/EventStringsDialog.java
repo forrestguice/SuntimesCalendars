@@ -30,6 +30,7 @@ import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 
 import android.util.AttributeSet;
@@ -305,7 +306,7 @@ public class EventStringsDialog extends BottomSheetDialogFragment
         public void onRestoreDefaultsClicked(HelpDialog dialog)
         {
             Context context = getActivity();
-            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()), getSettings());
             SuntimesCalendarSettings.clearPrefCalendarStrings(context, getCalendar());
             setData(calendarObj.defaultStrings());
             setModified(true);
@@ -324,6 +325,17 @@ public class EventStringsDialog extends BottomSheetDialogFragment
             }, animDelay);
         }
     };
+
+    /**
+     * getSettings
+     */
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    public void setSettings(SuntimesCalendarSettings settings) {
+        this.settings = settings;
+    }
+    protected SuntimesCalendarSettings settings = null;
 
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {

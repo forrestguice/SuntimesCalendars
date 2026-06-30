@@ -46,12 +46,17 @@ public class EventFlagsAdapter extends RecyclerView.Adapter<EventFlagsAdapter.Ev
     protected SuntimesCalendar calendarObj;
     protected CalendarEventFlags data;
 
-    public EventFlagsAdapter(Context context, String calendar, CalendarEventFlags data)
+    public EventFlagsAdapter(Context context, String calendar, SuntimesCalendarSettings settings, CalendarEventFlags data)
     {
         this.contextRef = new WeakReference<>(context);
         this.calendar = calendar;
-        this.calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        this.calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
         this.data = data;
+    }
+
+    protected SuntimesCalendarSettings settings;
+    public SuntimesCalendarSettings getSettings() {
+        return settings;
     }
 
     @NonNull

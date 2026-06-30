@@ -42,6 +42,9 @@ import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
+import com.forrestguice.suntimeswidget.calendar.ical.ICalExportTask;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity;
 
 import java.util.ArrayList;
@@ -52,12 +55,14 @@ public class SuntimesCalendarTaskService extends Service
     public static final String TAG = "SuntimesCalendarsTask";
     public static final String ACTION_UPDATE_CALENDARS = "update_calendars";
     public static final String ACTION_CLEAR_CALENDARS = "clear_calendars";
+    public static final String ACTION_WRITE_CALENDARS = "write_calendars";
 
     public static final String ACTION_UPDATE_REMINDERS = "update_reminders";
 
     public static final String EXTRA_CALENDAR_ITEMS = "calendar_items";
     public static final String EXTRA_CALENDAR_LISTENER = "calendar_listener";
     public static final String EXTRA_SERVICE_LISTENER = "service_listener";
+    public static final String EXTRA_WRITE_URI = "write_uri";
 
     @Nullable
     @Override
@@ -99,6 +104,14 @@ public class SuntimesCalendarTaskService extends Service
                     serviceListener.onStartCommand(started);
                 }
 
+            } else if (action.equals(ACTION_WRITE_CALENDARS)) {
+                Uri uri = intent.getParcelableExtra(EXTRA_WRITE_URI);
+                boolean started = runCalendarTask(this, intent, false, false, uri, listener);
+                signalOnStartCommand(started);
+                if (serviceListener != null) {
+                    serviceListener.onStartCommand(started);
+                }
+
             } else Log.w(TAG, "onStartCommand: unrecognized action: " + action);
         } else Log.w(TAG, "onStartCommand: null action");
         return START_NOT_STICKY;
@@ -110,10 +123,13 @@ public class SuntimesCalendarTaskService extends Service
     public static final int NOTIFICATION_PROGRESS = 10;
     public static final int NOTIFICATION_COMPLETE = 20;
 
-    private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask calendarTask = null;
+    private static com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface calendarTask = null;
     private static SuntimesCalendarTaskListener calendarTaskListener;
     private NotificationCompat.Builder progressNotification;
-    public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener)
+    public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final SuntimesCalendarTaskListener listener) {
+        return runCalendarTask(context, intent, clearCalendars, clearPending, (Uri) intent.getParcelableExtra(EXTRA_WRITE_URI), listener);
+    }
+    public boolean runCalendarTask(final Context context, Intent intent, final boolean clearCalendars, boolean clearPending, @Nullable final Uri uri, @Nullable final SuntimesCalendarTaskListener listener)
     {
         ArrayList<SuntimesCalendarTaskItem> items = new ArrayList<>();
         if (!clearCalendars) {
@@ -125,11 +141,14 @@ public class SuntimesCalendarTaskService extends Service
             return false;
         }
 
-        calendarTask = new com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask(context);
+        final boolean isExport = (uri != null);
+        calendarTask = (isExport ? new ICalExportTask(context, uri)
+                : new com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTask(context));
+        calendarTask.setSettings(getSettings());
         calendarTaskListener = new SuntimesCalendarTaskListener()
         {
             @Override
-            public void onStarted(Context context, SuntimesCalendarTaskBase task, String message)
+            public void onStarted(Context context, SuntimesCalendarTaskInterface task, String message)
             {
                 if (listener != null) {
                     listener.onStarted(context, task, message);
@@ -138,9 +157,11 @@ public class SuntimesCalendarTaskService extends Service
                 if (hasLongRunningAction(task.getItems()) || clearCalendars)
                 {
                     signalOnBusyStatusChanged(true);
-                    signalOnProgressMessage(0, 1, getString(
-                            task.getFlagClearCalendars() ? R.string.calendars_notification_clearing
-                                                         : R.string.calendars_notification_updating)
+                    signalOnProgressMessage(0, 1,
+                            getString(isExport ? R.string.progress_title1
+                                    : R.string.progress_title),
+                            getString(task.getFlagClearCalendars() ? R.string.calendars_notification_clearing
+                                    : R.string.calendars_notification_updating)
                     );
 
                     progressNotification = createProgressNotification(context, message);
@@ -158,7 +179,9 @@ public class SuntimesCalendarTaskService extends Service
                     if (item.getAction() == SuntimesCalendarTaskItem.ACTION_UPDATE ||
                             item.getAction() == SuntimesCalendarTaskItem.ACTION_DELETE ||
                             item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE ||
-                            item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE) {
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE ||
+                            item.getAction() == SuntimesCalendarTaskItem.ACTION_CREATE_FILE
+                    ) {
                         return true;
                     }
                 }
@@ -174,14 +197,14 @@ public class SuntimesCalendarTaskService extends Service
 
                 if (progress.length > 1 && progress[0] != null && progress[1] != null)
                 {
-                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[1].itemNum(), progress[1].getCount(), progress[1].getMessage());
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[1].itemNum(), progress[1].getCount(), progress[1].getTitle(), progress[1].getMessage());
                     if (progressNotification != null) {
                         progressNotification.setProgress(progress[1].getCount(), progress[1].itemNum(), progress[1].isIndeterminate());  // TODO: secondary progress
                         startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
                     }
 
                 } else if (progress.length > 0 && progress[0] != null) {
-                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[0].getMessage());
+                    signalOnProgressMessage(progress[0].itemNum(), progress[0].getCount(), progress[0].getTitle(), progress[0].getMessage());
                     if (progressNotification != null) {
                         progressNotification.setProgress(progress[0].getCount(), progress[0].itemNum(), progress[0].isIndeterminate());
                         startForeground(NOTIFICATION_PROGRESS, progressNotification.build());
@@ -190,13 +213,13 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
-            public void onSuccess(Context context, SuntimesCalendarTaskBase task, String message)
+            public void onSuccess(Context context, SuntimesCalendarTaskInterface task, String message)
             {
                 if (listener != null) {
                     listener.onSuccess(context, task, message);
                 }
 
-                NotificationCompat.Builder notificationBuilder = createSuccessNotification(context, message);
+                NotificationCompat.Builder notificationBuilder = createSuccessNotification(context, message, task.onFinishedActionID(), task.getFileUri());
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 notificationManager.notify(NOTIFICATION_COMPLETE, notificationBuilder.build());
                 signalOnBusyStatusChanged(false);
@@ -205,7 +228,7 @@ public class SuntimesCalendarTaskService extends Service
             }
 
             @Override
-            public void onCancelled(Context context, SuntimesCalendarTaskBase task)
+            public void onCancelled(Context context, SuntimesCalendarTaskInterface task)
             {
                 if (listener != null) {
                     listener.onCancelled(context, task);
@@ -239,7 +262,7 @@ public class SuntimesCalendarTaskService extends Service
             calendarTask.setFlagClearCalendars(true);
         }
         calendarTask.setItems(items.toArray(new SuntimesCalendarTaskItem[0]));
-        calendarTask.execute();
+        calendarTask.executeTask();
         return true;
     }
 
@@ -248,6 +271,10 @@ public class SuntimesCalendarTaskService extends Service
         if (calendarTask != null) {
             calendarTask.cancel(true);
         }
+    }
+
+    public SuntimesCalendarSettings getSettings() {
+        return SuntimesCalendarSettingsFactory.createSettings();
     }
 
     private static NotificationCompat.Builder createProgressNotification(Context context, String message)
@@ -262,28 +289,66 @@ public class SuntimesCalendarTaskService extends Service
         return notification;
     }
 
-    private static NotificationCompat.Builder createSuccessNotification(Context context, String message)
+    private static NotificationCompat.Builder createSuccessNotification(Context context, String message, @Nullable String actionID, @Nullable Uri uri)
     {
         NotificationCompat.Builder notification = createNotificationBuilder(context);
         notification.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_action_calendar)
                 .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setContentIntent(getCalendarPendingIntent(context)).setAutoCancel(true)
+                .setContentIntent(getSuccessNotificationContentIntent(context, actionID, uri))
+                .setAutoCancel(true)
                 .setProgress(0, 0, false);
         return notification;
     }
 
+    private static PendingIntent getSuccessNotificationContentIntent(Context context, @Nullable String actionID, @Nullable Uri uri)
+    {
+        if (actionID == null) {
+            return getCalendarPendingIntent(context);
+        }
+        switch (actionID)
+        {
+            case SuntimesCalendarTaskInterface.ACTION_SHARE:
+                return getSharePendingIntent(context, uri);
+            case SuntimesCalendarTaskInterface.ACTION_CALENDAR:
+            default: return getCalendarPendingIntent(context);
+        }
+    }
+
+    private static PendingIntent getSharePendingIntent(Context context, Uri uri)
+    {
+        int flags = 0;
+        if (Build.VERSION.SDK_INT >= 23) {
+            flags = PendingIntent.FLAG_IMMUTABLE;
+        }
+        Intent intent = getSuntimesCalendarsIntent(context);
+        intent.setAction(SuntimesCalendarActivity.ACTION_SHARE_URI);
+        intent.putExtra(SuntimesCalendarActivity.EXTRA_SHARE_URI, uri);
+        return PendingIntent.getActivity(context, 0, intent, flags);
+    }
+
     private static PendingIntent getCalendarPendingIntent(Context context)
     {
+        int flags = 0;
+        if (Build.VERSION.SDK_INT >= 23) {
+            flags = PendingIntent.FLAG_IMMUTABLE;
+        }
         Intent intent = getCalendarIntent();
-        return PendingIntent.getActivity(context, 0, intent, 0);
+        return PendingIntent.getActivity(context, 0, intent, flags);
     }
 
     private static PendingIntent getSuntimesCalendarsPendingIntent(Context context)
     {
-        Intent intent = new Intent(context, SuntimesCalendarActivity.class);
-        return PendingIntent.getActivity(context, 0, intent, 0);
+        int flags = 0;
+        if (Build.VERSION.SDK_INT >= 23) {
+            flags = PendingIntent.FLAG_IMMUTABLE;
+        }
+        Intent intent = getSuntimesCalendarsIntent(context);
+        return PendingIntent.getActivity(context, 0, intent, flags);
+    }
+    private static Intent getSuntimesCalendarsIntent(Context context) {
+        return new Intent(context, SuntimesCalendarActivity.class);
     }
 
     public boolean isBusy()
@@ -348,8 +413,8 @@ public class SuntimesCalendarTaskService extends Service
     {
         public void onStartCommand(boolean result) {}
         public void onBusyStatusChanged(boolean isBusy) {}
-        public void onProgressMessage(int i, int n, String message) {}
-        public void onProgressMessage(int i, int n, int j, int m, String message) {}
+        public void onProgressMessage(int i, int n, String title, String message) {}
+        public void onProgressMessage(int i, int n, int j, int m, String title, String message) {}
 
         public SuntimesCalendarServiceListener() {}
         protected SuntimesCalendarServiceListener(Parcel in) {}
@@ -363,10 +428,12 @@ public class SuntimesCalendarTaskService extends Service
         }
     }
 
-    private ArrayList<SuntimesCalendarServiceListener> serviceListeners = new ArrayList<>();
+    public final ArrayList<SuntimesCalendarServiceListener> serviceListeners = new ArrayList<>();
     public void addCalendarServiceListener(SuntimesCalendarServiceListener listener)
     {
-        serviceListeners.add(listener);
+        if (!serviceListeners.contains(listener)) {
+            serviceListeners.add(listener);
+        }
     }
     public void removeCalendarServiceListener(SuntimesCalendarServiceListener listener)
     {
@@ -393,22 +460,22 @@ public class SuntimesCalendarTaskService extends Service
         }
     }
 
-    private void signalOnProgressMessage(int i, int n, String message)
+    private void signalOnProgressMessage(int i, int n, String title, String message)
     {
         lastProgressMessage = message;
         for (SuntimesCalendarServiceListener listener : serviceListeners) {
             if (listener != null) {
-                listener.onProgressMessage(i, n, message);
+                listener.onProgressMessage(i, n, title, message);
             }
         }
     }
 
-    private void signalOnProgressMessage(int i, int n, int j, int m, String message)
+    private void signalOnProgressMessage(int i, int n, int j, int m, String title, String message)
     {
         lastProgressMessage = message;
         for (SuntimesCalendarServiceListener listener : serviceListeners) {
             if (listener != null) {
-                listener.onProgressMessage(i, n, j, m, message);
+                listener.onProgressMessage(i, n, j, m, title, message);
             }
         }
     }

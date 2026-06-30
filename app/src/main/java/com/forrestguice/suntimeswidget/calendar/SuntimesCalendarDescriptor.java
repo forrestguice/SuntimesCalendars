@@ -152,7 +152,7 @@ public class SuntimesCalendarDescriptor implements Comparable
                         for (int i=0; i<references.length; i++)
                         {
                             try {
-                                SuntimesCalendar calendar = factory.createCalendar(context, references[i]);
+                                SuntimesCalendar calendar = factory.createCalendar(context, references[i], getSettings());
                                 if (calendar != null)
                                 {
                                     SuntimesCalendarDescriptor descriptor = new SuntimesCalendarDescriptor(calendar.calendarName(), calendar.calendarTitle(), calendar.calendarSummary(), calendar.calendarColor(), calendar.getGroups(), calendar.priority(), references[i]);
@@ -244,5 +244,9 @@ public class SuntimesCalendarDescriptor implements Comparable
             initDescriptors(context);
         }
         return calendars.keySet().toArray(new String[0]);
+    }
+
+    public static SuntimesCalendarSettings getSettings() {
+        return new SuntimesCalendarSettings();
     }
 }
