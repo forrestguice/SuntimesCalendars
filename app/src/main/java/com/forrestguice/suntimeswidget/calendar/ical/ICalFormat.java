@@ -31,6 +31,7 @@ import java.util.Locale;
 
 /**
  * ICalendarFormat
+ * https://www.rfc-editor.org/info/rfc5545/
  */
 public class ICalFormat
 {
