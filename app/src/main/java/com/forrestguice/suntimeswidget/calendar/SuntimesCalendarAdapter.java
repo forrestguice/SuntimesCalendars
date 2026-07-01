@@ -403,7 +403,20 @@ public class SuntimesCalendarAdapter
      * @param time
      * @return
      */
-    public ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time)
+    public ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, Calendar... time) {
+        return createEventContentValues(calendarID, title, description, location, false, time);
+    }
+
+    /**
+     * @param calendarID
+     * @param title
+     * @param description
+     * @param location
+     * @param allDay when true the time[0] and time[1] should contain midnight UTC start/end times (events may span multiple days).
+     * @param time [0] eventStart, [1] eventEnd
+     * @return ContentValues containing `CalendarContract.Events` values
+     */
+    public ContentValues createEventContentValues(long calendarID, String title, String description, @Nullable String location, boolean allDay, Calendar... time)
     {
         ContentValues v = new ContentValues();
         v.put(CalendarContract.Events.CALENDAR_ID, calendarID);
@@ -423,6 +436,10 @@ public class SuntimesCalendarAdapter
             }
         } else {
             Log.w(TAG, "createEventContentValues: missing time arg (empty array); creating event without start or end time.");
+        }
+
+        if (allDay) {
+            v.put(CalendarContract.Events.ALL_DAY, 1);
         }
 
         if (location != null) {

@@ -108,11 +108,19 @@ public class ICalFormat
 
         Calendar eventStart = Calendar.getInstance();
         eventStart.setTimeInMillis(event.getAsLong(CalendarContract.Events.DTSTART));
-        r.append("DTSTART:").append(toTimestamp(eventStart)).append(CRLF);
 
         Calendar eventEnd = Calendar.getInstance();
         eventEnd.setTimeInMillis(event.getAsLong(CalendarContract.Events.DTEND));
-        r.append("DTEND:").append(toTimestamp(eventEnd)).append(CRLF);
+
+        Boolean allDay = event.getAsBoolean(CalendarContract.Events.ALL_DAY);
+        if (allDay != null && allDay) {
+            r.append("DTSTART;VALUE=DATE:").append(toTimestamp(eventStart, false)).append(CRLF);
+            r.append("DTEND;VALUE=DATE:").append(toTimestamp(eventEnd, false)).append(CRLF);
+
+        } else {
+            r.append("DTSTART:").append(toTimestamp(eventStart, true)).append(CRLF);
+            r.append("DTEND:").append(toTimestamp(eventEnd, true)).append(CRLF);
+        }
 
         if (event.containsKey(CalendarContract.Events.AVAILABILITY))
         {
@@ -183,14 +191,17 @@ public class ICalFormat
                 //.replaceAll("\\\\", "\\");    // TODO: character to be escaped is missing
     }
 
-    protected String toTimestamp(Calendar calendar)
+    protected String toTimestamp(Calendar calendar) {
+        return toTimestamp(calendar, true);
+    }
+    protected String toTimestamp(Calendar calendar, boolean withTime)
     {
         if (format_date == null || format_time == null) {
             format_date = new SimpleDateFormat("yyyyMMdd", Locale.US);
             format_time = new SimpleDateFormat("HHmmss", Locale.US);
         }
         return format_date.format(calendar.getTimeInMillis())
-                + "T" + format_time.format(calendar.getTimeInMillis()) + "Z";
+                + (withTime ? "T" + format_time.format(calendar.getTimeInMillis()) + "Z" : "");
     }
     private SimpleDateFormat format_date, format_time;
 
