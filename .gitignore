@@ -42,3 +42,5 @@ proguard/
 .idea/vcs.xml
 .idea/inspectionProfiles
 .idea/shelf
+/.idea/libraries
+/.idea/modules
