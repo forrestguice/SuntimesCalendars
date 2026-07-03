@@ -80,4 +80,8 @@
 
     </application>
 
+    <queries>
+        <package android:name="${suntimesApplicationId}" />    <!-- package visibility api 30+ -->
+    </queries>
+
 </manifest>

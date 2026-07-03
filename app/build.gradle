@@ -6,20 +6,23 @@ android {
     defaultConfig {
         applicationId "com.forrestguice.suntimescalendars"
 
-        compileSdk 28
+        compileSdk 31
 
         //noinspection MinSdkTooLow
         minSdkVersion 14
-        //noinspection ExpiredTargetSdkVersion,OldTargetApi
-        targetSdkVersion 28
+        //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,OldTargetApi
+        targetSdkVersion 30
         versionCode 21
         versionName "0.6.3"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
         resConfigs "ca", "cs", "de", "en", "eo", "es", "eu", "fr", "hu", "it", "nb", "nl", "pl", "pt", "ru", "zh"
 
-        manifestPlaceholders = [suntimesPermissionRoot:"suntimes"]
-        buildConfigField "String", "SUNTIMES_PERMISSION_ROOT", "\"suntimes\""
+        def suntimesApplicationId = "com.forrestguice.suntimeswidget";
+        def suntimesPermissionRoot = "suntimes";
+        manifestPlaceholders.suntimesApplicationId = "$suntimesApplicationId"
+        manifestPlaceholders.suntimesPermissionRoot = "$suntimesPermissionRoot"
+        buildConfigField "String", "SUNTIMES_PERMISSION_ROOT", "\"$suntimesPermissionRoot\""
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         missingDimensionStrategy 'support_version', 'androidx'
@@ -50,18 +53,20 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.core:core:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation project(path: ":lib-quadflask-colorpicker")  //implementation 'com.github.forrestguice:colorpicker:0.0.13post2'
+    implementation 'androidx.core:core:1.1.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    implementation project(path: ":lib-quadflask-colorpicker")  //implementation 'com.github.forrestguice:colorpicker:0.0.13post3'
 
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation 'com.jraska:falcon:2.2.0'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
 configurations.all {
