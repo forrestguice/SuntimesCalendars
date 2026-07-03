@@ -21,7 +21,7 @@ package com.forrestguice.suntimeswidget.calendar.ical;
 import android.content.ContentValues;
 import android.os.Build;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

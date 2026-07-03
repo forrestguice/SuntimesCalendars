@@ -18,8 +18,8 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class SuntimesCalendarTaskProgress
 {

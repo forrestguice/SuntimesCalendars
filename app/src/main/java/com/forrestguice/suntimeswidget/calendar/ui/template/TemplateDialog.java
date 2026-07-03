@@ -22,11 +22,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
@@ -52,6 +52,8 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 import com.forrestguice.suntimeswidget.views.ViewUtils;
+
+import androidx.fragment.app.FragmentManager;
 
 public class TemplateDialog extends BottomSheetDialogFragment
 {
@@ -285,7 +287,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         super.onResume();
 
-        android.support.v4.app.FragmentManager fragments = getChildFragmentManager();
+        FragmentManager fragments = getChildFragmentManager();
         HelpDialog helpDialog = (HelpDialog) fragments.findFragmentByTag(DIALOGTAG_HELP);
         if (helpDialog != null) {
             helpDialog.setDialogListener(helpDialogListener);

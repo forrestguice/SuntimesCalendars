@@ -81,7 +81,7 @@
     <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent" android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView android:id="@+id/remindersView"
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/remindersView"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
             tools:listitem="@layout/layout_item_reminder" tools:itemCount="2" />

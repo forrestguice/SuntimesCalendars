@@ -59,16 +59,16 @@ import android.preference.PreferenceManager;
 
 import android.preference.TwoStatePreference;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.Toolbar;
 
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -91,7 +91,6 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.ical.ICalDialogs;
 import com.forrestguice.suntimeswidget.calendar.task.CalendarGroups;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
-import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskBase;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskInterface;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskItem;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskListener;
@@ -662,19 +661,19 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        private android.support.v4.app.FragmentManager supportFragments;
-        public void setSupportFragmentManager(android.support.v4.app.FragmentManager fragments)
+        private FragmentManager supportFragments;
+        public void setSupportFragmentManager(FragmentManager fragments)
         {
             supportFragments = fragments;
         }
-        public android.support.v4.app.FragmentManager getSupportFragmentManager()
+        public FragmentManager getSupportFragmentManager()
         {
             return supportFragments;
         }
 
         protected void initProgressDialog()
         {
-            android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+            FragmentManager fragments = getSupportFragmentManager();
             if (fragments != null)
             {
                 ProgressDialog dialog = (ProgressDialog) fragments.findFragmentByTag(DIALOGTAG_PROGRESS);
@@ -855,7 +854,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 if (isBusy)
                 {
                     if (!progressDialog.isShowing()) {
-                        android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+                        FragmentManager fragments = getSupportFragmentManager();
                         if (fragments != null) {
                             progressDialog.show(fragments, DIALOGTAG_PROGRESS);
                         }
@@ -878,7 +877,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             super.onStart();
             if (isBusy && progressDialog != null && !progressDialog.isShowing())
             {
-                android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+                FragmentManager fragments = getSupportFragmentManager();
                 if (fragments != null) {
                     progressDialog.show(fragments, DIALOGTAG_PROGRESS);
                 }
@@ -890,7 +889,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         {
             super.onResume();
 
-            android.support.v4.app.FragmentManager fragments = getSupportFragmentManager();
+            FragmentManager fragments = getSupportFragmentManager();
             for (String calendar : SuntimesCalendarDescriptor.getCalendars(getActivity()))    // restore dialog listeners
             {
                 TemplatePreviewDialog previewDialog = (TemplatePreviewDialog) fragments.findFragmentByTag(DIALOGTAG_PREVIEW + "_" + calendar);
@@ -1408,7 +1407,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             colorDialog.setColor(getSettings().loadPrefCalendarColor(context, calendar));
             colorDialog.setColorChangeListener(onColorChanged(calendar));
 
-            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager != null) {
                 colorDialog.show(fragmentManager, DIALOGTAG_COLOR + "_" + calendar);
             } else {

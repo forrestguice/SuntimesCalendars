@@ -20,7 +20,7 @@ package com.forrestguice.suntimeswidget.calendar.task;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.forrestguice.suntimeswidget.calendar.CalendarEventStrings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;

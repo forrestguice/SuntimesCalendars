@@ -30,8 +30,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.RemoteException;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
@@ -42,7 +42,6 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSyncAdapter;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.TreeSet;
 
 @SuppressWarnings("Convert2Diamond")

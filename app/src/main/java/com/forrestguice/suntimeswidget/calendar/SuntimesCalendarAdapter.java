@@ -28,8 +28,8 @@ import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import java.util.Calendar;

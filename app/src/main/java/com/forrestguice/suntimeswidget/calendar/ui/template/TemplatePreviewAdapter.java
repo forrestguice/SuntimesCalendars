@@ -19,13 +19,11 @@ package com.forrestguice.suntimeswidget.calendar.ui.template;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,14 +45,8 @@ import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

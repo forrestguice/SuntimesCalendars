@@ -19,7 +19,7 @@ package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;

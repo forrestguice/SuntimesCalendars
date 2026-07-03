@@ -23,8 +23,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.ImageViewCompat;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.widget.ImageViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
