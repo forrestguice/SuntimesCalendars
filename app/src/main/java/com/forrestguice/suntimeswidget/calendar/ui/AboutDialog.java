@@ -80,7 +80,7 @@ public class AboutDialog extends BottomSheetDialogFragment
             public void onShow(DialogInterface dialog)
             {
                 BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-                View layout = bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);
+                View layout = bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
                 if (layout != null)
                 {
                     BottomSheetBehavior.from(layout).setHideable(true);

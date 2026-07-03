@@ -1927,7 +1927,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 }
             }));
 
-            TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = (TextView)snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
             if (textView != null)
             {
                 textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));
@@ -1956,7 +1956,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 }
             }));
 
-            TextView textView = (TextView)snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = (TextView)snackbarView.findViewById(com.google.android.material.R.id.snackbar_text);
             if (textView != null)
             {
                 textView.setTextColor(ContextCompat.getColor(context, R.color.snackbarError_text));
