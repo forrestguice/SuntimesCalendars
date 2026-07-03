@@ -44,3 +44,4 @@ proguard/
 .idea/shelf
 /.idea/libraries
 /.idea/modules
+/.idea/caches
