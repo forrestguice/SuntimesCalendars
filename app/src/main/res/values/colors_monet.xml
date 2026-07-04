@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="monet_primaryColor">@color/monet_primaryColor_light</color>
+    <color name="monet_primaryColorDark">@color/monet_primaryColorDark_light</color>
+    <color name="monet_window_bg">@color/monet_window_bg_light</color>
+    <color name="monet_dialog_frame">@color/monet_dialog_frame_light</color>
+    <color name="monet_dialog_bg">@color/monet_dialog_bg_light</color>
+    <color name="monet_dialog_bg_alt">@color/monet_dialog_bg_alt_light</color>
+    <color name="monet_text_accent">@color/monet_text_accent_light</color>
+    <color name="monet_hr">@color/monet_hr_light</color>
+    <color name="monet_menu_bg">@color/monet_menu_bg_light</color>
+
+    <color name="monet_primaryColor_dark">@color/grey_900</color>
+    <color name="monet_primaryColorDark_dark">@color/grey_900</color>
+    <color name="monet_window_bg_dark">@color/grey_999</color>
+    <color name="monet_dialog_frame_dark">@color/grey_999</color>
+    <color name="monet_dialog_bg_dark">@color/grey_999</color>
+    <color name="monet_dialog_bg_alt_dark">@color/grey_900</color>
+    <color name="monet_text_accent_dark">@color/deep_teal_200</color>
+    <color name="monet_hr_dark">#33ffffff</color>
+    <color name="monet_menu_bg_dark">@color/grey_900</color>
+
+    <color name="monet_primaryColor_light">@color/grey_100</color>
+    <color name="monet_primaryColorDark_light">@color/grey_100</color>
+    <color name="monet_window_bg_light">@color/grey_50</color>
+    <color name="monet_dialog_frame_light">@color/grey_50</color>
+    <color name="monet_dialog_bg_light">@color/grey_50</color>
+    <color name="monet_dialog_bg_alt_light">@color/grey_300</color>
+    <color name="monet_text_accent_light">@color/deep_teal_500</color>
+    <color name="monet_hr_light">#1f000000</color>
+    <color name="monet_menu_bg_light">@color/grey_50</color>
+
+</resources>
