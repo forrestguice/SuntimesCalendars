@@ -9,6 +9,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetSystem.Large" parent="AppTheme.MonetSystem">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -19,6 +20,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetSystem.XLarge" parent="AppTheme.MonetSystem">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -29,6 +31,7 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="AppTheme.MonetLight" parent="AppTheme.ContrastLight" />
@@ -41,6 +44,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetLight.Large" parent="AppTheme.MonetLight">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -51,6 +55,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetLight.XLarge" parent="AppTheme.MonetLight">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -61,6 +66,7 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="AppTheme.MonetDark" parent="AppTheme.ContrastDark" />
@@ -73,6 +79,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetDark.Large" parent="AppTheme.MonetDark">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -83,6 +90,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.MonetDark.XLarge" parent="AppTheme.MonetDark">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -93,5 +101,6 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 </resources>

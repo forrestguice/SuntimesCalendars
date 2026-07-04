@@ -42,5 +42,9 @@
     <dimen name="largetext_size_huge">38sp</dimen>
     <dimen name="largetext_size_enormous">58sp</dimen>
 
+    <dimen name="small_actionbar_size">48sp</dimen>    <!-- action bar minimum height -->
+    <dimen name="normal_actionbar_size">54sp</dimen>
+    <dimen name="large_actionbar_size">64sp</dimen>
+    <dimen name="xlarge_actionbar_size">68sp</dimen>
 
 </resources>
