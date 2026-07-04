@@ -194,7 +194,7 @@ public class TwilightCalendarCivil extends TwilightCalendarBase implements Sunti
 
     @Override
     public String[] getGroups() {
-        return new String[] { CalendarGroups.GROUP_DEFAULT, CalendarGroups.GROUP_TWILIGHT };
+        return new String[] { CalendarGroups.GROUP_TWILIGHT };
     }
 
     @Override

@@ -31,13 +31,13 @@ import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class CalendarGroups
 {
-    public static final String GROUP_DEFAULT = "DEFAULT";
-    public static final String GROUP_BASIC = "BASIC";
     public static final String GROUP_SOLSTICE = "SOLSTICE";
     public static final String GROUP_TWILIGHT = "TWILIGHT";
     public static final String GROUP_BLUEGOLD = "BLUEGOLD";
@@ -45,7 +45,7 @@ public class CalendarGroups
     public static final String GROUP_ADDON = "ADDON";
 
     public static final String[] ALL_GROUPS = new String[] {
-            GROUP_DEFAULT, GROUP_BASIC, GROUP_SOLSTICE, GROUP_TWILIGHT, GROUP_BLUEGOLD, GROUP_MOON, GROUP_ADDON,
+            GROUP_SOLSTICE, GROUP_TWILIGHT, GROUP_BLUEGOLD, GROUP_MOON, GROUP_ADDON,
     };
 
     public static HashMap<String, ArrayList<SuntimesCalendarDescriptor>> createEmptyGroups()
@@ -79,11 +79,11 @@ public class CalendarGroups
     public static ArrayList<String> sortGroups(List<String> groups)
     {
         ArrayList<String> sortedGroups = new ArrayList<>(groups);
-        //sortedGroups.sort(new Comparator<String>() {
-        //    public int compare(String s, String t1) {
-        //        return Integer.compare(CalendarGroups.getGroupPriority(s), CalendarGroups.getGroupPriority(t1));
-        //    }
-        //});    // TODO
+        Collections.sort(sortedGroups, new Comparator<String>() {
+            public int compare(String s, String t1) {
+                return Integer.compare(CalendarGroups.getGroupPriority(s), CalendarGroups.getGroupPriority(t1));
+            }
+        });
         return sortedGroups;
     }
 
@@ -91,12 +91,10 @@ public class CalendarGroups
     {
         switch (group)
         {
-            case GROUP_DEFAULT: return 0;
-            case GROUP_BASIC: return 1;
-            case GROUP_TWILIGHT: return 2;
-            case GROUP_BLUEGOLD: return 3;
-            case GROUP_MOON: return 4;
-            case GROUP_SOLSTICE:
+            case GROUP_TWILIGHT: return 0;
+            case GROUP_BLUEGOLD: return 1;
+            case GROUP_MOON: return 2;
+            case GROUP_SOLSTICE: return 3;
             case GROUP_ADDON:
             default: return 9;
         }
@@ -122,14 +120,13 @@ public class CalendarGroups
 
         switch (group)
         {
-            case GROUP_BASIC:
-            case GROUP_DEFAULT: return bgColor0;
+            case GROUP_ADDON:
+                return bgColor1;
 
             case GROUP_SOLSTICE:
             case GROUP_TWILIGHT:
             case GROUP_MOON:
             case GROUP_BLUEGOLD:
-            case GROUP_ADDON:
             default: return null;
         }
     }
