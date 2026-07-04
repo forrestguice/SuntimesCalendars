@@ -112,7 +112,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View dialogContent = inflater.inflate(R.layout.layout_dialog_about, container, false);
+        View dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.layout_dialog_about, container, false);
         initViews(getActivity(), dialogContent);
         return dialogContent;
     }

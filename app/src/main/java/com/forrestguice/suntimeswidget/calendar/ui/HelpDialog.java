@@ -83,8 +83,8 @@ public class HelpDialog extends BottomSheetDialogFragment
         themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
         if (themeResID != 0)
         {
-            @SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-            dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
+            //@SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
+            dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);
 
         } else {
             dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);

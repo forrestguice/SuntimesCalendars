@@ -56,7 +56,7 @@ public class ProgressDialog extends DialogFragment
             message1 = savedInstanceState.getString("message1");
         }
 
-        final Activity myParent = getActivity();
+        final Activity myParent = requireActivity();
         LayoutInflater inflater = myParent.getLayoutInflater();
 
         final ViewGroup viewGroup = null;
