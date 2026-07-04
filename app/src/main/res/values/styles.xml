@@ -4,6 +4,7 @@
 
     <style name="AppTheme.System.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="hrColor">@color/hr</item>
+        <item name="colorAccent">@color/text_accent</item>
         <item name="text_accentColor">@color/text_accent</item>
         <item name="text_disabledColor">@color/text_disabled</item>
         <item name="dialogFrame">@color/dialog_frame</item>
@@ -117,6 +118,7 @@
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="hrColor">@color/hr_light</item>
+        <item name="colorAccent">@color/text_accent_light</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
         <item name="dialogFrame">@color/dialog_frame_light</item>
@@ -226,6 +228,7 @@
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="hrColor">@color/hr_dark</item>
+        <item name="colorAccent">@color/text_accent_dark</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
         <item name="dialogFrame">@color/dialog_frame_dark</item>

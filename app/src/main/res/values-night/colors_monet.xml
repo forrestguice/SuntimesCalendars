@@ -9,4 +9,5 @@
     <color name="monet_text_accent">@color/monet_text_accent_dark</color>
     <color name="monet_hr">@color/monet_hr_dark</color>
     <color name="monet_menu_bg">@color/monet_menu_bg_dark</color>
+    <color name="monet_alertdialog_bg">@color/monet_alertdialog_bg_dark</color>
 </resources>
