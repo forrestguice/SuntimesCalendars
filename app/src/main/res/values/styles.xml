@@ -18,7 +18,7 @@
         <item name="icActionCalendar">@drawable/ic_action_calendar_ref</item>
         <item name="icActionCalendarAdd">@drawable/ic_action_calendar_edit_ref</item>    <!-- TODO -->
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_ref</item>
-        <item name="icActionPlace">@drawable/ic_action_calendar_edit_ref</item>    <!-- TODO -->
+        <item name="icActionPlace">@drawable/ic_action_place_ref</item>
         <item name="icActionUpdate">@drawable/ic_action_update_ref</item>
         <item name="icActionAccept">@drawable/ic_action_accept_ref</item>
         <item name="icActionBack">@drawable/ic_action_back_ref</item>
@@ -124,7 +124,7 @@
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
         <item name="icActionCalendarAdd">@drawable/ic_action_calendar_edit_light</item>   <!-- TODO -->
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_light</item>
-        <item name="icActionPlace">@drawable/ic_action_calendar_edit_light</item>    <!-- TODO -->
+        <item name="icActionPlace">@drawable/ic_action_place_light</item>
         <item name="icActionUpdate">@drawable/ic_action_update_light</item>
         <item name="icActionAccept">@drawable/ic_action_accept_light</item>
         <item name="icActionBack">@drawable/ic_action_back_light</item>
@@ -227,7 +227,7 @@
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
         <item name="icActionCalendarAdd">@drawable/ic_action_calendar_edit_dark</item>   <!-- TODO -->
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_dark</item>
-        <item name="icActionPlace">@drawable/ic_action_calendar_edit_dark</item>    <!-- TODO -->
+        <item name="icActionPlace">@drawable/ic_action_place_dark</item>
         <item name="icActionUpdate">@drawable/ic_action_update</item>
         <item name="icActionAccept">@drawable/ic_action_accept</item>
         <item name="icActionBack">@drawable/ic_action_back</item>
