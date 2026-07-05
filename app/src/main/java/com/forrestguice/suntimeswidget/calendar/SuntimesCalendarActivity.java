@@ -475,6 +475,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     break;
             }
         }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
