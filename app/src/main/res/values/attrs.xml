@@ -9,6 +9,10 @@
     <attr name="dialogBackground" format="reference" />
     <attr name="dialogBackgroundAlt" format="reference" />
 
+    <attr name="snackbar_textColor" format="reference" />
+    <attr name="snackbar_accentColor" format="reference" />
+    <attr name="snackbar_backgroundColor" format="reference" />
+
     <attr name="icActionAdd" format="reference" />
     <attr name="icActionEdit" format="reference" />
     <attr name="icActionSave" format="reference" />

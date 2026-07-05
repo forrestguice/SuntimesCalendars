@@ -59,6 +59,7 @@
     <color name="hr">@color/hr_light</color>
     <color name="text_accent">@color/text_accent_light</color>
     <color name="text_disabled">@color/text_disabled_light</color>
+    <color name="text_primary">@android:color/primary_text_light</color>
 
     <color name="dialog_frame">@color/dialog_frame_light</color>
     <color name="dialog_bg">@color/dialog_bg_light</color>

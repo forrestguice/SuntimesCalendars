@@ -1842,6 +1842,8 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             if (v != null)
             {
                 snackbar = Snackbar.make(v, message, Snackbar.LENGTH_INDEFINITE);
+                SnackbarUtils.themeSnackbar(getActivity(), snackbar);
+
                 snackbar.setAction(getString(R.string.action_openCalendar), new ViewUtils.ThrottledClickListener(new View.OnClickListener()
                 {
                     @Override
