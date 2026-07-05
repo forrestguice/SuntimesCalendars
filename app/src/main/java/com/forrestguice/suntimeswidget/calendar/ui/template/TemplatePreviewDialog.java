@@ -484,7 +484,7 @@ public class TemplatePreviewDialog extends BottomSheetDialogFragment
     {
         HelpDialog helpDialog = new HelpDialog();
         helpDialog.setShowDefaultsButton(false);
-        helpDialog.setContent(getString(R.string.help_template));
+        helpDialog.setContent(getString(R.string.help_template_preview));
         helpDialog.setDialogListener(helpDialogListener);
         helpDialog.show(getChildFragmentManager(), DIALOGTAG_HELP);
     }
