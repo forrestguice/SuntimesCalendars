@@ -420,6 +420,16 @@
         <h3>Event Strings</h3>
         The following values are available to the template using the %M substitution.
     ]]></string>  <!-- TODO-->
+    <string name="help_template_preview"><![CDATA[
+        <h3>Preview</h3>
+        This dialog shows a preview of calendar events using the current template.
+        <br/><br/>
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        <br/><br/>
+        Use <b>: -> Add Calendar</b> (or the main checkbox) to add events to the Android calendar app.
+        <br/><br/>
+        Use <b>: -> Save Calendar</b> to save events to an .ics file that can be imported into other calendar apps.
+    ]]></string>  <!-- TODO-->
 
     <string name="color_dialog_msg">Colour</string>
     <string name="color_dialog_ok">Select</string>
