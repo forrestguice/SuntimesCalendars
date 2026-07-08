@@ -6,20 +6,20 @@ android {
     defaultConfig {
         applicationId "com.forrestguice.suntimescalendars"
 
-        compileSdk 31
+        compileSdk 34
 
         //noinspection MinSdkTooLow
         minSdkVersion 14
         //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,OldTargetApi
-        targetSdkVersion 30
+        targetSdkVersion 34
         versionCode 21
         versionName "0.6.3"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
         resConfigs "ca", "cs", "de", "en", "eo", "es", "eu", "fr", "hu", "it", "nb", "nl", "pl", "pt", "ru", "zh"
 
-        def suntimesApplicationId = "com.forrestguice.suntimeswidget";
-        def suntimesPermissionRoot = "suntimes";
+        def suntimesApplicationId = "com.forrestguice.suntimeswidget"
+        def suntimesPermissionRoot = "suntimes"
         manifestPlaceholders.suntimesApplicationId = "$suntimesApplicationId"
         manifestPlaceholders.suntimesPermissionRoot = "$suntimesPermissionRoot"
         buildConfigField "String", "SUNTIMES_PERMISSION_ROOT", "\"$suntimesPermissionRoot\""
