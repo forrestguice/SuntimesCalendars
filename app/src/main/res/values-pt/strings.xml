@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="http://schemas.android.com/tools">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="sunrise">Nascer do Sol</string>
     <string name="sunset">Pôr do Sol</string>
@@ -107,7 +107,7 @@
 
     <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
     <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%11$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="progress_title">Atualizando Calendário(s)</string>
     <string name="progress_message">Pode levar alguns minutos…\n\nVocê pode fechar o app. A atualização seguirá em segundo plano.</string>
