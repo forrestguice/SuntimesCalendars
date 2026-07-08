@@ -46,7 +46,7 @@ jobs:
       run: ./gradlew build
     
     - name: Build with Gradle (Unit tests)
-      run: ./gradlew testRelease
+      run: ./gradlew testReleaseUnitTest
     
     - name: Build with Gradle (lintVitalRelease)
       run: ./gradlew lintVitalRelease
