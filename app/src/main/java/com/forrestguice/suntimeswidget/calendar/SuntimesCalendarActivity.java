@@ -1241,6 +1241,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
 
             int[] colorAttrs = { R.attr.icActionCalendarEdit };
+            @SuppressLint("ResourceType")
             TypedArray typedArray = context.obtainStyledAttributes(colorAttrs);
             int iconResID = typedArray.getResourceId(0, R.drawable.ic_action_calendar_edit_dark);
             typedArray.recycle();
