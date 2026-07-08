@@ -47,6 +47,7 @@ import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -325,7 +326,7 @@ public class TemplatePreviewAdapter extends RecyclerView.Adapter<TemplatePreview
                     text_month.setText(monthName);
                 }
                 if (text_day != null) {
-                    text_day.setText("" + eventStart.get(Calendar.DAY_OF_MONTH));
+                    text_day.setText(String.format(Locale.getDefault(), "%d", eventStart.get(Calendar.DAY_OF_MONTH)));
                 }
             }
         }
