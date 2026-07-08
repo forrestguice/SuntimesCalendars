@@ -107,9 +107,10 @@
                     android:id="@+id/check_donate"
                     android:layout_height="wrap_content" android:layout_width="wrap_content"
                     android:gravity="center_vertical" android:layout_gravity="center_vertical|start"
-                    android:button="?attr/checkFavorite" android:paddingLeft="8dp"
+                    android:button="?attr/checkFavorite"
+                    android:paddingLeft="8dp" android:paddingStart="8dp"
                     android:checked="false"
-                    tools:ignore="@string/expandMore" />
+                    tools:ignore="@string/expandMore, RtlSymmetry" />
 
                 <LinearLayout android:orientation="vertical"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
