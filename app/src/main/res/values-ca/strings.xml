@@ -83,10 +83,12 @@
     <plurals name="units_years_ago">
         <item quantity="one">fa %1$s any</item>
         <item quantity="other">fa %1$s anys</item>
+        <item quantity="many">fa %1$s anys</item>    <!-- TODO: review -->
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">D\'aquí a %d any</item>
         <item quantity="other">D\'aquí a %d anys</item>
+        <item quantity="many">D\'aquí a %d anys</item>    <!-- TODO: review -->
     </plurals>
 
     <string name="progress_title">Actualitzant Calendaris</string>  

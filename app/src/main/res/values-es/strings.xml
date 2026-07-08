@@ -82,10 +82,12 @@
     <plurals name="units_years_ago">
         <item quantity="one">Hace %1$s año</item>
         <item quantity="other">Hace %1$s años</item>
+        <item quantity="many">Hace %1$s años</item>    <!-- TODO: review -->
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">De aquí a %d año</item>
         <item quantity="other">De aquí a %d años</item>
+        <item quantity="many">De aquí a %d años</item>    <!-- TODO: review -->
     </plurals>
 
     <string name="progress_title">Actualizando Calendarios</string>  
