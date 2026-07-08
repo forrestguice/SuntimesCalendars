@@ -66,10 +66,10 @@
     <string name="configLabel_calendars_window_summary">En periode som starter for <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, slutter <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Vindu (start)</string>
-    <string name="configLabel_calendars_window0_summary">En periode som starter for <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> siden</string>
+    <string name="configLabel_calendars_window0_summary">En periode som starter for <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g> siden</string>
 
     <string name="configLabel_calendars_window1">Vindu (slutt)</string>
-    <string name="configLabel_calendars_window1_summary">En periode som slutter <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> fra nå</string>
+    <string name="configLabel_calendars_window1_summary">En periode som slutter <xliff:g id="calendars_window_display" example="two years">%1$s</xliff:g> fra nå</string>
 
     <string name="calendars_notification_adding">Legger til kalendere…</string>
     <string name="calendars_notification_added">Kalendere er lagt til.</string>
@@ -97,8 +97,8 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s år siden</item>
-        <item quantity="other">%s år siden</item>
+        <item quantity="one">%1$s år siden</item>
+        <item quantity="other">%1$s år siden</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">%d år fra nå</item>
@@ -124,14 +124,14 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Tillatelse nektet!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> støttes ikke av gjeldende versjon; krever <xliff:g id="versionString">%s</xliff:g> eller høyere.</string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> støttes ikke av gjeldende versjon; krever <xliff:g id="versionString">%2$s</xliff:g> eller høyere.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         Denne appen krever<br />
-        <b><u>%s</u></b> eller høyere!
+        <b><u>%1$s</u></b> eller høyere!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
     Tillatelse nektet!<br />
-    <u>%s</u> må installeres på nytt for å virke riktig.
+    <u>%1$s</u> må installeres på nytt for å virke riktig.
     <br /><br />
     Denne appen mangler tillatelser som gis under installering. Dette skjer når apper installeres i feil rekkefølge - installer Suntimes før installering av tillegg.
 ]]></string>
@@ -146,7 +146,7 @@
         For å endre en kalenders sted, endre først stedet i Suntimes, så fjern og legg til kalenderen på nytt.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Versjon:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Versjon:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Et kalenderleverandørtillegg for Suntimes.</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the

@@ -50,10 +50,10 @@
     <string name="configLabel_calendars_window_summary">Periodo comenzando hace <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, y acabando de aquí a <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> 
 
     <string name="configLabel_calendars_window0">Ventana (inicio)</string>
-    <string name="configLabel_calendars_window0_summary">Un periodo empezó hace <xliff:g example="one year" id="calendars_window_display">%s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">Un periodo empezó hace <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Ventana (fin)</string>
-    <string name="configLabel_calendars_window1_summary">Un periodo finalizará de aquí a <xliff:g example="two years" id="calendars_window_display">%s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Un periodo finalizará de aquí a <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Añadiendo calendarios…</string>
     <string name="calendars_notification_added">Los calendarios se han añadido.</string>
@@ -80,8 +80,8 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">Hace %s año</item>
-        <item quantity="other">Hace %s años</item>
+        <item quantity="one">Hace %1$s año</item>
+        <item quantity="other">Hace %1$s años</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">De aquí a %d año</item>
@@ -118,14 +118,14 @@
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>¡Permiso denegado!</b></font>
     ]]></string>  
-    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%2$s</xliff:g> or greater.</string>-->
     <!--<string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
-        <b><u>%s</u></b> or greater!
+        <b><u>%1$s</u></b> or greater!
     ]]></string>-->  
     <!--<string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
-        <u>%s</u> must be reinstalled to work correctly.
+        <u>%1$s</u> must be reinstalled to work correctly.
         <br /><br />
         This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
     ]]></string>-->  
@@ -140,7 +140,7 @@
          Para cambiar la ubicación de un calendario, primero cambie la ubicación en Suntimes, luego elimine y vuelva a añadir el calendario.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Versión:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Versión:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Muestra las horas del amanecer, noche, luz crepuscular y lunar.</string>  <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
     <b>Soporte:</b> visita el

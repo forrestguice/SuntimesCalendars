@@ -91,10 +91,10 @@
     <string name="configLabel_calendars_window_summary">Aldoni al la kalendaro okazaĵojn de <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ĝis <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Komenco de intertempo</string>
-    <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Fino de intertempo</string>
-    <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g id="calendars_window_display" example="du jaroj">%s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g id="calendars_window_display" example="du jaroj">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Aldonado al kalendaro…</string>
     <string name="calendars_notification_added">Aldonis okazaĵojn al la kalendaro.</string>
@@ -165,15 +165,15 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">antaŭ %s jaro</item>
-        <item quantity="other">antaŭ %s jaroj</item>
+        <item quantity="one">antaŭ %1$s jaro</item>
+        <item quantity="other">antaŭ %1$s jaroj</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">%d jaro de nun</item>
         <item quantity="other">%d jaroj de nun</item>
     </plurals>
         
-    <string name="event_at_format">%s en %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_at_format">%1$s en %2$s</string>  <!-- e.g. moonrise at location_format -->
         
     <string name="toolbar_title">Kalendaroj</string>
 
@@ -231,7 +231,7 @@
     Por ŝanĝi aranĝon de okazaĵoj de la kalendaro, modifu ĝian ŝablonon kaj sekve forigu kaj realdonu la kalendaron.
     <br/><br/>
     <h3>Anstataŭigoj</h3>
-    %s
+    %1$s
     ]]></string>
     <string name="help_template_strings">Nomoj de okazaĵoj<![CDATA[
     <h3></h3>
@@ -265,7 +265,7 @@
     <string name="app_name">Suntempoj: kalendaroj</string>
 
         
-    <string name="app_provider_version"><![CDATA[<b>Suntempoj:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntempoj:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Mankas!</b></font>
     ]]></string>
@@ -274,13 +274,13 @@
     ]]></string>
     <string name="snackbar_missing_dependency"><![CDATA[
         Postulas la aplikaĵon<br />
-        <b><u>%s</u></b> aŭ pli nova!
+        <b><u>%1$s</u></b> aŭ pli nova!
     ]]></string>
     
-    <string name="feature_not_supported_by_provider">La eblo “<xliff:g id="featureName">%s</xliff:g>” ne estas subtenata de la nuna versio de la aplikaĵo; postulas version <xliff:g id="versionString">%s</xliff:g> aŭ pli novan.</string>
+    <string name="feature_not_supported_by_provider">La eblo “<xliff:g id="featureName">%1$s</xliff:g>” ne estas subtenata de la nuna versio de la aplikaĵo; postulas version <xliff:g id="versionString">%2$s</xliff:g> aŭ pli novan.</string>
    <string name="snackbar_missing_permission"><![CDATA[
         Permeso mankas!<br />
-        La aplikaĵo <u>%s</u> estu reinstalita por funkcii.
+        La aplikaĵo <u>%1$s</u> estu reinstalita por funkcii.
         <br /><br />
         Mankas la aplikaĵaj permesoj, kiuj estas donataj dum instalado. Tiu ĉi eraro okazas kiam la aplikaĵoj estas instalitaj laŭ malĝusta ordo – instalu la aplikaĵon Suntempoj antaŭ instali aldonaĵojn.
     ]]></string>
@@ -294,14 +294,14 @@
         Por ŝanĝi lokon de kalendaraj okazaĵoj, ŝanĝu la lokon en la aplikaĵo Suntempoj kaj sekve forigu kaj realdonu la kalendaron.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Versio:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Suntempoj-aldonaĵo: liveranto de kalendaroj.</string>
     <string name="app_support_url"><![CDATA[
         <b>Subteno:</b> vizitu la
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">erar‑spurilon</a> por raporti problemon.
     ]]></string>
     <string name="app_donate_url"><![CDATA[
-        La aplikaĵo %s estas disponebla senpage, sed se ĝi utilas al vi, bonvolu
+        La aplikaĵo %1$s estas disponebla senpage, sed se ĝi utilas al vi, bonvolu
         <a href="https://forrestguice.github.io/Suntimes/donate">konsideri donaci ajnan monkvanton</a>.
     ]]></string>
     <string name="app_legal1"><![CDATA[

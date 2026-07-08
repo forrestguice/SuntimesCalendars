@@ -69,10 +69,10 @@
     <string name="configLabel_calendars_window_summary">Een periode start <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, eindigt <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">(start-) scherm</string>
-    <string name="configLabel_calendars_window0_summary">Een periode start <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> geleden</string>
+    <string name="configLabel_calendars_window0_summary">Een periode start <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g> geleden</string>
 
     <string name="configLabel_calendars_window1">Window (end)</string>
-    <string name="configLabel_calendars_window1_summary">Een periode start <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> vanaf nu</string>
+    <string name="configLabel_calendars_window1_summary">Een periode start <xliff:g id="calendars_window_display" example="two years">%1$s</xliff:g> vanaf nu</string>
 
     <string name="calendars_notification_adding">Voeg kalender toe …</string>
     <string name="calendars_notification_added">Kalenders zijn toegevoegd.</string>
@@ -81,7 +81,7 @@
     <string name="calendars_notification_clearing">Kalenders wissen…</string>
     <string name="calendars_notification_cleared">Kalenders zijn gewist.</string>
 
-    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_display_format">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Kalender toevoegen?</string>
     <string name="confirm_clear_message0">Kalenders verwijderen?</string>
     <string name="confirm_clear_message1">Kalender verwijderen?</string>
@@ -101,19 +101,19 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s jaar geleden</item>
-        <item quantity="other">%s jaren geleden</item>
+        <item quantity="one">%1$s jaar geleden</item>
+        <item quantity="other">%2$s jaren geleden</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">%d jaar vanaf nu</item>
         <item quantity="other">%d jaren vanaf nu</item>
     </plurals>
 
-    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
-    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="summarylist_format">%s\n%s</string>
+    <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%1$s\n%2$s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%1$s\n%2$s</string>
 
     <string name="toolbar_title">Kalenders</string>
 
@@ -127,21 +127,21 @@
     <string name="about_dialog_title">Over</string>
     <string name="app_name">Suntimes Calendars</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Ontbreekt!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Toestemming gewijgerd!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> wordt niet ondersteunt door de actuele versie; vereist <xliff:g id="versionString">%s</xliff:g> of hoger.</string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> wordt niet ondersteunt door de actuele versie; vereist <xliff:g id="versionString">%2$s</xliff:g> of hoger.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         Deze app vereist<br />
-        <b><u>%s</u></b> of hoger!
+        <b><u>%1$s</u></b> of hoger!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Toegang geweigerd!<br />
-        <u>%s</u> moet geherinstalleerd worden om correct te werken.
+        <u>%1$s</u> moet geherinstalleerd worden om correct te werken.
         <br /><br />
         Deze app ontbreekt rechten die worden toegekend tijdens de installatie. Dit gebeurt wanneer apps in de verkeerde volgorde worden geïnstalleerd - installeer Suntimes voordat u add-ons installeert.
     ]]></string>
@@ -155,7 +155,7 @@
         Om de locatie van een agenda te wijzigen, wijzigt u eerst de locatie in Suntimes, verwijdert u de agenda en voegt u deze opnieuw toe.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Versie:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Versie:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Een kalenderprovider-add-on voor Suntimes.</string>
     <string name="app_support_url"><![CDATA[
         <b>Ondersteuning:</b> bezoek de

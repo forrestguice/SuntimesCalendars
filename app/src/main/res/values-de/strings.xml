@@ -51,10 +51,10 @@
   <string name="configLabel_calendars_window_summary">Zeitraum beginnend <xliff:g id="calendars_window_display" example="vor einem Jahr">%1$s</xliff:g>, endend <xliff:g id="calendars_window_display" example="in einem Jahr ab jetzt">%2$s</xliff:g>.</string> 
 
   <string name="configLabel_calendars_window0">Zeitraum (Start)</string>  
-  <string name="configLabel_calendars_window0_summary">Zeitraum beginnend vor <xliff:g id="calendars_window_display" example="einem Jahr">%s</xliff:g></string>  
+  <string name="configLabel_calendars_window0_summary">Zeitraum beginnend vor <xliff:g id="calendars_window_display" example="einem Jahr">%1$s</xliff:g></string>
 
   <string name="configLabel_calendars_window1">Zeitraum (Ende)</string> 
-  <string name="configLabel_calendars_window1_summary">Zeitraum endend in <xliff:g id="calendars_window_display" example="zwei Jahren">%s</xliff:g> ab jetzt</string>  
+  <string name="configLabel_calendars_window1_summary">Zeitraum endend in <xliff:g id="calendars_window_display" example="zwei Jahren">%1$s</xliff:g> ab jetzt</string>
 
   <string name="calendars_notification_adding">Kalender werden hinzugefügt…</string>  
   <string name="calendars_notification_added">Kalender wurden hinzugefügt.</string>  
@@ -81,8 +81,8 @@
   </string-array> 
 
   <plurals name="units_years_ago">
-    <item quantity="one">vor %s Jahr</item>
-    <item quantity="other">vor %s Jahren</item>
+    <item quantity="one">vor %1$s Jahr</item>
+    <item quantity="other">vor %1$s Jahren</item>
   </plurals>
   <plurals name="units_years_fromnow">
     <item quantity="one">%d Jahr ab jetzt</item>
@@ -122,12 +122,12 @@
     ]]></string>  
     <string name="snackbar_missing_dependency"><![CDATA[
         Diese App benötigt<br />
-        <b><u>%s</u></b> oder größer!
+        <b><u>%1$s</u></b> oder größer!
     ]]></string>  
-  <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+  <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%2$s</xliff:g> or greater.</string>-->  <!-- TODO -->
   <!--<string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
-        <u>%s</u> must be reinstalled to work correctly.
+        <u>%1$s</u> must be reinstalled to work correctly.
         <br /><br />
         This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
     ]]></string>-->  <!-- TODO -->
@@ -142,7 +142,7 @@
         Um den Ort eines Kalenders zu ändern, muss dieser in Suntimes geändert werden. Danach muss der Kalender gelöscht und erneut hinzufügt werden.
     ]]></string> 
 
-  <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+  <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
   <string name="app_shortdesc">Ein Kalender-Provider Add-on für Suntimes.</string>  
   <string name="app_support_url"><![CDATA[
       <b>Unterst&uuml;tzung:</b> Besuchen Sie

@@ -64,10 +64,10 @@
     <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string> <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Janela (início)</string>
-    <string name="configLabel_calendars_window0_summary">Período começando há <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">Período começando há <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Janela (fim)</string>
-    <string name="configLabel_calendars_window1_summary">Período terminando em <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Período terminando em <xliff:g id="calendars_window_display" example="two years">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Adicionando calendário(s)…</string>
     <string name="calendars_notification_added">Calendário(s) adicionado(s).</string>
@@ -95,17 +95,17 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">%1$s year ago</item>
+        <item quantity="other">%1$s years ago</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">%d year from now</item>
         <item quantity="other">%d years from now</item>
     </plurals>  <!-- TODO -->
 
-    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%11$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
 
     <string name="progress_title">Atualizando Calendário(s)</string>
     <string name="progress_message">Pode levar alguns minutos…\n\nVocê pode fechar o app. A atualização seguirá em segundo plano.</string>
@@ -117,21 +117,21 @@
     <string name="about_dialog_title">Sobre o app</string>
     <string name="app_name">Calendários Suntimes</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
     ]]></string>
-    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>-->  <!-- TODO -->
+    <!--<string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%2$s</xliff:g> or greater.</string>-->  <!-- TODO -->
     <!--<string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
-        <b><u>%s</u></b> or greater!
+        <b><u>%1$s</u></b> or greater!
     ]]></string>-->
     <!--<string name="snackbar_missing_permission"><![CDATA[
     Permission Denied!<br />
-    <u>%s</u> must be reinstalled to work correctly.
+    <u>%1$s</u> must be reinstalled to work correctly.
     <br /><br />
     This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
 ]]></string>-->  <!-- TODO -->
@@ -146,7 +146,7 @@
         To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
     ]]></string> <!-- TODO -->
 
-    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Um adicional de calendário(s) para o app Suntimes.</string>    <!-- TODO: update -->
     <string name="app_support_url"><![CDATA[
         <b>Suporte:</b> visite 
