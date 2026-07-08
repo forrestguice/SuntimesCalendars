@@ -11,10 +11,13 @@
     <uses-permission android:name="android.permission.READ_SYNC_STATS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />      <!-- needed to add new Calendars (via SyncAdapter) -->
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />       <!-- calendar updates use a foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />                 <!-- calendar updates use a foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />       <!-- ... with a "dataSync" foreground service -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />                 <!-- ... that displays progress notifications -->
 
     <application
         android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,7 +27,8 @@
 
         <!-- Main Activity -->
         <activity android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -49,10 +53,13 @@
 
         <!-- Error Dialog Activity (may be shown from notification service) -->
         <activity android:name="com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity"
-            android:theme="@style/Theme.AppCompat.Translucent"/>
+            android:theme="@style/Theme.AppCompat.Translucent"
+            android:exported="false" />
 
         <!-- Calendar Task Service -->
-        <service android:name="com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService" android:exported="false" />
+        <service android:name="com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
 
         <!-- Calendar Provider -->
         <provider
@@ -62,6 +69,7 @@
             android:syncable="true"/>
         <service
             android:name="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSyncService"
+            android:foregroundServiceType="dataSync"
             android:exported="true" android:permission="signature"
             android:process=":sync">  <!-- TODO: lint security warning.. exported="false" or define a permission? -->
             <intent-filter>
