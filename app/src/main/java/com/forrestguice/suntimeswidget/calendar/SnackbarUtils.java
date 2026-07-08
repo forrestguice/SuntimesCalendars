@@ -46,7 +46,7 @@ public class SnackbarUtils
     public static void themeSnackbar(Context context, Snackbar snackbar)
     {
         Integer[] colors = new Integer[] { null, null, null };
-        int[] colorAttr = new int[] { R.attr.snackbar_textColor, R.attr.snackbar_accentColor, R.attr.snackbar_backgroundColor, R.attr.selectableItemBackground };
+        int[] colorAttr = new int[] { R.attr.snackbar_textColor, R.attr.snackbar_accentColor, R.attr.snackbar_backgroundColor, android.R.attr.selectableItemBackground };
         int[] colorAttrDef = new int[] { android.R.color.primary_text_dark, R.color.text_accent_dark, R.color.dialog_bg, android.R.drawable.list_selector_background };
 
         TypedArray a = context.obtainStyledAttributes(colorAttr);
