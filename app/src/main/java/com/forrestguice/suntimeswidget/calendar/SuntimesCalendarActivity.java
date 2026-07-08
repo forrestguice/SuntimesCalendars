@@ -61,6 +61,8 @@ import android.preference.TwoStatePreference;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.forrestguice.suntimeswidget.views.SnackbarUtils;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
