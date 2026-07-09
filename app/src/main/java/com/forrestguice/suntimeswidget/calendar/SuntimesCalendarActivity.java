@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 
 import android.app.Dialog;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -142,6 +143,17 @@ public class SuntimesCalendarActivity extends AppCompatActivity
     public static final int REQUEST_CALENDARS_DISABLED = 4;
 
     public static final int REQUEST_CALENDAR_FIRSTLAUNCH = 0;
+
+    public static final String[] REQUIRED_PERMISSIONS;
+    static {
+        if (Build.VERSION.SDK_INT >= 33) {
+            REQUIRED_PERMISSIONS = new String[] { Manifest.permission.POST_NOTIFICATIONS,
+                                                  Manifest.permission.WRITE_CALENDAR,
+                                                  Manifest.permission.READ_CALENDAR  };
+        } else {
+            REQUIRED_PERMISSIONS = new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR };
+        }
+    }
 
     private Context context;
     private String config_apptheme = null;
@@ -365,7 +377,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             actionBar.setHomeAsUpIndicator(R.drawable.ic_suntimes_calendar);
         }
 
-        if (SuntimesCalendarSettings.isFirstLaunch(context) && !hasCalendarPermissions(this)) {
+        if (SuntimesCalendarSettings.isFirstLaunch(context) && !hasRequiredPermissions(this)) {
             initFirstLaunchFragment();
 
         } else {
@@ -394,11 +406,16 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         getFragmentManager().beginTransaction().replace(R.id.content, mainFragment).commit();
     }
 
-    private static boolean hasCalendarPermissions(Activity activity)
+    private static boolean hasRequiredPermissions(Activity activity)
     {
-        int readPermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_CALENDAR);
-        int writePermission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_CALENDAR);
-        return (readPermission == PackageManager.PERMISSION_GRANTED) && (writePermission == PackageManager.PERMISSION_GRANTED);
+        for (String permission : REQUIRED_PERMISSIONS)
+        {
+            if (ActivityCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+                Log.w(TAG, "hasRequiredPermissions? " + permission + "? " + "false");
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -617,7 +634,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     {
                         public void onClick(DialogInterface dialog, int which)
                         {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS, requestCode);
                         }
                     });
             builder.show();
@@ -805,12 +822,12 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 boolean checkPrefs = (Boolean)newValue;
                 if (checkPrefs && activity != null)
                 {
-                    if (!hasCalendarPermissions(activity))
+                    if (!hasRequiredPermissions(activity))
                     {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR)) {
                             showPermissionRational(activity, REQUEST_CALENDAR_FIRSTLAUNCH);
                         } else {
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, REQUEST_CALENDAR_FIRSTLAUNCH);
+                            ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS, REQUEST_CALENDAR_FIRSTLAUNCH);
                         }
 
                     } else {
@@ -1539,7 +1556,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 locationPref.setOnPreferenceClickListener(onLocationPrefClicked);
             }
 
-            if (hasCalendarPermissions(activity))
+            if (hasRequiredPermissions(activity))
             {
                 boolean calendarsEnabled0 = adapter.hasCalendars(activity);
                 boolean calendarsEnabled1 = calendarsEnabledPref.isChecked();
@@ -1640,7 +1657,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                 public boolean onPreferenceChange(Preference preference, Object newValue)
                 {
                     boolean enabled = (Boolean)newValue;
-                    if (!hasCalendarPermissions(activity))
+                    if (!hasRequiredPermissions(activity))
                     {
                         final int requestCode = (enabled ? REQUEST_CALENDARS_ENABLED : REQUEST_CALENDARS_DISABLED);
                         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
@@ -1655,7 +1672,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                             if (enabled) {
                                 savePendingItems(activity, activity.getIntent());
                             }
-                            ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
+                            ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS, requestCode);
                             return false;
                         }
 
@@ -1683,7 +1700,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     if (calendarsEnabled)
                     {
                         boolean enabled = (Boolean)newValue;
-                        if (!hasCalendarPermissions(activity))
+                        if (!hasRequiredPermissions(activity))
                         {
                             final int requestCode = (enabled ? REQUEST_CALENDAR_ENABLED : REQUEST_CALENDAR_DISABLED);
                             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.WRITE_CALENDAR))
@@ -1694,7 +1711,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
                             } else {
                                 savePendingItem(activity, activity.getIntent(), calendar, enabled);
-                                ActivityCompat.requestPermissions(activity, new String[] { Manifest.permission.WRITE_CALENDAR, Manifest.permission.READ_CALENDAR }, requestCode);
+                                ActivityCompat.requestPermissions(activity, REQUIRED_PERMISSIONS, requestCode);
                                 return false;
                             }
 
