@@ -101,7 +101,6 @@ import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendarTaskService
 import com.forrestguice.suntimeswidget.calendar.ui.AboutDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.template.EventFlagsDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.reminders.ReminderDialog;
-import com.forrestguice.suntimeswidget.calendar.ui.ColorDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.calendar.ui.PopupMenuCompat;
 import com.forrestguice.suntimeswidget.calendar.ui.ProgressDialog;
@@ -927,11 +926,6 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     templateDialog.setSettings(getSettings());
                     templateDialog.setDialogListener(templateDialog_listener);
                 }
-
-                ColorDialog colorDialog = (ColorDialog) fragments.findFragmentByTag(DIALOGTAG_COLOR + "_" + calendar);
-                if (colorDialog != null) {
-                    colorDialog.setColorChangeListener(onColorChanged(calendar));
-                }
             }
 
             iCalDialogs.setSupportFragmentManager(getSupportFragmentManager());
@@ -1457,9 +1451,13 @@ public class SuntimesCalendarActivity extends AppCompatActivity
             }
         }
 
-        private ColorDialog.ColorChangeListener onColorChanged(final String calendar)
+        public interface ColorChangeListener {
+            void onColorChanged(int color);
+        }
+
+        private ColorChangeListener onColorChanged(final String calendar)
         {
-            return new ColorDialog.ColorChangeListener()
+            return new ColorChangeListener()
             {
                 @Override
                 public void onColorChanged(final int color)
