@@ -57,9 +57,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-
-    implementation project(path: ":lib-quadflask-colorpicker")  //implementation 'com.github.forrestguice:colorpicker:0.0.13post3'
-
+    
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'com.jraska:falcon:2.2.0'

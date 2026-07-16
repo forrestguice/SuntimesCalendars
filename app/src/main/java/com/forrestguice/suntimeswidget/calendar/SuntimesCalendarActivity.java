@@ -1416,27 +1416,10 @@ public class SuntimesCalendarActivity extends AppCompatActivity
                     startActivityForResult(intent, REQUEST_COLOR + calendarNum);
                 }
             } else {
-                showColorPickerFallback(context, calendar);
+                Toast.makeText(context, context.getString(R.string.app_provider_version_missing), Toast.LENGTH_SHORT).show();
             }
         }
         private static final int REQUEST_COLOR = 1000;
-
-        private void showColorPickerFallback(Context context, String calendar)
-        {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.setShowAlpha(false);
-            colorDialog.setColor(getSettings().loadPrefCalendarColor(context, calendar));
-            colorDialog.setColorChangeListener(onColorChanged(calendar));
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (fragmentManager != null) {
-                colorDialog.show(fragmentManager, DIALOGTAG_COLOR + "_" + calendar);
-            } else {
-                Log.w("showColorPicker", "fragmentManager is null; showing fallback ...");
-                Dialog dialog = colorDialog.getDialog();
-                dialog.show();
-            }
-        }
 
         /**
          * onActivityResult
