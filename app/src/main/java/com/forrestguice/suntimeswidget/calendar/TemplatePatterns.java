@@ -155,8 +155,8 @@ public enum TemplatePatterns
         String displayString = pattern;
         if (pattern != null)
         {
-            //noinspection ForLoopReplaceableByForEach
             TemplatePatterns[] patterns = TemplatePatterns.values();
+            //noinspection ForLoopReplaceableByForEach
             for (int i=0; i<patterns.length; i++)
             {
                 String p = patterns[i].getPattern();
