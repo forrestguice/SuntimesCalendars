@@ -21,6 +21,8 @@
     <string name="timeMode_noon">Solar Noon</string>                    <!-- TODO -->
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="morning">Morning</string>      <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
     <string name="timeMode_civil">Civil Twilight</string>
     <string name="timeMode_civil_morning">Civil Twilight (morning)</string>  <!-- TODO -->
     <string name="timeMode_civil_evening">Civil Twilight (evening)</string>  <!-- TODO -->
