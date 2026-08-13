@@ -157,6 +157,7 @@
     <string name="calendars_notification_written">Calendars have been saved.</string>  <!-- TODO -->
     <string name="calendars_notification_writing_failed">Failed to save calendars!</string>  <!-- TODO -->
 
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
 
     <string name="confirm_display_format">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Add calendar?</string>

@@ -46,6 +46,7 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.calendar.ical.ICalExportTask;
 import com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity;
+import com.forrestguice.suntimeswidget.views.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -219,12 +220,23 @@ public class SuntimesCalendarTaskService extends Service
                     listener.onSuccess(context, task, message);
                 }
 
-                NotificationCompat.Builder notificationBuilder = createSuccessNotification(context, message, task.onFinishedActionID(), task.getFileUri());
-                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-                notificationManager.notify(NOTIFICATION_COMPLETE, notificationBuilder.build());
+                showNotification(context, NOTIFICATION_COMPLETE,
+                        createSuccessNotification(context, message, task.onFinishedActionID(), task.getFileUri()));
                 signalOnBusyStatusChanged(false);
                 stopForeground(true);
                 stopSelf();
+            }
+
+            protected void showNotification(Context context, int notificationID, NotificationCompat.Builder builder)
+            {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                try {
+                    notificationManager.notify(notificationID, builder.build());
+
+                } catch (SecurityException e) {
+                    Log.e(TAG, "showNotification", e);
+                    Toast.makeText(context, context.getString(R.string.calendars_notification_failed), Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
