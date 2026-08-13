@@ -54,15 +54,14 @@ import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProvider
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_DEC;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_RA;
 
-@SuppressWarnings("Convert2Diamond")
 public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalendar
 {
     private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_MOONRISE;
     private static final int resID_calendarTitle = R.string.calendar_moonrise_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonrise_summary;
 
-    private String[] moonStrings = new String[8];      // {moonrise, moonset, full moon, waning gibbous, waning crescent, new moon, waxing crescent, waxing gibbous}
-    protected String[] eventColumns = new String[] { COLUMN_MOON_RISE, COLUMN_MOON_SET} ;
+    protected String[] moonStrings; // = new String[9];      // {moonrise, moonset, moonlight, full moon, waning gibbous, waning crescent, new moon, waxing crescent, waxing gibbous}
+    protected String[] eventColumns = new String[] { COLUMN_MOON_RISE, COLUMN_MOON_SET } ;
 
     @Override
     public String calendarName() {
@@ -93,8 +92,9 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
     @Override
     public CalendarEventFlags defaultFlags()
     {
-        boolean[] values = new boolean[eventColumns.length];   // moonrise, moonset
+        boolean[] values = new boolean[eventColumns.length + 1];   // moonrise, moonset ... plus moonlight
         Arrays.fill(values, true);
+        values[values.length - 1] = false;
         return new CalendarEventFlags(values);
     }
 
@@ -104,7 +104,6 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
             return moonStrings[i];
         } else return "";
     }
-
 
     @Override
     public void init(@NonNull Context context, @NonNull SuntimesCalendarSettings settings)
@@ -117,14 +116,24 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
         calendarDesc = null;
         calendarColor = settings.loadPrefCalendarColor(context, calendarName());
 
-        moonStrings[0] = context.getString(R.string.moonrise);
-        moonStrings[1] = context.getString(R.string.moonset);
-        moonStrings[2] = context.getString(R.string.timeMode_moon_full);
-        moonStrings[3] = context.getString(R.string.timeMode_moon_waninggibbous);
-        moonStrings[4] = context.getString(R.string.timeMode_moon_waningcrescent);
-        moonStrings[5] = context.getString(R.string.timeMode_moon_new);
-        moonStrings[6] = context.getString(R.string.timeMode_moon_waxingcrescent);
-        moonStrings[7] = context.getString(R.string.timeMode_moon_waxinggibbous);
+        initStrings(context);
+    }
+
+    protected int defaultStrings_resID() {
+        return R.array.calendar_moonrise_strings;
+    }
+
+    protected void initStrings(@NonNull Context context)
+    {
+        moonStrings = context.getResources().getStringArray(defaultStrings_resID());
+        //moonStrings[0] = context.getString(R.string.moonrise);
+        //moonStrings[1] = context.getString(R.string.moonset);
+        //moonStrings[2] = context.getString(R.string.timeMode_moon_full);
+        //moonStrings[3] = context.getString(R.string.timeMode_moon_waninggibbous);
+        //moonStrings[4] = context.getString(R.string.timeMode_moon_waningcrescent);
+        //moonStrings[5] = context.getString(R.string.timeMode_moon_new);
+        //moonStrings[6] = context.getString(R.string.timeMode_moon_waxingcrescent);
+        //moonStrings[7] = context.getString(R.string.timeMode_moon_waxinggibbous);
     }
 
     @Override
@@ -216,6 +225,8 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
+                    ContentValues[] d0 = null;
+                    Calendar[] events0 = null;
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
@@ -237,12 +248,19 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                             risingEventFirst = (risingEventTime != null && risingEventTime.before(settingEventTime));
                         }
 
-                        for (int i=0; i<2; i++)
+                        ContentValues[] d = new ContentValues[2];
+                        Calendar[] events = new Calendar[2];
+                        for (int i=0; i<events.length; i++)
                         {
-                            if (flags[i] && !cursor.isNull(i))
-                            {
-                                Calendar eventTime = Calendar.getInstance();
+                            Calendar eventTime = null;
+                            if (!cursor.isNull(i)) {
+                                eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
+                            }
+                            events[i] = eventTime;
+
+                            if ((flags[i] || flags[2]) && !cursor.isNull(i))
+                            {
                                 data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
 
                                 if (containsPattern_eZ) {
@@ -273,13 +291,38 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
                                 if (containsPattern_em) {
                                     data.put(TemplatePatterns.pattern_em.getPattern(), eventTime.getTimeInMillis());
                                 }
+                                d[i] = new ContentValues(data);
+
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], context.getString(R.string.location_format_short, config_location_name, config_location_latitude, config_location_longitude));
                                 //desc = context.getString(R.string.event_at_format, moonStrings[i], location[0]);
                                 eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                                 //Log.d("DEBUG", "create event: " + moonStrings[i] + " at " + eventTime.toString());
                             }
                         }
+
+                        if (flags[2] && (events[0] != null) && (events[1] != null))    // moonlight
+                        {
+                            if (events[0].before(events[1])) {   // moonrise, moonset
+                                data = d[0];
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[2]);
+                                String startIllum = d[0].getAsString(TemplatePatterns.pattern_illum.getPattern());
+                                String endIllum = d[1].getAsString(TemplatePatterns.pattern_illum.getPattern());
+                                data.put(TemplatePatterns.pattern_illum.getPattern(), startIllum + "-" + endIllum);
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), events[0], events[1]));
+
+                            } else if (events0 != null && events0[0] != null) {    // moonset, moonrise
+                                data = d0[0];
+                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[2]);
+                                String startIllum = d0[0].getAsString(TemplatePatterns.pattern_illum.getPattern());
+                                String endIllum = d[1].getAsString(TemplatePatterns.pattern_illum.getPattern());
+                                data.put(TemplatePatterns.pattern_illum.getPattern(), startIllum + "-" + endIllum);
+                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), events0[0], events[1]));
+                            }
+                        }
+
                         cursor.moveToNext();
+                        events0 = events;
+                        d0 = d;
                         c++;
 
                         if (c % 128 == 0 || cursor.isLast()) {
@@ -315,13 +358,13 @@ public class MoonriseCalendar extends MoonCalendarBase implements SuntimesCalend
             return "";
         }
         if (illum >= 0.995) {
-            return moonStrings[2];                   // 2; full moon
+            return moonStrings[3];                   // 3; full moon
         } else if (illum >= 0.5) {
-            return moonStrings[isWaxing ? 7 : 3];    // 7 or 3; waxing/waning gibbous
+            return moonStrings[isWaxing ? 8 : 4];    // 8 or 4; waxing/waning gibbous
         } else if (illum >= 0.01) {
-            return moonStrings[isWaxing ? 6 : 4];    // 6 or 4; waxing/waning crescent
+            return moonStrings[isWaxing ? 7 : 5];    // 7 or 5; waxing/waning crescent
         } else {
-            return moonStrings[5];                   // 5; new moon
+            return moonStrings[6];                   // 6; new moon
         }
     }
 

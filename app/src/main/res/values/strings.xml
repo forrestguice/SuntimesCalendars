@@ -18,6 +18,17 @@
         <item>XLARGE</item>
     </string-array>
 
+    <string-array name="calendar_moonrise_strings">
+        <item>@string/moonrise</item>
+        <item>@string/moonset</item>
+        <item>Moonlight</item>
+        <item>@string/timeMode_moon_full</item>
+        <item>@string/timeMode_moon_waninggibbous</item>
+        <item>@string/timeMode_moon_waningcrescent</item>
+        <item>@string/timeMode_moon_new</item>
+        <item>@string/timeMode_moon_waxingcrescent</item>
+        <item>@string/timeMode_moon_waxinggibbous</item>
+    </string-array>
     <string name="timeMode_noon">Solar Noon</string>                    <!-- TODO -->
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
