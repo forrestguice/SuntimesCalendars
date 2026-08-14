@@ -45,6 +45,7 @@ import java.util.Calendar;
 
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_RISE;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_ACTUAL_SET;
+import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_MIDNIGHT;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract.COLUMN_SUN_NOON;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_ALT;
 import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContract._POSITION_AZ;
@@ -58,7 +59,7 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
     private static final int resID_calendarTitle = R.string.calendar_daylight_displayName;
     private static final int resID_calendarSummary = R.string.calendar_daylight_summary;
 
-    private final String[] daylightStrings = new String[5];      // {0:sunrise, 1:solar noon, 2:sunset, 3:morning, 4:afternoon}
+    private final String[] daylightStrings = new String[6];      // {0:sunrise, 1:solar noon, 2:sunset, 3:midnight, 4:morning, 5:afternoon}
 
     @Override
     public String calendarName() {
@@ -116,8 +117,9 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
         daylightStrings[0] = context.getString(R.string.sunrise);
         daylightStrings[1] = context.getString(R.string.timeMode_noon);
         daylightStrings[2] = context.getString(R.string.sunset);
-        daylightStrings[3] = context.getString(R.string.morning);
-        daylightStrings[4] = context.getString(R.string.afternoon);
+        daylightStrings[3] = context.getString(R.string.midnight);
+        daylightStrings[4] = context.getString(R.string.morning);
+        daylightStrings[5] = context.getString(R.string.afternoon);
     }
 
     @Override
@@ -145,14 +147,15 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                 boolean containsPattern_eZ, containsPattern_eA, containsPattern_eR, containsPattern_eD;
                 boolean containsPattern_em = template.containsPattern(TemplatePatterns.pattern_em);
 
-                int j = 3;
-                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(COLUMN_SUN_ACTUAL_RISE, COLUMN_SUN_NOON, COLUMN_SUN_ACTUAL_SET));
+                int j = 4;
+                ArrayList<String> projection0 = new ArrayList<>(Arrays.asList(COLUMN_SUN_ACTUAL_RISE, COLUMN_SUN_NOON, COLUMN_SUN_ACTUAL_SET, COLUMN_SUN_MIDNIGHT));
                 if (containsPattern_eZ = template.containsPattern(TemplatePatterns.pattern_eZ)) {
                     i_eZ  = j;
                     projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_AZ);
                     projection0.add(COLUMN_SUN_NOON + _POSITION_AZ);
                     projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_AZ);
-                    j += 3;
+                    projection0.add(COLUMN_SUN_MIDNIGHT + _POSITION_AZ);
+                    j += 4;
                 }
                 if (containsPattern_eA = template.containsPattern(TemplatePatterns.pattern_eA))
                 {
@@ -160,7 +163,8 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_ALT);
                     projection0.add(COLUMN_SUN_NOON + _POSITION_ALT);
                     projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_ALT);
-                    j += 3;
+                    projection0.add(COLUMN_SUN_MIDNIGHT + _POSITION_ALT);
+                    j += 4;
                 }
                 if (containsPattern_eR = template.containsPattern(TemplatePatterns.pattern_eR))
                 {
@@ -168,7 +172,8 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_RA);
                     projection0.add(COLUMN_SUN_NOON + _POSITION_RA);
                     projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_RA);
-                    j += 3;
+                    projection0.add(COLUMN_SUN_MIDNIGHT + _POSITION_RA);
+                    j += 4;
                 }
                 if (containsPattern_eD = template.containsPattern(TemplatePatterns.pattern_eD))
                 {
@@ -176,7 +181,8 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     projection0.add(COLUMN_SUN_ACTUAL_RISE + _POSITION_DEC);
                     projection0.add(COLUMN_SUN_NOON + _POSITION_DEC);
                     projection0.add(COLUMN_SUN_ACTUAL_SET + _POSITION_DEC);
-                    j += 3;
+                    projection0.add(COLUMN_SUN_MIDNIGHT + _POSITION_DEC);
+                    j += 4;
                 }
                 String[] projection = projection0.toArray(new String[0]);
 
@@ -200,36 +206,39 @@ public class DaylightCalendar extends SuntimesCalendarBase implements SuntimesCa
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
-                        Calendar[] events = new Calendar[3];    // 0:sunrise, 1:noon, 2:sunset
-                        for (int i=0; i<3; i++)
+                        Calendar[] events = new Calendar[4];    // 0:sunrise, 1:noon, 2:sunset, 3:midnight
+                        for (int i=0; i<4; i++)
                         {
-                            if (flags[i] && !cursor.isNull(i))
+                            if (!cursor.isNull(i))
                             {
                                 Calendar eventTime = Calendar.getInstance();
                                 eventTime.setTimeInMillis(cursor.getLong(i));
                                 events[i] = eventTime;
 
-                                data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
-                                putTemplatePatterns_eA(data, cursor, i, containsPattern_eA, i_eA);
-                                putTemplatePatterns_eZ(data, cursor, i, containsPattern_eZ, i_eZ);
-                                putTemplatePatterns(data, cursor, i, containsPattern_eD, i_eD, containsPattern_eR, i_eR, containsPattern_em, eventTime);
-                                eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
-                                //Log.d("DEBUG", "create event: " + strings[i] + " at " + eventTime.toString());
+                                if (flags[i])
+                                {
+                                    data.put(TemplatePatterns.pattern_event.getPattern(), strings[i]);
+                                    putTemplatePatterns_eA(data, cursor, i, containsPattern_eA, i_eA);
+                                    putTemplatePatterns_eZ(data, cursor, i, containsPattern_eZ, i_eZ);
+                                    putTemplatePatterns(data, cursor, i, containsPattern_eD, i_eD, containsPattern_eR, i_eR, containsPattern_em, eventTime);
+                                    eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
+                                    //Log.d("DEBUG", "create event: " + strings[i] + " at " + eventTime.toString());
+                                }
                             }
                         }
 
-                        if (flags[3] && (events[0] != null) && (!cursor.isNull(0)))
-                        {   // morning
-                            data.put(TemplatePatterns.pattern_event.getPattern(), strings[3]);
+                        if (flags[4] && (events[0] != null) && (!cursor.isNull(0)))
+                        {   // 4:morning
+                            data.put(TemplatePatterns.pattern_event.getPattern(), strings[4]);
                             putTemplatePatterns_eA(data, cursor, 1, containsPattern_eA, i_eA);    // altitude at noon
                             putTemplatePatterns_eZ(data, cursor, 0, containsPattern_eZ, i_eZ);    // direction at sunrise
                             putTemplatePatterns(data, cursor, 0, containsPattern_eD, i_eD, containsPattern_eR, i_eR, containsPattern_em, events[0]);
                             eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), events[0], events[1]));
                         }
 
-                        if (flags[4] && (events[2] != null) && (!cursor.isNull(2)))
-                        {   // afternoon
-                            data.put(TemplatePatterns.pattern_event.getPattern(), strings[4]);
+                        if (flags[5] && (events[2] != null) && (!cursor.isNull(2)))
+                        {   // 5:afternoon
+                            data.put(TemplatePatterns.pattern_event.getPattern(), strings[5]);
                             putTemplatePatterns_eA(data, cursor, 1, containsPattern_eA, i_eA);    // altitude at noon
                             putTemplatePatterns_eZ(data, cursor, 2, containsPattern_eZ, i_eZ);    // direction at sunset
                             putTemplatePatterns(data, cursor, 2, containsPattern_eD, i_eD, containsPattern_eR, i_eR, containsPattern_em, events[2]);
