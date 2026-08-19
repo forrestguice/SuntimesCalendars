@@ -88,13 +88,13 @@
     <string name="configLabel_calendars_enabled_summary">Enmeti okazaĵojn al la aplikaĵo kalendaro.</string>
 
     <string name="configLabel_calendars_window">Amplekso de kalendaro</string>
-    <string name="configLabel_calendars_window_summary">Aldoni al la kalendaro okazaĵojn de <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ĝis <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window_summary">Aldoni al la kalendaro okazaĵojn de <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g>, ĝis <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Komenco de intertempo</string>
-    <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g id="calendars_window_display" example="unu jaro">%1$s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">Periodo komenciĝas antaŭ <xliff:g example="unu jaro" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Fino de intertempo</string>
-    <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g id="calendars_window_display" example="du jaroj">%1$s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Periodo finiĝas post <xliff:g example="du jaroj" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Aldonado al kalendaro…</string>
     <string name="calendars_notification_added">Aldonis okazaĵojn al la kalendaro.</string>
@@ -251,11 +251,11 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Lunleviĝoj kaj lunsubiroj</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Blua horo</string>
     <string name="calendar_daylight_displayName">Taglumo</string>
     <string name="calendar_daylight_summary">Sunleviĝo, sunsubiro kaj tagmezo vera</string>
@@ -338,5 +338,93 @@
         <item>Rusa</item>
         <item>Czech</item>   <!-- TODO -->
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendar_blue_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_gold_twilight_summary"/>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="distance_format_km">%1$s km</string>    <!-- e.g. full moon (400.71 km) -->    <!-- TODO -->
+    <string name="distance_format_mi">%1$s mi</string>    <!-- TODO -->
+    <string name="event_distance_format">%1$s\n%2$s km</string>    <!-- e.g. full moon (400.71 km) -->    <!-- TODO -->
+    <string name="help_pattern_altitude">event altitude</string>    <!-- TODO -->
+    <string name="help_pattern_azimuth">event azimuth</string>    <!-- TODO -->
+    <string name="help_pattern_declination">event declination</string>    <!-- TODO -->
+    <string name="help_pattern_event_millis">event milliseconds</string>    <!-- TODO -->
+    <string name="help_pattern_phase">moon phase</string>    <!-- TODO -->
+    <string name="help_pattern_rightascension">event right ascension</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="lengthUnits_imperial">Imperial</string>    <!-- TODO -->
+    <string name="lengthUnits_metric">Metric</string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
+    <string name="title_dialog_msg">Title</string>    <!-- TODO -->
+    <string name="title_dialog_saved_toast">Calendar title: %1$s</string>    <!-- TODO -->
+
+    <string-array name="directions_long">
+        <item>North</item>
+        <item>North North East</item>
+        <item>North East</item>
+        <item>East North East</item>
+        <item>East</item>
+        <item>East South East</item>
+        <item>South East</item>
+        <item>South South East</item>
+        <item>South</item>
+        <item>South South West</item>
+        <item>South West</item>
+        <item>West South West</item>
+        <item>West</item>
+        <item>West North West</item>
+        <item>North West</item>
+        <item>North North West</item>
+        <item>North</item>
+    </string-array>    <!-- TODO -->
+
+    <string-array name="directions_short">
+        <item>N</item>
+        <item>NNE</item>
+        <item>NE</item>
+        <item>ENE</item>
+        <item>E</item>
+        <item>ESE</item>
+        <item>SE</item>
+        <item>SSE</item>
+        <item>S</item>
+        <item>SSW</item>
+        <item>SW</item>
+        <item>WSW</item>
+        <item>W</item>
+        <item>WNW</item>
+        <item>NW</item>
+        <item>NNW</item>
+        <item>N</item>
+    </string-array>    <!-- TODO -->
 
 </resources>

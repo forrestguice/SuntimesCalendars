@@ -91,15 +91,15 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Восход и заход луны</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
-    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_gold_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Режимное время</string>
-    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_blue_twilight_summary"/>
     <string name="calendar_daylight_displayName">Солнце</string>
     <string name="calendar_daylight_summary">Восход и заход солнца, солнечный полдень</string>
 
@@ -107,13 +107,13 @@
     <string name="configLabel_calendars_enabled_summary">Добавлять отмеченные категории событий в календарь системы (в виде отдельных календарей)</string>
 
     <string name="configLabel_calendars_window">Период событий</string>
-    <string name="configLabel_calendars_window_summary">Период заполнения календаря. Начинается <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> и заканчивается <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g></string>
+    <string name="configLabel_calendars_window_summary">Период заполнения календаря. Начинается <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g> и заканчивается <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g></string>
 
     <string name="configLabel_calendars_window0">Окно (начало)</string>
-    <string name="configLabel_calendars_window0_summary">Период, начинающийся <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g> назад</string>
+    <string name="configLabel_calendars_window0_summary">Период, начинающийся <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g> назад</string>
 
     <string name="configLabel_calendars_window1">Окно (конец)</string>
-    <string name="configLabel_calendars_window1_summary">Период, заканчивающийся через <xliff:g id="calendars_window_display" example="two years">%1$s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Период, заканчивающийся через <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Добавление календарей…</string>
     <string name="calendars_notification_added">Календари добавлены</string>
@@ -211,8 +211,8 @@
         <item quantity="other">через %d лет</item>
     </plurals>
 
-    <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="location_format">%1$s [%2$s0, %3$s0 (%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s [%2$s0, %3$s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%1$s в %2$s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%1$s\n%2$s км</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%1$s\n%2$s</string>
@@ -434,5 +434,38 @@
         <item>Русский</item>
         <item>Чешский</item>
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
 
 </resources>

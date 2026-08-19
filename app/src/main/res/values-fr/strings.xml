@@ -97,15 +97,15 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Lever, coucher de lune</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
-    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_gold_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Heure bleue</string>
-    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_blue_twilight_summary"/>
     <string name="calendar_daylight_displayName">Lumière du jour</string>
     <string name="calendar_daylight_summary">Lever, coucher de soleil et midi solaire</string>
 
@@ -113,13 +113,13 @@
     <string name="configLabel_calendars_enabled_summary">Ajoute les événements à l\'agenda.</string>
 
     <string name="configLabel_calendars_window">Période d\'agenda</string>
-    <string name="configLabel_calendars_window_summary">La période commence <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, se termine <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window_summary">La période commence <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g>, se termine <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Début de la période</string>
-    <string name="configLabel_calendars_window0_summary">La période commence il y à <xliff:g id="calendars_window_display" example="one year">%1$s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">La période commence il y à <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Fin de la période</string>
-    <string name="configLabel_calendars_window1_summary">La période se termine dans <xliff:g id="calendars_window_display" example="two years">%1$s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">La période se termine dans <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Ajout des agendas…</string>
     <string name="calendars_notification_added">Les agendas ont été ajoutés.</string>
@@ -213,8 +213,8 @@
         <item quantity="many">dans %d ans</item>    <!-- TODO: review -->
     </plurals>
 
-    <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="location_format">%1$s [%2$s0, %3$s0 (%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s [%2$s0, %3$s0]</string>  <!-- label [lat, lon] -->
     <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%1$s\n%2$s km</string>  <!-- e.g. full moon (400.71 km) -->
     <string name="summarylist_format">%1$s\n%2$s</string>
@@ -224,12 +224,12 @@
     <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
 
     <!-- position formats -->
-    <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
-    <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
-    <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
-    <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
-    <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g> <xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
-    <string name="percent_format"><xliff:g id="value" example="45">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
+    <string name="degrees_format"><xliff:g example="45" id="value">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
+    <string name="elevation_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="∠" id="altSymbol">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
+    <string name="declination_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="δ" id="decSymbol">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
+    <string name="rightascension_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="δ" id="raSymbol">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
+    <string name="direction_format"><xliff:g example="180°" id="degrees">%1$s</xliff:g> <xliff:g example="S" id="directions_short">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
+    <string name="percent_format"><xliff:g example="45" id="value">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
 
     <string name="percent_symbol">%%</string>                <!-- label/suffix -->
     <string name="degrees_symbol">°</string>                <!-- label/suffix -->
@@ -447,5 +447,38 @@
         <item>Russe</item>
         <item>Tchèque</item>
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
 
 </resources>
