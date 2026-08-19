@@ -1,3 +1,6 @@
 [submodule "lib-quadflask-colorpicker"]
 	path = lib-quadflask-colorpicker
 	url = https://github.com/forrestguice/colorpicker
+[submodule "SuntimesAddon"]
+	path = SuntimesAddon
+	url = https://github.com/forrestguice/SuntimesAddon
