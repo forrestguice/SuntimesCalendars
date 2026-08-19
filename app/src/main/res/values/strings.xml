@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools">
 
     <string name="textSize_small">Small</string>
     <string name="textSize_normal">Normal</string>
@@ -18,17 +18,6 @@
         <item>XLARGE</item>
     </string-array>
 
-    <string-array name="calendar_moonrise_strings">
-        <item>@string/moonrise</item>
-        <item>@string/moonset</item>
-        <item>Moonlight</item>
-        <item>@string/timeMode_moon_full</item>
-        <item>@string/timeMode_moon_waninggibbous</item>
-        <item>@string/timeMode_moon_waningcrescent</item>
-        <item>@string/timeMode_moon_new</item>
-        <item>@string/timeMode_moon_waxingcrescent</item>
-        <item>@string/timeMode_moon_waxinggibbous</item>
-    </string-array>
     <string name="timeMode_noon">Solar Noon</string>                    <!-- TODO -->
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
@@ -71,6 +60,19 @@
 
     <string name="moonrise">Moonrise</string>
     <string name="moonset">Moonset</string>
+    <string name="moonlight">Moonlight</string>      <!-- TODO -->
+
+    <string-array name="calendar_moonrise_strings">
+        <item>@string/moonrise</item>
+        <item>@string/moonset</item>
+        <item>@string/moonlight</item>
+        <item>@string/timeMode_moon_full</item>
+        <item>@string/timeMode_moon_waninggibbous</item>
+        <item>@string/timeMode_moon_waningcrescent</item>
+        <item>@string/timeMode_moon_new</item>
+        <item>@string/timeMode_moon_waxingcrescent</item>
+        <item>@string/timeMode_moon_waxinggibbous</item>
+    </string-array>
 
     <string name="timeMode_equinox_vernal">Spring Equinox</string>
     <string name="timeMode_equinox_autumnal">Autumn Equinox</string>
@@ -160,7 +162,7 @@
 
     <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
 
-    <string name="confirm_display_format">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_display_format" tools:common="true">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Add calendar?</string>
     <string name="confirm_clear_message0">Remove calendars?</string>
     <string name="confirm_clear_message1">Remove calendar?</string>
@@ -276,29 +278,29 @@
         <item quantity="other">%d years from now</item>
     </plurals>
 
-    <string name="location_format">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="location_format" tools:common="true">%1$s&#160;[%2$s0,&#160;%3$s0&#160;(%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short" tools:common="true">%1$s&#160;[%2$s0,&#160;%3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format" tools:common="true">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
     <string name="event_distance_format">%1$s\n%2$s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="summarylist_format">%1$s\n%2$s</string>
+    <string name="summarylist_format" tools:common="true">%1$s\n%2$s</string>
 
     <string name="distance_format_km">%1$s km</string>  <!-- e.g. full moon (400.71 km) -->   <!-- TODO -->
     <string name="distance_format_mi">%1$s mi</string>   <!-- TODO -->
     <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
 
     <!-- position formats -->
-    <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
-    <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
-    <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
-    <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
-    <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g> <xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
-    <string name="percent_format"><xliff:g id="value" example="45">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
+    <string name="degrees_format" tools:common="true"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
+    <string name="elevation_format" tools:common="true"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
+    <string name="declination_format" tools:common="true"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
+    <string name="rightascension_format" tools:common="true"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
+    <string name="direction_format" tools:common="true"><xliff:g id="degrees" example="180°">%1$s</xliff:g> <xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
+    <string name="percent_format" tools:common="true"><xliff:g id="value" example="45">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
 
-    <string name="percent_symbol">%%</string>                <!-- label/suffix -->
-    <string name="degrees_symbol">°</string>                <!-- label/suffix -->
-    <string name="altitude_symbol">∠</string>               <!-- label/suffix -->
-    <string name="declination_symbol">δ</string>            <!-- label/suffix -->
-    <string name="rightascension_symbol">α</string>         <!-- label/suffix -->
+    <string name="percent_symbol" tools:common="true">%%</string>                <!-- label/suffix -->
+    <string name="degrees_symbol" tools:common="true">°</string>                <!-- label/suffix -->
+    <string name="altitude_symbol" tools:common="true">∠</string>               <!-- label/suffix -->
+    <string name="declination_symbol" tools:common="true">δ</string>            <!-- label/suffix -->
+    <string name="rightascension_symbol" tools:common="true">α</string>         <!-- label/suffix -->
 
     <string name="toolbar_title">Calendars</string>
 
@@ -323,7 +325,7 @@
     <string name="template_dialog_title_hint">Name</string>  <!-- TODO -->
 
     <string name="template_dialog_msg1">@string/action_preview</string>  <!-- preview dialog --> <!-- TODO -->
-    <string name="template_preview_warning" />
+    <string name="template_preview_warning" tools:common="true" />
 
     <string name="template_dialog_desc_label">Description</string>  <!-- TODO -->
     <string name="template_dialog_desc_hint">Description</string>  <!-- TODO -->
@@ -392,8 +394,8 @@
         <item>@string/lengthUnits_imperial</item>
     </string-array>
 
-    <string name="timespan_format0">%1$s</string>
-    <string name="timespan_format1">%1$s - %2$s</string>
+    <string name="timespan_format0" tools:common="true">%1$s</string>
+    <string name="timespan_format1" tools:common="true">%1$s - %2$s</string>
     <string name="msg_export_to">Save to</string>
     <string name="msg_share_with">Share with</string>
 
@@ -453,7 +455,7 @@
     <string name="about_dialog_title">About</string>
     <string name="app_name">Suntimes Calendars</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
+    <string name="app_provider_version" tools:common="true"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing Dependency!</b></font>
     ]]></string>
@@ -487,7 +489,7 @@
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
     ]]></string>
-    <string name="app_url"><xliff:g id="url"><![CDATA[
+    <string name="app_url" tools:common="true"><xliff:g id="url"><![CDATA[
         <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_donate_url"><![CDATA[
@@ -507,12 +509,12 @@
     <string name="privacy_policy"><![CDATA[<b>Privacy:</b><br/>Suntimes Calendars does not collect, store, or transmit personal user data. It contains <b>no advertising</b>, <b>no analytics</b>, <b>no trackers</b>, and <b>no unnecessary permissions</b>. <br/><br/><xliff:g id="permissionsExplained">%1$s</xliff:g>]]></string>
     <string name="privacy_permission_calendar"><![CDATA[Suntimes Calendars uses <b>calendar</b> permissions to integrate with the Calendar app. These permissions allow the app to create custom calendars and events.<br/><br/>Permissions are also required when disabling calendar integration (to remove custom calendars).]]></string>
     <string name="privacy_permissiondialog_title">Permissions</string>
-    <string name="privacy_url"><xliff:g id="url"><![CDATA[
+    <string name="privacy_url" tools:common="true"><xliff:g id="url"><![CDATA[
         <a href="https://github.com/forrestguice/SuntimesCalendars/wiki/Privacy">github.com/forrestguice/SuntimesCalendars/wiki/Privacy</a>
     ]]></xliff:g></string>
 
     <string name="translationCreditsFormat"><![CDATA[&#8226;&nbsp;<b><xliff:g id="languageName">%1$s</xliff:g></b> by <xliff:g id="authorList">%2$s</xliff:g>.]]></string>
-    <string name="authorListFormat_i"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
+    <string name="authorListFormat_i" tools:common="true"><xliff:g id="authorName1">%1$s</xliff:g>, <xliff:g id="authorName2">%2$s</xliff:g></string>  <!-- e.g. "name1, name2, name3, ..." -->
     <string name="authorListFormat_n"><xliff:g id="authorListFormat_i">%1$s</xliff:g>, and <xliff:g id="authorName">%2$s</xliff:g></string>  <!-- e.g. "..., and nameN" -->
     <string-array name="locale_display">                      <!-- one-to-one with locale_values -->
         <item>English</item>
