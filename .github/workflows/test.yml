@@ -67,7 +67,7 @@ jobs:
             adb install com.forrestguice.suntimeswidget_133.apk ;
             ./gradlew connectedDebugAndroidTest || exit_code=$? ;
             mkdir -p app/build/test-screenshots &&
-            adb pull /sdcard/Android/data/com.forrestguice.suntimescalendars/files/Pictures/test-screenshots/ app/build/ ;
+            adb pull /storage/emulated/0/Android/data/com.forrestguice.suntimescalendars/files/Pictures/test-screenshots/ app/build/ ;
             exit $exit_code
 
 
