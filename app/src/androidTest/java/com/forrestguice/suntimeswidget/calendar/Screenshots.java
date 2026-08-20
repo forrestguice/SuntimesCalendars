@@ -18,12 +18,15 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.GrantPermissionRule;
+
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.BuildConfig;
@@ -49,6 +52,9 @@ public class Screenshots
 
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
+
+    @Rule
+    public GrantPermissionRule mRuntimePermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CALENDAR);
 
     @Test
     public void make_screenshots()
