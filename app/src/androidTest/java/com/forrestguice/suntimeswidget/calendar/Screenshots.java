@@ -21,8 +21,11 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaScannerConnection;
+import android.graphics.Bitmap;
+
 import androidx.test.filters.LargeTest;
+import androidx.test.platform.io.PlatformTestStorage;
+import androidx.test.platform.io.PlatformTestStorageRegistry;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
@@ -37,9 +40,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 
-import static android.os.Environment.DIRECTORY_PICTURES;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.swipeDown;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -48,7 +51,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class Screenshots
 {
-    public static final String SCREENSHOT_DIR = "test-screenshots";
+    public static final String SCREENSHOT_DIR = "screenshot";
 
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
@@ -77,40 +80,26 @@ public class Screenshots
             activity = activityRule.getActivity();
 
             onView(withId(android.R.id.content)).perform(swipeDown());     // clears focus
-            captureScreenshot(activity,BuildConfig.VERSION_NAME + "/" + languageTag,"activity-calendars0");   // TODO: themes
+            captureScreenshot(activity,BuildConfig.VERSION_NAME + "_" + languageTag,"activity-calendars0");   // TODO: themes
         }
     }
 
-    public static void captureScreenshot(Activity activity, String subdir, String name)
+    public static void captureScreenshot(Activity activity, String tag, String name)
     {
-        subdir = subdir.trim();
-        if (!subdir.isEmpty() && !subdir.startsWith("/")) {
-            subdir = "/" + subdir;
-        }
-
-        // saves to..
-        //     SD card\Android\data\com.forrestguice.suntimeswidget.calendar\files\Pictures\test-screenshots\subdir
-        File d = activity.getExternalFilesDir(DIRECTORY_PICTURES);
-        if (d != null)
+        PlatformTestStorage storage = PlatformTestStorageRegistry.getInstance();
+        if (storage != null)
         {
-            String dirPath = d.getAbsolutePath() + "/" + SCREENSHOT_DIR + subdir;
-            File dir = new File(dirPath);
-            boolean dirCreated = dir.mkdirs();
-
-            String path = dirPath + "/" + name + ".png";
-            File file = new File(path);
-            if (file.exists()) {
-                if (!file.delete()) {
-                    Log.w("captureScreenshot", "Failed to delete file! " + path);
-                }
-            }
+            String path = SCREENSHOT_DIR + "_" + tag + "_" + name + ".png";
 
             try {
-                Falcon.takeScreenshot(activity, file);
-                MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, null, null);
+                Bitmap b = Falcon.takeScreenshotBitmap(activity);
+                BufferedOutputStream out = new BufferedOutputStream(storage.openOutputFile(path));
+                b.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
 
-            } catch (Exception e1) {
-                Log.e("captureScreenshot", "Failed to write file! " + e1);
+            } catch (IOException e) {
+                Log.e("captureScreenshot", "Failed to write file! " + e);
             }
         } else {
             Log.e("captureScreenshot", "Failed to write file! getExternalFilesDir() returns null..");
