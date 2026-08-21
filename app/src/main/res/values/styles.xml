@@ -79,6 +79,7 @@
     </style>
 
     <style name="AppTheme.ContrastSystem" parent="AppTheme.System">
+        <item name="colorAccent">@color/text_accent_contrast</item>
         <item name="colorPrimary">@color/primaryColor_contrast</item>
         <item name="android:windowBackground">@color/window_bg_contrast</item>
         <item name="dialogFrame">@color/dialog_frame_contrast</item>
@@ -193,6 +194,7 @@
         <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastLight" parent="AppTheme.Light">
+        <item name="colorAccent">@color/text_accent_contrast_light</item>
         <item name="colorPrimary">@color/primaryColor_contrast_light</item>
         <item name="android:windowBackground">@color/window_bg_contrast_light</item>
         <item name="dialogFrame">@color/dialog_frame_contrast_light</item>
@@ -307,6 +309,7 @@
         <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastDark" parent="AppTheme.Dark">
+        <item name="colorAccent">@color/text_accent_contrast_dark</item>
         <item name="colorPrimary">@color/primaryColor_contrast_dark</item>
         <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
         <item name="dialogFrame">@color/dialog_frame_contrast_dark</item>
