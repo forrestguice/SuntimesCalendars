@@ -354,14 +354,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         setResult(RESULT_OK);
         context = this;
 
-        String themeName = (config_appThemeOverride != null ? config_appThemeOverride : config_apptheme);
-        if (themeName != null) {
-            if (config_textSize != null) {
-                themeName += "_" + config_textSize;
-            }
-            AppThemes.setTheme(this, themeName);
-        }
-
+        initAppTheme(getIntent());
         super.onCreate(icicle);
         setContentView(R.layout.layout_activity_main);
 
@@ -381,6 +374,38 @@ public class SuntimesCalendarActivity extends AppCompatActivity
 
         } else {
             initMainFragment();
+        }
+    }
+
+    protected static final String EXTRA_THEME = "theme";
+    protected static final String EXTRA_THEME_OVERRIDE = "themeOverride";
+    protected static final String EXTRA_THEME_TEXT_SIZE = "themeTextSize";
+
+    protected void initAppTheme(@Nullable Intent intent)
+    {
+        if (intent != null)
+        {
+            String theme = intent.getStringExtra(EXTRA_THEME);
+            String themeOverride = intent.getStringExtra(EXTRA_THEME_OVERRIDE);
+            String textSize = intent.getStringExtra(EXTRA_THEME_TEXT_SIZE);
+
+            if (theme != null) {
+                config_apptheme = theme;
+            }
+            if (themeOverride != null) {
+                config_appThemeOverride = themeOverride;
+            }
+            if (textSize != null) {
+                config_textSize = textSize;
+            }
+        }
+
+        String themeName = (config_appThemeOverride != null ? config_appThemeOverride : config_apptheme);
+        if (themeName != null) {
+            if (config_textSize != null) {
+                themeName += "_" + config_textSize;
+            }
+            AppThemes.setTheme(this, themeName);
         }
     }
 
