@@ -477,7 +477,7 @@ public class SuntimesCalendarSettings
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
 
             default:
-                return Color.WHITE;
+                return Color.GRAY;
         }
     }
 
