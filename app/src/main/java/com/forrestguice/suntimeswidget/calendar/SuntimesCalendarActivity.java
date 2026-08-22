@@ -427,6 +427,7 @@ public class SuntimesCalendarActivity extends AppCompatActivity
         if (boundToTaskService) {
             mainFragment.setIsBusy(calendarTaskService.isBusy());
         }
+        SuntimesCalendarDescriptor.reinitDescriptors(context);
         getFragmentManager().beginTransaction().replace(R.id.content, mainFragment).commit();
     }
 
