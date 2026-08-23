@@ -43,8 +43,13 @@ import org.junit.runner.RunWith;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
+@ScreenshotCreator
 public class Screenshots extends TestBase
 {
     @Rule
@@ -62,8 +67,55 @@ public class Screenshots extends TestBase
         setAnimationsEnabled(true);
     }
 
-    protected ActivityTest screenshotTest() {
-        return new CalendarActivityTest.Test_CalendarActivity_Preview(activityRule);
+    protected ActivityTest screenshotTest()
+    {
+        return new CalendarActivityTest.CalendarActivityTestCase(activityRule)
+        {
+            @Override
+            public void runTest(Activity activity, String tag)
+            {
+                onView(withId(android.R.id.content)).perform(swipeDown());     // clears focus
+                CalendarActivityTest.CalendarActivityRobot robot = new CalendarActivityTest.CalendarActivityRobot()
+                        .captureScreenshot(activity, tag, "0");
+
+                robot.clickCalendar_civilTwilight()
+                        .sleep(1000)
+                        .clickDialogButton_options()
+                        .sleep(500)
+                        .captureScreenshot(activity, tag, "1")
+                        .clickCalendarOptionsMenu_preview()
+                        .captureScreenshot(activity, tag, "2")
+                        .clickDialogButton_back();
+
+                robot.clickCalendar_civilTwilight()
+                        .sleep(1000)
+                        .clickDialogButton_options()
+                        .clickCalendarOptionsMenu_flags()
+                        .captureScreenshot(activity, tag, "3")
+                        .clickDialogButton_back();
+
+                robot.clickCalendar_civilTwilight()
+                        .sleep(1000)
+                        .clickDialogButton_options()
+                        .clickCalendarOptionsMenu_template()
+                        .captureScreenshot(activity, tag, "4")
+                        .clickDialogButton_back();
+
+                robot.clickCalendar_civilTwilight()
+                        .sleep(1000)
+                        .clickDialogButton_options()
+                        .clickCalendarOptionsMenu_template()
+                        .clickDialogButton_eventStrings()
+                        .captureScreenshot(activity, tag, "5");
+
+                /*robot.clickCalendar_civilTwilight()
+                        .sleep(1000)
+                        .clickDialogButton_options()
+                        .clickCalendarOptionsMenu_reminders()
+                        .clickDialogButton_addReminder()
+                        .captureScreenshot(activity, tag, "5");*/
+            }
+        };
     }
 
     /**

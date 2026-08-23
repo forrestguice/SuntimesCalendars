@@ -57,15 +57,15 @@ public class TestBase
     }
 
     protected String testAppThemeBase() {
-        return AppThemes.THEME_DARK;
+        return AppThemes.THEME_SYSTEM;
     }
 
     protected String testAppTheme() {
-        return null;    // null; default
+        return AppThemes.THEME_MONET_SYSTEM;    // null; default
     }
 
     public static final String TAG = "SuntimesCalendars";
-    public static String tag(String languageTag, String themeName, AppThemes.TextSize textSize)
+    public String tag(String languageTag, String themeName, AppThemes.TextSize textSize)
     {
         return TAG + "_v" + BuildConfig.VERSION_NAME
                 + "_" + languageTag
@@ -132,10 +132,10 @@ public class TestBase
      * runTests
      */
 
-    public static void runTests(Context context, String themeBase, String themeName, ActivityTest test) {
+    public void runTests(Context context, String themeBase, String themeName, ActivityTest test) {
         runTests(context, themeBase, themeName, AppThemes.TextSize.NORMAL, "en_US", test);
     }
-    public static void runTests(Context context, String themeBase, String themeName, @Nullable AppThemes.TextSize textSize, @Nullable String languageTag, ActivityTest test)
+    public void runTests(Context context, String themeBase, String themeName, @Nullable AppThemes.TextSize textSize, @Nullable String languageTag, ActivityTest test)
     {
         AppThemes.TextSize[] sizes = (textSize != null)
                 ? new AppThemes.TextSize[] { textSize }
@@ -152,7 +152,7 @@ public class TestBase
             }
         }
     }
-    public static void runTest(String themeBase, String themeName, AppThemes.TextSize textSize, String languageTag, ActivityTest test)
+    public void runTest(String themeBase, String themeName, AppThemes.TextSize textSize, String languageTag, ActivityTest test)
     {
         String tag = tag(languageTag, (themeName != null ? themeName : themeBase), textSize);
         Log.d(TAG, "running " + test.getClass().getSimpleName() + " with " + tag);

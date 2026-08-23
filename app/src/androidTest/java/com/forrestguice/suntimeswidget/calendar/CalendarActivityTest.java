@@ -50,11 +50,6 @@ import static com.forrestguice.suntimeswidget.support.espresso.matcher.ViewAsser
 @RunWith(AndroidJUnit4.class)
 public class CalendarActivityTest extends TestBase
 {
-    @Override
-    protected String testAppTheme() {
-        return AppThemes.THEME_CONTRAST_DARK;
-    }
-
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
 
@@ -319,6 +314,19 @@ public class CalendarActivityTest extends TestBase
             onView(withText(R.string.calendar_daylight_displayName)).perform(click());
             return robot;
         }
+        public CalendarActivityRobot clickCalendar_civilTwilight() {
+            onView(withText(R.string.calendar_civil_twilight_displayName)).perform(click());
+            return robot;
+        }
+        public CalendarActivityRobot clickCalendar_nauticalTwilight() {
+            onView(withText(R.string.calendar_nautical_twilight_displayName)).perform(click());
+            return robot;
+        }
+        public CalendarActivityRobot clickCalendar_astronomicalTwilight() {
+            onView(withText(R.string.calendar_astronomical_twilight_displayName)).perform(click());
+            return robot;
+        }
+
         public CalendarActivityRobot assertCalendarDialogShown_daylight() {
             assertCalendarDialogShown();
             //onView(withText(R.string.calendar_daylight_displayName)).check(assertShown);
@@ -356,6 +364,10 @@ public class CalendarActivityTest extends TestBase
         }
         public CalendarActivityRobot clickDialogButton_eventStrings() {
             onView(withText(R.string.templatestrings_dialog_msg)).perform(click());
+            return robot;
+        }
+        public CalendarActivityRobot clickDialogButton_addReminder() {
+            onView(withText(R.string.action_add_reminder)).perform(click());
             return robot;
         }
 
