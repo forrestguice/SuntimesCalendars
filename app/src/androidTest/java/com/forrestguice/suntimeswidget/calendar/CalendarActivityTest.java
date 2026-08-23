@@ -42,9 +42,13 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
+import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.forrestguice.suntimeswidget.support.espresso.matcher.ViewAssertionHelper.assertShown;
+import static org.hamcrest.CoreMatchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -134,7 +138,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .captureScreenshot(activity, tag, "dialog_confirm_daylight")
                     .assertCalendarDialogShown_daylight()
 
@@ -162,7 +166,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .assertCalendarDialogShown_daylight()
                     .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
@@ -192,7 +196,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .assertCalendarDialogShown_daylight()
                     .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
@@ -221,7 +225,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .assertCalendarDialogShown_daylight()
                     .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
@@ -250,7 +254,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .assertCalendarDialogShown_daylight()
                     .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
@@ -280,7 +284,7 @@ public class CalendarActivityTest extends TestBase
                     .assertActivityShown(activity)
                     .captureScreenshot(activity, tag, "activity")
 
-                    .clickCalendar_daylight()
+                    .clickCalendarIcon(R.string.calendar_daylight_displayName)
                     .assertCalendarDialogShown_daylight()
                     .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
@@ -310,20 +314,21 @@ public class CalendarActivityTest extends TestBase
             return this;
         }
 
-        public CalendarActivityRobot clickCalendar_daylight() {
-            onView(withText(R.string.calendar_daylight_displayName)).perform(click());
+        public CalendarActivityRobot clickCalendar(int textResId)
+        {
+            onView(withText(textResId)).perform(click());
             return robot;
         }
-        public CalendarActivityRobot clickCalendar_civilTwilight() {
-            onView(withText(R.string.calendar_civil_twilight_displayName)).perform(click());
-            return robot;
-        }
-        public CalendarActivityRobot clickCalendar_nauticalTwilight() {
-            onView(withText(R.string.calendar_nautical_twilight_displayName)).perform(click());
-            return robot;
-        }
-        public CalendarActivityRobot clickCalendar_astronomicalTwilight() {
-            onView(withText(R.string.calendar_astronomical_twilight_displayName)).perform(click());
+
+        public CalendarActivityRobot clickCalendarIcon(int textResId)
+        {
+            onView(allOf(
+                    withId(R.id.button_options),
+                    isDescendantOfA(allOf(
+                            withId(R.id.icon_frame),
+                            hasSibling(hasDescendant(withText(textResId))))
+                    ))
+            ).perform(click());
             return robot;
         }
 

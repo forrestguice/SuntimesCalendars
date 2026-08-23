@@ -27,7 +27,7 @@ import androidx.test.filters.LargeTest;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 @ScreenshotCreator
-public class Screenshots_AllThemes extends Screenshots
+public class AppThemesTest extends Screenshots
 {
     /**
      * Default

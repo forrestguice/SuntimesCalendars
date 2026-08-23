@@ -32,6 +32,7 @@ import androidx.test.rule.GrantPermissionRule;
 
 import android.util.Log;
 
+import com.forrestguice.suntimescalendars.R;
 import com.jraska.falcon.Falcon;
 
 import org.junit.After;
@@ -88,39 +89,32 @@ public class Screenshots extends TestBase
                 CalendarActivityTest.CalendarActivityRobot robot = new CalendarActivityTest.CalendarActivityRobot()
                         .captureScreenshot(activity, tag, "0");
 
-                robot.clickCalendar_civilTwilight()
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .sleep(1000)
-                        .clickDialogButton_options()
-                        .sleep(500)
                         .captureScreenshot(activity, tag, "1")
                         .clickCalendarOptionsMenu_preview()
                         .captureScreenshot(activity, tag, "2")
                         .clickDialogButton_back();
 
-                robot.clickCalendar_civilTwilight()
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .sleep(1000)
-                        .clickDialogButton_options()
                         .clickCalendarOptionsMenu_flags()
                         .captureScreenshot(activity, tag, "3")
                         .clickDialogButton_back();
 
-                robot.clickCalendar_civilTwilight()
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .sleep(1000)
-                        .clickDialogButton_options()
                         .clickCalendarOptionsMenu_template()
                         .captureScreenshot(activity, tag, "4")
                         .clickDialogButton_back();
 
-                robot.clickCalendar_civilTwilight()
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .sleep(1000)
-                        .clickDialogButton_options()
                         .clickCalendarOptionsMenu_template()
                         .clickDialogButton_eventStrings()
                         .captureScreenshot(activity, tag, "5");
 
-                /*robot.clickCalendar_civilTwilight()
-                        .sleep(1000)
-                        .clickDialogButton_options()
+                /*robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .clickCalendarOptionsMenu_reminders()
                         .clickDialogButton_addReminder()
                         .captureScreenshot(activity, tag, "5");*/
