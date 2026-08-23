@@ -67,6 +67,16 @@ public class Screenshots extends TestBase
         setAnimationsEnabled(true);
     }
 
+    @Test
+    public void makeScreenshots_fastlane_dark() {
+        runTests(getContext(), AppThemes.THEME_DARK, AppThemes.THEME_MONET_DARK, testTextSize(), testLocale(), screenshotTest());
+    }
+
+    @Test
+    public void makeScreenshots_fastlane_light() {
+        runTests(getContext(), AppThemes.THEME_LIGHT, AppThemes.THEME_MONET_LIGHT, testTextSize(), testLocale(), screenshotTest());
+    }
+
     protected ActivityTest screenshotTest()
     {
         return new CalendarActivityTest.CalendarActivityTestCase(activityRule)
@@ -116,57 +126,6 @@ public class Screenshots extends TestBase
                         .captureScreenshot(activity, tag, "5");*/
             }
         };
-    }
-
-    /**
-     * Default
-     */
-
-    @Test
-    public void makeScreenshots_default_dark() {
-        runTests(getContext(), AppThemes.THEME_DARK, null, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_default_light() {
-        runTests(getContext(), AppThemes.THEME_LIGHT, null, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_default_system() {
-        runTests(getContext(), AppThemes.THEME_SYSTEM, null, testTextSize(), testLocale(), screenshotTest());
-    }
-
-    /**
-     * Contrast
-     */
-
-    @Test
-    public void makeScreenshots_contrast_dark() {
-        runTests(getContext(), AppThemes.THEME_DARK, AppThemes.THEME_CONTRAST_DARK, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_contrast_light() {
-        runTests(getContext(), AppThemes.THEME_LIGHT, AppThemes.THEME_CONTRAST_LIGHT, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_contrast_system() {
-        runTests(getContext(), AppThemes.THEME_SYSTEM, AppThemes.THEME_CONTRAST_SYSTEM, testTextSize(), testLocale(), screenshotTest());
-    }
-
-    /**
-     * Material You
-     */
-
-    @Test
-    public void makeScreenshots_monet_dark() {
-        runTests(getContext(), AppThemes.THEME_DARK, AppThemes.THEME_MONET_DARK, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_monet_light() {
-        runTests(getContext(), AppThemes.THEME_LIGHT, AppThemes.THEME_MONET_LIGHT, testTextSize(), testLocale(), screenshotTest());
-    }
-    @Test
-    public void makeScreenshots_monet_system() {
-        runTests(getContext(), AppThemes.THEME_SYSTEM, AppThemes.THEME_MONET_SYSTEM, testTextSize(), testLocale(), screenshotTest());
     }
 
     /**
