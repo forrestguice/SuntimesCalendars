@@ -33,6 +33,7 @@ public class SuntimesCalendarProvider extends ContentProvider
     @Override
     public boolean onCreate()
     {
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(getContext(), Thread.getDefaultUncaughtExceptionHandler()));
         return true;
     }
 

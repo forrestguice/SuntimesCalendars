@@ -51,6 +51,11 @@
                                com.forrestguice.suntimeswidget.calendar.task.calendars.SolsticeCalendar" />
         </activity>
 
+        <!-- Crash Report Activity -->
+        <activity android:name="com.forrestguice.suntimes.crashreport.ExceptionActivity"
+            android:process=":crashreport"
+            android:exported="false" />
+
         <!-- Error Dialog Activity (may be shown from notification service) -->
         <activity android:name="com.forrestguice.suntimeswidget.calendar.ui.SuntimesCalendarErrorActivity"
             android:theme="@style/Theme.AppCompat.Translucent"

@@ -485,6 +485,7 @@
 
     <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
+    <string name="app_support_url0" translatable="false">https://github.com/forrestguice/SuntimesCalendars/issues</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">issue tracker</a> to submit a request.
