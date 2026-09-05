@@ -139,10 +139,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .captureScreenshot(activity, tag, "dialog_confirm_daylight")
-                    .assertCalendarDialogShown_daylight()
-
-                    .clickDialogButton_options()
                     .captureScreenshot(activity, tag, "menu_options_daylight")
                     .assertCalendarOptionsMenuShown();
         }
@@ -167,10 +163,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .assertCalendarDialogShown_daylight()
-                    .clickDialogButton_options()
-                    .assertCalendarOptionsMenuShown()
-
                     .clickCalendarOptionsMenu_preview()
                     .captureScreenshot(activity, tag, "dialog_preview_daylight")
                     .assertPreviewDialogShown_daylight()
@@ -197,8 +189,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .assertCalendarDialogShown_daylight()
-                    .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
 
                     .clickCalendarOptionsMenu_title()
@@ -226,8 +216,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .assertCalendarDialogShown_daylight()
-                    .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
 
                     .clickCalendarOptionsMenu_reminders()
@@ -255,8 +243,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .assertCalendarDialogShown_daylight()
-                    .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
 
                     .clickCalendarOptionsMenu_flags()
@@ -285,8 +271,6 @@ public class CalendarActivityTest extends TestBase
                     .captureScreenshot(activity, tag, "activity")
 
                     .clickCalendarIcon(R.string.calendar_daylight_displayName)
-                    .assertCalendarDialogShown_daylight()
-                    .clickDialogButton_options()
                     .assertCalendarOptionsMenuShown()
 
                     .clickCalendarOptionsMenu_template()
