@@ -1,6 +1,9 @@
 name: Screenshots
 on: 
   workflow_dispatch:
+    inputs:
+      locale:
+        - en
 
 permissions: {}
 
@@ -13,7 +16,7 @@ jobs:
       matrix:
         api-level: [34]
         target: [default]
-        locale: [fr]
+        locale: ${{ inputs.locale }}
 
     steps:
       - name: Checkout
