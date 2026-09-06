@@ -21,6 +21,7 @@ package com.forrestguice.suntimeswidget.calendar;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 
 import com.forrestguice.suntimescalendars.BuildConfig;
 import com.forrestguice.suntimescalendars.R;
@@ -57,8 +58,12 @@ public class CalendarActivityTest extends TestBase
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
 
+    private final String[] testPermissions = (Build.VERSION.SDK_INT >= 33)
+        ? new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR, Manifest.permission.POST_NOTIFICATIONS }
+        : new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR };
+
     @Rule
-    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR);
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(testPermissions);
 
     @Before
     public void beforeTest() throws IOException {
