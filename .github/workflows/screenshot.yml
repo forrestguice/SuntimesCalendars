@@ -2,7 +2,7 @@ name: Screenshots
 on: 
   workflow_dispatch:
     inputs:
-      locale: [en]
+      locale: en
 
 permissions: {}
 
@@ -15,7 +15,6 @@ jobs:
       matrix:
         api-level: [34]
         target: [default]
-        locale: ${{ inputs.locale }}
 
     steps:
       - name: Checkout
@@ -68,7 +67,7 @@ jobs:
             adb wait-for-device ;
             curl -O https://forrestguice.github.io/SuntimesApps/repo/com.forrestguice.suntimeswidget_133.apk &&
             adb install com.forrestguice.suntimeswidget_133.apk ;
-            ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.forrestguice.suntimeswidget.calendar.Screenshots_${{ matrix.locale }} || exit_code=$? ;
+            ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.forrestguice.suntimeswidget.calendar.Screenshots_${{ inputs.locale }} || exit_code=$? ;
             exit $exit_code
 
 
@@ -76,13 +75,13 @@ jobs:
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
         with:
-          name: screenshot-report-${{ matrix.api-level }}-${{ matrix.locale }}
+          name: test-report-${{ inputs.locale }}-${{ matrix.api-level }}
           path: app/build/reports/androidTests/connected/debug/
 
       - name: Upload artifacts (screenshots)
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
         with:
-          name: screenshot-outputs-${{ matrix.api-level }}-${{ matrix.locale }}
+          name: screenshots-${{ inputs.locale }}-${{ matrix.api-level }}
           path: app/build/outputs/connected_android_test_additional_output/
 
