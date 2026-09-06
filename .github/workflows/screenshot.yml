@@ -2,7 +2,26 @@ name: Screenshots
 on: 
   workflow_dispatch:
     inputs:
-      locale: 'en'
+      locale:
+        required: true
+        default: 'en'
+        type: choice
+        options:
+          - ca
+          - cs
+          - de
+          - eo
+          - es
+          - eu
+          - fr
+          - hu
+          - it
+          - hn
+          - nl
+          - pl
+          - pt
+          - ru
+          - zh
 
 permissions: {}
 
