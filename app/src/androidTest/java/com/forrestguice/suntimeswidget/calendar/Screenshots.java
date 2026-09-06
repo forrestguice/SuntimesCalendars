@@ -30,6 +30,7 @@ import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.GrantPermissionRule;
 
+import android.os.Build;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -56,8 +57,12 @@ public class Screenshots extends TestBase
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
 
+    private final String[] testPermissions = (Build.VERSION.SDK_INT >= 33)
+            ? new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR, Manifest.permission.POST_NOTIFICATIONS }
+            : new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR };
+
     @Rule
-    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR);
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(testPermissions);
 
     @Before
     public void beforeTest() throws IOException {
