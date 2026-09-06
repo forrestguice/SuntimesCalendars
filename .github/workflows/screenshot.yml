@@ -2,8 +2,7 @@ name: Screenshots
 on: 
   workflow_dispatch:
     inputs:
-      locale:
-        - en
+      locale: [en]
 
 permissions: {}
 
