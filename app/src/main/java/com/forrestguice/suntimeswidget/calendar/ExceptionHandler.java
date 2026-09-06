@@ -44,7 +44,7 @@ public class ExceptionHandler extends com.forrestguice.suntimes.crashreport.Exce
 
     @Override
     protected String getAppVersionInfo() {
-        return "NaturalHour " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") [" + BuildConfig.APPLICATION_ID + "]" + (BuildConfig.DEBUG ? " [debug] " : " ") + "[" + BuildConfig.GIT_HASH + "]";
+        return "SuntimesCalendars " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") [" + BuildConfig.APPLICATION_ID + "]" + (BuildConfig.DEBUG ? " [debug] " : " ") + "[" + BuildConfig.GIT_HASH + "]";
     }
 
     @Override
