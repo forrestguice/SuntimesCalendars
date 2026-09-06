@@ -65,6 +65,7 @@ jobs:
             adb wait-for-device ;
             curl -O https://forrestguice.github.io/SuntimesApps/repo/com.forrestguice.suntimeswidget_133.apk &&
             adb install com.forrestguice.suntimeswidget_133.apk ;
+            adb shell pm grant com.forrestguice.suntimescalendars android.permission.POST_NOTIFICATIONS ;
             ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.forrestguice.suntimeswidget.calendar.ScreenshotCreator || exit_code=$? ;
             exit $exit_code
 
