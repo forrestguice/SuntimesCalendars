@@ -267,6 +267,11 @@ public class TestBase
             return robot;
         }
 
+        public T clickDialogButton_menu() {
+            onView(withId(R.id.menu_button)).perform(click());
+            return robot;
+        }
+
         public T clickDialogButton_cancel() {
             onView(withText(R.string.dialog_cancel)).perform(click());
             return robot;
