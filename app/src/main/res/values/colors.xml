@@ -41,6 +41,12 @@
     <color name="dialog_bg_dark">@color/grey_850</color>
     <color name="dialog_bg_alt_dark">@color/grey_900</color>
 
+    <color name="card_bg_dark">@color/grey_800</color>
+    <color name="card_bg_light">@color/grey_100</color>
+
+    <color name="card_bg_contrast_dark">@color/grey_900</color>
+    <color name="card_bg_contrast_light">@color/grey_100</color>
+
     <color name="dialog_frame_contrast_dark">@color/grey_999</color>
     <color name="dialog_bg_contrast_dark">@color/grey_999</color>
     <color name="dialog_bg_alt_contrast_dark">@color/grey_900</color>
@@ -66,6 +72,9 @@
     <color name="dialog_frame">@color/dialog_frame_light</color>
     <color name="dialog_bg">@color/dialog_bg_light</color>
     <color name="dialog_bg_alt">@color/dialog_bg_light</color>
+
+    <color name="card_bg">@color/card_bg_light</color>
+    <color name="card_bg_contrast">@color/card_bg_contrast_light</color>
 
     <color name="dialog_frame_contrast">@color/dialog_frame_contrast_light</color>
     <color name="dialog_bg_contrast">@color/dialog_bg_contrast_light</color>

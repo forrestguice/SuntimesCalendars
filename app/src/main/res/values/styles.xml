@@ -10,7 +10,7 @@
         <item name="dialogFrame">@color/dialog_frame</item>
         <item name="dialogBackground">@color/dialog_bg</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt</item>
-        <item name="cardBackground">@color/dialog_bg_alt</item>
+        <item name="cardBackground">@color/card_bg</item>
         <item name="snackbar_textColor">@color/text_primary</item>
         <item name="snackbar_accentColor">@color/text_accent</item>
         <item name="snackbar_backgroundColor">@color/dialog_bg</item>
@@ -87,6 +87,7 @@
         <item name="dialogFrame">@color/dialog_frame_contrast</item>
         <item name="dialogBackground">@color/dialog_bg_contrast</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast</item>
+        <item name="cardBackground">@color/card_bg_contrast</item>
     </style>
     <style name="AppTheme.ContrastSystem.Small" parent="AppTheme.ContrastSystem">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -130,7 +131,7 @@
         <item name="dialogFrame">@color/dialog_frame_light</item>
         <item name="dialogBackground">@color/dialog_bg_light</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_light</item>
-        <item name="cardBackground">@color/dialog_bg_alt_light</item>
+        <item name="cardBackground">@color/card_bg_light</item>
         <item name="snackbar_textColor">@android:color/primary_text_light</item>
         <item name="snackbar_accentColor">@color/text_accent_light</item>
         <item name="snackbar_backgroundColor">@color/dialog_bg_light</item>
@@ -204,6 +205,7 @@
         <item name="dialogFrame">@color/dialog_frame_contrast_light</item>
         <item name="dialogBackground">@color/dialog_bg_contrast_light</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_light</item>
+        <item name="cardBackground">@color/card_bg_contrast_light</item>
     </style>
     <style name="AppTheme.ContrastLight.Small" parent="AppTheme.ContrastLight">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -247,7 +249,7 @@
         <item name="dialogFrame">@color/dialog_frame_dark</item>
         <item name="dialogBackground">@color/dialog_bg_dark</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_dark</item>
-        <item name="cardBackground">@color/dialog_bg_alt_dark</item>
+        <item name="cardBackground">@color/card_bg_dark</item>
         <item name="snackbar_textColor">@android:color/primary_text_dark</item>
         <item name="snackbar_accentColor">@color/text_accent_dark</item>
         <item name="snackbar_backgroundColor">@color/dialog_bg_dark</item>
@@ -321,6 +323,7 @@
         <item name="dialogFrame">@color/dialog_frame_contrast_dark</item>
         <item name="dialogBackground">@color/dialog_bg_contrast_dark</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_dark</item>
+        <item name="cardBackground">@color/card_bg_contrast_dark</item>
     </style>
     <style name="AppTheme.ContrastDark.Small" parent="AppTheme.ContrastDark">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>

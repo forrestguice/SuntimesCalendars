@@ -13,6 +13,9 @@
     <color name="dialog_bg">@color/dialog_bg_dark</color>
     <color name="dialog_bg_alt">@color/dialog_bg_dark</color>
 
+    <color name="card_bg">@color/card_bg_dark</color>
+    <color name="card_bg_contrast">@color/card_bg_contrast_dark</color>
+
     <color name="dialog_frame_contrast">@color/dialog_frame_contrast_dark</color>
     <color name="dialog_bg_contrast">@color/dialog_bg_contrast_dark</color>
     <color name="dialog_bg_alt_contrast">@color/dialog_bg_alt_contrast_dark</color>
