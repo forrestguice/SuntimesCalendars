@@ -15,8 +15,8 @@ android {
         minSdkVersion 14
         //noinspection EditedTargetSdkVersion,ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 34
-        versionCode 21
-        versionName "0.6.3"
+        versionCode 22
+        versionName "0.7.0"
 
         buildConfigField "String", "GIT_HASH", "\"${getGitHash()}\""
         resConfigs "ca", "cs", "de", "en", "eo", "es", "eu", "fr", "hu", "it", "nb", "nl", "pl", "pt", "ru", "zh"
