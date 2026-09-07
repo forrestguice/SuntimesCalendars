@@ -93,18 +93,12 @@ public class Screenshots extends TestBase
                 onView(withId(android.R.id.content)).perform(swipeDown());     // clears focus
                 CalendarActivityTest.CalendarActivityRobot robot = new CalendarActivityTest.CalendarActivityRobot();
 
-                robot.captureScreenshot(activity, tag, "0");    // main activity
-                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                robot.captureScreenshot(activity, tag, "0");      // main activity
+                robot.clickCalendarIcon(R.string.calendar_nautical_twilight_displayName)
                         .sleep(1000)
-                        .captureScreenshot(activity, tag, "1")
-                        .clickCalendarOptionsMenu_preview()
-                        .clickDialogButton_menu()
-                        .captureScreenshot(activity, tag, "2")    // preview dialog (w/ menu)
-                        .clickDialogButton_back();
+                        .captureScreenshot(activity, tag, "1");   // calendar menu
 
-                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
-                        .sleep(1000)
-                        .clickCalendarOptionsMenu_flags()
+                robot.clickCalendarOptionsMenu_flags()
                         .captureScreenshot(activity, tag, "3")    // flags dialog
                         .clickDialogButton_back();
 
@@ -114,11 +108,17 @@ public class Screenshots extends TestBase
                         .captureScreenshot(activity, tag, "4")    // template dialog
                         .clickDialogButton_back();
 
-                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                robot.clickCalendarIcon(R.string.calendar_nautical_twilight_displayName)
+                        .sleep(1000)
+                        .clickCalendarOptionsMenu_preview()
+                        .clickDialogButton_menu()
+                        .captureScreenshot(activity, tag, "2");    // preview dialog (w/ menu)
+
+                /*robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .sleep(1000)
                         .clickCalendarOptionsMenu_template()
                         .clickDialogButton_eventStrings()
-                        .captureScreenshot(activity, tag, "5");    // strings dialog
+                        .captureScreenshot(activity, tag, "5");    // strings dialog */
 
                 /*robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
                         .clickCalendarOptionsMenu_reminders()
