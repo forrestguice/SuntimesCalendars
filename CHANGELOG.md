@@ -1,5 +1,19 @@
 ### ~
 
+### v0.7.0 (2026-09-07)
+* adds support for saving calendars to .ics.
+* adds "template preview" dialog.
+* adds "minor phase" event flags to the moon phase calendar (#68).
+* adds "moonlight" event flag to the moon calendar.
+* adds "morning", "afternoon", and "midnight" event flags to the daylight calendar.
+* adds "material you" app themes; replaces legacy icons with "material icons".
+* adds exception handler and crash report notification.
+* adds backup rules for Android 12+.
+* updates build; adds dependency on SuntimesAddon v0.5.1.
+* updates build; updates agp to 8.4.0; updates gradle to 8.6; migrates to androidx.
+* updates build to support JDK 21 (#72); the minimum supported is now JDK 17.
+* updates targetSdkVersion to 34 (Android 14); adds android.permission.FOREGROUND_SERVICE_DATA_SYNC; adds android.permission.POST_NOTIFICATIONS [permissions].
+
 ### v0.6.3 (2026-04-30)
 * updates translation to French (#73 by chfo-bidouille).
 
