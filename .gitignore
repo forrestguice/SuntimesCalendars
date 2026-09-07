@@ -50,3 +50,5 @@ proguard/
 .idea/deploymentTargetSelector.xml
 .idea/other.xml
 .idea/misc.xml
+.idea/compiler.xml
+.idea/androidTestResultsUserPreferences.xml
