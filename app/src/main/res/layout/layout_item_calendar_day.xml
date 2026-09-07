@@ -5,8 +5,8 @@
 
     <LinearLayout android:orientation="horizontal"
         android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:paddingStart="4dp" android:paddingEnd="4dp"
-        android:background="?attr/dialogBackgroundAlt"
+        android:paddingStart="6dp" android:paddingEnd="6dp"
+        android:background="?attr/cardBackground"
         android:elevation="1dp">
 
         <TextView android:id="@+id/text_month"
@@ -25,7 +25,7 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="3dp" android:elevation="1dp"
-        android:background="?attr/dialogBackgroundAlt"
+        android:background="?attr/cardBackground"
         android:paddingLeft="8dp" android:paddingRight="8dp"
         android:paddingTop="4dp" android:paddingBottom="8dp">
         <include layout="@layout/layout_item_calendar_event_content" />

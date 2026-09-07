@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:background="?attr/dialogBackgroundAlt"
+    android:background="?attr/cardBackground"
     android:paddingLeft="8dp" android:paddingRight="8dp"
     android:paddingTop="4dp" android:paddingBottom="4dp"
     android:layout_margin="4dp">
