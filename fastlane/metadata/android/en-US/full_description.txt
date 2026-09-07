@@ -1,6 +1,6 @@
 Provides calendar events for the solstices, equinoxes, twilight periods (astronomical, nautical, civil (sunrise, sunset)), and the moon (moonrise, moonset, major phases, apogee, perigee).
 
-This add-on for Suntimes adds events to the Calendar app. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.
+This add-on for Suntimes provides events to your Calendar app. It can also can save events to .ics for use in other apps. It depends on <a href="https://f-droid.org/en/packages/com.forrestguice.suntimeswidget/">Suntimes v0.10.3</a> or later.
 
 The following permissions are required:
 * <small><u>WRITE_SYNC_SETTINGS</u></small> is used to create and add custom calendars to the Calendar app.
