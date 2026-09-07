@@ -20,14 +20,20 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
 
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Utils
 {
@@ -51,6 +57,10 @@ public class Utils
     protected static String strDistanceFormatKm = "%1$s km";
     protected static String strDistanceFormatMi = "%1$s mi";
     protected static String strPercentFormat = "%1$s %%";
+
+    protected static String strTimeVeryShortFormat12 = "h:mm";    // TODO: from resources
+    protected static String strTimeVeryShortFormat24 = "HH:mm";
+    public static final String strMonthFormat = "MMM";
 
     private static NumberFormat formatter = NumberFormat.getInstance();
 
@@ -314,5 +324,46 @@ public class Utils
         }
     }
 
+    /**
+     * TimeFormat
+     */
+
+    private SimpleDateFormat timeFormat_12 = null;
+    public String calendarTime12DisplayString(Context context, @NonNull Calendar calendar)
+    {
+        if (timeFormat_12 == null) {
+            timeFormat_12 = new SimpleDateFormat(strTimeVeryShortFormat12, Locale.getDefault());
+        }
+        Date time = calendar.getTime();
+        SimpleDateFormat timeFormat = timeFormat_12;
+        timeFormat.setTimeZone(calendar.getTimeZone());
+        return timeFormat.format(time);
+    }
+
+    private SimpleDateFormat timeFormat_24 = null;
+    public String calendarTime24DisplayString(Context context, @NonNull Calendar calendar)
+    {
+        if (timeFormat_24 == null) {
+            timeFormat_24 = new SimpleDateFormat(strTimeVeryShortFormat24, Locale.getDefault());
+        }
+        Date time = calendar.getTime();
+        SimpleDateFormat timeFormat = timeFormat_24;
+        timeFormat.setTimeZone(calendar.getTimeZone());
+        return timeFormat.format(time);
+    }
+
+    public String calendarTimeSysDisplayString(Context context, @NonNull Calendar calendar)
+    {
+        DateFormat format = android.text.format.DateFormat.getTimeFormat(context);
+        format.setTimeZone(calendar.getTimeZone());
+        return format.format(calendar.getTime());
+    }
+
+    public String monthDisplayString(Context context, @NonNull Calendar calendar)
+    {
+        DateFormat format = new SimpleDateFormat(strMonthFormat, Locale.getDefault());
+        format.setTimeZone(calendar.getTimeZone());
+        return format.format(calendar.getTime());
+    }
 
 }

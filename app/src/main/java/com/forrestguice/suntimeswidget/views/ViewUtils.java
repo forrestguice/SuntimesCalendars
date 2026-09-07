@@ -26,10 +26,10 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Build;
 import android.preference.Preference;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import androidx.appcompat.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -109,7 +109,7 @@ public class ViewUtils
     {
         if (dialog != null) {
             BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);  // for AndroidX, resource is renamed to com.google.android.material.R.id.design_bottom_sheet
+            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
             if (layout != null)
             {
                 BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
@@ -132,7 +132,7 @@ public class ViewUtils
     {
         Window window = (dialog != null ? dialog.getWindow() : null);
         if (window != null) {
-            View decorView = window.getDecorView().findViewById(android.support.design.R.id.touch_outside);
+            View decorView = window.getDecorView().findViewById(com.google.android.material.R.id.touch_outside);
             decorView.setOnClickListener(null);
         }
     }

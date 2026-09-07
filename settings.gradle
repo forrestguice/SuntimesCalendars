@@ -1,2 +1,3 @@
-include ':lib-quadflask-colorpicker', ':app'
-project(':lib-quadflask-colorpicker').projectDir = new File(rootDir, 'lib-quadflask-colorpicker/library/')
+includeBuild("SuntimesAddon/build-logic/localization")
+include ':SuntimesAddon', ':app'
+project(':SuntimesAddon').projectDir = new File(rootDir, 'SuntimesAddon/suntimesaddon/')

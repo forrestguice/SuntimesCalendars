@@ -20,12 +20,12 @@ package com.forrestguice.suntimeswidget.calendar.ui;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.view.ContextThemeWrapper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.appcompat.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,8 +83,8 @@ public class HelpDialog extends BottomSheetDialogFragment
         themeResID = ((savedState != null) ? savedState.getInt(KEY_DIALOGTHEME) : themeResID);
         if (themeResID != 0)
         {
-            @SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
-            dialogContent = inflater.cloneInContext(contextWrapper).inflate(R.layout.dialog_help, parent, false);
+            //@SuppressLint("RestrictedApi") ContextThemeWrapper contextWrapper = new ContextThemeWrapper(getActivity(), themeResID);    // hack: contextWrapper required because base theme is not properly applied
+            dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);
 
         } else {
             dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.dialog_help, parent, false);
@@ -125,7 +125,7 @@ public class HelpDialog extends BottomSheetDialogFragment
     {
         if (dialog != null) {
             BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);  // for AndroidX, resource is renamed to com.google.android.material.R.id.design_bottom_sheet
+            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
             if (layout != null) {
                 BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
                 behavior.setHideable(false);

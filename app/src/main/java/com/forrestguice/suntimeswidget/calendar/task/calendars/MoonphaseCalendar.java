@@ -23,7 +23,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -56,7 +56,8 @@ import static com.forrestguice.suntimeswidget.calculator.core.CalculatorProvider
 @SuppressWarnings("Convert2Diamond")
 public class MoonphaseCalendar extends MoonCalendarBase
 {
-    private static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+    protected static final String CALENDAR_NAME = SuntimesCalendarAdapter.CALENDAR_MOONPHASE;
+    protected static final int CALENDAR_PRIORITY = 7;
     private static final int resID_calendarTitle = R.string.calendar_moonPhase_displayName;
     private static final int resID_calendarSummary = R.string.calendar_moonPhase_summary;
 
@@ -66,6 +67,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
     private final String[] phaseStrings = new String[4];     // {major phases}
     private final String[] phaseStrings1 = new String[4];    // {major phases; supermoon}
     private final String[] phaseStrings2 = new String[4];    // {major phases; micromoon}
+    private final String[] minorPhaseStrings = new String[4];
 
     @Override
     public String calendarName() {
@@ -91,25 +93,32 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
     @Override
     public CalendarEventStrings defaultStrings() {
-        return new CalendarEventStrings(phaseStrings[0], phaseStrings[1], phaseStrings[2], phaseStrings[3],   // 0-3 normal phases
-                phaseStrings1[0], phaseStrings1[2],                                                           // 4,5 super moon
-                phaseStrings2[0], phaseStrings2[2]                                                            // 6,7 micro moon
+        return new CalendarEventStrings(
+                phaseStrings[0], phaseStrings[1], phaseStrings[2], phaseStrings[3],                        // 0-3 major phases
+                minorPhaseStrings[0], minorPhaseStrings[1], minorPhaseStrings[2], minorPhaseStrings[3],    // 3-7 minor phases
+                phaseStrings1[0], phaseStrings1[2],                                                        // 8,9 super moon
+                phaseStrings2[0], phaseStrings2[2]                                                         // 10,11 micro moon
         );
     }
 
     @Override
     public CalendarEventFlags defaultFlags()
     {
-        boolean[] values = new boolean[4];
-        Arrays.fill(values, true);
+        boolean[] values = new boolean[8];
+        Arrays.fill(values, 0, 4, true);
         return new CalendarEventFlags(values);
     }
 
     @Override
-    public String flagLabel(int i) {
-        if (i >=0 && i < 4) {
+    public String flagLabel(int i)
+    {
+        if (i >= 0 && i < 4) {
             return phaseStrings[i];
-        } else return "";
+        } else if (i >= 4 && i < 8) {
+            return minorPhaseStrings[i-4];
+        } else {
+            return "";
+        }
     }
 
     @Override
@@ -137,6 +146,11 @@ public class MoonphaseCalendar extends MoonCalendarBase
         phaseStrings2[1] = context.getString(R.string.timeMode_moon_firstquarter);
         phaseStrings2[2] = context.getString(R.string.timeMode_moon_microfull);
         phaseStrings2[3] = context.getString(R.string.timeMode_moon_thirdquarter);
+
+        minorPhaseStrings[0] = context.getString(R.string.timeMode_moon_waxingcrescent);
+        minorPhaseStrings[1] = context.getString(R.string.timeMode_moon_waxinggibbous);
+        minorPhaseStrings[2] = context.getString(R.string.timeMode_moon_waninggibbous);
+        minorPhaseStrings[3] = context.getString(R.string.timeMode_moon_waningcrescent);
     }
 
     protected String[] getPhaseStrings(int i, double distance, String[] strings)
@@ -145,9 +159,9 @@ public class MoonphaseCalendar extends MoonCalendarBase
         if (i == 0 || i == 2)  // new moon || full moon
         {
             if (distance < THRESHHOLD_SUPERMOON) {
-                result[i] = strings[4 + Math.max(0, i-1)];
+                result[i] = strings[8 + Math.max(0, i-1)];
             } else if (distance > THRESHHOLD_MICROMOON) {
-                result[i] = strings[6 + Math.max(0, i-1)];
+                result[i] = strings[10 + Math.max(0, i-1)];
             }
         }
         return result;
@@ -205,10 +219,18 @@ public class MoonphaseCalendar extends MoonCalendarBase
                     ContentValues data = TemplatePatterns.createContentValues(null, this);
                     data = TemplatePatterns.createContentValues(data, task.getLocation());
 
+                    long[] events0 = null;
                     ArrayList<ContentValues> eventValues = new ArrayList<>();
                     cursor.moveToFirst();
                     while (!cursor.isAfterLast() && !task.isCancelled())
                     {
+                        long[] events = new long[4];
+                        long[] midpoints = new long[4];
+                        for (int i=0; i<4; i++) {
+                            events[i] = cursor.getLong(i);
+                        }
+
+                        // major phases
                         for (int i=0; i<4; i++)
                         {
                             if (!flags[i]) {
@@ -222,9 +244,34 @@ public class MoonphaseCalendar extends MoonCalendarBase
                             data.put(TemplatePatterns.pattern_dist.getPattern(), ((distance > 0) ? Utils.formatAsDistance(task.getLengthUnits(), distance, 2) : ""));
 
                             Calendar eventTime = Calendar.getInstance();
-                            eventTime.setTimeInMillis(cursor.getLong(i));
+                            eventTime.setTimeInMillis(events[i]);
                             eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
                         }
+
+                        // minor phases
+                        final int offset = 4;      // +4 to flags/strings
+                        for (int i=0; i<4; i++)
+                        {
+                            int prev = (i == 0) ? 3 : i - 1;
+                            if (!flags[prev + offset]) {
+                                continue;
+                            }
+
+                            data.put(TemplatePatterns.pattern_event.getPattern(), strings[prev + offset]);
+
+                            if (events[i] > events[prev]) {
+                                midpoints[i] = events[prev] + ((events[i] - events[prev]) / 2);
+
+                            } else if (events0 != null) {
+                                midpoints[i] = events0[prev] + ((events[i] - events0[prev]) / 2);
+                            }
+
+                            Calendar eventTime = Calendar.getInstance();
+                            eventTime.setTimeInMillis(midpoints[i]);
+                            eventValues.add(adapter.createEventContentValues(calendarID, template.getTitle(data), template.getDesc(data), template.getLocation(data), eventTime));
+                        }
+
+                        events0 = events;
                         cursor.moveToNext();
                         c++;
 
@@ -255,7 +302,7 @@ public class MoonphaseCalendar extends MoonCalendarBase
 
     @Override
     public int priority() {
-        return 7;
+        return CALENDAR_PRIORITY;
     }
 
     @Override

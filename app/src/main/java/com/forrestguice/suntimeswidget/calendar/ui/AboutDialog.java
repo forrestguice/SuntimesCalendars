@@ -26,12 +26,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.core.content.ContextCompat;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +80,7 @@ public class AboutDialog extends BottomSheetDialogFragment
             public void onShow(DialogInterface dialog)
             {
                 BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-                View layout = bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);
+                View layout = bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
                 if (layout != null)
                 {
                     BottomSheetBehavior.from(layout).setHideable(true);
@@ -112,7 +112,7 @@ public class AboutDialog extends BottomSheetDialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View dialogContent = inflater.inflate(R.layout.layout_dialog_about, container, false);
+        View dialogContent = inflater.cloneInContext(getActivity()).inflate(R.layout.layout_dialog_about, container, false);
         initViews(getActivity(), dialogContent);
         return dialogContent;
     }

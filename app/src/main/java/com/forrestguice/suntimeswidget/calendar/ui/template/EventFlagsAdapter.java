@@ -18,8 +18,8 @@
 package com.forrestguice.suntimeswidget.calendar.ui.template;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,12 +46,18 @@ public class EventFlagsAdapter extends RecyclerView.Adapter<EventFlagsAdapter.Ev
     protected SuntimesCalendar calendarObj;
     protected CalendarEventFlags data;
 
-    public EventFlagsAdapter(Context context, String calendar, CalendarEventFlags data)
+    public EventFlagsAdapter(Context context, String calendar, SuntimesCalendarSettings settings, CalendarEventFlags data)
     {
         this.contextRef = new WeakReference<>(context);
         this.calendar = calendar;
-        this.calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        this.settings = settings;
+        this.calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
         this.data = data;
+    }
+
+    protected SuntimesCalendarSettings settings;
+    public SuntimesCalendarSettings getSettings() {
+        return settings;
     }
 
     @NonNull

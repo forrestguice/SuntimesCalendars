@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="http://schemas.android.com/tools">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="textSize_small">Mały</string>
     <string name="textSize_normal">Średni</string>
@@ -83,13 +83,13 @@
     <string name="configLabel_calendars_enabled_summary">Dodaj wydarzenia do aplikacji kalendarza.</string>
 
     <string name="configLabel_calendars_window">Przedział kalendarza</string>
-    <string name="configLabel_calendars_window_summary">Dodaj do kalendarza wydarzenia z przedziału zaczynającego się <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> i kończącego się za <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window_summary">Dodaj do kalendarza wydarzenia z przedziału zaczynającego się <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g> i kończącego się za <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Początek zakresu</string>
-    <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g id="calendars_window_display" example="roku">%s</xliff:g> temu</string>
+    <string name="configLabel_calendars_window0_summary">Dodaj wydarzenia począwszy od <xliff:g example="roku" id="calendars_window_display">%1$s</xliff:g> temu</string>
 
     <string name="configLabel_calendars_window1">Koniec zakresu</string>
-    <string name="configLabel_calendars_window1_summary">Dodaj wydarzenia do <xliff:g id="calendars_window_display" example="dwóch lat">%s</xliff:g> w przyszłość</string>
+    <string name="configLabel_calendars_window1_summary">Dodaj wydarzenia do <xliff:g example="dwóch lat" id="calendars_window_display">%1$s</xliff:g> w przyszłość</string>
 
     <string name="calendars_notification_adding">Dodawanie do kalendarza…</string>
     <string name="calendars_notification_added">Dodano wydarzenia do kalendarza.</string>
@@ -160,10 +160,10 @@
     </string-array>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s rok temu</item>
-        <item quantity="other">%s lat temu</item>
-        <item quantity="few">%s lata temu</item>
-        <item quantity="many">%s lat temu</item>
+        <item quantity="one">%1$s rok temu</item>
+        <item quantity="other">%1$s lat temu</item>
+        <item quantity="few">%1$s lata temu</item>
+        <item quantity="many">%1$s lat temu</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">%d rok od teraz</item>
@@ -172,7 +172,7 @@
         <item quantity="many">%d lat od teraz</item>
     </plurals>
     
-    <string name="event_at_format">%s (%s)</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_at_format">%1$s (%2$s)</string>  <!-- e.g. moonrise at location_format -->
     
     <string name="toolbar_title">Kalendarze</string>
 
@@ -233,7 +233,7 @@
         Aby zmienić formatowanie wadarzeń w kalendarzu, zmodyfikuj jego szablon a następnie usuń i ponownie dodaj kalendarz.
         <br/><br/>
         <h3>Podstawienia</h3>
-        %s
+        %1$s
     ]]></string>
     <string name="help_template_strings"><![CDATA[
         <h3>Ciągi wydarzeń</h3>
@@ -253,11 +253,11 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Wschody i zachody Księżyca</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Błękitna godzina</string>
     <string name="calendar_daylight_displayName">Światło dzienne</string>
     <string name="calendar_daylight_summary">Wschód, górowanie i zachód Słońca</string>
@@ -266,22 +266,22 @@
     <string name="about_dialog_title">O programie</string>
     <string name="app_name">Czasy Słońca: kalendarz</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Czasy Słońca:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Czasy Słońca:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Brak!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Brak uprawnień!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider">Funkcja „<xliff:g id="featureName">%s</xliff:g>” nie jest wspierana przez tę wersję aplikacji – wymagana jest wersja <xliff:g id="versionString">%s</xliff:g> lub nowsza.</string>
+    <string name="feature_not_supported_by_provider">Funkcja „<xliff:g id="featureName">%1$s</xliff:g>” nie jest wspierana przez tę wersję aplikacji – wymagana jest wersja <xliff:g id="versionString">%2$s</xliff:g> lub nowsza.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
     <string name="snackbar_missing_dependency"><![CDATA[
         Wymagana jest aplikacja<br />
-        <b><u>%s</u></b> lub nowsza!
+        <b><u>%1$s</u></b> lub nowsza!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Brak uprawnień!<br />
-        Do poprawnego działania konieczna jest reinstalacja aplikacji<u>%s</u>.
+        Do poprawnego działania konieczna jest reinstalacja aplikacji<u>%1$s</u>.
         <br /><br />
         Nie udzielono uprawnień, które są przyznawane podczas instalacji. Problem ten zwykle się pojawia podczas instalacji w nieprawidłowej kolejności – najpierw zainstaluj aplikację Czasy Słońca, a następnie dodatki.
     ]]></string>
@@ -295,11 +295,11 @@
         Aby zmienić lokalizację dla wydarzeń z kalendarza, zmień ją w programie Czasy Słońca, a następnie usuń i ponownie dodaj kalendarz.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Wersja:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Dodatek do apki Czasy Słońca: integracja z kalendarzem.</string>
     <string name="app_support_url"><![CDATA[<b>Wsparcie:</b> odwiedź <a href="https://github.com/forrestguice/SuntimesCalendars/issues">stronę trackera błędów</a> aby zgłosić błąd/sugestię.]]></string>
     <string name="app_donate_url"><![CDATA[
-        Aplikacja %s jest udostępniana bezpłatnie, ale jeżeli jest ona dla Ciebie użyteczna, prosimy
+        Aplikacja %1$s jest udostępniana bezpłatnie, ale jeżeli jest ona dla Ciebie użyteczna, prosimy
         <a href="https://forrestguice.github.io/Suntimes/donate">rozważyć wpłatę dowolnej kwoty</a>.
     ]]></string>
     <string name="app_legal1"><![CDATA[Prawo autorskie &#169 2018–2026 Forrest Guice <br />Kod źródłowy dostępny na licencji GPLv3.]]></string>
@@ -333,5 +333,97 @@
         <item>Rosyjski</item>
         <item>Czech</item>   <!-- TODO -->
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendar_blue_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_gold_twilight_summary"/>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="distance_format_km">%1$s km</string>    <!-- e.g. full moon (400.71 km) -->    <!-- TODO -->
+    <string name="distance_format_mi">%1$s mi</string>    <!-- TODO -->
+    <string name="event_distance_format">%1$s\n%2$s km</string>    <!-- e.g. full moon (400.71 km) -->    <!-- TODO -->
+    <string name="help_pattern_altitude">event altitude</string>    <!-- TODO -->
+    <string name="help_pattern_azimuth">event azimuth</string>    <!-- TODO -->
+    <string name="help_pattern_declination">event declination</string>    <!-- TODO -->
+    <string name="help_pattern_event_millis">event milliseconds</string>    <!-- TODO -->
+    <string name="help_pattern_phase">moon phase</string>    <!-- TODO -->
+    <string name="help_pattern_rightascension">event right ascension</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="lengthUnits_imperial">Imperial</string>    <!-- TODO -->
+    <string name="lengthUnits_metric">Metric</string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
+    <string name="timeMode_moon_waningcrescent">Waning Crescent</string>    <!-- TODO -->
+    <string name="timeMode_moon_waninggibbous">Waning Gibbous</string>    <!-- TODO -->
+    <string name="timeMode_moon_waxingcrescent">Waxing Crescent</string>    <!-- TODO -->
+    <string name="timeMode_moon_waxinggibbous">Waxing Gibbous</string>    <!-- TODO -->
+    <string name="title_dialog_msg">Title</string>    <!-- TODO -->
+    <string name="title_dialog_saved_toast">Calendar title: %1$s</string>    <!-- TODO -->
+
+    <string-array name="directions_long">
+        <item>North</item>
+        <item>North North East</item>
+        <item>North East</item>
+        <item>East North East</item>
+        <item>East</item>
+        <item>East South East</item>
+        <item>South East</item>
+        <item>South South East</item>
+        <item>South</item>
+        <item>South South West</item>
+        <item>South West</item>
+        <item>West South West</item>
+        <item>West</item>
+        <item>West North West</item>
+        <item>North West</item>
+        <item>North North West</item>
+        <item>North</item>
+    </string-array>    <!-- TODO -->
+
+    <string-array name="directions_short">
+        <item>N</item>
+        <item>NNE</item>
+        <item>NE</item>
+        <item>ENE</item>
+        <item>E</item>
+        <item>ESE</item>
+        <item>SE</item>
+        <item>SSE</item>
+        <item>S</item>
+        <item>SSW</item>
+        <item>SW</item>
+        <item>WSW</item>
+        <item>W</item>
+        <item>WNW</item>
+        <item>NW</item>
+        <item>NNW</item>
+        <item>N</item>
+    </string-array>    <!-- TODO -->
 
 </resources>

@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level: [29]
+        api-level: [29,34]
         target: [default]
 
     steps:
@@ -21,11 +21,11 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654  #5.2.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Gradle Wrapper Validation
         uses: gradle/actions/wrapper-validation@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e  #6.1.0
@@ -65,9 +65,7 @@ jobs:
             adb wait-for-device ;
             curl -O https://forrestguice.github.io/SuntimesApps/repo/com.forrestguice.suntimeswidget_133.apk &&
             adb install com.forrestguice.suntimeswidget_133.apk ;
-            ./gradlew connectedDebugAndroidTest || exit_code=$? ;
-            mkdir -p app/build/test-screenshots &&
-            adb pull /sdcard/Android/data/com.forrestguice.suntimescalendars/files/Pictures/test-screenshots/ app/build/ ;
+            ./gradlew connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.forrestguice.suntimeswidget.calendar.ScreenshotCreator || exit_code=$? ;
             exit $exit_code
 
 
@@ -82,6 +80,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f  #7.0.0
         with:
-          name: android-test-screenshots-${{ matrix.api-level }}
-          path: app/build/test-screenshots/
+          name: android-test-outputs-${{ matrix.api-level }}
+          path: app/build/outputs/connected_android_test_additional_output/
           

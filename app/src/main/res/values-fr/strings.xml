@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="http://schemas.android.com/tools">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="textSize_small">Petit</string>
     <string name="textSize_normal">Normal</string>
@@ -97,15 +97,15 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Lever, coucher de lune</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
-    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_gold_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Heure bleue</string>
-    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_blue_twilight_summary"/>
     <string name="calendar_daylight_displayName">Lumière du jour</string>
     <string name="calendar_daylight_summary">Lever, coucher de soleil et midi solaire</string>
 
@@ -113,13 +113,13 @@
     <string name="configLabel_calendars_enabled_summary">Ajoute les événements à l\'agenda.</string>
 
     <string name="configLabel_calendars_window">Période d\'agenda</string>
-    <string name="configLabel_calendars_window_summary">La période commence <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, se termine <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>
+    <string name="configLabel_calendars_window_summary">La période commence <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g>, se termine <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g>.</string>
 
     <string name="configLabel_calendars_window0">Début de la période</string>
-    <string name="configLabel_calendars_window0_summary">La période commence il y à <xliff:g id="calendars_window_display" example="one year">%s</xliff:g></string>
+    <string name="configLabel_calendars_window0_summary">La période commence il y à <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="configLabel_calendars_window1">Fin de la période</string>
-    <string name="configLabel_calendars_window1_summary">La période se termine dans <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">La période se termine dans <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Ajout des agendas…</string>
     <string name="calendars_notification_added">Les agendas ont été ajoutés.</string>
@@ -134,7 +134,7 @@
     <string name="calendars_notification_reminders_updating">Mise à jour des rappels</string>
     <string name="calendars_notification_reminders_updated">Les rappels ont été mis à jour.</string>
 
-    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_display_format">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Ajouter un agenda ?</string>
     <string name="confirm_clear_message0">Supprimer un agenda ?</string>
     <string name="confirm_clear_message1">Supprimer un agenda ?</string>
@@ -192,40 +192,44 @@
     </string-array>
 
     <plurals name="units_days_ago">
-        <item quantity="one">il y a %s jour</item>
-        <item quantity="other">il y a %s jours</item>
+        <item quantity="one">il y a %1$s jour</item>
+        <item quantity="other">il y a %1$s jours</item>
+        <item quantity="many">il y a %1$s jours</item>    <!-- TODO: review -->
     </plurals>
     <plurals name="units_days_fromnow">
         <item quantity="one">dans %d jour</item>
         <item quantity="other">dans %d jours</item>
+        <item quantity="many">dans %d jours</item>    <!-- TODO: review -->
     </plurals>
 
     <plurals name="units_years_ago">
-        <item quantity="one">il y a %s année</item>
-        <item quantity="other">il y a %s années</item>
+        <item quantity="one">il y a %1$s année</item>
+        <item quantity="other">il y a %1$s années</item>
+        <item quantity="many">il y a %1$s années</item>    <!-- TODO: review -->
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">dans %d année</item>
         <item quantity="other">dans %d ans</item>
+        <item quantity="many">dans %d ans</item>    <!-- TODO: review -->
     </plurals>
 
-    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
-    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="summarylist_format">%s\n%s</string>
+    <string name="location_format">%1$s [%2$s0, %3$s0 (%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s [%2$s0, %3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%1$s\n%2$s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%1$s\n%2$s</string>
 
-    <string name="distance_format_km">%s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="distance_format_mi">%s mi</string>
+    <string name="distance_format_km">%1$s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="distance_format_mi">%1$s mi</string>
     <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
 
     <!-- position formats -->
-    <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
-    <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
-    <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
-    <string name="rightascension_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="raSymbol" example="δ">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
-    <string name="direction_format"><xliff:g id="degrees" example="180°">%1$s</xliff:g> <xliff:g id="directions_short" example="S">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
-    <string name="percent_format"><xliff:g id="value" example="45">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
+    <string name="degrees_format"><xliff:g example="45" id="value">%1$s</xliff:g>°</string>  <!-- e.g. 45° -->
+    <string name="elevation_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="∠" id="altSymbol">%2$s</xliff:g></string>  <!-- e.g. 45°∠ -->
+    <string name="declination_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="δ" id="decSymbol">%2$s</xliff:g></string>  <!-- e.g. 5° δ -->
+    <string name="rightascension_format"><xliff:g example="45" id="degrees">%1$s</xliff:g><xliff:g example="δ" id="raSymbol">%2$s</xliff:g></string>  <!-- e.g. 5° α -->
+    <string name="direction_format"><xliff:g example="180°" id="degrees">%1$s</xliff:g> <xliff:g example="S" id="directions_short">%2$s</xliff:g></string>  <!-- e.g. 180°S -->
+    <string name="percent_format"><xliff:g example="45" id="value">%1$s</xliff:g>%%</string>  <!-- e.g. 45% -->
 
     <string name="percent_symbol">%%</string>                <!-- label/suffix -->
     <string name="degrees_symbol">°</string>                <!-- label/suffix -->
@@ -242,7 +246,7 @@
     <string name="progress_message">Ceci peut prendre plusieurs minutes…\n\nVous pouvez fermer l\'application. La mise à jour continue en arrière-plan..</string>
 
     <string name="title_dialog_msg">Nom</string>
-    <string name="title_dialog_saved_toast">Nom de l\'agenda : %s</string>
+    <string name="title_dialog_saved_toast">Nom de l\'agenda : %1$s</string>
 
     <string name="reminder_dialog_msg">Rappels</string>
     <string name="action_add_reminder">Ajouter un rappel</string>
@@ -350,7 +354,7 @@
         Pour modifier la mise en forme des événements d\'un agenda, modifiez son modèle, puis supprimez et rajoutez l\'agenda.
         <br/><br/>
         <h3>Remplacements</h3>
-        %s
+        %1$s
     ]]></string>
     <string name="help_template_strings"><![CDATA[
         <h3>Valeurs pour les événements</h3>
@@ -364,21 +368,21 @@
     <string name="about_dialog_title">A propos</string>
     <string name="app_name">Suntimes Calendars</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Dépendance manquante !</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission refusée !</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> n\'est pas supporté par la version actuelle; nécessite <xliff:g id="versionString">%s</xliff:g> ou plus récent.</string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> n\'est pas supporté par la version actuelle; nécessite <xliff:g id="versionString">%2$s</xliff:g> ou plus récent.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         Cette application nécessite<br />
-        <b><u>%s</u></b> ou plus récent !
+        <b><u>%1$s</u></b> ou plus récent !
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Permission refusée !<br />
-        <u>%s</u> doit être réinstallée pour fonctionner correctement.
+        <u>%1$s</u> doit être réinstallée pour fonctionner correctement.
         <br /><br />
         Cette application ne dispose pas des autorisations qui sont accordées lors de l\'installation. Cela se produit lorsque les applications sont installées dans le mauvais ordre : installez d\'abord Suntimes avant d\'installer les extensions.
     ]]></string>
@@ -392,7 +396,7 @@
         Pour modifier la localisation d\'un agenda, modifiez d\'abord la localisation dans Suntimes, puis supprimez-le et rajoutez-le.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Une extension de calendrier pour Suntimes.</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> rendez-vous sur
@@ -402,7 +406,7 @@
         <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_donate_url"><![CDATA[
-        %s est disponible gratuitement, mais, s\'il a fait ses preuves, rendez-vous sur
+        %1$s est disponible gratuitement, mais, s\'il a fait ses preuves, rendez-vous sur
         <a href="https://forrestguice.github.io/Suntimes/donate">et payez ce que vous voulez</a>.
     ]]></string>
     <string name="app_legal1"><![CDATA[
@@ -443,5 +447,38 @@
         <item>Russe</item>
         <item>Tchèque</item>
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
 
 </resources>

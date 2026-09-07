@@ -20,10 +20,11 @@ package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.forrestguice.suntimescalendars.R;
@@ -426,10 +427,13 @@ public class SuntimesCalendarSettings
     /**
      * loadPrefCalendarColor
      */
-    public int loadPrefCalendarColor(Context context, String calendar)
+    public int loadPrefCalendarColor(Context context, String calendar) {
+        return loadPrefCalendarColor(context, calendar, defaultCalendarColor(context, calendar));
+    }
+    public int loadPrefCalendarColor(Context context, String calendar, int defaultColor)
     {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultCalendarColor(context, calendar));
+        return prefs.getInt(PREF_KEY_CALENDARS_COLOR + calendar, defaultColor);
     }
     public void savePrefCalendarColor(Context context, String calendar, int color)
     {
@@ -470,8 +474,10 @@ public class SuntimesCalendarSettings
                 return ContextCompat.getColor(context, R.color.colorDaylightCalendar);
 
             case SuntimesCalendarAdapter.CALENDAR_TWILIGHT_CIVIL:
-            default:
                 return ContextCompat.getColor(context, R.color.colorCivilTwilightCalendar);
+
+            default:
+                return Color.GRAY;
         }
     }
 

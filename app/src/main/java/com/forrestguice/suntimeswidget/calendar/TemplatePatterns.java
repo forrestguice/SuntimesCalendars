@@ -19,7 +19,7 @@ package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.forrestguice.suntimescalendars.R;
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -155,8 +155,8 @@ public enum TemplatePatterns
         String displayString = pattern;
         if (pattern != null)
         {
-            //noinspection ForLoopReplaceableByForEach
             TemplatePatterns[] patterns = TemplatePatterns.values();
+            //noinspection ForLoopReplaceableByForEach
             for (int i=0; i<patterns.length; i++)
             {
                 String p = patterns[i].getPattern();

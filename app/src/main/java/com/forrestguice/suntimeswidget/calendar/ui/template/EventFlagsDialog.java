@@ -22,14 +22,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 
 import android.util.AttributeSet;
@@ -180,7 +183,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
 
     protected void initAdapter(Context context)
     {
-        card_adapter = new EventFlagsAdapter(context, getCalendar(), getData());
+        card_adapter = new EventFlagsAdapter(context, getCalendar(), getSettings(), getData());
         card_adapter.setAdapterListener(card_adapterListener);
         card_view.setAdapter(card_adapter);
     }
@@ -222,7 +225,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
     {
         super.onResume();
 
-        android.support.v4.app.FragmentManager fragments = getChildFragmentManager();
+        FragmentManager fragments = getChildFragmentManager();
         HelpDialog helpDialog = (HelpDialog) fragments.findFragmentByTag(DIALOGTAG_HELP);
         if (helpDialog != null) {
             helpDialog.setDialogListener(helpDialogListener);
@@ -241,7 +244,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
     {
         if (dialog != null) {
             BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);  // for AndroidX, resource is renamed to com.google.android.material.R.id.design_bottom_sheet
+            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
             if (layout != null) {
                 BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
                 behavior.setHideable(false);
@@ -302,7 +305,7 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
         public void onRestoreDefaultsClicked(HelpDialog dialog)
         {
             Context context = getActivity();
-            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()), getSettings());
             SuntimesCalendarSettings.clearPrefCalendarFlags(context, getCalendar());
             setData(calendarObj.defaultFlags());
             setModified(true);
@@ -333,10 +336,11 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
     {
         Context context = getActivity();
         String calendar = getCalendar();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
 
         EventStringsDialog dialog = new EventStringsDialog();
         dialog.setCalendar(getCalendar());
+        dialog.setSettings(getSettings());
         dialog.setData(SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendar, calendarObj.defaultStrings()));
         dialog.setDialogListener(stringsDialogListener);
         dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
@@ -354,6 +358,17 @@ public class EventFlagsDialog extends BottomSheetDialogFragment
             }
         }
     };
+
+    /**
+     * getSettings
+     */
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    public void setSettings(SuntimesCalendarSettings settings) {
+        this.settings = settings;
+    }
+    protected SuntimesCalendarSettings settings = null;
 
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {

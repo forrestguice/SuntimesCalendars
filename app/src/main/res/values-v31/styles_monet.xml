@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.MonetSystem" parent="AppTheme.ContrastSystem">
+        <item name="colorPrimary">@color/monet_primaryColor</item>
+        <item name="colorPrimaryDark">@color/monet_primaryColorDark</item>
+        <item name="android:windowBackground">@color/monet_window_bg</item>
+        <item name="dialogFrame">@color/monet_dialog_frame</item>
+        <item name="dialogBackground">@color/monet_dialog_bg</item>
+        <item name="dialogBackgroundAlt">@color/monet_dialog_bg_alt</item>
+        <item name="cardBackground">@drawable/monet_card_ref</item>
+        <item name="snackbar_textColor">@color/text_primary</item>
+        <item name="snackbar_accentColor">@color/monet_text_accent</item>
+        <item name="snackbar_backgroundColor">@color/monet_dialog_bg</item>
+        <item name="text_accentColor">@color/monet_text_accent</item>
+        <item name="colorAccent">@color/monet_text_accent</item>
+        <item name="hrColor">@color/monet_hr</item>
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.System</item>
+        <item name="popupMenuStyle">@style/MonetMenu.System</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.System</item>
+        <item name="android:alertDialogTheme">@style/MonetAlertDialogTheme.System</item>
+        <item name="alertDialogTheme">@style/MonetAlertDialogTheme.System</item>
+        <item name="colorBackgroundFloating">@color/monet_dialog_bg</item>
+    </style>
+    <style name="AppTheme.MonetSystem.Small" parent="AppTheme.MonetSystem">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetSystem.Large" parent="AppTheme.MonetSystem">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetSystem.XLarge" parent="AppTheme.MonetSystem">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+    </style>
+
+    <style name="AppTheme.MonetLight" parent="AppTheme.ContrastLight">
+        <item name="colorPrimary">@color/monet_primaryColor_light</item>
+        <item name="colorPrimaryDark">@color/monet_primaryColorDark_light</item>
+        <item name="android:windowBackground">@color/monet_window_bg_light</item>
+        <item name="dialogFrame">@color/monet_dialog_frame_light</item>
+        <item name="dialogBackground">@color/monet_dialog_bg_light</item>
+        <item name="dialogBackgroundAlt">@color/monet_dialog_bg_alt_light</item>
+        <item name="cardBackground">@drawable/monet_card_light</item>
+        <item name="snackbar_textColor">@android:color/primary_text_light</item>
+        <item name="snackbar_accentColor">@color/monet_text_accent_light</item>
+        <item name="snackbar_backgroundColor">@color/monet_dialog_bg_light</item>
+        <item name="text_accentColor">@color/monet_text_accent_light</item>
+        <item name="colorAccent">@color/monet_text_accent_light</item>
+        <item name="hrColor">@color/monet_hr_light</item>
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.Light</item>
+        <item name="popupMenuStyle">@style/MonetMenu.Light</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.Light</item>
+        <item name="android:alertDialogTheme">@style/MonetAlertDialogTheme.Light</item>
+        <item name="alertDialogTheme">@style/MonetAlertDialogTheme.Light</item>
+        <item name="colorBackgroundFloating">@color/monet_dialog_bg_light</item>
+    </style>
+    <style name="AppTheme.MonetLight.Small" parent="AppTheme.MonetLight">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetLight.Large" parent="AppTheme.MonetLight">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetLight.XLarge" parent="AppTheme.MonetLight">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+    </style>
+
+    <style name="AppTheme.MonetDark" parent="AppTheme.ContrastDark">
+        <item name="colorPrimary">@color/monet_primaryColor_dark</item>
+        <item name="colorPrimaryDark">@color/monet_primaryColorDark_dark</item>
+        <item name="android:windowBackground">@color/monet_window_bg_dark</item>
+        <item name="dialogFrame">@color/monet_dialog_frame_dark</item>
+        <item name="dialogBackground">@color/monet_dialog_bg_dark</item>
+        <item name="dialogBackgroundAlt">@color/monet_dialog_bg_alt_dark</item>
+        <item name="cardBackground">@drawable/monet_card_dark</item>
+        <item name="snackbar_textColor">@android:color/primary_text_dark</item>
+        <item name="snackbar_accentColor">@color/monet_text_accent_dark</item>
+        <item name="snackbar_backgroundColor">@color/monet_dialog_bg_dark</item>
+        <item name="text_accentColor">@color/monet_text_accent_dark</item>
+        <item name="colorAccent">@color/monet_text_accent_dark</item>
+        <item name="hrColor">@color/monet_hr_dark</item>
+        <item name="actionBarPopupTheme">@style/MonetPopupTheme.Dark</item>
+        <item name="popupMenuStyle">@style/MonetMenu.Dark</item>
+        <item name="spinnerStyle">@style/MonetSpinnerStyle.Dark</item>
+        <item name="android:alertDialogTheme">@style/MonetAlertDialogTheme.Dark</item>
+        <item name="alertDialogTheme">@style/MonetAlertDialogTheme.Dark</item>
+        <item name="colorBackgroundFloating">@color/monet_dialog_bg_dark</item>
+    </style>
+    <style name="AppTheme.MonetDark.Small" parent="AppTheme.MonetDark">
+        <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/smalltext_size_xsmall</item>
+        <item name="text_size_small">@dimen/smalltext_size_small</item>
+        <item name="text_size_medium">@dimen/smalltext_size_medium</item>
+        <item name="text_size_large">@dimen/smalltext_size_large</item>
+        <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/smalltext_size_huge</item>
+        <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetDark.Large" parent="AppTheme.MonetDark">
+        <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/largetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/largetext_size_small</item>
+        <item name="text_size_medium">@dimen/largetext_size_medium</item>
+        <item name="text_size_large">@dimen/largetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/largetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
+    </style>
+    <style name="AppTheme.MonetDark.XLarge" parent="AppTheme.MonetDark">
+        <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
+        <item name="text_size_xsmall">@dimen/xlargetext_size_xsmall</item>
+        <item name="text_size_small">@dimen/xlargetext_size_small</item>
+        <item name="text_size_medium">@dimen/xlargetext_size_medium</item>
+        <item name="text_size_large">@dimen/xlargetext_size_large</item>
+        <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
+        <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
+        <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
+    </style>
+
+
+    <style name="MonetPopupTheme.System" parent="ThemeOverlay.MaterialComponents">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.System</item>
+    </style>
+    <style name="MonetPopupTheme.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.Dark</item>
+    </style>
+    <style name="MonetPopupTheme.Light" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="actionOverflowMenuStyle">@style/MonetMenu.Light</item>
+    </style>
+
+    <style name="MonetMenu.System" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_ref</item>
+    </style>
+    <style name="MonetMenu.Dark" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_dark</item>
+    </style>
+    <style name="MonetMenu.Light" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_light</item>
+    </style>
+
+    <style name="MonetSpinnerStyle.System" parent="Widget.AppCompat.Spinner">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_ref</item>
+    </style>
+    <style name="MonetSpinnerStyle.Dark" parent="Widget.AppCompat.Spinner">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_dark</item>
+    </style>
+    <style name="MonetSpinnerStyle.Light" parent="Widget.AppCompat.Spinner">
+        <item name="android:popupBackground">@drawable/monet_popupmenu_frame_light</item>
+    </style>
+
+    <style name="MonetAlertDialogTheme.System" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/monet_alertdialog_bg_ref</item>
+    </style>
+    <style name="MonetAlertDialogTheme.Dark" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/monet_alertdialog_bg_dark</item>
+    </style>
+    <style name="MonetAlertDialogTheme.Light" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/monet_alertdialog_bg_light</item>
+    </style>
+
+
+</resources>

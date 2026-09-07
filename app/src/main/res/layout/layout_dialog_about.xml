@@ -16,7 +16,7 @@
     You should have received a copy of the GNU General Public License
     along with SuntimesCalendars.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="?attr/colorPrimary">
 
@@ -103,13 +103,14 @@
                 android:layout_marginStart="8dp" android:layout_marginLeft="8dp"
                 android:animateLayoutChanges="true">
 
-                <android.support.v7.widget.AppCompatCheckBox
+                <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/check_donate"
                     android:layout_height="wrap_content" android:layout_width="wrap_content"
                     android:gravity="center_vertical" android:layout_gravity="center_vertical|start"
-                    android:button="?attr/checkFavorite" android:paddingLeft="8dp"
+                    android:button="?attr/checkFavorite"
+                    android:paddingLeft="8dp" android:paddingStart="8dp"
                     android:checked="false"
-                    tools:ignore="@string/expandMore" />
+                    tools:ignore="@string/expandMore, RtlSymmetry" />
 
                 <LinearLayout android:orientation="vertical"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -173,5 +174,5 @@
         </LinearLayout>
     </ScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

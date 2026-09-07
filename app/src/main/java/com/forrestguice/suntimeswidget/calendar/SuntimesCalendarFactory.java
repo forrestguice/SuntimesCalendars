@@ -19,8 +19,8 @@
 package com.forrestguice.suntimeswidget.calendar;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -30,12 +30,12 @@ import com.forrestguice.suntimeswidget.calendar.task.calendars.ContentProviderCa
 public class SuntimesCalendarFactory
 {
     @Nullable
-    public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor) {
-        return createCalendar(context, descriptor.calendarRef());
+    public SuntimesCalendar createCalendar(Context context, @NonNull SuntimesCalendarDescriptor descriptor, @NonNull SuntimesCalendarSettings settings) {
+        return createCalendar(context, descriptor.calendarRef(), settings);
     }
 
     @Nullable
-    public SuntimesCalendar createCalendar(Context context, String classRef)
+    public SuntimesCalendar createCalendar(Context context, String classRef, @NonNull SuntimesCalendarSettings settings)
     {
         SuntimesCalendar calendar = null;
         if (classRef != null)
@@ -43,7 +43,7 @@ public class SuntimesCalendarFactory
             if (classRef.startsWith("content:"))
             {
                 calendar = new ContentProviderCalendar(classRef);
-                calendar.init(context, new SuntimesCalendarSettings());
+                calendar.init(context, settings);
                 if (calendar.calendarName() == null) {
                     Log.e(getClass().getSimpleName(), "Failed to createCalendar! No such content provider: " + classRef);
                     calendar = null;
@@ -54,7 +54,7 @@ public class SuntimesCalendarFactory
                 try {
                     calendarClass = Class.forName(classRef);
                     calendar = (SuntimesCalendar) calendarClass.newInstance();
-                    calendar.init(context, new SuntimesCalendarSettings());
+                    calendar.init(context, settings);
 
                 } catch (ClassNotFoundException e) {
                     Log.e(getClass().getSimpleName(), "Failed to createCalendar! " + e);

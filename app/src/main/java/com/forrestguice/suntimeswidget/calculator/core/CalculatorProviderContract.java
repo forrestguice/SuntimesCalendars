@@ -1,5 +1,5 @@
 /**
- Copyright (C) 2018-2022 Forrest Guice
+ Copyright (C) 2018-2025 Forrest Guice
  This file is part of SuntimesWidget.
 
  SuntimesWidget is free software: you can redistribute it and/or modify
@@ -20,7 +20,7 @@ package com.forrestguice.suntimeswidget.calculator.core;
 
 /**
  * CalculatorProviderContract
- * @version 7 (0.6.0)
+ * @version 10 (0.7.1)
  *
  * Supported URIs have the form: "content://AUTHORITY/query"
  * ..where [AUTHORITY] is "suntimeswidget.calculator.provider"
@@ -44,7 +44,8 @@ package com.forrestguice.suntimeswidget.calculator.core;
  *       COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS,
  *       COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
  *       COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK
- *       COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_FIELDS
+ *       COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_COORDINATES,
+ *       COLUMN_CONFIG_OPTION_FIELDS
  *
  * ------------------------------------------------------------------------------------------------*
  * QUERY_SUN (sun)
@@ -54,7 +55,7 @@ package com.forrestguice.suntimeswidget.calculator.core;
  *       content://suntimeswiget.calculator.provider/sun/[millis]-[millis]   .. get upcoming sun for range (timestamp)
  *
  *   The result will be one or more rows containing:
- *       COLUMN_SUN_NOON,
+ *       COLUMN_SUN_NOON,             COLUMN_SUN_MIDNIGHT,
  *       COLUMN_SUN_ACTUAL_RISE,      COLUMN_SUN_ACTUAL_SET,
  *       COLUMN_SUN_CIVIL_RISE,       COLUMN_SUN_CIVIL_SET,
  *       COLUMN_SUN_NAUTICAL_RISE,    COLUMN_SUN_NAUTICAL_SET,
@@ -230,13 +231,16 @@ package com.forrestguice.suntimeswidget.calculator.core;
  *   6 fixes ambiguity of COLUMN_SEASON_CROSS_* columns; e.g. CROSS_SUMMER is the midpoint between summer solstice and autumn equinox.
  *   7 adds COLUMN_MOON_SET_ILLUM, COLUMN_MOON_SET_DISTANCE, COLUMN_MOON_SET_ILLUM, COLUMN_MOON_SET_DISTANCE.
  *     adds _POSITION_KEYS; may be combined with COLUMN_MOON and COLUMN_SUN keys to specify position at time of event.
+ *   8 adds COLUMN_SUN_MIDNIGHT
+ *   9 adds "custom event" support to SUN_ queries; custom eventIDs may be supplied as columns in the projection.
+ *   10 adds COLUMN_CONFIG_OPTION_COORDINATES
  */
 public interface CalculatorProviderContract
 {
     String AUTHORITY = "suntimeswidget.calculator.provider";
     String READ_PERMISSION = "suntimes.permission.READ_CALCULATOR";
-    String VERSION_NAME = "v0.6.0";
-    int VERSION_CODE = 7;
+    String VERSION_NAME = "v0.7.1";
+    int VERSION_CODE = 10;
 
     /**
      * CONFIG
@@ -269,6 +273,7 @@ public interface CalculatorProviderContract
     String COLUMN_CONFIG_OPTION_ALTITUDE = "option_altitude";                      // int (boolean) use altitude based refinements
     String COLUMN_CONFIG_OPTION_WARNINGS = "option_warnings";                      // int (boolean) show config warnings
     String COLUMN_CONFIG_OPTION_TALKBACK = "option_talkback";                      // int (boolean) announce ui changes
+    String COLUMN_CONFIG_OPTION_COORDINATES = "option_coordinates";                // int (boolean) show location coordinates
     String COLUMN_CONFIG_OPTION_FIELDS = "option_fields";                          // byte (bit positions) field visibility (see AppSettings.PREF_KEY_UI_SHOWFIELDS)
 
     String COLUMN_CONFIG_LENGTH_UNITS = "distance_units";                          // String (enum) METRIC, IMPERIAL
@@ -284,7 +289,8 @@ public interface CalculatorProviderContract
             COLUMN_CONFIG_LOCATION, COLUMN_CONFIG_LATITUDE, COLUMN_CONFIG_LONGITUDE, COLUMN_CONFIG_ALTITUDE,
             COLUMN_CONFIG_TIMEZONE, COLUMN_CONFIG_TIMEZONEMODE, COLUMN_CONFIG_SOLARTIMEMODE, COLUMN_CONFIG_APPWIDGETID,
             COLUMN_CONFIG_OPTION_TIME_IS24, COLUMN_CONFIG_OPTION_TIME_SECONDS, COLUMN_CONFIG_OPTION_TIME_HOURS, COLUMN_CONFIG_OPTION_TIME_WEEKS, COLUMN_CONFIG_OPTION_TIME_DATETIME,
-            COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_FIELDS
+            COLUMN_CONFIG_OPTION_ALTITUDE, COLUMN_CONFIG_OPTION_WARNINGS, COLUMN_CONFIG_OPTION_TALKBACK, COLUMN_CONFIG_LENGTH_UNITS, COLUMN_CONFIG_OBJECT_HEIGHT, COLUMN_CONFIG_OPTION_COORDINATES,
+            COLUMN_CONFIG_OPTION_FIELDS
     };
 
     /**
@@ -303,6 +309,7 @@ public interface CalculatorProviderContract
     String COLUMN_SUN_NOON = "solarnoon";                   // long (timestamp); (broken <= v0.10.2 [returns Calendar])
     String COLUMN_SUN_ACTUAL_RISE = "sunrise";              // long (timestamp); (broken <= v0.10.2 [returns Calendar])
     String COLUMN_SUN_ACTUAL_SET = "sunset";                // long (timestamp); (broken <= v0.10.2 [returns Calendar])
+    String COLUMN_SUN_MIDNIGHT = "midnight";                // long (timestamp)
 
     String COLUMN_SUN_CIVIL_RISE = "civilrise";             // long (timestamp); (broken <= v0.10.2 [returns Calendar])
     String COLUMN_SUN_CIVIL_SET = "civilset";               // long (timestamp); (broken <= v0.10.2 [returns Calendar])
@@ -331,7 +338,8 @@ public interface CalculatorProviderContract
             COLUMN_SUN_NOON,
             COLUMN_SUN_GOLDEN_MORNING, COLUMN_SUN_GOLDEN_EVENING,
             COLUMN_SUN_BLUE8_RISE, COLUMN_SUN_BLUE8_SET,
-            COLUMN_SUN_BLUE4_RISE, COLUMN_SUN_BLUE4_SET
+            COLUMN_SUN_BLUE4_RISE, COLUMN_SUN_BLUE4_SET,
+            COLUMN_SUN_MIDNIGHT
     };
 
     /**
@@ -421,6 +429,7 @@ public interface CalculatorProviderContract
     String COLUMN_SEASON_YEAR = "season_year";               // int (year, e.g. 2022)
     String COLUMN_SEASON_TROPICAL_YEAR_LENGTH = "season_tropical_year";           // long (millisecond duration)
 
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated String COLUMN_SEASON_VERNAL = "season_vernal";           // long (timestamp)
     String COLUMN_SEASON_SPRING = "season_spring";           // long (timestamp)
     String COLUMN_SEASON_SUMMER = "season_summer";           // long (timestamp)
@@ -433,6 +442,7 @@ public interface CalculatorProviderContract
     String COLUMN_SEASON_CROSS_WINTER = "season_cross_winter";           // long (timestamp)
 
     String QUERY_SEASONS = "seasons";
+    @SuppressWarnings("deprecation")
     String[] QUERY_SEASONS_PROJECTION = new String[] {
             COLUMN_SEASON_CROSS_SPRING, COLUMN_SEASON_CROSS_SUMMER, COLUMN_SEASON_CROSS_AUTUMN, COLUMN_SEASON_CROSS_WINTER,
             COLUMN_SEASON_SPRING, COLUMN_SEASON_VERNAL, COLUMN_SEASON_SUMMER, COLUMN_SEASON_AUTUMN, COLUMN_SEASON_WINTER,

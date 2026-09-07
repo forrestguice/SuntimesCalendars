@@ -23,10 +23,9 @@ import android.app.UiModeManager;
 
 import android.content.Context;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.forrestguice.suntimescalendars.R;
 
@@ -40,7 +39,15 @@ public class AppThemes
     public static final String THEME_CONTRAST_DARK = "contrast_dark";
     public static final String THEME_CONTRAST_SYSTEM = "contrast_system";
 
-    public static final String[] THEMES = new String[] { THEME_DARK, THEME_LIGHT, THEME_SYSTEM, THEME_CONTRAST_DARK, THEME_CONTRAST_LIGHT, THEME_CONTRAST_SYSTEM };
+    public static final String THEME_MONET_SYSTEM = "monet_system";
+    public static final String THEME_MONET_LIGHT = "monet_light";
+    public static final String THEME_MONET_DARK = "monet_dark";
+
+    public static final String[] THEMES = new String[] {
+            THEME_DARK, THEME_LIGHT, THEME_SYSTEM,
+            THEME_CONTRAST_DARK, THEME_CONTRAST_LIGHT, THEME_CONTRAST_SYSTEM,
+            THEME_MONET_DARK, THEME_MONET_LIGHT, THEME_MONET_SYSTEM
+    };
 
     public static int setTheme(Activity activity, String appTheme)
     {
@@ -95,6 +102,15 @@ public class AppThemes
         } else if (extendedThemeName.startsWith(THEME_CONTRAST_SYSTEM)) {
             return info_systemTheme_contrast;
 
+        } else if (extendedThemeName.startsWith(THEME_MONET_LIGHT)) {
+            return info_lightTheme_monet;
+
+        } else if (extendedThemeName.startsWith(THEME_MONET_DARK)) {
+            return info_darkTheme_monet;
+
+        } else if (extendedThemeName.startsWith(THEME_MONET_SYSTEM)) {
+            return info_systemTheme_monet;
+
         } // else if (extendedThemeName.startsWith(SOME_THEME_NAME)) { /* TODO: additional themes here */ }
         else {
             return info_defaultTheme;
@@ -108,7 +124,11 @@ public class AppThemes
     private static final AppThemeInfo info_darkTheme_contrast = new ContrastDarkThemeInfo();
     private static final AppThemeInfo info_lightTheme_contrast = new ContrastLightThemeInfo();
 
-    private static final AppThemeInfo info_defaultTheme = info_systemTheme;
+    private static final AppThemeInfo info_systemTheme_monet = new MonetSystemThemeInfo();
+    private static final AppThemeInfo info_darkTheme_monet = new MonetDarkThemeInfo();
+    private static final AppThemeInfo info_lightTheme_monet = new MonetLightThemeInfo();
+
+    private static final AppThemeInfo info_defaultTheme = info_systemTheme_monet;
 
     /**
      * AppThemeInfo
@@ -268,6 +288,69 @@ public class AppThemes
                 case LARGE: return R.style.AppTheme_ContrastDark_Large;
                 case XLARGE: return R.style.AppTheme_ContrastDark_XLarge;
                 case NORMAL: default: return R.style.AppTheme_ContrastDark;
+            }
+        }
+    }
+
+    public static class MonetSystemThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return THEME_MONET_SYSTEM;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.AppTheme_MonetSystem_Small;
+                case LARGE: return R.style.AppTheme_MonetSystem_Large;
+                case XLARGE: return R.style.AppTheme_MonetSystem_XLarge;
+                case NORMAL: default: return R.style.AppTheme_MonetSystem;
+            }
+        }
+    }
+
+    public static class MonetLightThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return THEME_MONET_LIGHT;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return AppCompatDelegate.MODE_NIGHT_NO;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.AppTheme_MonetLight_Small;
+                case LARGE: return R.style.AppTheme_MonetLight_Large;
+                case XLARGE: return R.style.AppTheme_MonetLight_XLarge;
+                case NORMAL: default: return R.style.AppTheme_MonetLight;
+            }
+        }
+    }
+
+    public static class MonetDarkThemeInfo extends AppThemeInfo
+    {
+        @Override
+        public String getThemeName() {
+            return THEME_MONET_DARK;
+        }
+        @Override
+        public int getDefaultNightMode() {
+            return AppCompatDelegate.MODE_NIGHT_YES;
+        }
+        @Override
+        public int getStyleId(Context context, TextSize size) {
+            switch (size) {
+                case SMALL: return R.style.AppTheme_MonetDark_Small;
+                case LARGE: return R.style.AppTheme_MonetDark_Large;
+                case XLARGE: return R.style.AppTheme_MonetDark_XLarge;
+                case NORMAL: default: return R.style.AppTheme_MonetDark;
             }
         }
     }

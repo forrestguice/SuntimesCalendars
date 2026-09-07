@@ -22,11 +22,11 @@
     <color name="text_accent_light">@color/deep_teal_500</color>
     <color name="text_accent_dark">@color/deep_teal_200</color>
 
+    <color name="text_accent_contrast_light">@color/indigo_a200</color>
+    <color name="text_accent_contrast_dark">@color/indigo_a100</color>
+
     <color name="text_disabled_light">#39000000</color>
     <color name="text_disabled_dark">#4Dffffff</color>
-
-    <color name="deep_teal_200">#ff80cbc4</color>
-    <color name="deep_teal_500">#ff009688</color>
 
     <color name="red_800">#c62828</color>
     <color name="orange_900">#e65100</color>
@@ -40,6 +40,12 @@
     <color name="dialog_frame_dark">@color/grey_850</color>
     <color name="dialog_bg_dark">@color/grey_850</color>
     <color name="dialog_bg_alt_dark">@color/grey_900</color>
+
+    <color name="card_bg_dark">@color/grey_800</color>
+    <color name="card_bg_light">@color/grey_100</color>
+
+    <color name="card_bg_contrast_dark">@color/grey_900</color>
+    <color name="card_bg_contrast_light">@color/grey_100</color>
 
     <color name="dialog_frame_contrast_dark">@color/grey_999</color>
     <color name="dialog_bg_contrast_dark">@color/grey_999</color>
@@ -59,10 +65,16 @@
     <color name="hr">@color/hr_light</color>
     <color name="text_accent">@color/text_accent_light</color>
     <color name="text_disabled">@color/text_disabled_light</color>
+    <color name="text_primary">@android:color/primary_text_light</color>
+
+    <color name="text_accent_contrast">@color/text_accent_contrast_light</color>
 
     <color name="dialog_frame">@color/dialog_frame_light</color>
     <color name="dialog_bg">@color/dialog_bg_light</color>
     <color name="dialog_bg_alt">@color/dialog_bg_light</color>
+
+    <color name="card_bg">@color/card_bg_light</color>
+    <color name="card_bg_contrast">@color/card_bg_contrast_light</color>
 
     <color name="dialog_frame_contrast">@color/dialog_frame_contrast_light</color>
     <color name="dialog_bg_contrast">@color/dialog_bg_contrast_light</color>
@@ -82,5 +94,13 @@
     <color name="grey_850">#ff303030</color>
     <color name="grey_900">#ff212121</color>
     <color name="grey_999">#ff111111</color>
+
+    <!-- indigo -->
+    <color name="indigo_a100">#8C9EFF</color>
+    <color name="indigo_a200">#536DFE</color>
+
+    <!-- teal -->
+    <color name="deep_teal_200">#ff80cbc4</color>
+    <color name="deep_teal_500">#ff009688</color>
 
 </resources>

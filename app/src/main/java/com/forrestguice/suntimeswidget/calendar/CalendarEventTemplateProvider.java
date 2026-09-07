@@ -25,8 +25,8 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.task.SuntimesCalendar;
@@ -80,6 +80,10 @@ public class CalendarEventTemplateProvider extends ContentProvider
     public boolean onCreate()
     {
         return true;
+    }
+
+    public SuntimesCalendarSettings getSettings() {
+        return SuntimesCalendarSettingsFactory.createSettings();
     }
 
     @Nullable
@@ -344,7 +348,7 @@ public class CalendarEventTemplateProvider extends ContentProvider
             SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
             if (descriptor != null)
             {
-                SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, descriptor);
+                SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, descriptor, getSettings());
                 if (calendarObj != null)
                 {
                     boolean[] flags = SuntimesCalendarSettings.loadPrefCalendarFlags(context, calendar, calendarObj.defaultFlags()).getValues();

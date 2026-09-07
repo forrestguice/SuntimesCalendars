@@ -27,10 +27,10 @@ import android.os.Parcelable;
  */
 public abstract class SuntimesCalendarTaskListener implements Parcelable
 {
-    public void onStarted(Context context, SuntimesCalendarTaskBase task, String message) {}
+    public void onStarted(Context context, SuntimesCalendarTaskInterface task, String message) {}
     public void onProgress(Context context, SuntimesCalendarTaskProgress... progress) {}
-    public void onSuccess(Context context, SuntimesCalendarTaskBase task, String message) {}
-    public void onCancelled(Context context, SuntimesCalendarTaskBase task) {}
+    public void onSuccess(Context context, SuntimesCalendarTaskInterface task, String message) {}
+    public void onCancelled(Context context, SuntimesCalendarTaskInterface task) {}
     public void onFailed(Context context, String errorMsg) {}
 
     public SuntimesCalendarTaskListener() {}

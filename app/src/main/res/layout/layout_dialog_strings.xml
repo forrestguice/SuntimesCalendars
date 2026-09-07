@@ -73,7 +73,7 @@
     </LinearLayout>
 
 
-    <android.support.v7.widget.LinearLayoutCompat android:orientation="horizontal"
+    <androidx.appcompat.widget.LinearLayoutCompat android:orientation="horizontal"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         android:layout_marginTop="4dp">
@@ -84,13 +84,13 @@
             android:contentDescription="@string/action_help"
             android:background="?selectableItemBackground" />
 
-    </android.support.v7.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView android:visibility="gone"
         android:id="@+id/text_debug"
         android:layout_width="match_parent" android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView android:id="@+id/stringsView"
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/stringsView"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
         tools:listitem="@layout/layout_item_string" tools:itemCount="7" />

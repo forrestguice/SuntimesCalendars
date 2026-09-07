@@ -20,20 +20,45 @@ package com.forrestguice.suntimeswidget.calendar.task;
 
 import android.content.Context;
 
-import android.support.annotation.NonNull;
+import android.net.Uri;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
 
 public interface SuntimesCalendarTaskInterface
 {
+    void setFlagClearCalendars( boolean flag );
+    boolean getFlagClearCalendars();
+
+    void setTaskListener( SuntimesCalendarTaskListener listener );
+    boolean queryConfig();
+
+    void setItems(SuntimesCalendarTaskItem... items);
+    SuntimesCalendarTaskItem[] getItems();
+
     int getProviderVersion();
     String[] getLocation();
     String getLengthUnits();
-
     long[] getWindow();
     long[] getWindow(long calendarWindow0, long calendarWindow1);
 
+    SuntimesCalendarSettings getSettings();
+    void setSettings(SuntimesCalendarSettings settings);
+
+    void executeTask();
+    boolean cancel(boolean value);
+    boolean isCancelled();
+
+    android.os.AsyncTask.Status getStatus();
     SuntimesCalendarTaskProgress createProgressObj(int i, int n, String message);
     void publishProgress(SuntimesCalendarTaskProgress primary, SuntimesCalendarTaskProgress secondary);
-    boolean isCancelled();
+
+    @Nullable
+    Uri getFileUri();
+    String onFinishedActionID();
+    String ACTION_SHARE = "SHARE";
+    String ACTION_CALENDAR = "CALENDAR";
 
     boolean createCalendarReminders(Context context, String calendar, @NonNull SuntimesCalendarTaskProgress progress0);
 }

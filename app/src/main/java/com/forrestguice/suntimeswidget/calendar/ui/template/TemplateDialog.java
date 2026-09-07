@@ -22,12 +22,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.BottomSheetDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.views.TooltipCompat;
 
 import android.text.Editable;
@@ -52,8 +53,11 @@ import com.forrestguice.suntimeswidget.calendar.ui.HelpDialog;
 import com.forrestguice.suntimeswidget.views.Toast;
 import com.forrestguice.suntimeswidget.views.ViewUtils;
 
+import androidx.fragment.app.FragmentManager;
+
 public class TemplateDialog extends BottomSheetDialogFragment
 {
+    public static final String DIALOGTAG_PREVIEW = "TemplateDialog_Preview";
     public static final String DIALOGTAG_STRINGS = "TemplateDialog_Strings";
     public static final String DIALOGTAG_HELP = "TemplateDialog_Help";
 
@@ -283,14 +287,20 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         super.onResume();
 
-        android.support.v4.app.FragmentManager fragments = getChildFragmentManager();
+        FragmentManager fragments = getChildFragmentManager();
         HelpDialog helpDialog = (HelpDialog) fragments.findFragmentByTag(DIALOGTAG_HELP);
         if (helpDialog != null) {
             helpDialog.setDialogListener(helpDialogListener);
         }
 
+        TemplatePreviewDialog previewDialog = (TemplatePreviewDialog) fragments.findFragmentByTag(DIALOGTAG_PREVIEW);
+        if (previewDialog != null) {
+            previewDialog.setSettings(getSettings());
+        }
+
         EventStringsDialog stringsDialog = (EventStringsDialog) fragments.findFragmentByTag(DIALOGTAG_STRINGS);
         if (stringsDialog != null) {
+            stringsDialog.setSettings(getSettings());
             stringsDialog.setDialogListener(stringsDialogListener);
         }
 
@@ -302,7 +312,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         if (dialog != null) {
             BottomSheetDialog bottomSheet = (BottomSheetDialog) dialog;
-            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(android.support.design.R.id.design_bottom_sheet);  // for AndroidX, resource is renamed to com.google.android.material.R.id.design_bottom_sheet
+            FrameLayout layout = (FrameLayout) bottomSheet.findViewById(com.google.android.material.R.id.design_bottom_sheet);
             if (layout != null) {
                 BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
                 behavior.setHideable(false);
@@ -363,7 +373,7 @@ public class TemplateDialog extends BottomSheetDialogFragment
         public void onRestoreDefaultsClicked(HelpDialog dialog)
         {
             Context context = getActivity();
-            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()));
+            SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, getCalendar()), getSettings());
             SuntimesCalendarSettings.clearPrefCalendarTemplate(context, getCalendar());
             setTemplate(calendarObj.defaultTemplate());
             setModified(true);
@@ -393,10 +403,11 @@ public class TemplateDialog extends BottomSheetDialogFragment
     {
         Context context = getActivity();
         String calendar = getCalendar();
-        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar));
+        SuntimesCalendar calendarObj = new SuntimesCalendarFactory().createCalendar(context, SuntimesCalendarDescriptor.getDescriptor(context, calendar), getSettings());
 
         EventStringsDialog dialog = new EventStringsDialog();
         dialog.setCalendar(getCalendar());
+        dialog.setSettings(getSettings());
         dialog.setData(SuntimesCalendarSettings.loadPrefCalendarStrings(context, calendar, calendarObj.defaultStrings()));
         dialog.setDialogListener(stringsDialogListener);
         dialog.show(getChildFragmentManager(), DIALOGTAG_STRINGS);
@@ -414,6 +425,32 @@ public class TemplateDialog extends BottomSheetDialogFragment
             }
         }
     };
+
+    protected View.OnClickListener onPreviewButtonClicked = new ViewUtils.ThrottledClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showPreviewDialog();
+        }
+    });
+    protected void showPreviewDialog()
+    {
+        TemplatePreviewDialog dialog = new TemplatePreviewDialog();
+        dialog.setSettings(getSettings());
+        dialog.setCalendar(getCalendar());
+        dialog.setTemplate(getTemplate());
+        dialog.show(getChildFragmentManager(), DIALOGTAG_PREVIEW);
+    }
+
+    /**
+     * getSettings
+     */
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    public void setSettings(SuntimesCalendarSettings settings) {
+        this.settings = settings;
+    }
+    protected SuntimesCalendarSettings settings = null;
 
     @Override
     public void onSaveInstanceState( @NonNull Bundle out ) {

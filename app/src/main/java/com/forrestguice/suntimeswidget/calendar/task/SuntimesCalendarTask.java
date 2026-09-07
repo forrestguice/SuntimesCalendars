@@ -30,8 +30,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.RemoteException;
 import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
@@ -42,7 +42,6 @@ import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSyncAdapter;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.TreeSet;
 
 @SuppressWarnings("Convert2Diamond")
@@ -59,39 +58,8 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         calendarWindow1 = SuntimesCalendarSettings.loadPrefCalendarWindow1(context);
     }
 
-    public long[] getWindow() {
-        return getWindow(calendarWindow0, calendarWindow1);
-    }
-    public long[] getWindow(long calendarWindow0, long calendarWindow1)
-    {
-        Calendar startDate = Calendar.getInstance();
-        Calendar endDate = Calendar.getInstance();
-        Calendar now = Calendar.getInstance();
-
-        startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
-        startDate.set(Calendar.HOUR_OF_DAY, 0);
-        startDate.set(Calendar.MINUTE, 0);
-        startDate.set(Calendar.SECOND, 0);
-        startDate.set(Calendar.MILLISECOND, 0);
-
-        endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
-        endDate.set(Calendar.HOUR_OF_DAY, 23);
-        endDate.set(Calendar.MINUTE, 59);
-        endDate.set(Calendar.SECOND, 59);
-        endDate.set(Calendar.MILLISECOND, 999);
-
-        boolean roundUpOrDown = (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000 / 60 / 60 / 24 / 365) >= 1);
-        if (roundUpOrDown)
-        {
-            startDate.set(Calendar.MONTH, 0);            // round down to start of year
-            startDate.set(Calendar.DAY_OF_MONTH, 0);
-
-            endDate.add(Calendar.YEAR, 1);       // round up to end of year
-            endDate.set(Calendar.MONTH, 0);
-            endDate.set(Calendar.DAY_OF_MONTH, 0);
-        }
-
-        return new long[] { startDate.getTimeInMillis(), endDate.getTimeInMillis() };
+    public long[] getWindow(long calendarWindow0, long calendarWindow1) {
+        return SuntimesCalendarTaskBase.getWindow(calendarWindow0, calendarWindow1, false);
     }
 
     @Override
@@ -110,7 +78,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
             Context context = contextRef.get();
             String[] calendars = SuntimesCalendarDescriptor.getCalendars(context);
 
-            SuntimesCalendarTaskProgress progress0 = new SuntimesCalendarTaskProgress(0, calendars.length, notificationMsgClearing);
+            SuntimesCalendarTaskProgress progress0 = createProgressObj(0, calendars.length, notificationMsgClearing);
             publishProgress(progress0);
 
             int c = 0;
@@ -121,7 +89,9 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
                 if (calendarID != -1)
                 {
                     SuntimesCalendarDescriptor calendarDesc = SuntimesCalendarDescriptor.getDescriptor(context, calendar);
-                    progress0.setProgress(c, progress0.getCount(), calendarDesc.calendarTitle());
+                    if (calendarDesc != null) {
+                        progress0.setProgress(c, progress0.getCount(), calendarDesc.calendarTitle());
+                    }
 
                     removeCalendarReminders(calendarID, progress0);
                     adapter.removeCalendar(calendarID);
@@ -135,7 +105,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         boolean hasLocation = queryConfig();
         boolean retValue = true;
 
-        publishProgress(new SuntimesCalendarTaskProgress(1, 1000, notificationMsgUpdating));
+        publishProgress(createProgressObj(1, 1000, notificationMsgUpdating));
         try {
             int c = 0;
             int n = taskItems.size();
@@ -145,12 +115,15 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
             {
                 SuntimesCalendarTaskItem item = taskItems.get(calendarName);
                 SuntimesCalendarDescriptor descriptor = SuntimesCalendarDescriptor.getDescriptor(contextRef.get(), calendarName);
-                SuntimesCalendar calendar = factory.createCalendar(contextRef.get(), descriptor);
+                SuntimesCalendar calendar = (descriptor != null ? factory.createCalendar(contextRef.get(), descriptor, getSettings()) : null);
+                if (item == null || calendar == null) {
+                    continue;
+                }
                 int action = item.getAction();
                 switch (action)
                 {
                     case SuntimesCalendarTaskItem.ACTION_DELETE:
-                        SuntimesCalendarTaskProgress progress = new SuntimesCalendarTaskProgress(0, 1000, notificationMsgClearing + "\n" + calendar.calendarTitle());
+                        SuntimesCalendarTaskProgress progress = createProgressObj(0, 1000, notificationMsgClearing + "\n" + calendar.calendarTitle());
                         publishProgress(null, progress);
                         removeCalendarReminders(calendarName, progress);
                         retValue = retValue && adapter.removeCalendar(calendarName);
@@ -159,7 +132,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
 
                     case SuntimesCalendarTaskItem.ACTION_REMINDERS_DELETE:
                     case SuntimesCalendarTaskItem.ACTION_REMINDERS_UPDATE:
-                        publishProgress(null, new SuntimesCalendarTaskProgress(1, 1000, notificationMsgReminderUpdating));
+                        publishProgress(null, createProgressObj(1, 1000, notificationMsgReminderUpdating));
                         // no-break; fall through to next case
 
                     case SuntimesCalendarTaskItem.ACTION_UPDATE:
@@ -226,7 +199,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         }
 
         long bench_start = System.nanoTime();
-        retValue = retValue && calendar.initCalendar(new SuntimesCalendarSettings(), adapter, this, progress0, window);
+        retValue = retValue && calendar.initCalendar(getSettings(), adapter, this, progress0, window);
         long bench_end = System.nanoTime();
         Log.i(TAG, "initCalendar (" + calendar + ") in " + ((bench_end - bench_start) / 1000000.0) + " ms");
 
@@ -251,7 +224,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
     {
         boolean retValue = true;
         int count = SuntimesCalendarSettings.loadPrefCalendarReminderCount(context, calendar);
-        SuntimesCalendarTaskProgress progress1 = new SuntimesCalendarTaskProgress(-1, count, progress0.getMessage());
+        SuntimesCalendarTaskProgress progress1 = createProgressObj(-1, count, progress0.getMessage());
         for (int i=0; i<count; i++)
         {
             int minutes = SuntimesCalendarSettings.loadPrefCalendarReminderMinutes(context, calendar, i);
@@ -349,7 +322,7 @@ public class SuntimesCalendarTask extends SuntimesCalendarTaskBase implements Su
         ContentResolver contentResolver = contextRef.get().getContentResolver();
         Cursor cursor = adapter.queryCalendarEvents(calendarID);
 
-        SuntimesCalendarTaskProgress progress1 = new SuntimesCalendarTaskProgress(0, cursor.getCount(), "");
+        SuntimesCalendarTaskProgress progress1 = createProgressObj(0, cursor.getCount(), "");
         if (progress0 != null) {
             progress1.setProgress(0, cursor.getCount(), progress0.getMessage());
             publishProgress(progress0, progress1);

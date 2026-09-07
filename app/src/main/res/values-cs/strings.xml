@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="http://schemas.android.com/tools">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="textSize_small">Small</string>  <!-- TODO -->
     <string name="textSize_normal">Normal</string>  <!-- TODO -->
@@ -93,13 +93,13 @@
     <string name="configLabel_calendars_enabled_summary">Supply events to the Calendar app.</string>    <!-- TODO -->
 
     <string name="configLabel_calendars_window">Calendar Window</string>    <!-- TODO -->
-    <string name="configLabel_calendars_window_summary">A period starting <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g>, ending <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g>.</string>    <!-- TODO -->
+    <string name="configLabel_calendars_window_summary">A period starting <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g>, ending <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g>.</string>    <!-- TODO -->
 
     <string name="configLabel_calendars_window0">Window (start)</string>    <!-- TODO -->
-    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> ago</string>    <!-- TODO -->
+    <string name="configLabel_calendars_window0_summary">A period starting <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g> ago</string>    <!-- TODO -->
 
     <string name="configLabel_calendars_window1">Window (end)</string>    <!-- TODO -->
-    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g id="calendars_window_display" example="two years">%s</xliff:g> from now</string>     <!-- TODO -->
+    <string name="configLabel_calendars_window1_summary">A period ending <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g> from now</string>     <!-- TODO -->
 
     <string name="calendars_notification_adding">Adding calendars…</string>                   <!-- TODO -->
     <string name="calendars_notification_added">Calendars have been added.</string>           <!-- TODO -->
@@ -171,35 +171,39 @@
     </string-array> <!-- TODO -->
 
     <plurals name="units_days_ago">
-        <item quantity="one">%s day ago</item>
-        <item quantity="few">%s days ago</item>
-        <item quantity="other">%s days ago</item>
+        <item quantity="one">%1$s day ago</item>
+        <item quantity="few">%1$s days ago</item>
+        <item quantity="other">%1$s days ago</item>
+        <item quantity="many">%1$s days ago</item>
     </plurals>  <!-- TODO -->
     <plurals name="units_days_fromnow">
         <item quantity="one">%d day from now</item>
         <item quantity="few">%d days from now</item>
         <item quantity="other">%d days from now</item>
+        <item quantity="many">%d days from now</item>
     </plurals>  <!-- TODO -->
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s year ago</item>
-        <item quantity="few">%s year ago</item>
-        <item quantity="other">%s years ago</item>
+        <item quantity="one">%1$s year ago</item>
+        <item quantity="few">%1$s year ago</item>
+        <item quantity="other">%1$s years ago</item>
+        <item quantity="many">%1$s years ago</item>
     </plurals> <!-- TODO -->
     <plurals name="units_years_fromnow">
         <item quantity="one">%d year from now</item>
         <item quantity="few">%d year from now</item>
         <item quantity="other">%d years from now</item>
+        <item quantity="many">%d years from now</item>
     </plurals> <!-- TODO -->
 
-    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%s @ %s</string>  <!-- e.g. moonrise at location_format -->
-    <string name="event_distance_format">%s\n%s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="summarylist_format">%s\n%s</string>
+    <string name="location_format">%1$s [%2$s0, %3$s0 (%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s [%2$s0, %3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%1$s @ %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%1$s\n%2$s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%1$s\n%2$s</string>
 
-    <string name="distance_format_km">%s km</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="distance_format_mi">%s mil</string>
+    <string name="distance_format_km">%1$s km</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="distance_format_mi">%1$s mil</string>
 
     <string name="toolbar_title">Kalendáře</string>
 
@@ -210,7 +214,7 @@
     <string name="progress_message">This may take several minutes…\n\nYou can close the app. The update will continue in the background.</string>       <!-- TODO -->
 
     <string name="title_dialog_msg">Nadpis</string>
-    <string name="title_dialog_saved_toast">Calendar title: %s</string>  <!-- TODO -->
+    <string name="title_dialog_saved_toast">Calendar title: %1$s</string>  <!-- TODO -->
 
     <string name="reminder_dialog_msg">Reminders</string>     <!-- TODO -->
     <string name="action_add_reminder">Add Reminder</string>  <!-- TODO -->
@@ -313,7 +317,7 @@
         To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
         <br/><br/>
         <h3>Substitutions</h3>
-        %s
+        %1$s
     ]]></string>  <!-- TODO-->
     <string name="help_template_strings"><![CDATA[
         <h3>Event Strings</h3>
@@ -327,21 +331,21 @@
     <string name="about_dialog_title">O aplikaci</string>
     <string name="app_name">Suntimes Calendars</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Missing Dependency!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Permission Denied!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%s</xliff:g> or greater.</string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> is not supported by the current version; requires <xliff:g id="versionString">%2$s</xliff:g> or greater.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         This app requires<br />
-        <b><u>%s</u></b> or greater!
+        <b><u>%1$s</u></b> or greater!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Permission Denied!<br />
-        <u>%s</u> must be reinstalled to work correctly.
+        <u>%1$s</u> must be reinstalled to work correctly.
         <br /><br />
         This app lacks permissions that are granted during installation. This happens when apps are installed in the wrong order - install Suntimes before installing add-ons.
     ]]></string>
@@ -355,7 +359,7 @@
         To change a calendar\'s location, first change the location in Suntimes, then remove and readd the calendar.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Version:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">A calendar provider add-on for Suntimes.</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visit the
@@ -365,7 +369,7 @@
         <a href="https://forrestguice.github.io/Suntimes/">forrestguice.github.io/Suntimes</a>
     ]]></xliff:g></string>
     <string name="app_donate_url"><![CDATA[
-        %s is available gratis, but if it has proven its value, please
+        %1$s is available gratis, but if it has proven its value, please
         <a href="https://forrestguice.github.io/Suntimes/donate">pay as you like</a>.
     ]]></string>
     <string name="app_legal1"><![CDATA[
@@ -406,5 +410,43 @@
         <item>Ruština</item>
         <item>Čeština</item>
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendar_astronomical_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_blue_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_civil_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_gold_twilight_summary"/>    <!-- TODO -->
+    <string name="calendar_nautical_twilight_summary"/>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
 
 </resources>

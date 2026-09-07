@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="http://schemas.android.com/tools">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="textSize_small">Мелкий</string>
     <string name="textSize_normal">Средний</string>
@@ -91,15 +91,15 @@
     <string name="calendar_moonrise_displayName">@string/timeMode_moon</string>
     <string name="calendar_moonrise_summary">Восход и заход луны</string>
     <string name="calendar_civil_twilight_displayName">@string/timeMode_civil</string>
-    <string name="calendar_civil_twilight_summary" />
+    <string name="calendar_civil_twilight_summary"/>
     <string name="calendar_nautical_twilight_displayName">@string/timeMode_nautical</string>
-    <string name="calendar_nautical_twilight_summary" />
+    <string name="calendar_nautical_twilight_summary"/>
     <string name="calendar_astronomical_twilight_displayName">@string/timeMode_astronomical</string>
-    <string name="calendar_astronomical_twilight_summary" />
+    <string name="calendar_astronomical_twilight_summary"/>
     <string name="calendar_gold_twilight_displayName">@string/timeMode_golden</string>
-    <string name="calendar_gold_twilight_summary" />
+    <string name="calendar_gold_twilight_summary"/>
     <string name="calendar_blue_twilight_displayName">Режимное время</string>
-    <string name="calendar_blue_twilight_summary" />
+    <string name="calendar_blue_twilight_summary"/>
     <string name="calendar_daylight_displayName">Солнце</string>
     <string name="calendar_daylight_summary">Восход и заход солнца, солнечный полдень</string>
 
@@ -107,13 +107,13 @@
     <string name="configLabel_calendars_enabled_summary">Добавлять отмеченные категории событий в календарь системы (в виде отдельных календарей)</string>
 
     <string name="configLabel_calendars_window">Период событий</string>
-    <string name="configLabel_calendars_window_summary">Период заполнения календаря. Начинается <xliff:g id="calendars_window_display" example="one year ago">%1$s</xliff:g> и заканчивается <xliff:g id="calendars_window_display" example="one year from now">%2$s</xliff:g></string>
+    <string name="configLabel_calendars_window_summary">Период заполнения календаря. Начинается <xliff:g example="one year ago" id="calendars_window_display">%1$s</xliff:g> и заканчивается <xliff:g example="one year from now" id="calendars_window_display">%2$s</xliff:g></string>
 
     <string name="configLabel_calendars_window0">Окно (начало)</string>
-    <string name="configLabel_calendars_window0_summary">Период, начинающийся <xliff:g id="calendars_window_display" example="one year">%s</xliff:g> назад</string>
+    <string name="configLabel_calendars_window0_summary">Период, начинающийся <xliff:g example="one year" id="calendars_window_display">%1$s</xliff:g> назад</string>
 
     <string name="configLabel_calendars_window1">Окно (конец)</string>
-    <string name="configLabel_calendars_window1_summary">Период, заканчивающийся через <xliff:g id="calendars_window_display" example="two years">%s</xliff:g></string>
+    <string name="configLabel_calendars_window1_summary">Период, заканчивающийся через <xliff:g example="two years" id="calendars_window_display">%1$s</xliff:g></string>
 
     <string name="calendars_notification_adding">Добавление календарей…</string>
     <string name="calendars_notification_added">Календари добавлены</string>
@@ -128,7 +128,7 @@
     <string name="calendars_notification_reminders_updating">Обновление напоминаний…</string>
     <string name="calendars_notification_reminders_updated">Напоминания обновлены</string>
 
-    <string name="confirm_display_format">%s\n%s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
+    <string name="confirm_display_format">%1$s\n%2$s</string>  <!-- e.g. Civil Twilight @ Phoenix -->
     <string name="confirm_add_message1">Добавить календарь?</string>
     <string name="confirm_clear_message0">Удалить календари?</string>
     <string name="confirm_clear_message1">Удалить календарь?</string>
@@ -186,10 +186,10 @@
     </string-array>
 
     <plurals name="units_days_ago">
-        <item quantity="one">%s день назад</item>
-        <item quantity="few">%s дня назад</item>
-        <item quantity="many">%s дней назад</item>
-        <item quantity="other">%s дней назад</item>
+        <item quantity="one">%1$s день назад</item>
+        <item quantity="few">%1$s дня назад</item>
+        <item quantity="many">%1$s дней назад</item>
+        <item quantity="other">%1$s дней назад</item>
     </plurals>
     <plurals name="units_days_fromnow">
         <item quantity="one">через %d день</item>
@@ -199,10 +199,10 @@
     </plurals>
 
     <plurals name="units_years_ago">
-        <item quantity="one">%s год назад</item>
-        <item quantity="few">%s года назад</item>
-        <item quantity="many">%s лет назад</item>
-        <item quantity="other">%s лет назад</item>
+        <item quantity="one">%1$s год назад</item>
+        <item quantity="few">%1$s года назад</item>
+        <item quantity="many">%1$s лет назад</item>
+        <item quantity="other">%1$s лет назад</item>
     </plurals>
     <plurals name="units_years_fromnow">
         <item quantity="one">через %d год</item>
@@ -211,14 +211,14 @@
         <item quantity="other">через %d лет</item>
     </plurals>
 
-    <string name="location_format">%s&#160;[%s0,&#160;%s0&#160;(%sm)]</string>  <!-- label [lat, lon (alt)] -->
-    <string name="location_format_short">%s&#160;[%s0,&#160;%s0]</string>  <!-- label [lat, lon] -->
-    <string name="event_at_format">%s в %s</string>  <!-- e.g. moonrise at location_format -->
-    <string name="event_distance_format">%s\n%s км</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="summarylist_format">%s\n%s</string>
+    <string name="location_format">%1$s [%2$s0, %3$s0 (%4$sm)]</string>  <!-- label [lat, lon (alt)] -->
+    <string name="location_format_short">%1$s [%2$s0, %3$s0]</string>  <!-- label [lat, lon] -->
+    <string name="event_at_format">%1$s в %2$s</string>  <!-- e.g. moonrise at location_format -->
+    <string name="event_distance_format">%1$s\n%2$s км</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="summarylist_format">%1$s\n%2$s</string>
 
-    <string name="distance_format_km">%s км</string>  <!-- e.g. full moon (400.71 km) -->
-    <string name="distance_format_mi">%s ми</string>
+    <string name="distance_format_km">%1$s км</string>  <!-- e.g. full moon (400.71 km) -->
+    <string name="distance_format_mi">%1$s ми</string>
     <!--<string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>-->  <!-- e.g. 6 ft (shadow length), 250,000 mi (distance to moon) -->
     
     <string name="toolbar_title">Календари</string>
@@ -230,7 +230,7 @@
     <string name="progress_message">Это может занять несколько минут…\n\nВы можете закрыть приложение, обновление продолжится в фоновом режиме.</string>
 
     <string name="title_dialog_msg">Название</string>
-    <string name="title_dialog_saved_toast">Название календаря: %s</string>
+    <string name="title_dialog_saved_toast">Название календаря: %1$s</string>
 
     <string name="reminder_dialog_msg">Напоминания</string>
     <string name="action_add_reminder">Добавить напоминание</string>
@@ -341,7 +341,7 @@
         Не забудьте активировать пункт <b>«Интеграция в систему»</b> перед проведением изменений.
         <br/><br/>
         <h3>Символы подстановки:</h3>
-        %s
+        %1$s
     ]]></string>=
     <string name="help_template_strings"><![CDATA[
         <h3>Строки событий</h3>
@@ -357,21 +357,21 @@
     <string name="about_dialog_title">О приложении</string>
     <string name="app_name">Suntimes Calendars</string>
 
-    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_provider_version"><![CDATA[<b>Suntimes:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_provider_version_missing"><![CDATA[
         <font color="#e65100"><b>Отсутствует зависимость!</b></font>
     ]]></string>
     <string name="app_provider_version_denied"><![CDATA[
         <font color="#e65100"><b>Доступ запрещен!</b></font>
     ]]></string>
-    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> не поддерживается текущей версией, требуется <xliff:g id="versionString">%s</xliff:g> или выше</string>
+    <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%1$s</xliff:g> не поддерживается текущей версией, требуется <xliff:g id="versionString">%2$s</xliff:g> или выше</string>
     <string name="snackbar_missing_dependency"><![CDATA[
         Для этого приложения требуется<br />
-        <b><u>%s</u></b> или выше!
+        <b><u>%1$s</u></b> или выше!
     ]]></string>
     <string name="snackbar_missing_permission"><![CDATA[
         Доступ запрещен!<br />
-        <u>%s</u> необходимо переустановить для корректной работы.
+        <u>%1$s</u> необходимо переустановить для корректной работы.
         <br /><br />
         Этому приложению не хватает разрешений, которые выдаются во время установки. Это происходит, когда приложения устанавливаются в неправильном порядке. Установите основное приложение Suntimes перед установкой дополнений.
     ]]></string>
@@ -389,14 +389,14 @@
         Не забудьте активировать пункт <b>«Интеграция в систему»</b> перед проведением изменений.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Версия:</b>]]> <xliff:g id="versionString">%s</xliff:g></string>
+    <string name="app_version"><![CDATA[<b>Версия:</b>]]> <xliff:g id="versionString">%1$s</xliff:g></string>
     <string name="app_shortdesc">Астрономические события для календаря Android.</string>
     <string name="app_support_url"><![CDATA[
         <b>Поддержка</b>: посетите
         <a href="https://github.com/forrestguice/SuntimesCalendars/issues">трекер отслеживания проблем</a> на GitHub для создания запроса.
     ]]></string>
     <string name="app_donate_url"><![CDATA[
-        Приложение %s доступно бесплатно. Но если оно оказалось для вас полезным, пожалуйста,
+        Приложение %1$s доступно бесплатно. Но если оно оказалось для вас полезным, пожалуйста,
         <a href="https://forrestguice.github.io/Suntimes/donate">поддержите проект любой суммой</a>.
     ]]></string>
     <string name="app_legal1"><![CDATA[
@@ -434,5 +434,38 @@
         <item>Русский</item>
         <item>Чешский</item>
     </string-array>
+
+
+    <!--
+        :: Update ::
+        Copied from default on 2026-08-19 
+    -->
+    <string name="action_addCalendar">Add Calendar</string>    <!-- TODO -->
+    <string name="action_moreSettings">More Settings</string>    <!-- TODO -->
+    <string name="action_preview">Preview</string>    <!-- TODO -->
+    <string name="action_saveCalendar">Save Calendar (as .ical)</string>    <!-- TODO -->
+    <string name="action_settings">Settings</string>    <!-- TODO -->
+    <string name="action_share">Share</string>    <!-- TODO -->
+    <string name="afternoon">Afternoon</string>    <!-- TODO -->
+    <string name="calendars_notification_failed">Failed to show notification! Permission was denied.</string>    <!-- TODO -->
+    <string name="calendars_notification_writing">Creating calendars…</string>    <!-- TODO -->
+    <string name="calendars_notification_writing_failed">Failed to save calendars!</string>    <!-- TODO -->
+    <string name="calendars_notification_written">Calendars have been saved.</string>    <!-- TODO -->
+    <string name="help_template_preview">
+        &lt;h3&gt;Preview&lt;/h3&gt;
+        This dialog shows a preview of calendar events using the current template.
+        &lt;br/&gt;&lt;br/&gt;
+        To change the formatting of a calendar\'s events, modify its template, then remove and re-add the calendar.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Add Calendar&lt;/b&gt; (or the main checkbox) to add events to the Android calendar app.
+        &lt;br/&gt;&lt;br/&gt;
+        Use &lt;b&gt;: -&gt; Save Calendar&lt;/b&gt; to save events to an .ics file that can be imported into other calendar apps.
+    </string>    <!-- TODO -->
+    <string name="midnight">Midnight</string>    <!-- TODO -->
+    <string name="moonlight">Moonlight</string>    <!-- TODO -->
+    <string name="morning">Morning</string>    <!-- TODO -->
+    <string name="msg_export_to">Save to</string>    <!-- TODO -->
+    <string name="msg_share_with">Share with</string>    <!-- TODO -->
+    <string name="progress_title1">Creating Calendars</string>    <!-- TODO -->
 
 </resources>

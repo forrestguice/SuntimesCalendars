@@ -9,11 +9,22 @@
     <attr name="dialogBackground" format="reference" />
     <attr name="dialogBackgroundAlt" format="reference" />
 
+    <attr name="cardBackground" format="reference" />
+
+    <attr name="snackbar_textColor" format="reference" />
+    <attr name="snackbar_accentColor" format="reference" />
+    <attr name="snackbar_backgroundColor" format="reference" />
+
+    <attr name="icActionAdd" format="reference" />
+    <attr name="icActionEdit" format="reference" />
+    <attr name="icActionSave" format="reference" />
     <attr name="icActionDelete" format="reference" />
     <attr name="icActionAppearance" format="reference" />
     <attr name="icActionReminder" format="reference" />
     <attr name="icActionCalendar" format="reference" />
+    <attr name="icActionCalendarAdd" format="reference" />
     <attr name="icActionCalendarEdit" format="reference" />
+    <attr name="icActionPlace" format="reference" />
     <attr name="icActionUpdate" format="reference" />
     <attr name="icActionAccept" format="reference" />
     <attr name="icActionBack" format="reference" />
@@ -31,5 +42,7 @@
     <attr name="text_size_xlarge" format="dimension" />
     <attr name="text_size_huge" format="dimension" />
     <attr name="text_size_enormous" format="dimension" />
+
+    <item type="id" name="action_settings"/>
 
 </resources>

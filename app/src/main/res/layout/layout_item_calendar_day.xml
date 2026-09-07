@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_margin="4dp">
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:paddingStart="6dp" android:paddingEnd="6dp"
+        android:background="?attr/cardBackground"
+        android:elevation="1dp">
+
+        <TextView android:id="@+id/text_month"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textStyle="bold" android:textSize="?attr/text_size_medium"
+            tools:text="March" />
+
+        <TextView android:id="@+id/text_day"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textStyle="bold" android:textSize="?attr/text_size_medium"
+            tools:text="1" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="3dp" android:elevation="1dp"
+        android:background="?attr/cardBackground"
+        android:paddingLeft="8dp" android:paddingRight="8dp"
+        android:paddingTop="4dp" android:paddingBottom="8dp">
+        <include layout="@layout/layout_item_calendar_event_content" />
+    </LinearLayout>
+
+</LinearLayout>

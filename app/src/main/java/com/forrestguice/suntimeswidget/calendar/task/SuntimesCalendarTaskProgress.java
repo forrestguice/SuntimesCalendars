@@ -18,16 +18,19 @@
 
 package com.forrestguice.suntimeswidget.calendar.task;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class SuntimesCalendarTaskProgress
 {
-    public SuntimesCalendarTaskProgress(int i, int n, String message)
-    {
+    public SuntimesCalendarTaskProgress(int i, int n, String message) {
         setProgress(i, n, message);
     }
+    public SuntimesCalendarTaskProgress(int i, int n, String title, String message) {
+        setProgress(i, n, title, message);
+    }
     public SuntimesCalendarTaskProgress( @NonNull SuntimesCalendarTaskProgress other) {
-        setProgress(other.itemNum(), other.getCount(), other.getMessage());
+        setProgress(other.itemNum(), other.getCount(), other.getTitle(), other.getMessage());
     }
 
     public void setProgress(int i, int n, String message)
@@ -35,6 +38,12 @@ public class SuntimesCalendarTaskProgress
         this.i = i;
         this.n = n;
         this.message = message;
+    }
+
+    public void setProgress(int i, int n, String title, String message)
+    {
+        setProgress(i, n, message);
+        this.title = title;
     }
 
     private int i;
@@ -50,6 +59,12 @@ public class SuntimesCalendarTaskProgress
     private String message;
     public String getMessage() {
         return message;
+    }
+
+    private String title = null;
+    @Nullable
+    public String getTitle() {
+        return title;
     }
 
     public boolean isIndeterminate()

@@ -4,16 +4,26 @@
 
     <style name="AppTheme.System.Base" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="hrColor">@color/hr</item>
+        <item name="colorAccent">@color/text_accent</item>
         <item name="text_accentColor">@color/text_accent</item>
         <item name="text_disabledColor">@color/text_disabled</item>
         <item name="dialogFrame">@color/dialog_frame</item>
         <item name="dialogBackground">@color/dialog_bg</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt</item>
+        <item name="cardBackground">@color/card_bg</item>
+        <item name="snackbar_textColor">@color/text_primary</item>
+        <item name="snackbar_accentColor">@color/text_accent</item>
+        <item name="snackbar_backgroundColor">@color/dialog_bg</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_ref</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_ref</item>
+        <item name="icActionAdd">@drawable/ic_action_add_ref</item>
+        <item name="icActionEdit">@drawable/ic_action_edit_ref</item>
+        <item name="icActionSave">@drawable/ic_action_save_ref</item>
         <item name="icActionDelete">@drawable/ic_action_delete_ref</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_ref</item>
+        <item name="icActionCalendarAdd">@drawable/ic_action_calendar_add_ref</item>
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_ref</item>
+        <item name="icActionPlace">@drawable/ic_action_place_ref</item>
         <item name="icActionUpdate">@drawable/ic_action_update_ref</item>
         <item name="icActionAccept">@drawable/ic_action_accept_ref</item>
         <item name="icActionBack">@drawable/ic_action_back_ref</item>
@@ -29,6 +39,7 @@
         <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
         <item name="text_size_huge">@dimen/text_size_huge</item>
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
     </style>
     <style name="AppTheme.System" parent="AppTheme.System.Base">
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
@@ -43,6 +54,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.System.Large" parent="AppTheme.System">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -53,6 +65,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.System.XLarge" parent="AppTheme.System">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -63,14 +76,18 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="AppTheme.ContrastSystem" parent="AppTheme.System">
+        <item name="colorAccent">@color/text_accent_contrast</item>
+        <item name="text_accentColor">@color/text_accent_contrast</item>
         <item name="colorPrimary">@color/primaryColor_contrast</item>
         <item name="android:windowBackground">@color/window_bg_contrast</item>
         <item name="dialogFrame">@color/dialog_frame_contrast</item>
         <item name="dialogBackground">@color/dialog_bg_contrast</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast</item>
+        <item name="cardBackground">@color/card_bg_contrast</item>
     </style>
     <style name="AppTheme.ContrastSystem.Small" parent="AppTheme.ContrastSystem">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -81,6 +98,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastSystem.Large" parent="AppTheme.ContrastSystem">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -91,6 +109,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastSystem.XLarge" parent="AppTheme.ContrastSystem">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -101,20 +120,31 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="hrColor">@color/hr_light</item>
+        <item name="colorAccent">@color/text_accent_light</item>
         <item name="text_accentColor">@color/text_accent_light</item>
         <item name="text_disabledColor">@color/text_disabled_light</item>
         <item name="dialogFrame">@color/dialog_frame_light</item>
         <item name="dialogBackground">@color/dialog_bg_light</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_light</item>
+        <item name="cardBackground">@color/card_bg_light</item>
+        <item name="snackbar_textColor">@android:color/primary_text_light</item>
+        <item name="snackbar_accentColor">@color/text_accent_light</item>
+        <item name="snackbar_backgroundColor">@color/dialog_bg_light</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_light</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_light</item>
+        <item name="icActionAdd">@drawable/ic_action_add_light</item>
+        <item name="icActionEdit">@drawable/ic_action_edit_light</item>
+        <item name="icActionSave">@drawable/ic_action_save_light</item>
         <item name="icActionDelete">@drawable/ic_action_delete_light</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar_light</item>
+        <item name="icActionCalendarAdd">@drawable/ic_action_add_light</item>
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_light</item>
+        <item name="icActionPlace">@drawable/ic_action_place_light</item>
         <item name="icActionUpdate">@drawable/ic_action_update_light</item>
         <item name="icActionAccept">@drawable/ic_action_accept_light</item>
         <item name="icActionBack">@drawable/ic_action_back_light</item>
@@ -132,6 +162,7 @@
         <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
         <item name="text_size_huge">@dimen/text_size_huge</item>
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
     </style>
     <style name="AppTheme.Light.Small" parent="AppTheme.Light">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -142,6 +173,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.Light.Large" parent="AppTheme.Light">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -152,6 +184,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.Light.XLarge" parent="AppTheme.Light">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -162,13 +195,17 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastLight" parent="AppTheme.Light">
+        <item name="colorAccent">@color/text_accent_contrast_light</item>
+        <item name="text_accentColor">@color/text_accent_contrast_light</item>
         <item name="colorPrimary">@color/primaryColor_contrast_light</item>
         <item name="android:windowBackground">@color/window_bg_contrast_light</item>
         <item name="dialogFrame">@color/dialog_frame_contrast_light</item>
         <item name="dialogBackground">@color/dialog_bg_contrast_light</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_light</item>
+        <item name="cardBackground">@color/card_bg_contrast_light</item>
     </style>
     <style name="AppTheme.ContrastLight.Small" parent="AppTheme.ContrastLight">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -179,6 +216,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastLight.Large" parent="AppTheme.ContrastLight">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -189,6 +227,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastLight.XLarge" parent="AppTheme.ContrastLight">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -199,20 +238,31 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="hrColor">@color/hr_dark</item>
+        <item name="colorAccent">@color/text_accent_dark</item>
         <item name="text_accentColor">@color/text_accent_dark</item>
         <item name="text_disabledColor">@color/text_disabled_dark</item>
         <item name="dialogFrame">@color/dialog_frame_dark</item>
         <item name="dialogBackground">@color/dialog_bg_dark</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_dark</item>
+        <item name="cardBackground">@color/card_bg_dark</item>
+        <item name="snackbar_textColor">@android:color/primary_text_dark</item>
+        <item name="snackbar_accentColor">@color/text_accent_dark</item>
+        <item name="snackbar_backgroundColor">@color/dialog_bg_dark</item>
         <item name="icActionReminder">@drawable/ic_action_reminder_dark</item>
         <item name="icActionAppearance">@drawable/ic_action_appearance_dark</item>
+        <item name="icActionAdd">@drawable/ic_action_add_dark</item>
+        <item name="icActionEdit">@drawable/ic_action_edit_dark</item>
+        <item name="icActionSave">@drawable/ic_action_save_dark</item>
         <item name="icActionDelete">@drawable/ic_action_delete_dark</item>
         <item name="icActionCalendar">@drawable/ic_action_calendar</item>
+        <item name="icActionCalendarAdd">@drawable/ic_action_add_dark</item>
         <item name="icActionCalendarEdit">@drawable/ic_action_calendar_edit_dark</item>
+        <item name="icActionPlace">@drawable/ic_action_place_dark</item>
         <item name="icActionUpdate">@drawable/ic_action_update</item>
         <item name="icActionAccept">@drawable/ic_action_accept</item>
         <item name="icActionBack">@drawable/ic_action_back</item>
@@ -230,6 +280,7 @@
         <item name="text_size_xlarge">@dimen/text_size_xlarge</item>
         <item name="text_size_huge">@dimen/text_size_huge</item>
         <item name="text_size_enormous">@dimen/text_size_enormous</item>
+        <item name="actionBarSize">@dimen/normal_actionbar_size</item>
     </style>
     <style name="AppTheme.Dark.Small" parent="AppTheme.Dark">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -240,6 +291,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.Dark.Large" parent="AppTheme.Dark">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -250,6 +302,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.Dark.XLarge" parent="AppTheme.Dark">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -260,13 +313,17 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastDark" parent="AppTheme.Dark">
+        <item name="colorAccent">@color/text_accent_contrast_dark</item>
+        <item name="text_accentColor">@color/text_accent_contrast_dark</item>
         <item name="colorPrimary">@color/primaryColor_contrast_dark</item>
         <item name="android:windowBackground">@color/window_bg_contrast_dark</item>
         <item name="dialogFrame">@color/dialog_frame_contrast_dark</item>
         <item name="dialogBackground">@color/dialog_bg_contrast_dark</item>
         <item name="dialogBackgroundAlt">@color/dialog_bg_alt_contrast_dark</item>
+        <item name="cardBackground">@color/card_bg_contrast_dark</item>
     </style>
     <style name="AppTheme.ContrastDark.Small" parent="AppTheme.ContrastDark">
         <item name="text_size_tiny">@dimen/smalltext_size_tiny</item>
@@ -277,6 +334,7 @@
         <item name="text_size_xlarge">@dimen/smalltext_size_xlarge</item>
         <item name="text_size_huge">@dimen/smalltext_size_huge</item>
         <item name="text_size_enormous">@dimen/smalltext_size_enormous</item>
+        <item name="actionBarSize">@dimen/small_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastDark.Large" parent="AppTheme.ContrastDark">
         <item name="text_size_tiny">@dimen/largetext_size_tiny</item>
@@ -287,6 +345,7 @@
         <item name="text_size_xlarge">@dimen/largetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/largetext_size_huge</item>
         <item name="text_size_enormous">@dimen/largetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/large_actionbar_size</item>
     </style>
     <style name="AppTheme.ContrastDark.XLarge" parent="AppTheme.ContrastDark">
         <item name="text_size_tiny">@dimen/xlargetext_size_tiny</item>
@@ -297,6 +356,7 @@
         <item name="text_size_xlarge">@dimen/xlargetext_size_xlarge</item>
         <item name="text_size_huge">@dimen/xlargetext_size_huge</item>
         <item name="text_size_enormous">@dimen/xlargetext_size_enormous</item>
+        <item name="actionBarSize">@dimen/xlarge_actionbar_size</item>
     </style>
 
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">

@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.forrestguice.suntimeswidget.calendar.SuntimesCalendarActivity">
+
+    <item
+        android:id="@+id/action_add_calendar"
+        android:icon="?attr/icActionCalendarAdd"
+        android:title="@string/action_addCalendar"
+        android:checkable="true"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="?attr/icActionSave"
+        android:title="@string/action_saveCalendar"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_help"
+        android:icon="?attr/icActionHelp"
+        android:title="@string/action_help"
+        app:showAsAction="never" />
+
+</menu>

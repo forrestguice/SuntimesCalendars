@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2019 Forrest Guice
+    Copyright (C) 2019-2026 Forrest Guice
     This file is part of SuntimesCalendars.
 
     SuntimesCalendars is free software: you can redistribute it and/or modify
@@ -18,96 +18,147 @@
 
 package com.forrestguice.suntimeswidget.calendar;
 
+import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
-import android.media.MediaScannerConnection;
-import android.support.test.filters.LargeTest;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import android.graphics.Bitmap;
+
+import androidx.annotation.Nullable;
+import androidx.test.filters.LargeTest;
+import androidx.test.platform.io.PlatformTestStorage;
+import androidx.test.platform.io.PlatformTestStorageRegistry;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.GrantPermissionRule;
+
+import android.os.Build;
 import android.util.Log;
 
-import com.forrestguice.suntimescalendars.BuildConfig;
 import com.forrestguice.suntimescalendars.R;
 import com.jraska.falcon.Falcon;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
 
-import static android.os.Environment.DIRECTORY_PICTURES;
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.swipeDown;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.swipeDown;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class Screenshots
+@ScreenshotCreator
+public class Screenshots extends TestBase
 {
-    public static final String SCREENSHOT_DIR = "test-screenshots";
-
     @Rule
     public ActivityTestRule<SuntimesCalendarActivity> activityRule = new ActivityTestRule<>(SuntimesCalendarActivity.class);
 
-    @Test
-    public void make_screenshots()
-    {
-        String version = BuildConfig.VERSION_NAME;
-        if (!version.startsWith("v")) {
-            version = "v" + version;
-        }
+    private final String[] testPermissions = (Build.VERSION.SDK_INT >= 33)
+            ? new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR, Manifest.permission.POST_NOTIFICATIONS }
+            : new String[] { Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR };
 
-        Activity activity = activityRule.getActivity();
-        Intent intent = activity.getIntent();
+    @Rule
+    public GrantPermissionRule permissionRule = GrantPermissionRule.grant(testPermissions);
 
-        String[] locales = activity.getResources().getStringArray(R.array.locale_values);
-        for (String languageTag : locales)
-        {
-            activity.finish();
-            Log.d("screenshots", "making screenshots for " + languageTag);
-            SuntimesCalendarActivity.locale = languageTag;
-            activityRule.launchActivity(intent);
-            activity = activityRule.getActivity();
-
-            onView(withId(android.R.id.content)).perform(swipeDown());     // clears focus
-            captureScreenshot(activity,BuildConfig.VERSION_NAME + "/" + languageTag,"activity-calendars0");   // TODO: themes
-        }
+    @Before
+    public void beforeTest() throws IOException {
+        setAnimationsEnabled(false);
+    }
+    @After
+    public void afterTest() throws IOException {
+        setAnimationsEnabled(true);
     }
 
-    public static void captureScreenshot(Activity activity, String subdir, String name)
+    @Test
+    public void makeScreenshots_fastlane_dark() {
+        runTests(getContext(), AppThemes.THEME_DARK, AppThemes.THEME_MONET_DARK, testTextSize(), testLocale(), screenshotTest());
+    }
+
+    @Test
+    public void makeScreenshots_fastlane_light() {
+        runTests(getContext(), AppThemes.THEME_LIGHT, AppThemes.THEME_MONET_LIGHT, testTextSize(), testLocale(), screenshotTest());
+    }
+
+    protected ActivityTest screenshotTest()
     {
-        subdir = subdir.trim();
-        if (!subdir.isEmpty() && !subdir.startsWith("/")) {
-            subdir = "/" + subdir;
-        }
-
-        // saves to..
-        //     SD card\Android\data\com.forrestguice.suntimeswidget.calendar\files\Pictures\test-screenshots\subdir
-        File d = activity.getExternalFilesDir(DIRECTORY_PICTURES);
-        if (d != null)
+        return new CalendarActivityTest.CalendarActivityTestCase(activityRule)
         {
-            String dirPath = d.getAbsolutePath() + "/" + SCREENSHOT_DIR + subdir;
-            File dir = new File(dirPath);
-            boolean dirCreated = dir.mkdirs();
+            @Override
+            public void runTest(Activity activity, String tag)
+            {
+                onView(withId(android.R.id.content)).perform(swipeDown());     // clears focus
+                CalendarActivityTest.CalendarActivityRobot robot = new CalendarActivityTest.CalendarActivityRobot();
 
-            String path = dirPath + "/" + name + ".png";
-            File file = new File(path);
-            if (file.exists()) {
-                if (!file.delete()) {
-                    Log.w("captureScreenshot", "Failed to delete file! " + path);
-                }
+                robot.captureScreenshot(activity, tag, "0");    // main activity
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                        .sleep(1000)
+                        .captureScreenshot(activity, tag, "1")
+                        .clickCalendarOptionsMenu_preview()
+                        .clickDialogButton_menu()
+                        .captureScreenshot(activity, tag, "2")    // preview dialog (w/ menu)
+                        .clickDialogButton_back();
+
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                        .sleep(1000)
+                        .clickCalendarOptionsMenu_flags()
+                        .captureScreenshot(activity, tag, "3")    // flags dialog
+                        .clickDialogButton_back();
+
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                        .sleep(1000)
+                        .clickCalendarOptionsMenu_template()
+                        .captureScreenshot(activity, tag, "4")    // template dialog
+                        .clickDialogButton_back();
+
+                robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                        .sleep(1000)
+                        .clickCalendarOptionsMenu_template()
+                        .clickDialogButton_eventStrings()
+                        .captureScreenshot(activity, tag, "5");    // strings dialog
+
+                /*robot.clickCalendarIcon(R.string.calendar_civil_twilight_displayName)
+                        .clickCalendarOptionsMenu_reminders()
+                        .clickDialogButton_addReminder()
+                        .captureScreenshot(activity, tag, "5");*/
             }
+        };
+    }
+
+    /**
+     * captureScreenshot
+     */
+
+    public static Bitmap captureScreenshot(Activity activity) {
+        return Falcon.takeScreenshotBitmap(activity);
+    }
+    public static void captureScreenshot(Activity activity, @Nullable String tag, String name) {
+        saveScreenshot(tag, name, captureScreenshot(activity));
+    }
+    public static void saveScreenshot(@Nullable String tag, String name, Bitmap bitmap)
+    {
+        PlatformTestStorage storage = PlatformTestStorageRegistry.getInstance();
+        if (storage != null)
+        {
+            String path = (tag != null && !tag.trim().isEmpty())
+                    ? tag + "_" + name + ".png"
+                    : name + ".png";
 
             try {
-                Falcon.takeScreenshot(activity, file);
-                MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, null, null);
+                BufferedOutputStream out = new BufferedOutputStream(storage.openOutputFile(path));
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
 
-            } catch (Exception e1) {
-                Log.e("captureScreenshot", "Failed to write file! " + e1);
+            } catch (IOException e) {
+                Log.e(TAG, "Failed to write file! " + e);
             }
         } else {
-            Log.e("captureScreenshot", "Failed to write file! getExternalFilesDir() returns null..");
+            Log.e(TAG, "Failed to write file! getExternalFilesDir() returns null..");
         }
     }
+
 }

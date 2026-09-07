@@ -19,8 +19,8 @@
 package com.forrestguice.suntimeswidget.calendar.ui;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.PopupMenu;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;

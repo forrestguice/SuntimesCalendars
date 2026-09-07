@@ -23,6 +23,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.forrestguice.suntimescalendars.R;
@@ -30,6 +31,7 @@ import com.forrestguice.suntimeswidget.calculator.core.CalculatorProviderContrac
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarAdapter;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarDescriptor;
 import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettings;
+import com.forrestguice.suntimeswidget.calendar.SuntimesCalendarSettingsFactory;
 import com.forrestguice.suntimeswidget.calendar.ui.Utils;
 
 import java.lang.ref.WeakReference;
@@ -100,6 +102,11 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         return lastError;
     }
 
+    @Override
+    public void executeTask() {
+        execute();
+    }
+
     public void setItems(SuntimesCalendarTaskItem... items)
     {
         taskItems.clear();
@@ -129,7 +136,8 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
      * init location and other settings defined by Suntimes
      * @return
      */
-    protected boolean queryConfig()
+    @Override
+    public boolean queryConfig()
     {
         Context context = contextRef.get();
         ContentResolver resolver = (context == null ? null : context.getContentResolver());
@@ -160,13 +168,8 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
                     Log.e(getClass().getSimpleName(), lastError);
                     return false;
                 }
-            } catch (IllegalArgumentException e) {
-                lastError = "Missing Arguments! " + configUri + ", " + e;
-                Log.e(getClass().getSimpleName(), lastError);
-                return false;
-
             } catch (SecurityException e) {
-                lastError = "Permission Denied! " + configUri + ", " + e;
+                lastError = "Permission Denied! " + configUri;
                 Log.e(getClass().getSimpleName(), lastError);
                 return false;
             }
@@ -176,14 +179,23 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
             return false;
         }
     }
+
+    @Override
+    public long[] getWindow() {
+        return getWindow(calendarWindow0, calendarWindow1);
+    }
+
+    @Override
     public String[] getLocation() {
         return new String[] { config_location_name, config_location_latitude, config_location_longitude, config_location_altitude };
     }
 
+    @Override
     public String getLengthUnits() {
         return config_provider_length_units;
     }
 
+    @Override
     public int getProviderVersion() {
         return config_provider_version;
     }
@@ -259,22 +271,28 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
         }
     }
 
+    @Override
     public void publishProgress(SuntimesCalendarTaskProgress primary, SuntimesCalendarTaskProgress secondary) {
         super.publishProgress( primary != null ? new SuntimesCalendarTaskProgress(primary) : null,
-                               secondary != null ? new SuntimesCalendarTaskProgress(secondary) : null );
+                secondary != null ? new SuntimesCalendarTaskProgress(secondary) : null );
     }
 
     @Override
     protected void onProgressUpdate(SuntimesCalendarTaskProgress... progress)
     {
+        super.onProgressUpdate(progress);
         Context context = contextRef.get();
         if (listener != null && context != null) {
             listener.onProgress(context, progress);
         }
     }
 
-    public SuntimesCalendarTaskProgress createProgressObj(int i, int n, String message) {
-        return new SuntimesCalendarTaskProgress(i, n, message);
+    @Override
+    public SuntimesCalendarTaskProgress createProgressObj(int i, int n, String message)
+    {
+        Context context = contextRef.get();
+        String title = (context != null ? context.getString(R.string.progress_title) : null);
+        return new SuntimesCalendarTaskProgress(i, n, title, message);
     }
 
     protected SuntimesCalendarTaskListener listener;
@@ -289,5 +307,62 @@ public abstract class SuntimesCalendarTaskBase extends AsyncTask<SuntimesCalenda
             listener.onStarted(context, this, message);
         }
     }
+
+    public static long[] getWindow(long calendarWindow0, long calendarWindow1, boolean exact)
+    {
+        Calendar now = Calendar.getInstance();
+        Calendar startDate = Calendar.getInstance();
+        Calendar endDate = Calendar.getInstance();
+
+        startDate.setTimeInMillis(now.getTimeInMillis() - calendarWindow0);
+        endDate.setTimeInMillis(now.getTimeInMillis() + calendarWindow1);
+
+        if (!exact)
+        {
+            startDate.set(Calendar.HOUR_OF_DAY, 0);
+            startDate.set(Calendar.MINUTE, 0);
+            startDate.set(Calendar.SECOND, 0);
+            startDate.set(Calendar.MILLISECOND, 0);
+
+            endDate.set(Calendar.HOUR_OF_DAY, 23);
+            endDate.set(Calendar.MINUTE, 59);
+            endDate.set(Calendar.SECOND, 59);
+            endDate.set(Calendar.MILLISECOND, 999);
+        }
+
+        boolean roundUpOrDown = !exact && (((endDate.getTimeInMillis() - startDate.getTimeInMillis()) / 1000 / 60 / 60 / 24 / 365) >= 1);
+        if (roundUpOrDown)
+        {
+            startDate.set(Calendar.MONTH, 0);            // round down to start of year
+            startDate.set(Calendar.DAY_OF_MONTH, 0);
+
+            endDate.add(Calendar.YEAR, 1);       // round up to end of year
+            endDate.set(Calendar.MONTH, 0);
+            endDate.set(Calendar.DAY_OF_MONTH, 0);
+        }
+
+        return new long[] { startDate.getTimeInMillis(), endDate.getTimeInMillis() };
+    }
+
+    @Override
+    public String onFinishedActionID() {
+        return SuntimesCalendarTaskInterface.ACTION_CALENDAR;
+    }
+
+    @Override
+    @Nullable
+    public Uri getFileUri() {
+        return null;
+    }
+
+    @Override
+    public SuntimesCalendarSettings getSettings() {
+        return ((settings != null) ? settings : SuntimesCalendarSettingsFactory.createSettings());
+    }
+    @Override
+    public void setSettings(SuntimesCalendarSettings value) {
+        settings = value;
+    }
+    protected SuntimesCalendarSettings settings;
 
 }
