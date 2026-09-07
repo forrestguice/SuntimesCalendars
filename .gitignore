@@ -45,3 +45,8 @@ proguard/
 /.idea/libraries
 /.idea/modules
 /.idea/caches
+.idea/migrations.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetSelector.xml
+.idea/other.xml
+.idea/misc.xml
