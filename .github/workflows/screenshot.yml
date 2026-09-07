@@ -10,6 +10,7 @@ on:
           - ca
           - cs
           - de
+          - en
           - eo
           - es
           - eu
