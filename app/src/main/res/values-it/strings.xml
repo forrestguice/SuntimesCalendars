@@ -266,7 +266,7 @@
         Per cambiare la posizione di un calendario, prima cambia la posizione in Suntimes, poi rimuovi e aggiungi nuovamente il calendario.
     ]]></string>
 
-    <string name="app_version"><![CDATA[<b>Versione:</b>]]></string>
+    <string name="app_version"><![CDATA[<b>Versione:</b> %1$s]]></string>
     <string name="app_shortdesc">Visualizza orari di luce solare e luce lunare.</string>
     <string name="app_support_url"><![CDATA[
         <b>Support:</b> visita
