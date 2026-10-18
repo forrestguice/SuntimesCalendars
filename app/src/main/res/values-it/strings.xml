@@ -252,7 +252,7 @@
     ]]></string>
     <string name="feature_not_supported_by_provider"><xliff:g id="featureName">%s</xliff:g> non è disponibile in questa versione; richiede <xliff:g id="versionString">%s</xliff:g> o superiore.</string>
     <string name="snackbar_missing_dependency"><![CDATA[
-        Quest'app richiede<br />
+        Quest\'app richiede<br />
         <b><u>%s</u></b> o superiore!
     ]]></string>
 
@@ -328,11 +328,11 @@
     <string name="calendars_notification_written">I calendari sono stati salvati.</string>
     <string name="help_template_preview"><![CDATA[
         <h3>Anteprima</h3>
-        Questa finestra mostra un'anteprima degli eventi del calendario usando il modello attuale.
+        Questa finestra mostra un\'anteprima degli eventi del calendario usando il modello attuale.
         <br/><br/>
         Per modificare la formattazione degli eventi di un calendario, modifica il suo modello, poi rimuovi e aggiungi nuovamente il calendario.
         <br/><br/>
-        Usa <b>: -> Aggiungi calendario</b> (o la casella principale) per aggiungere gli eventi all'app Calendario di Android.
+        Usa <b>: -> Aggiungi calendario</b> (o la casella principale) per aggiungere gli eventi all\'app Calendario di Android.
         <br/><br/>
         Usa <b>: -> Salva calendario</b> per salvare gli eventi in un file .ics da importare in altre app di calendario.
     ]]></string>
@@ -346,7 +346,7 @@
         Permesso negato!<br />
         Per funzionare correttamente è necessario reinstallare <u>%1$s</u>.
         <br /><br />
-        Quest'app non dispone dei permessi concessi durante l'installazione. Succede quando le app vengono installate nell'ordine sbagliato: installa prima Suntimes, poi gli add-on.
+        Quest\'app non dispone dei permessi concessi durante l\'installazione. Succede quando le app vengono installate nell\'ordine sbagliato: installa prima Suntimes, poi gli add-on.
     ]]></string>
 
     <string-array name="directions_long">
