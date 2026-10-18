@@ -145,7 +145,6 @@
     <string name="summarylist_format">%s\n%s</string>
     <string name="distance_format_km">%s km</string>
     <string name="distance_format_mi">%s mi</string>
-    <string name="distance_format"><xliff:g id="value" example="6">%1$s</xliff:g>&#160;<xliff:g id="units_short" example="ft">%2$s</xliff:g></string>
     <string name="degrees_format"><xliff:g id="value" example="45">%1$s</xliff:g>°</string>
     <string name="elevation_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="altSymbol" example="∠">%2$s</xliff:g></string>
     <string name="declination_format"><xliff:g id="degrees" example="45">%1$s</xliff:g><xliff:g id="decSymbol" example="δ">%2$s</xliff:g></string>
